@@ -18,7 +18,6 @@
       --text-primary: #ffffff;
       --text-muted: #94a3b8;
       --text-dim: #64748b;
-      --accent-glow: rgba(56, 189, 248, 0.12);
       --accent-cyan: #38bdf8;
       --accent-violet: #818cf8;
       --accent-emerald: #34d399;
@@ -42,8 +41,6 @@
       padding: 40px 20px;
       overflow-x: hidden;
       position: relative;
-      selection-background-color: var(--accent-cyan);
-      selection-color: #000000;
     }
 
     ::selection {
@@ -51,7 +48,6 @@
       color: #ffffff;
     }
 
-    /* Subtle radiant background grids */
     .bg-mesh {
       position: fixed;
       inset: 0;
@@ -87,7 +83,6 @@
       text-align: center;
     }
 
-    /* Pill badge */
     .badge {
       display: inline-flex;
       align-items: center;
@@ -150,86 +145,46 @@
       margin-bottom: 36px;
     }
 
-    /* Email Notify Card */
-    .card-box {
-      width: 100%;
-      background: var(--card-bg);
-      border: 1px solid var(--card-border);
-      border-radius: 20px;
-      padding: 10px;
-      box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.08);
-      backdrop-filter: blur(16px);
-      margin-bottom: 32px;
-      transition: border-color 0.25s ease;
-    }
-
-    .card-box:focus-within {
-      border-color: rgba(56, 189, 248, 0.4);
-    }
-
-    .notify-form {
-      display: flex;
-      flex-direction: row;
-      gap: 8px;
-      width: 100%;
-    }
-
-    .input-field {
-      flex: 1;
-      background: transparent;
-      border: none;
-      outline: none;
-      padding: 14px 18px;
-      font-size: 0.95rem;
-      color: #ffffff;
-      font-family: inherit;
-    }
-
-    .input-field::placeholder {
-      color: var(--text-dim);
-    }
-
-    .btn-submit {
-      background: #ffffff;
-      color: #09090b;
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: 0.9rem;
-      font-weight: 700;
-      border: none;
-      border-radius: 14px;
-      padding: 0 24px;
-      cursor: pointer;
+    .status-card {
       display: inline-flex;
       align-items: center;
-      justify-content: center;
-      gap: 6px;
-      transition: all 0.2s ease;
-      white-space: nowrap;
+      gap: 12px;
+      padding: 12px 20px;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 9999px;
+      box-shadow: 0 16px 32px -8px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(16px);
+      margin-bottom: 36px;
     }
 
-    .btn-submit:hover {
-      background: #e2e8f0;
-      transform: translateY(-1px);
+    .status-ping {
+      width: 8px;
+      height: 8px;
+      border-radius: 9999px;
+      background: var(--accent-emerald);
+      box-shadow: 0 0 8px var(--accent-emerald);
     }
 
-    .btn-submit:active {
-      transform: translateY(0);
+    .status-text {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: #f1f5f9;
+      letter-spacing: -0.01em;
     }
 
-    /* Feature highlights */
     .features-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 12px;
       width: 100%;
-      margin-top: 10px;
     }
 
     .feature-item {
       background: rgba(255, 255, 255, 0.02);
       border: 1px solid rgba(255, 255, 255, 0.05);
       border-radius: 14px;
-      padding: 16px 12px;
+      padding: 18px 14px;
       text-align: center;
       transition: all 0.2s ease;
     }
@@ -242,7 +197,7 @@
 
     .feature-icon {
       font-size: 1.25rem;
-      margin-bottom: 6px;
+      margin-bottom: 8px;
       display: inline-block;
     }
 
@@ -250,7 +205,7 @@
       color: #ffffff;
       font-size: 0.85rem;
       font-weight: 700;
-      margin-bottom: 2px;
+      margin-bottom: 4px;
     }
 
     .feature-desc {
@@ -259,32 +214,7 @@
       line-height: 1.35;
     }
 
-    /* Status indicator bar */
-    .system-status {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 0.78rem;
-      color: var(--text-dim);
-      margin-top: 48px;
-    }
-
-    .status-ping {
-      width: 6px;
-      height: 6px;
-      border-radius: 9999px;
-      background: var(--accent-emerald);
-      box-shadow: 0 0 6px var(--accent-emerald);
-    }
-
     @media (max-width: 600px) {
-      .notify-form {
-        flex-direction: column;
-      }
-      .btn-submit {
-        padding: 14px;
-        width: 100%;
-      }
       .features-grid {
         grid-template-columns: 1fr;
       }
@@ -299,7 +229,7 @@
   <div class="wrapper">
     <div class="badge">
       <span class="badge-dot"></span>
-      Early Development Access
+      Early Development
     </div>
 
     <h1>
@@ -310,24 +240,9 @@
       A suite of modular, zero-bloat browser utilities and automation tools built to clean up workflows and speed up daily digital tasks.
     </p>
 
-    <div class="card-box">
-      <form class="notify-form" onsubmit="event.preventDefault(); const btn = this.querySelector('button'); btn.textContent = 'Registered!'; btn.style.background='#34d399'; btn.style.color='#09090b';">
-        <input 
-          type="email" 
-          class="input-field" 
-          placeholder="Enter your email to request early beta invite" 
-          required 
-          autocomplete="off"
-          spellcheck="false"
-        >
-        <button type="submit" class="btn-submit">
-          Notify Me
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-            <line x1="5" y1="12" x2="19" y2="12"></line>
-            <polyline points="12 5 19 12 12 19"></polyline>
-          </svg>
-        </button>
-      </form>
+    <div class="status-card">
+      <span class="status-ping"></span>
+      <span class="status-text">Active Development — Launching Soon</span>
     </div>
 
     <div class="features-grid">
@@ -346,11 +261,6 @@
         <div class="feature-title">Modular Kit</div>
         <div class="feature-desc">Pick and pin only the tool widgets you need every day.</div>
       </div>
-    </div>
-
-    <div class="system-status">
-      <span class="status-ping"></span>
-      Core engine & UI framework under active development
     </div>
   </div>
 
