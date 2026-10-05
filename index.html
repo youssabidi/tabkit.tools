@@ -3,15 +3,19 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>tabkit.tools — Rapid Flow Verified</title>
+  <title>tabkit.tools</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;700&family=Space+Grotesk:wght@700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600&family=Space+Grotesk:wght@700&display=swap" rel="stylesheet" />
   <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
     body {
-      background-color: #060911;
-      color: #f8fafc;
+      background-color: #030712;
+      color: #f9fafb;
       font-family: 'Plus Jakarta Sans', sans-serif;
       min-height: 100vh;
       display: flex;
@@ -21,50 +25,32 @@
       text-align: center;
       padding: 24px;
     }
-    .status {
-      display: inline-flex;
+    .container {
+      max-width: 480px;
+      display: flex;
+      flex-direction: column;
       align-items: center;
-      gap: 8px;
-      padding: 6px 14px;
-      border-radius: 9999px;
-      background: rgba(16, 185, 129, 0.1);
-      border: 1px solid rgba(16, 185, 129, 0.3);
-      color: #10b981;
-      font-size: 13px;
-      font-weight: 700;
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
-      margin-bottom: 24px;
-    }
-    .status-dot {
-      width: 7px;
-      height: 7px;
-      border-radius: 50%;
-      background: #10b981;
-      box-shadow: 0 0 8px #10b981;
+      gap: 16px;
     }
     h1 {
       font-family: 'Space Grotesk', sans-serif;
-      font-size: clamp(2.6rem, 7vw, 4.2rem);
+      font-size: clamp(2.5rem, 6vw, 3.75rem);
       font-weight: 700;
-      letter-spacing: -0.04em;
+      letter-spacing: -0.03em;
       line-height: 1.1;
-      margin-bottom: 16px;
+      color: #ffffff;
     }
     p {
-      font-size: 1.15rem;
-      color: #e4222b;
-      max-width: 460px;
-      line-height: 1.6;
+      font-size: 1.1rem;
+      color: #94a3b8;
+      font-weight: 500;
     }
   </style>
 </head>
 <body>
-  <div class="status">
-    <span class="status-dot"></span>
-    1-Second Shortcut Live
+  <div class="container">
+    <h1>tabkit.tools</h1>
+    <p>Coming soon.</p>
   </div>
-  <h1>tabkit.tools</h1>
-  <p>If you see this page, the rapid commit-and-push flow is completely functional.</p>
 </body>
 </html>
