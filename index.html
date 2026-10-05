@@ -3,25 +3,22 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <title>tabkit.tools — Kill Tab Chaos. Keep Your Flow.</title>
-  <meta name="description" content="A relentless upgrade for browser power users. Reclaim memory, crush tab clutter, and command your workspace with zero lag." />
+  <title>tabkit.tools — Tab Management, Simplified.</title>
+  <meta name="description" content="A fast, distraction-free tab manager and browser productivity toolkit. Coming soon." />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet" />
 
   <style>
     :root {
-      --bg: #05070E;
-      --card: rgba(13, 17, 28, 0.7);
+      --bg: #090B10;
+      --surface: #11141D;
       --border: rgba(255, 255, 255, 0.08);
-      --border-glow: rgba(56, 189, 248, 0.35);
-      --cyan: #38bdf8;
-      --cyan-rgb: 56, 189, 248;
-      --purple: #a855f7;
-      --emerald: #10b981;
-      --text: #f8fafc;
-      --muted: #94a3b8;
+      --border-focus: #38BDF8;
+      --text: #F8FAFC;
+      --muted: #8E9BAE;
+      --accent: #38BDF8;
     }
 
     * {
@@ -37,479 +34,200 @@
       min-height: 100vh;
       display: flex;
       flex-direction: column;
-      align-items: center;
       justify-content: space-between;
-      padding: 24px 20px;
-      overflow-x: hidden;
-      position: relative;
+      align-items: center;
+      padding: 40px 24px 28px;
     }
 
-    /* Ambient Spatial Effects */
-    .aurora {
-      position: fixed;
-      top: -20%;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 800px;
-      height: 450px;
-      background: radial-gradient(ellipse at center, rgba(56, 189, 248, 0.16) 0%, rgba(168, 85, 247, 0.12) 45%, transparent 70%);
-      filter: blur(90px);
-      pointer-events: none;
-      z-index: 1;
-    }
-
-    .matrix-grid {
-      position: fixed;
-      inset: 0;
-      background-image: 
-        linear-gradient(to right, rgba(255, 255, 255, 0.025) 1px, transparent 1px),
-        linear-gradient(to bottom, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
-      background-size: 56px 56px;
-      mask-image: radial-gradient(circle at 50% 45%, #000 40%, transparent 85%);
-      -webkit-mask-image: radial-gradient(circle at 50% 45%, #000 40%, transparent 85%);
-      pointer-events: none;
-      z-index: 2;
-    }
-
-    /* Top Command Header */
+    /* Minimal Top Header */
     header {
       width: 100%;
-      max-width: 1040px;
+      max-width: 580px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      z-index: 10;
     }
 
-    .logo-badge {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      text-decoration: none;
-      color: var(--text);
-    }
-
-    .logo-cube {
-      width: 38px;
-      height: 38px;
-      border-radius: 12px;
-      background: linear-gradient(135deg, rgba(56, 189, 248, 0.15), rgba(168, 85, 247, 0.2));
-      border: 1px solid var(--border-glow);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 0 20px rgba(var(--cyan-rgb), 0.2);
-    }
-
-    .logo-cube svg {
-      width: 20px;
-      height: 20px;
-      stroke: var(--cyan);
-      fill: none;
-      stroke-width: 2.2;
-      stroke-linecap: round;
-      stroke-linejoin: round;
-    }
-
-    .logo-text {
+    .brand {
       font-family: 'Space Grotesk', sans-serif;
-      font-weight: 800;
-      font-size: 1.25rem;
-      letter-spacing: -0.03em;
+      font-weight: 700;
+      font-size: 1.15rem;
+      letter-spacing: -0.02em;
+      color: var(--text);
+      text-decoration: none;
     }
 
-    .status-capsule {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 6px 14px;
-      border-radius: 9999px;
-      background: rgba(255, 255, 255, 0.03);
-      border: 1px solid var(--border);
-      font-family: 'JetBrains Mono', monospace;
+    .status-tag {
       font-size: 12px;
-      font-weight: 500;
+      font-weight: 600;
       color: var(--muted);
-      backdrop-filter: blur(16px);
+      background: var(--surface);
+      border: 1px solid var(--border);
+      padding: 4px 12px;
+      border-radius: 9999px;
     }
 
-    .status-signal {
-      width: 7px;
-      height: 7px;
-      border-radius: 50%;
-      background-color: var(--emerald);
-      box-shadow: 0 0 10px var(--emerald);
-      animation: flash 2s infinite ease-in-out;
-    }
-
-    @keyframes flash {
-      0%, 100% { opacity: 1; transform: scale(1); }
-      50% { opacity: 0.35; transform: scale(0.85); }
-    }
-
-    /* Main Content */
+    /* Hero / Core Message */
     main {
       width: 100%;
-      max-width: 860px;
+      max-width: 580px;
       display: flex;
       flex-direction: column;
-      align-items: center;
-      text-align: center;
-      margin: 40px 0;
-      z-index: 10;
-    }
-
-    .hero-tag {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 7px 18px;
-      border-radius: 9999px;
-      background: linear-gradient(90deg, rgba(56, 189, 248, 0.12), rgba(168, 85, 247, 0.12));
-      border: 1px solid var(--border-glow);
-      font-size: 12px;
-      font-weight: 700;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--cyan);
-      margin-bottom: 28px;
-      box-shadow: 0 0 25px rgba(var(--cyan-rgb), 0.2);
+      align-items: flex-start;
+      margin: auto 0;
+      padding: 32px 0;
     }
 
     h1 {
       font-family: 'Space Grotesk', sans-serif;
-      font-size: clamp(2.8rem, 8vw, 5.5rem);
-      font-weight: 800;
-      letter-spacing: -0.04em;
-      line-height: 1.02;
-      margin-bottom: 24px;
-      background: linear-gradient(180deg, #FFFFFF 20%, #94A3B8 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
+      font-size: clamp(2.4rem, 6.5vw, 3.6rem);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      line-height: 1.15;
+      color: #FFFFFF;
+      margin-bottom: 16px;
     }
 
-    .subheadline {
-      font-size: clamp(1.1rem, 2.3vw, 1.4rem);
+    p.description {
+      font-size: clamp(1rem, 2vw, 1.15rem);
       line-height: 1.6;
       color: var(--muted);
-      max-width: 620px;
-      margin-bottom: 40px;
-      font-weight: 400;
+      margin-bottom: 32px;
+      max-width: 480px;
     }
 
-    .subheadline strong {
-      color: var(--text);
-      font-weight: 600;
-    }
-
-    /* Interactive Tab-Crusher Simulator Widget */
-    .simulator-card {
+    /* Clean Input Form */
+    form {
       width: 100%;
-      max-width: 580px;
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 20px;
-      padding: 20px 24px;
-      backdrop-filter: blur(24px);
-      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), 0 0 30px rgba(var(--cyan-rgb), 0.1);
-      margin-bottom: 40px;
       display: flex;
       flex-direction: column;
-      gap: 16px;
-      text-align: left;
-      transition: border-color 0.3s ease;
-    }
-
-    .simulator-card:hover {
-      border-color: var(--border-glow);
-    }
-
-    .simulator-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .sim-label {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 12px;
-      color: var(--muted);
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .sim-button {
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid var(--border);
-      color: var(--cyan);
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 11px;
-      font-weight: 700;
-      padding: 6px 12px;
-      border-radius: 8px;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      transition: all 0.2s ease;
-    }
-
-    .sim-button:hover {
-      background: var(--cyan);
-      color: var(--bg);
-      border-color: var(--cyan);
-      box-shadow: 0 0 15px rgba(var(--cyan-rgb), 0.4);
-    }
-
-    .metrics-row {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
       gap: 12px;
     }
 
-    .metric-box {
-      background: rgba(5, 7, 14, 0.6);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 12px 16px;
+    @media (min-width: 480px) {
+      form {
+        flex-direction: row;
+      }
     }
 
-    .metric-name {
-      font-size: 11px;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      color: #64748b;
-      margin-bottom: 4px;
-      font-weight: 700;
-    }
-
-    .metric-val {
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: 20px;
-      font-weight: 800;
-      color: var(--text);
-      transition: color 0.3s ease;
-    }
-
-    .metric-val.cleared {
-      color: var(--emerald);
-    }
-
-    /* Waitlist Input */
-    .cta-shell {
-      width: 100%;
-      max-width: 480px;
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 18px;
-      padding: 6px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      backdrop-filter: blur(20px);
-      box-shadow: 0 16px 36px rgba(0, 0, 0, 0.45);
-      transition: border-color 0.25s ease, box-shadow 0.25s ease;
-    }
-
-    .cta-shell:focus-within {
-      border-color: var(--border-glow);
-      box-shadow: 0 0 30px rgba(var(--cyan-rgb), 0.25);
-    }
-
-    .email-field {
+    input[type="email"] {
       flex: 1;
-      background: transparent;
-      border: none;
-      outline: none;
-      padding: 12px 16px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 14px 16px;
+      font-family: inherit;
       font-size: 15px;
       color: var(--text);
-      font-family: inherit;
+      outline: none;
+      transition: border-color 0.2s ease;
     }
 
-    .email-field::placeholder {
-      color: #64748b;
+    input[type="email"]::placeholder {
+      color: #556275;
     }
 
-    .submit-button {
-      background: var(--text);
-      color: var(--bg);
+    input[type="email"]:focus {
+      border-color: var(--border-focus);
+    }
+
+    button {
+      background: #FFFFFF;
+      color: #090B10;
       border: none;
-      padding: 12px 24px;
-      border-radius: 12px;
-      font-size: 14px;
-      font-weight: 700;
+      border-radius: 10px;
+      padding: 14px 24px;
+      font-family: inherit;
+      font-size: 15px;
+      font-weight: 600;
       cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      transition: background-color 0.15s ease, transform 0.1s ease;
+      transition: opacity 0.2s ease, transform 0.1s ease;
       white-space: nowrap;
     }
 
-    .submit-button:hover {
-      background: #e2e8f0;
+    button:hover {
+      opacity: 0.9;
       transform: translateY(-1px);
     }
 
-    .submit-button:active {
+    button:active {
       transform: translateY(0);
     }
 
-    #success-state {
+    .success-alert {
       display: none;
-      margin-top: 18px;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 13px;
-      color: var(--emerald);
-      text-shadow: 0 0 12px rgba(16, 185, 129, 0.4);
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--accent);
+      margin-top: 8px;
     }
 
-    /* Footer */
+    /* Minimal Footer */
     footer {
       width: 100%;
-      max-width: 1040px;
+      max-width: 580px;
       display: flex;
       align-items: center;
       justify-content: space-between;
       font-size: 13px;
-      color: #475569;
+      color: #556275;
+      padding-top: 20px;
       border-top: 1px solid var(--border);
-      padding-top: 24px;
-      z-index: 10;
-    }
-
-    @media (max-width: 600px) {
-      footer {
-        flex-direction: column;
-        gap: 10px;
-        text-align: center;
-      }
     }
   </style>
 </head>
 <body>
 
-  <div class="aurora"></div>
-  <div class="matrix-grid"></div>
-
   <header>
-    <a href="/" class="logo-badge">
-      <div class="logo-cube">
-        <svg viewBox="0 0 24 24"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
-      </div>
-      <span class="logo-text">tabkit.tools</span>
-    </a>
-    <div class="status-capsule">
-      <span class="status-signal"></span>
-      <span>READY_FOR_DEPLOY</span>
-    </div>
+    <a href="/" class="brand">tabkit.tools</a>
+    <span class="status-tag">Coming Soon</span>
   </header>
 
   <main>
-    <div class="hero-tag">
-      System Initializing
-    </div>
-
-    <h1>Kill tab chaos.<br/>Keep your flow.</h1>
-
-    <p class="subheadline">
-      A relentless upgrade built for tab hoarders, developers, and deep-work purists. <strong>Zero lag. Zero baggage. Ruthless focus.</strong>
+    <h1>Tabs, tamed.</h1>
+    <p class="description">
+      A fast, minimal workspace manager designed to keep your browser light and your mind clear. No clutter, no accounts required.
     </p>
 
-    <!-- Interactive Interactive Tab Simulator -->
-    <div class="simulator-card">
-      <div class="simulator-header">
-        <span class="sim-label">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
-          LIVE WORKSPACE STRESS TEST
-        </span>
-        <button class="sim-button" id="purge-btn">
-          ⚡ TEST PURGE
-        </button>
-      </div>
-      <div class="metrics-row">
-        <div class="metric-box">
-          <div class="metric-name">Tabs Trapped</div>
-          <div class="metric-val" id="val-tabs">74 Cluttered</div>
-        </div>
-        <div class="metric-box">
-          <div class="metric-name">Browser Memory Load</div>
-          <div class="metric-val" id="val-ram">4.6 GB Throttling</div>
-        </div>
-      </div>
-    </div>
-
-    <form class="cta-shell" id="launch-form">
+    <form id="waitlist-form" onsubmit="handleSubmit(event)">
       <input 
         type="email" 
-        id="email-input" 
-        class="email-field" 
-        placeholder="Enter your email for day-one access..." 
+        id="email" 
+        placeholder="Enter your email for early access" 
         required 
         autocomplete="email" 
       />
-      <button type="submit" class="submit-button">
-        Claim Access
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-      </button>
+      <button type="submit">Notify Me</button>
     </form>
 
-    <div id="success-state">[CONFIRMED] Priority clearance granted. Await launch signal.</div>
+    <div id="success-message" class="success-alert">
+      You are on the list. We will send an invite when ready.
+    </div>
   </main>
 
   <footer>
-    <div>&copy; 2026 tabkit.tools &bull; Built for power users.</div>
-    <div>Routed across Cloudflare Global Edge</div>
+    <span>&copy; 2026 tabkit.tools</span>
+    <span>Cloudflare Pages</span>
   </footer>
 
   <script>
-    // Tab Purge Micro-Simulator
-    const purgeBtn = document.getElementById('purge-btn');
-    const valTabs = document.getElementById('val-tabs');
-    const valRam = document.getElementById('val-ram');
-    let isPurged = false;
-
-    purgeBtn.addEventListener('click', () => {
-      if (!isPurged) {
-        valTabs.textContent = "0 • 100% Focused";
-        valTabs.classList.add('cleared');
-        valRam.textContent = "0.04 ms Zero-Lag";
-        valRam.classList.add('cleared');
-        purgeBtn.textContent = "↺ RESET";
-        isPurged = true;
-      } else {
-        valTabs.textContent = "74 Cluttered";
-        valTabs.classList.remove('cleared');
-        valRam.textContent = "4.6 GB Throttling";
-        valRam.classList.remove('cleared');
-        purgeBtn.textContent = "⚡ TEST PURGE";
-        isPurged = false;
-      }
-    });
-
-    // Form Handling
-    const form = document.getElementById('launch-form');
-    const emailInput = document.getElementById('email-input');
-    const success = document.getElementById('success-state');
-
-    form.addEventListener('submit', (e) => {
+    function handleSubmit(e) {
       e.preventDefault();
-      const email = emailInput.value.trim();
-      if (!email) return;
+      const input = document.getElementById('email');
+      const val = input.value.trim();
+      if (!val) return;
 
       try {
-        const stored = JSON.parse(localStorage.getItem('tabkit_waitlist') || '[]');
-        if (!stored.includes(email)) {
-          stored.push(email);
-          localStorage.setItem('tabkit_waitlist', JSON.stringify(stored));
+        const list = JSON.parse(localStorage.getItem('tabkit_waitlist') || '[]');
+        if (!list.includes(val)) {
+          list.push(val);
+          localStorage.setItem('tabkit_waitlist', JSON.stringify(list));
         }
       } catch (err) {}
 
-      form.style.display = 'none';
-      success.style.display = 'block';
-    });
+      document.getElementById('waitlist-form').style.display = 'none';
+      document.getElementById('success-message').style.display = 'block';
+    }
   </script>
 
 </body>
