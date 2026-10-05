@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <title>tabkit.tools — The Next Era of Browser Productivity</title>
-  <meta name="description" content="A radical upgrade to your daily browser workflow. Coming soon." />
+  <title>tabkit.tools — Browser Workspace Orchestration</title>
+  <meta name="description" content="A radical shift in how you navigate, group, and automate your browser workspace. Stealth release dropping soon." />
   
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -12,15 +12,18 @@
 
   <style>
     :root {
-      --bg: #030712;
-      --surface: rgba(17, 24, 39, 0.65);
+      --bg: #040711;
+      --surface: rgba(15, 23, 42, 0.65);
+      --surface-elevated: rgba(30, 41, 59, 0.5);
       --border: rgba(255, 255, 255, 0.08);
-      --border-highlight: rgba(56, 189, 248, 0.3);
+      --border-bright: rgba(56, 189, 248, 0.35);
       --cyan: #38bdf8;
+      --cyan-glow: rgba(56, 189, 248, 0.22);
       --indigo: #6366f1;
+      --indigo-glow: rgba(99, 102, 241, 0.18);
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
       --emerald: #10b981;
-      --text: #f9fafb;
-      --muted: #94a3b8;
     }
 
     * {
@@ -31,265 +34,357 @@
 
     body {
       background-color: var(--bg);
-      color: var(--text);
+      color: var(--text-main);
       font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
       min-height: 100vh;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: space-between;
-      padding: 32px 20px;
+      padding: 24px 20px;
       overflow-x: hidden;
       position: relative;
     }
 
-    /* Ambient dynamic spotlight background */
-    .bg-grid {
+    /* Ambient Spatial Backing */
+    .bg-mesh {
       position: fixed;
       inset: 0;
-      background-size: 40px 40px;
-      background-image: 
-        linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-        linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
-      mask-image: radial-gradient(ellipse 65% 55% at 50% 45%, #000 70%, transparent 100%);
-      -webkit-mask-image: radial-gradient(ellipse 65% 55% at 50% 45%, #000 70%, transparent 100%);
+      background:
+        radial-gradient(ellipse 80% 50% at 50% -20%, rgba(56, 189, 248, 0.18), transparent 70%),
+        radial-gradient(ellipse 60% 40% at 85% 85%, rgba(99, 102, 241, 0.12), transparent 70%),
+        radial-gradient(ellipse 50% 30% at 10% 90%, rgba(16, 185, 129, 0.08), transparent 60%);
       pointer-events: none;
       z-index: 1;
     }
 
-    .ambient-glow {
+    .bg-grid {
       position: fixed;
-      width: 550px;
-      height: 550px;
-      background: radial-gradient(circle, rgba(56, 189, 248, 0.16) 0%, rgba(99, 102, 241, 0.12) 40%, transparent 70%);
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      filter: blur(80px);
+      inset: 0;
+      background-size: 48px 48px;
+      background-image: 
+        linear-gradient(to right, rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+      mask-image: radial-gradient(circle at 50% 40%, black 50%, transparent 90%);
+      -webkit-mask-image: radial-gradient(circle at 50% 40%, black 50%, transparent 90%);
       pointer-events: none;
       z-index: 2;
     }
 
-    /* Top navigation status */
+    /* Top Command Header */
     header {
       width: 100%;
-      max-width: 960px;
+      max-width: 1120px;
       display: flex;
       align-items: center;
       justify-content: space-between;
       z-index: 10;
     }
 
-    .brand {
+    .brand-wrap {
       display: flex;
       align-items: center;
-      gap: 10px;
-      font-family: 'Space Grotesk', sans-serif;
-      font-weight: 700;
-      font-size: 1.15rem;
-      letter-spacing: -0.02em;
-      color: #ffffff;
+      gap: 12px;
       text-decoration: none;
+      color: inherit;
     }
 
-    .brand-icon {
-      width: 30px;
-      height: 30px;
-      border-radius: 8px;
-      background: linear-gradient(135deg, #1e293b, #0f172a);
-      border: 1px solid var(--border);
+    .brand-cube {
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, rgba(56, 189, 248, 0.2), rgba(99, 102, 241, 0.15));
+      border: 1px solid var(--border-bright);
       display: flex;
       align-items: center;
       justify-content: center;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+      box-shadow: 0 0 20px var(--cyan-glow);
     }
 
-    .brand-icon svg {
-      width: 16px;
-      height: 16px;
+    .brand-cube svg {
+      width: 18px;
+      height: 18px;
       stroke: var(--cyan);
       fill: none;
-      stroke-width: 2;
+      stroke-width: 2.2;
       stroke-linecap: round;
       stroke-linejoin: round;
     }
 
-    .system-status {
+    .brand-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 800;
+      font-size: 1.25rem;
+      letter-spacing: -0.03em;
+    }
+
+    .stealth-badge {
       display: flex;
       align-items: center;
       gap: 8px;
-      background: rgba(255, 255, 255, 0.03);
+      background: var(--surface);
       border: 1px solid var(--border);
       padding: 6px 14px;
       border-radius: 9999px;
       font-size: 12px;
-      font-weight: 600;
+      font-weight: 700;
       color: var(--muted);
       backdrop-filter: blur(12px);
     }
 
-    .status-beacon {
+    .stealth-dot {
       width: 7px;
       height: 7px;
-      border-radius: 50%;
       background-color: var(--emerald);
+      border-radius: 50%;
       box-shadow: 0 0 10px var(--emerald);
-      animation: pulse 2.2s infinite ease-in-out;
+      animation: pulse 2s infinite ease-in-out;
     }
 
     @keyframes pulse {
       0%, 100% { transform: scale(1); opacity: 1; }
-      50% { transform: scale(0.85); opacity: 0.4; }
+      50% { transform: scale(0.8); opacity: 0.35; }
     }
 
-    /* Hero stage */
+    /* Main Showcase Stage */
     main {
       width: 100%;
-      max-width: 820px;
-      text-align: center;
-      margin: auto 0;
+      max-width: 900px;
       display: flex;
       flex-direction: column;
       align-items: center;
+      text-align: center;
+      margin: 48px 0;
       z-index: 10;
     }
 
-    .eyebrow-chip {
+    .radar-tag {
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      padding: 8px 18px;
+      padding: 6px 16px;
       border-radius: 9999px;
-      background: linear-gradient(90deg, rgba(56, 189, 248, 0.1), rgba(99, 102, 241, 0.1));
-      border: 1px solid var(--border-highlight);
-      font-size: 13px;
+      background: rgba(56, 189, 248, 0.08);
+      border: 1px solid var(--border-bright);
+      font-size: 12px;
       font-weight: 700;
-      color: var(--cyan);
-      letter-spacing: 0.04em;
+      letter-spacing: 0.1em;
       text-transform: uppercase;
-      margin-bottom: 24px;
-      box-shadow: 0 0 24px rgba(56, 189, 248, 0.12);
+      color: var(--cyan);
+      margin-bottom: 28px;
+      box-shadow: 0 0 25px var(--cyan-glow);
     }
 
     h1 {
       font-family: 'Space Grotesk', sans-serif;
-      font-size: clamp(2.75rem, 8vw, 5.25rem);
+      font-size: clamp(2.5rem, 7.5vw, 4.75rem);
       font-weight: 800;
       letter-spacing: -0.04em;
-      line-height: 1.02;
+      line-height: 1.05;
       margin-bottom: 24px;
-      background: linear-gradient(180deg, #ffffff 30%, #94a3b8 100%);
+      background: linear-gradient(180deg, #ffffff 40%, #94a3b8 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
 
-    p.lead {
-      font-size: clamp(1.1rem, 2.5vw, 1.4rem);
-      line-height: 1.6;
-      color: var(--muted);
+    .lead-text {
+      font-size: clamp(1.05rem, 2.2vw, 1.35rem);
+      line-height: 1.65;
+      color: var(--text-muted);
       max-width: 640px;
-      font-weight: 400;
-      margin-bottom: 40px;
+      margin-bottom: 44px;
     }
 
-    p.lead strong {
-      color: #ffffff;
+    .lead-text strong {
+      color: var(--text-main);
       font-weight: 600;
     }
 
-    /* Waitlist / Early notification card */
-    .action-panel {
+    /* Interactive UI Deck Simulation */
+    .preview-deck {
+      width: 100%;
+      max-width: 680px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      box-shadow: 0 30px 60px -12px rgba(0, 0, 0, 0.7), 0 0 30px var(--cyan-glow);
+      backdrop-filter: blur(20px);
+      padding: 16px;
+      margin-bottom: 44px;
+      transition: border-color 0.3s ease;
+    }
+
+    .preview-deck:hover {
+      border-color: var(--border-bright);
+    }
+
+    .deck-topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 12px;
+      margin-bottom: 16px;
+    }
+
+    .window-dots {
+      display: flex;
+      gap: 6px;
+    }
+
+    .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.15);
+    }
+
+    .tab-pills {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+
+    .tab-pills::-webkit-scrollbar {
+      display: none;
+    }
+
+    .deck-tab {
+      background: var(--surface-elevated);
+      border: 1px solid var(--border);
+      padding: 6px 14px;
+      border-radius: 8px;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-muted);
+      cursor: pointer;
+      user-select: none;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+    }
+
+    .deck-tab.active {
+      background: rgba(56, 189, 248, 0.15);
+      border-color: var(--cyan);
+      color: var(--text-main);
+      box-shadow: 0 0 12px var(--cyan-glow);
+    }
+
+    .deck-viewport {
+      background: rgba(4, 7, 17, 0.6);
+      border: 1px dashed var(--border);
+      border-radius: 12px;
+      padding: 24px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100px;
+    }
+
+    .viewport-metric {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--text-main);
+      letter-spacing: -0.01em;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .viewport-metric span {
+      color: var(--cyan);
+      text-shadow: 0 0 10px var(--cyan-glow);
+    }
+
+    /* Waitlist Input Core */
+    .subscribe-box {
       width: 100%;
       max-width: 480px;
       background: var(--surface);
       border: 1px solid var(--border);
-      border-radius: 20px;
-      padding: 8px;
+      border-radius: 18px;
+      padding: 6px 6px 6px 16px;
       display: flex;
       align-items: center;
-      gap: 8px;
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.45);
-      backdrop-filter: blur(20px);
+      gap: 10px;
+      backdrop-filter: blur(16px);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
       transition: border-color 0.25s ease, box-shadow 0.25s ease;
     }
 
-    .action-panel:focus-within {
-      border-color: var(--border-highlight);
-      box-shadow: 0 0 30px rgba(56, 189, 248, 0.2);
+    .subscribe-box:focus-within {
+      border-color: var(--border-bright);
+      box-shadow: 0 0 35px var(--cyan-glow);
     }
 
-    .action-input {
+    .subscribe-input {
       flex: 1;
       background: transparent;
       border: none;
       outline: none;
-      padding: 12px 16px;
-      font-size: 15px;
-      color: #ffffff;
       font-family: inherit;
+      font-size: 15px;
+      color: var(--text-main);
     }
 
-    .action-input::placeholder {
+    .subscribe-input::placeholder {
       color: #64748b;
     }
 
-    .action-button {
-      background: #ffffff;
-      color: #030712;
+    .subscribe-btn {
+      background: var(--text-main);
+      color: var(--bg);
       border: none;
-      border-radius: 14px;
       padding: 12px 22px;
+      border-radius: 12px;
       font-size: 14px;
       font-weight: 700;
       cursor: pointer;
       display: flex;
       align-items: center;
       gap: 6px;
-      transition: background-color 0.15s ease, transform 0.15s ease;
+      transition: background-color 0.15s ease, transform 0.1s ease;
       white-space: nowrap;
     }
 
-    .action-button:hover {
+    .subscribe-btn:hover {
       background: #e2e8f0;
       transform: translateY(-1px);
     }
 
-    .action-button:active {
+    .subscribe-btn:active {
       transform: translateY(0);
     }
 
-    #feedback-message {
-      margin-top: 14px;
-      font-size: 13px;
-      font-weight: 600;
-      color: var(--cyan);
+    #confirmation-toast {
       display: none;
+      margin-top: 16px;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--emerald);
+      text-shadow: 0 0 10px rgba(16, 185, 129, 0.4);
     }
 
-    /* Footer specs */
+    /* Micro Footer */
     footer {
       width: 100%;
-      max-width: 960px;
+      max-width: 1120px;
       display: flex;
       align-items: center;
       justify-content: space-between;
       font-size: 13px;
       color: #475569;
+      border-top: 1px solid var(--border);
+      padding-top: 20px;
       z-index: 10;
-      border-top: 1px solid rgba(255, 255, 255, 0.05);
-      padding-top: 24px;
     }
 
-    .footer-left {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    @media (max-width: 600px) {
+    @media (max-width: 640px) {
       footer {
         flex-direction: column;
-        gap: 12px;
+        gap: 8px;
         text-align: center;
       }
     }
@@ -297,78 +392,109 @@
 </head>
 <body>
 
+  <div class="bg-mesh"></div>
   <div class="bg-grid"></div>
-  <div class="ambient-glow"></div>
 
   <header>
-    <a href="/" class="brand">
-      <div class="brand-icon">
-        <svg viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+    <a href="/" class="brand-wrap">
+      <div class="brand-cube">
+        <svg viewBox="0 0 24 24"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
       </div>
-      tabkit.tools
+      <span class="brand-title">tabkit.tools</span>
     </a>
-    <div class="system-status">
-      <span class="status-beacon"></span>
-      <span>Build Phase</span>
+    <div class="stealth-badge">
+      <span class="stealth-dot"></span>
+      <span>Engine Core v1.0</span>
     </div>
   </header>
 
   <main>
-    <div class="eyebrow-chip">
-      Incoming Release
+    <div class="radar-tag">
+      System Preparing For Launch
     </div>
 
-    <h1>Stop fighting your browser tabs.</h1>
+    <h1>Stop drowning in your browser tabs.</h1>
 
-    <p class="lead">
-      We are crafting a lightning-fast, zero-bloat toolkit built specifically for power users, researchers, and creators. <strong>No accounts, no tracker baggage, pure speed.</strong>
+    <p class="lead-text">
+      An ultra-responsive, privacy-hardened workspace engineered to eliminate clutter, recover memory, and supercharge your focus. <strong>Zero telemetry. Zero lag.</strong>
     </p>
 
-    <form class="action-panel" id="notify-form" onsubmit="handleNotification(event)">
+    <div class="preview-deck">
+      <div class="deck-topbar">
+        <div class="window-dots">
+          <div class="dot"></div>
+          <div class="dot"></div>
+          <div class="dot"></div>
+        </div>
+        <div class="tab-pills" id="tab-switcher">
+          <div class="deck-tab active" data-msg="Instant session recovery &bull; 0.04ms execution">Memory Vault</div>
+          <div class="deck-tab" data-msg="Clean payload sanitizer &bull; 100% offline">Query Filter</div>
+          <div class="deck-tab" data-msg="Zero-loss workspace state snapshotting">Session Sync</div>
+        </div>
+      </div>
+      <div class="deck-viewport">
+        <div class="viewport-metric" id="viewport-text">
+          <span>&gt;</span> Instant session recovery &bull; 0.04ms execution
+        </div>
+      </div>
+    </div>
+
+    <form class="subscribe-box" id="waitlist-form">
       <input 
         type="email" 
-        id="email-input" 
-        class="action-input" 
-        placeholder="Enter your email for day-one access..." 
+        id="user-email" 
+        class="subscribe-input" 
+        placeholder="Drop your email for Day-1 access..." 
         required 
         autocomplete="email" 
       />
-      <button type="submit" class="action-button">
-        Notify Me
+      <button type="submit" class="subscribe-btn">
+        Claim Spot
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
       </button>
     </form>
 
-    <div id="feedback-message">✓ You're on the early priority list.</div>
+    <div id="confirmation-toast">✓ Spot locked in. We will ping you the moment we deploy.</div>
   </main>
 
   <footer>
-    <div class="footer-left">
-      <span>&copy; 2026 tabkit.tools</span>
-      <span>&bull;</span>
-      <span>All rights reserved.</span>
-    </div>
-    <div>Deployed on Cloudflare Global Edge</div>
+    <div>&copy; 2026 tabkit.tools &bull; Built for power users.</div>
+    <div>Live across Cloudflare Global Edge</div>
   </footer>
 
   <script>
-    function handleNotification(e) {
+    const tabs = document.querySelectorAll('.deck-tab');
+    const viewportText = document.getElementById('viewport-text');
+
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        tabs.forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+        const message = tab.getAttribute('data-msg');
+        viewportText.innerHTML = `<span>&gt;</span> ${message}`;
+      });
+    });
+
+    const form = document.getElementById('waitlist-form');
+    const toast = document.getElementById('confirmation-toast');
+    const emailInput = document.getElementById('user-email');
+
+    form.addEventListener('submit', (e) => {
       e.preventDefault();
-      const email = document.getElementById('email-input').value.trim();
+      const email = emailInput.value.trim();
       if (!email) return;
 
       try {
-        const existing = JSON.parse(localStorage.getItem('tabkit_waitlist') || '[]');
-        if (!existing.includes(email)) {
-          existing.push(email);
-          localStorage.setItem('tabkit_waitlist', JSON.stringify(existing));
+        const stored = JSON.parse(localStorage.getItem('tabkit_waitlist') || '[]');
+        if (!stored.includes(email)) {
+          stored.push(email);
+          localStorage.setItem('tabkit_waitlist', JSON.stringify(stored));
         }
       } catch (err) {}
 
-      document.getElementById('notify-form').style.display = 'none';
-      const msg = document.getElementById('feedback-message');
-      msg.style.display = 'block';
-    }
+      form.style.display = 'none';
+      toast.style.display = 'block';
+    });
   </script>
 
 </body>
