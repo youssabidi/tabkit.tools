@@ -1,56 +1,358 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>tabkit.tools</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600&family=Space+Grotesk:wght@700&display=swap" rel="stylesheet" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>tabkit.tools — Smart Productivity Toolkit for Web Workflows</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@600;700;800&display=swap" rel="stylesheet">
+
   <style>
+    :root {
+      --bg: #09090b;
+      --card-bg: rgba(24, 24, 27, 0.72);
+      --card-border: rgba(255, 255, 255, 0.08);
+      --card-border-hover: rgba(255, 255, 255, 0.18);
+      --text-primary: #ffffff;
+      --text-muted: #94a3b8;
+      --text-dim: #64748b;
+      --accent-glow: rgba(56, 189, 248, 0.12);
+      --accent-cyan: #38bdf8;
+      --accent-violet: #818cf8;
+      --accent-emerald: #34d399;
+    }
+
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
     }
+
     body {
-      background-color: #434f72;
-      color: #f9fafb;
-      font-family: 'Plus Jakarta Sans', sans-serif;
+      background-color: var(--bg);
+      color: var(--text-muted);
+      font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
       min-height: 100vh;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      text-align: center;
-      padding: 24px;
+      padding: 40px 20px;
+      overflow-x: hidden;
+      position: relative;
+      selection-background-color: var(--accent-cyan);
+      selection-color: #000000;
     }
-    .container {
-      max-width: 480px;
+
+    ::selection {
+      background: rgba(56, 189, 248, 0.3);
+      color: #ffffff;
+    }
+
+    /* Subtle radiant background grids */
+    .bg-mesh {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      background:
+        radial-gradient(circle at 50% 0%, rgba(56, 189, 248, 0.14) 0%, transparent 55%),
+        radial-gradient(circle at 85% 85%, rgba(129, 140, 248, 0.08) 0%, transparent 45%),
+        radial-gradient(circle at 15% 75%, rgba(52, 211, 153, 0.06) 0%, transparent 40%);
+    }
+
+    .bg-grid {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      background-image: 
+        linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+      background-size: 48px 48px;
+      mask-image: radial-gradient(circle at 50% 45%, black 40%, transparent 85%);
+      -webkit-mask-image: radial-gradient(circle at 50% 45%, black 40%, transparent 85%);
+    }
+
+    .wrapper {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      max-width: 680px;
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 16px;
+      text-align: center;
     }
+
+    /* Pill badge */
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 14px;
+      border-radius: 9999px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: #e2e8f0;
+      margin-bottom: 24px;
+      backdrop-filter: blur(12px);
+    }
+
+    .badge-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 9999px;
+      background: var(--accent-cyan);
+      box-shadow: 0 0 10px var(--accent-cyan);
+      animation: pulse 2.4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(0.85); }
+    }
+
     h1 {
       font-family: 'Space Grotesk', sans-serif;
-      font-size: clamp(2.5rem, 6vw, 3.75rem);
-      font-weight: 700;
-      letter-spacing: -0.03em;
-      line-height: 1.1;
-      color: #ffffff;
+      font-size: clamp(2.75rem, 7vw, 4.5rem);
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      line-height: 1.05;
+      color: var(--text-primary);
+      margin-bottom: 16px;
     }
-    p {
-      font-size: 1.1rem;
-      color: #8ac568;
+
+    .gradient-text {
+      background: linear-gradient(135deg, #ffffff 40%, #94a3b8 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .domain-ext {
+      background: linear-gradient(135deg, var(--accent-cyan), var(--accent-violet));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .tagline {
+      font-size: 1.15rem;
+      line-height: 1.6;
+      color: var(--text-muted);
       font-weight: 500;
+      max-width: 520px;
+      margin-bottom: 36px;
+    }
+
+    /* Email Notify Card */
+    .card-box {
+      width: 100%;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 20px;
+      padding: 10px;
+      box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(16px);
+      margin-bottom: 32px;
+      transition: border-color 0.25s ease;
+    }
+
+    .card-box:focus-within {
+      border-color: rgba(56, 189, 248, 0.4);
+    }
+
+    .notify-form {
+      display: flex;
+      flex-direction: row;
+      gap: 8px;
+      width: 100%;
+    }
+
+    .input-field {
+      flex: 1;
+      background: transparent;
+      border: none;
+      outline: none;
+      padding: 14px 18px;
+      font-size: 0.95rem;
+      color: #ffffff;
+      font-family: inherit;
+    }
+
+    .input-field::placeholder {
+      color: var(--text-dim);
+    }
+
+    .btn-submit {
+      background: #ffffff;
+      color: #09090b;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 700;
+      border: none;
+      border-radius: 14px;
+      padding: 0 24px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+    }
+
+    .btn-submit:hover {
+      background: #e2e8f0;
+      transform: translateY(-1px);
+    }
+
+    .btn-submit:active {
+      transform: translateY(0);
+    }
+
+    /* Feature highlights */
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      width: 100%;
+      margin-top: 10px;
+    }
+
+    .feature-item {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 14px;
+      padding: 16px 12px;
+      text-align: center;
+      transition: all 0.2s ease;
+    }
+
+    .feature-item:hover {
+      background: rgba(255, 255, 255, 0.04);
+      border-color: var(--card-border-hover);
+      transform: translateY(-2px);
+    }
+
+    .feature-icon {
+      font-size: 1.25rem;
+      margin-bottom: 6px;
+      display: inline-block;
+    }
+
+    .feature-title {
+      color: #ffffff;
+      font-size: 0.85rem;
+      font-weight: 700;
+      margin-bottom: 2px;
+    }
+
+    .feature-desc {
+      font-size: 0.75rem;
+      color: var(--text-dim);
+      line-height: 1.35;
+    }
+
+    /* Status indicator bar */
+    .system-status {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.78rem;
+      color: var(--text-dim);
+      margin-top: 48px;
+    }
+
+    .status-ping {
+      width: 6px;
+      height: 6px;
+      border-radius: 9999px;
+      background: var(--accent-emerald);
+      box-shadow: 0 0 6px var(--accent-emerald);
+    }
+
+    @media (max-width: 600px) {
+      .notify-form {
+        flex-direction: column;
+      }
+      .btn-submit {
+        padding: 14px;
+        width: 100%;
+      }
+      .features-grid {
+        grid-template-columns: 1fr;
+      }
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <h1>tabkit.tools</h1>
-    <p>Coming soon.</p>
+
+  <div class="bg-mesh"></div>
+  <div class="bg-grid"></div>
+
+  <div class="wrapper">
+    <div class="badge">
+      <span class="badge-dot"></span>
+      Early Development Access
+    </div>
+
+    <h1>
+      <span class="gradient-text">tabkit</span><span class="domain-ext">.tools</span>
+    </h1>
+
+    <p class="tagline">
+      A suite of modular, zero-bloat browser utilities and automation tools built to clean up workflows and speed up daily digital tasks.
+    </p>
+
+    <div class="card-box">
+      <form class="notify-form" onsubmit="event.preventDefault(); const btn = this.querySelector('button'); btn.textContent = 'Registered!'; btn.style.background='#34d399'; btn.style.color='#09090b';">
+        <input 
+          type="email" 
+          class="input-field" 
+          placeholder="Enter your email to request early beta invite" 
+          required 
+          autocomplete="off"
+          spellcheck="false"
+        >
+        <button type="submit" class="btn-submit">
+          Notify Me
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+            <polyline points="12 5 19 12 12 19"></polyline>
+          </svg>
+        </button>
+      </form>
+    </div>
+
+    <div class="features-grid">
+      <div class="feature-item">
+        <span class="feature-icon">⚡</span>
+        <div class="feature-title">Fast & Instant</div>
+        <div class="feature-desc">Client-first processing with zero unnecessary latency.</div>
+      </div>
+      <div class="feature-item">
+        <span class="feature-icon">🔒</span>
+        <div class="feature-title">Privacy Focused</div>
+        <div class="feature-desc">Your sessions, keys, and tab states stay in your browser.</div>
+      </div>
+      <div class="feature-item">
+        <span class="feature-icon">🧩</span>
+        <div class="feature-title">Modular Kit</div>
+        <div class="feature-desc">Pick and pin only the tool widgets you need every day.</div>
+      </div>
+    </div>
+
+    <div class="system-status">
+      <span class="status-ping"></span>
+      Core engine & UI framework under active development
+    </div>
   </div>
+
 </body>
 </html>
