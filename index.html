@@ -105,7 +105,7 @@
     </div>
 
     <!-- Center Quick Command Bar Trigger -->
-    <button id="btnOpenCommandPalette" class="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-workspace-bg border border-workspace-border hover:border-workspace-borderLight text-xs text-workspace-muted transition-all">
+    <button id="btnOpenCommandPalette" type="button" class="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-workspace-bg border border-workspace-border hover:border-workspace-borderLight text-xs text-workspace-muted transition-all">
       <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
         <circle cx="11" cy="11" r="8"></circle>
         <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
@@ -116,7 +116,7 @@
 
     <!-- Right Controls -->
     <div class="flex items-center gap-2">
-      <button id="btnOpenToolCatalog" class="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-workspace-accent/10 border border-workspace-accent/30 hover:bg-workspace-accent/20 text-workspace-accent text-xs font-medium transition-all">
+      <button id="btnOpenToolCatalog" type="button" class="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-workspace-accent/10 border border-workspace-accent/30 hover:bg-workspace-accent/20 text-workspace-accent text-xs font-medium transition-all">
         <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
           <line x1="12" y1="5" x2="12" y2="19"></line>
           <line x1="5" y1="12" x2="19" y2="12"></line>
@@ -124,7 +124,7 @@
         <span>Add Tool</span>
       </button>
 
-      <button id="btnResetWorkspace" title="Clear pinned workbench" class="p-1.5 rounded-lg hover:bg-workspace-bg text-workspace-muted hover:text-workspace-danger border border-transparent hover:border-workspace-border transition-all">
+      <button id="btnResetWorkspace" type="button" title="Clear pinned workbench" class="p-1.5 rounded-lg hover:bg-workspace-bg text-workspace-muted hover:text-workspace-danger border border-transparent hover:border-workspace-border transition-all">
         <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
           <path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
         </svg>
@@ -178,7 +178,7 @@
         </div>
       </div>
 
-      <button id="btnLoadStarterDeck" class="px-4 py-2 rounded-lg bg-workspace-surface border border-workspace-borderLight hover:border-workspace-accent text-xs font-medium text-workspace-text hover:text-workspace-accent transition-all">
+      <button id="btnLoadStarterDeck" type="button" class="px-4 py-2 rounded-lg bg-workspace-surface border border-workspace-borderLight hover:border-workspace-accent text-xs font-medium text-workspace-text hover:text-workspace-accent transition-all">
         Load Recommended Starter Setup
       </button>
     </div>
@@ -238,13 +238,6 @@
   <script>
     /**
      * CENTRAL PLUGIN REGISTRY
-     * Every tool is an isolated object with:
-     * - id: Unique string identifier
-     * - name: Display title
-     * - category: Organizational grouping
-     * - description: Short utility brief
-     * - render: Pure render function returning clean HTML string
-     * - init: Hook to attach event listeners after DOM insertion
      */
     const TOOLS_REGISTRY = {
       'scratchpad': {
@@ -487,7 +480,6 @@
       const countEl = document.getElementById(`${toolId}_count`);
       const output = document.getElementById(`${toolId}_output`);
 
-      // Regex matching URLs
       const urlRegex = /(https?:\/\/[^\s]+)/g;
       const matches = input.match(urlRegex) || [];
 
@@ -582,8 +574,8 @@
     function openCommandPalette() {
       commandModal.classList.remove('hidden');
       commandInput.value = '';
-      commandInput.focus();
       renderCommandList();
+      setTimeout(() => commandInput.focus(), 20);
     }
 
     function closeCommandPalette() {
@@ -623,16 +615,28 @@
 
     commandInput.addEventListener('input', (e) => renderCommandList(e.target.value));
 
-    // Keyboard Shortcuts
-    window.addEventListener('keydown', (e) => {
-      if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
+    /**
+     * ROBUST CAPTURE-PHASE KEYBOARD SHORTCUTS
+     * Uses { capture: true } and checks e.code === 'KeyK' to intercept before browser omnibox.
+     */
+    document.addEventListener('keydown', (e) => {
+      const isCmdOrCtrl = e.ctrlKey || e.metaKey;
+      const isKeyK = e.code === 'KeyK' || (e.key && e.key.toLowerCase() === 'k');
+
+      if (isCmdOrCtrl && isKeyK) {
         e.preventDefault();
+        e.stopPropagation();
+        e.stopImmediatePropagation();
         openCommandPalette();
+        return false;
       }
+
       if (e.key === 'Escape' && !commandModal.classList.contains('hidden')) {
+        e.preventDefault();
+        e.stopPropagation();
         closeCommandPalette();
       }
-    });
+    }, true);
 
     // Event Listeners
     document.getElementById('btnOpenCommandPalette').addEventListener('click', openCommandPalette);
