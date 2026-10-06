@@ -173,7 +173,7 @@
             <span>Instant QR Handoff</span>
             <span class="text-workspace-accent">+</span>
           </div>
-          <p class="text-[11px] text-workspace-muted">Generate instant QR codes for links, numbers, phrases, or notes.</p>
+          <p class="text-[11px] text-workspace-muted">Generate instant QR codes for links, phone dialer numbers, or text.</p>
         </div>
 
         <div onclick="pinTool('timezone-buddy')" class="p-3.5 rounded-xl border border-workspace-border hover:border-workspace-accent/50 bg-workspace-surface hover:bg-workspace-surfaceHover cursor-pointer transition-all">
@@ -247,7 +247,6 @@
   <script>
     /**
      * UNIVERSAL CITY & TIMEZONE LAZY-LOAD LOADER
-     * Adapts automatically to array-of-tuples, array-of-objects, or indexed JSON formats.
      */
     let citiesDataset = null;
     let isFetchingCities = false;
@@ -263,7 +262,6 @@
         if (!res.ok) throw new Error('cities.min.json not found');
         const raw = await res.json();
         
-        // Format 1: Indexed format { tz: [...], c: [[name, country, tzIndex], ...] }
         if (raw && raw.tz && Array.isArray(raw.c)) {
           const tzList = raw.tz;
           citiesDataset = raw.c.map(item => ({
@@ -272,9 +270,7 @@
             iana: tzList[item[2]],
             tokens: `${item[0]} ${item[1] || ''} ${tzList[item[2]]}`.toLowerCase()
           }));
-        }
-        // Format 2: Array of objects [ { name, country, timezone/tz/iana }, ... ]
-        else if (Array.isArray(raw) && raw.length && typeof raw[0] === 'object' && !Array.isArray(raw[0])) {
+        } else if (Array.isArray(raw) && raw.length && typeof raw[0] === 'object' && !Array.isArray(raw[0])) {
           citiesDataset = raw.map(item => {
             const city = item.name || item.city || '';
             const country = item.country || item.country_name || '';
@@ -286,9 +282,7 @@
               tokens: `${city} ${country} ${iana}`.toLowerCase()
             };
           }).filter(x => x.city && x.iana);
-        }
-        // Format 3: Array of tuples [ [name, country, timezone], ... ]
-        else if (Array.isArray(raw) && Array.isArray(raw[0])) {
+        } else if (Array.isArray(raw) && Array.isArray(raw[0])) {
           citiesDataset = raw.map(item => ({
             city: item[0],
             country: item[1] || '',
@@ -449,16 +443,28 @@
         }
       },
 
-      // 4. Instant QR Code Generator & Mobile Handoff (Universal: Numbers, Phrases, Links)
+      // 4. Instant QR Code Generator & Mobile Handoff (Keypad Auto-Dialer Enabled)
       'qr-generator': {
         id: 'qr-generator',
         name: 'Instant QR Handoff',
         category: 'Utilities',
-        description: 'Generate QR codes for links, raw numbers, multi-line phrases, or notes.',
+        description: 'Generate QR codes for links, phone dialer numbers, or plain text.',
         render: (toolId) => `
           <div class="flex flex-col h-full space-y-3 font-sans">
-            <textarea id="${toolId}_input" rows="2" class="w-full bg-workspace-bg border border-workspace-border rounded-lg p-2.5 text-xs text-workspace-text placeholder-workspace-muted focus:border-workspace-accent focus:outline-none font-mono resize-none" placeholder="Type or paste anything: links, raw numbers, full sentences, phrases..."></textarea>
+            <textarea id="${toolId}_input" rows="2" class="w-full bg-workspace-bg border border-workspace-border rounded-lg p-2.5 text-xs text-workspace-text placeholder-workspace-muted focus:border-workspace-accent focus:outline-none font-mono resize-none" placeholder="Type or paste links, phrases, or a phone number (e.g. +974 5512 3456)..."></textarea>
             
+            <!-- Smart Mode Controls -->
+            <div id="${toolId}_telBar" class="hidden flex items-center justify-between px-2.5 py-1.5 rounded-lg bg-workspace-bg border border-workspace-border text-xs font-mono">
+              <div class="flex items-center gap-1.5">
+                <span class="w-1.5 h-1.5 rounded-full bg-workspace-accent"></span>
+                <span class="text-[11px] text-workspace-muted">Phone Number Detected</span>
+              </div>
+              <label class="flex items-center gap-1.5 cursor-pointer text-[11px] text-workspace-text">
+                <input id="${toolId}_telToggle" type="checkbox" checked class="accent-[#10B981] rounded" />
+                <span>Open Phone Keypad</span>
+              </label>
+            </div>
+
             <div class="flex items-center justify-center p-3 bg-white rounded-lg border border-workspace-border w-fit mx-auto shadow-inner">
               <div id="${toolId}_canvas"></div>
             </div>
@@ -476,15 +482,37 @@
           const input = document.getElementById(`${toolId}_input`);
           const container = document.getElementById(`${toolId}_canvas`);
           const count = document.getElementById(`${toolId}_charCount`);
+          const telBar = document.getElementById(`${toolId}_telBar`);
+          const telToggle = document.getElementById(`${toolId}_telToggle`);
           let qr = null;
+
+          function isPotentialPhoneNumber(str) {
+            const trimmed = str.trim();
+            // Matches numbers like +974 5512 3456, +1-800-555-0199, or local 8-15 digit numbers
+            const cleaned = trimmed.replace(/[\s\-\(\)\.]/g, '');
+            return /^\+?[0-9]{3,15}$/.test(cleaned) && (cleaned.startsWith('+') \vert{}\vert{} /^[0-9]+$/.test(cleaned));
+          }
 
           function generate() {
             container.innerHTML = '';
             const rawVal = input.value;
-            // Preserves raw numbers and zero correctly without fallback overrides
-            const textToEncode = rawVal.length > 0 ? String(rawVal) : 'https://tabkit.tools';
+            const isPhone = isPotentialPhoneNumber(rawVal);
+
+            if (isPhone) {
+              telBar.classList.remove('hidden');
+            } else {
+              telBar.classList.add('hidden');
+            }
+
+            let textToEncode = rawVal.length > 0 ? String(rawVal) : 'https://tabkit.tools';
+
+            // Auto-format with tel: protocol when toggled so cameras pop up dialer directly
+            if (isPhone && telToggle && telToggle.checked) {
+              const sanitizedPhone = rawVal.trim().replace(/[\s\-\(\)]/g, '');
+              textToEncode = `tel:${sanitizedPhone}`;
+            }
             
-            count.textContent = `${rawVal.length} character${rawVal.length === 1 ? '' : 's'}`;
+            count.textContent = `${rawVal.length} character${rawVal.length === 1 ? '' : 's'}${isPhone && telToggle.checked ? ' (Dialer ready)' : ''}`;
 
             try {
               qr = new QRCode(container, {
@@ -501,6 +529,7 @@
           }
 
           input.addEventListener('input', generate);
+          if (telToggle) telToggle.addEventListener('change', generate);
           generate();
         }
       },
@@ -594,7 +623,6 @@
             renderPinnedZones();
           };
 
-          // Lazy load cities on focus
           search.addEventListener('focus', async () => {
             if (!citiesDataset) {
               badge.classList.remove('hidden');
@@ -605,7 +633,6 @@
             }
           });
 
-          // Perform instant in-memory search
           search.oninput = async () => {
             const q = search.value.toLowerCase().trim();
             if (!q) {
