@@ -63,23 +63,10 @@
   </script>
 
   <style>
-    /* Custom scrollbars */
-    ::-webkit-scrollbar {
-      width: 6px;
-      height: 6px;
-    }
-    ::-webkit-scrollbar-track {
-      background: #0F1117;
-    }
-    ::-webkit-scrollbar-thumb {
-      background: #262A34;
-      border-radius: 3px;
-    }
-    ::-webkit-scrollbar-thumb:hover {
-      background: #353B49;
-    }
-
-    /* Subtle blueprint dot grid background for empty state */
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: #0F1117; }
+    ::-webkit-scrollbar-thumb { background: #262A34; border-radius: 3px; }
+    ::-webkit-scrollbar-thumb:hover { background: #353B49; }
     .bg-dot-grid {
       background-image: radial-gradient(#262A34 1px, transparent 1px);
       background-size: 20px 20px;
@@ -120,7 +107,7 @@
     <!-- Right Controls -->
     <div class="flex items-center gap-2">
       <a href="/about" class="px-2.5 py-1 rounded-lg hover:bg-workspace-bg text-workspace-muted hover:text-workspace-text border border-transparent hover:border-workspace-border text-xs font-mono transition-all">
-        About
+        About &amp; Manifesto
       </a>
 
       <button id="btnOpenToolCatalog" type="button" class="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-workspace-accent/10 border border-workspace-accent/30 hover:bg-workspace-accent/20 text-workspace-accent text-xs font-medium transition-all">
@@ -145,7 +132,7 @@
     <div id="workbenchGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 max-w-[1700px] mx-auto"></div>
 
     <!-- Empty Workspace State -->
-    <div id="emptyWorkspaceState" class="hidden max-w-4xl mx-auto my-12 p-8 rounded-2xl border border-dashed border-workspace-border bg-workspace-surface/30 bg-dot-grid text-center">
+    <div id="emptyWorkspaceState" class="hidden max-w-2xl mx-auto my-16 p-8 rounded-2xl border border-dashed border-workspace-border bg-workspace-surface/30 bg-dot-grid text-center">
       <div class="w-12 h-12 rounded-xl bg-workspace-surface border border-workspace-border flex items-center justify-center mx-auto mb-4 text-workspace-accent">
         <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
           <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
@@ -155,39 +142,17 @@
       </div>
       <h2 class="text-base font-bold text-workspace-text tracking-tight mb-1">Your Workbench is Empty</h2>
       <p class="text-xs text-workspace-muted max-w-md mx-auto mb-6">
-        Select utilities to pin to your personal browser dashboard. All tools run 100% in your browser with zero server data storage.
+        Select utilities to pin to your personal browser dashboard. Zero server storage, zero telemetry, 100% client-side memory.
       </p>
 
-      <!-- Slot Targets -->
-      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6 text-left">
-        <div onclick="pinTool('scratchpad')" class="p-3.5 rounded-xl border border-workspace-border hover:border-workspace-accent/50 bg-workspace-surface hover:bg-workspace-surfaceHover cursor-pointer transition-all">
-          <div class="text-xs font-semibold text-workspace-text flex items-center justify-between mb-1">
-            <span>Scratchpad &amp; Diff</span>
-            <span class="text-workspace-accent">+</span>
-          </div>
-          <p class="text-[11px] text-workspace-muted">Quick notes and split-screen text difference comparison.</p>
-        </div>
-
-        <div onclick="pinTool('qr-generator')" class="p-3.5 rounded-xl border border-workspace-border hover:border-workspace-accent/50 bg-workspace-surface hover:bg-workspace-surfaceHover cursor-pointer transition-all">
-          <div class="text-xs font-semibold text-workspace-text flex items-center justify-between mb-1">
-            <span>Instant QR Handoff</span>
-            <span class="text-workspace-accent">+</span>
-          </div>
-          <p class="text-[11px] text-workspace-muted">Generate instant QR codes for links, phone dialer numbers, or text.</p>
-        </div>
-
-        <div onclick="pinTool('timezone-buddy')" class="p-3.5 rounded-xl border border-workspace-border hover:border-workspace-accent/50 bg-workspace-surface hover:bg-workspace-surfaceHover cursor-pointer transition-all">
-          <div class="text-xs font-semibold text-workspace-text flex items-center justify-between mb-1">
-            <span>Time Zone Buddy</span>
-            <span class="text-workspace-accent">+</span>
-          </div>
-          <p class="text-[11px] text-workspace-muted">Search global cities with synchronized local hour slider.</p>
-        </div>
+      <div class="flex items-center justify-center gap-3">
+        <button id="btnLoadStarterDeck" type="button" class="px-4 py-2 rounded-lg bg-workspace-accent hover:bg-workspace-accentHover text-xs font-semibold text-black transition-all shadow-md">
+          Load Recommended Starter Setup
+        </button>
+        <button onclick="openCommandPalette()" type="button" class="px-4 py-2 rounded-lg bg-workspace-surface border border-workspace-border hover:border-workspace-borderLight text-xs font-medium text-workspace-text transition-all">
+          Browse All 7 Tools
+        </button>
       </div>
-
-      <button id="btnLoadStarterDeck" type="button" class="px-4 py-2 rounded-lg bg-workspace-surface border border-workspace-borderLight hover:border-workspace-accent text-xs font-medium text-workspace-text hover:text-workspace-accent transition-all">
-        Load Recommended Starter Setup
-      </button>
     </div>
   </main>
 
@@ -200,33 +165,9 @@
     <div class="flex items-center gap-4">
       <span class="hidden sm:inline"><kbd class="text-workspace-text">Ctrl+K</kbd> Search</span>
       <span class="hidden sm:inline"><kbd class="text-workspace-text">Esc</kbd> Close</span>
-      <a href="/about" class="hover:text-workspace-accent transition-colors">About &amp; Manifesto</a>
-      <span class="text-workspace-borderLight">•</span>
-      <a href="#seoDrawer" class="hover:text-workspace-accent transition-colors">Specs</a>
+      <a href="/about" class="hover:text-workspace-accent transition-colors">Why Local-First?</a>
     </div>
   </footer>
-
-  <!-- ==================== SEO ACCORDION DRAWER ==================== -->
-  <details id="seoDrawer" class="group border-t border-workspace-border bg-workspace-surface text-workspace-muted text-xs">
-    <summary class="px-4 py-2 cursor-pointer list-none flex items-center justify-between font-mono text-[11px] hover:text-workspace-text">
-      <span>Platform Overview &amp; Specifications</span>
-      <span class="group-open:rotate-180 transition-transform">▼</span>
-    </summary>
-    <div class="p-6 grid grid-cols-1 md:grid-cols-3 gap-6 border-t border-workspace-border text-xs leading-relaxed">
-      <div>
-        <h3 class="font-bold text-workspace-text mb-1">Client-Side Architecture</h3>
-        <p>TabKit Tools operates completely inside your client browser sandbox using modern HTML5 Web APIs and localStorage. No text, URLs, or files ever leave your machine.</p>
-      </div>
-      <div>
-        <h3 class="font-bold text-workspace-text mb-1">Zero Paywalls &amp; Zero Bloat</h3>
-        <p>Built for daily power workflows, developer utilities, and high-frequency clipboard manipulation without subscription gates or intrusive popups. <a href="/about" class="text-workspace-accent underline">Read our full manifesto</a>.</p>
-      </div>
-      <div>
-        <h3 class="font-bold text-workspace-text mb-1">Single-Tab Command Center</h3>
-        <p>Pin this workbench as your daily first tab to consolidate link cleaners, diff checks, QR generation, and quick timezone shifts without tab clutter.</p>
-      </div>
-    </div>
-  </details>
 
   <!-- ==================== COMMAND PALETTE MODAL ==================== -->
   <div id="commandPaletteModal" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 hidden flex items-start justify-center pt-20 px-4">
@@ -243,11 +184,8 @@
     </div>
   </div>
 
-  <!-- ==================== SCRIPT: PLUGIN REGISTRY & CORE ==================== -->
+  <!-- ==================== CORE SCRIPT ==================== -->
   <script>
-    /**
-     * UNIVERSAL CITY & TIMEZONE LAZY-LOAD LOADER
-     */
     let citiesDataset = null;
     let isFetchingCities = false;
 
@@ -275,12 +213,7 @@
             const city = item.name || item.city || '';
             const country = item.country || item.country_name || '';
             const iana = item.timezone || item.tz || item.iana || '';
-            return {
-              city,
-              country,
-              iana,
-              tokens: `${city} ${country} ${iana}`.toLowerCase()
-            };
+            return { city, country, iana, tokens: `${city} ${country} ${iana}`.toLowerCase() };
           }).filter(x => x.city && x.iana);
         } else if (Array.isArray(raw) && Array.isArray(raw[0])) {
           citiesDataset = raw.map(item => ({
@@ -294,7 +227,6 @@
         if (onProgress) onProgress('');
         return citiesDataset;
       } catch (e) {
-        console.warn('Falling back to browser Intl timezones:', e);
         if (onProgress) onProgress('');
         return fallbackIntlZones();
       } finally {
@@ -313,22 +245,13 @@
       return raw.map(iana => {
         const parts = iana.split('/');
         const city = parts[parts.length - 1].replace(/_/g, ' ');
-        return {
-          city: city,
-          country: parts[0],
-          iana: iana,
-          tokens: `${city} ${parts[0]} ${iana}`.toLowerCase()
-        };
+        return { city, country: parts[0], iana, tokens: `${city} ${parts[0]} ${iana}`.toLowerCase() };
       });
     }
 
-    /**
-     * EXTENSIVE CONVERTER DEFINITIONS (7 Categories, Multi-Unit Ratios)
-     */
     const CONVERTER_CONFIG = {
       digital: {
         name: 'Digital Storage',
-        baseUnit: 'b',
         units: {
           b: { label: 'Bytes (B)', ratio: 1 },
           kb: { label: 'Kilobytes (KB)', ratio: 1024 },
@@ -342,7 +265,6 @@
       },
       length: {
         name: 'Length & Distance',
-        baseUnit: 'm',
         units: {
           mm: { label: 'Millimeters (mm)', ratio: 0.001 },
           cm: { label: 'Centimeters (cm)', ratio: 0.01 },
@@ -358,7 +280,6 @@
       },
       weight: {
         name: 'Weight & Mass',
-        baseUnit: 'kg',
         units: {
           mg: { label: 'Milligrams (mg)', ratio: 0.000001 },
           g: { label: 'Grams (g)', ratio: 0.001 },
@@ -383,7 +304,6 @@
       },
       speed: {
         name: 'Speed',
-        baseUnit: 'mps',
         units: {
           mps: { label: 'Meters / sec (m/s)', ratio: 1 },
           kmh: { label: 'Kilometers / hr (km/h)', ratio: 0.2777777778 },
@@ -396,7 +316,6 @@
       },
       volume: {
         name: 'Volume & Capacity',
-        baseUnit: 'l',
         units: {
           ml: { label: 'Milliliters (ml)', ratio: 0.001 },
           l: { label: 'Liters (L)', ratio: 1 },
@@ -411,7 +330,6 @@
       },
       time: {
         name: 'Time Duration',
-        baseUnit: 's',
         units: {
           ms: { label: 'Milliseconds (ms)', ratio: 0.001 },
           s: { label: 'Seconds (s)', ratio: 1 },
@@ -425,17 +343,12 @@
       }
     };
 
-    /**
-     * CENTRAL PLUGIN REGISTRY
-     * 7 isolated tools ready to mount on demand.
-     */
     const TOOLS_REGISTRY = {
-      // 1. Scratchpad & Diff Checker
       'scratchpad': {
         id: 'scratchpad',
         name: 'Scratchpad & Diff',
         category: 'Workspace',
-        description: 'Auto-saving multi-block notes and instant text difference comparison.',
+        description: 'Auto-saving multi-block notes and split-screen line difference comparison.',
         render: (toolId) => `
           <div class="flex flex-col h-full space-y-3 font-sans">
             <div class="flex items-center justify-between text-xs">
@@ -445,11 +358,9 @@
               </div>
               <span id="${toolId}_saveStatus" class="text-[10px] text-workspace-muted font-mono">Synced</span>
             </div>
-
             <div id="${toolId}_notesContainer" class="flex-1 flex flex-col space-y-2">
               <textarea id="${toolId}_textarea" class="w-full h-44 bg-workspace-bg border border-workspace-border rounded-lg p-3 text-xs font-mono text-workspace-text placeholder-workspace-muted focus:border-workspace-borderLight focus:outline-none resize-none" placeholder="Type or paste quick notes here (auto-saved locally)..."></textarea>
             </div>
-
             <div id="${toolId}_diffContainer" class="hidden flex-1 flex flex-col space-y-2">
               <div class="grid grid-cols-2 gap-2 h-36">
                 <textarea id="${toolId}_diffA" class="w-full h-full bg-workspace-bg border border-workspace-border rounded-lg p-2 text-[11px] font-mono text-workspace-text placeholder-workspace-muted focus:outline-none resize-none" placeholder="Original text..."></textarea>
@@ -477,22 +388,19 @@
         }
       },
 
-      // 2. Bulk URL Cleaner
       'url-cleaner': {
         id: 'url-cleaner',
         name: 'Bulk URL Cleaner',
         category: 'Links',
-        description: 'Extract URLs, strip tracking tags, and copy or open clean links.',
+        description: 'Extract URLs, strip tracking tags (UTM, fbclid, gclid), and copy clean links.',
         render: (toolId) => `
           <div class="flex flex-col h-full space-y-2.5 font-sans">
             <textarea id="${toolId}_input" class="w-full h-24 bg-workspace-bg border border-workspace-border rounded-lg p-2.5 text-xs font-mono text-workspace-text placeholder-workspace-muted focus:outline-none resize-none" placeholder="Paste messy text with URLs or links with ?utm_ params..."></textarea>
-            
             <div class="flex items-center gap-2">
               <button onclick="cleanUrls('${toolId}')" class="flex-1 py-1.5 bg-workspace-accent/10 border border-workspace-accent/30 hover:bg-workspace-accent/20 text-workspace-accent rounded-lg text-xs font-medium transition-all">Sanitize URLs</button>
               <button onclick="openAllCleanUrls('${toolId}')" class="px-3 py-1.5 bg-workspace-bg border border-workspace-border hover:border-workspace-borderLight text-workspace-text rounded-lg text-xs font-mono transition-all">Open All</button>
               <button onclick="copyCleanUrls('${toolId}')" class="px-3 py-1.5 bg-workspace-bg border border-workspace-border hover:border-workspace-borderLight text-workspace-text rounded-lg text-xs font-mono transition-all">Copy</button>
             </div>
-
             <div class="flex-1">
               <div class="text-[10px] font-mono text-workspace-muted mb-1 flex justify-between">
                 <span>Sanitized Output:</span>
@@ -502,15 +410,14 @@
             </div>
           </div>
         `,
-        init: (toolId) => {}
+        init: () => {}
       },
 
-      // 3. Text & Case Formatter
       'text-cleaner': {
         id: 'text-cleaner',
         name: 'Text & Case Formatter',
         category: 'Text',
-        description: 'Deduplicate lines, toggle cases, and trim whitespace formatting.',
+        description: 'Deduplicate lines, toggle cases, and count words and characters without uploads.',
         render: (toolId) => `
           <div class="flex flex-col h-full space-y-2.5 font-sans">
             <div class="grid grid-cols-4 gap-1.5 text-[11px] font-mono">
@@ -519,9 +426,7 @@
               <button onclick="transformCase('${toolId}', 'title')" class="py-1 bg-workspace-bg border border-workspace-border hover:border-workspace-borderLight rounded text-workspace-text">Title</button>
               <button onclick="transformCase('${toolId}', 'dedupe')" class="py-1 bg-workspace-bg border border-workspace-border hover:border-workspace-borderLight rounded text-workspace-text">Dedupe</button>
             </div>
-
             <textarea id="${toolId}_input" class="w-full h-36 bg-workspace-bg border border-workspace-border rounded-lg p-2.5 text-xs font-mono text-workspace-text placeholder-workspace-muted focus:outline-none resize-none" placeholder="Paste text to reformat..."></textarea>
-
             <div class="flex items-center justify-between text-[11px] font-mono text-workspace-muted">
               <div class="flex gap-2">
                 <span id="${toolId}_statsWords">0 words</span>
@@ -536,7 +441,6 @@
           const input = document.getElementById(`${toolId}_input`);
           const words = document.getElementById(`${toolId}_statsWords`);
           const chars = document.getElementById(`${toolId}_statsChars`);
-
           input.addEventListener('input', () => {
             const val = input.value;
             chars.textContent = `${val.length} chars`;
@@ -546,16 +450,14 @@
         }
       },
 
-      // 4. Instant QR Code Generator & Mobile Handoff
       'qr-generator': {
         id: 'qr-generator',
         name: 'Instant QR Handoff',
         category: 'Utilities',
-        description: 'Generate QR codes for links, phone dialer numbers, or plain text.',
+        description: 'Generate high-contrast QR codes for links, phone dialer numbers, or plain text.',
         render: (toolId) => `
           <div class="flex flex-col h-full space-y-3 font-sans">
             <textarea id="${toolId}_input" rows="2" class="w-full bg-workspace-bg border border-workspace-border rounded-lg p-2.5 text-xs text-workspace-text placeholder-workspace-muted focus:border-workspace-accent focus:outline-none font-mono resize-none" placeholder="Type or paste links, phrases, or a phone number..."></textarea>
-            
             <div id="${toolId}_telBar" class="hidden flex items-center justify-between px-2.5 py-1.5 rounded-lg bg-workspace-bg border border-workspace-border text-xs font-mono">
               <div class="flex items-center gap-1.5">
                 <span class="w-1.5 h-1.5 rounded-full bg-workspace-accent"></span>
@@ -566,11 +468,9 @@
                 <span>Open Phone Keypad</span>
               </label>
             </div>
-
             <div class="flex items-center justify-center p-3 bg-white rounded-lg border border-workspace-border w-fit mx-auto shadow-inner">
               <div id="${toolId}_canvas"></div>
             </div>
-
             <div class="flex items-center justify-between text-[11px] font-mono text-workspace-muted">
               <span id="${toolId}_charCount">0 characters</span>
               <div class="flex gap-2">
@@ -596,15 +496,10 @@
             container.innerHTML = '';
             const rawVal = input.value;
             const isPhone = isPotentialPhoneNumber(rawVal);
-
-            if (isPhone) {
-              telBar.classList.remove('hidden');
-            } else {
-              telBar.classList.add('hidden');
-            }
+            if (isPhone) telBar.classList.remove('hidden');
+            else telBar.classList.add('hidden');
 
             let textToEncode = rawVal.length > 0 ? String(rawVal) : 'https://tabkit.tools';
-
             if (isPhone && telToggle && telToggle.checked) {
               const sanitizedPhone = rawVal.trim().replace(/[\s().-]/g, '');
               textToEncode = 'tel:' + sanitizedPhone;
@@ -623,7 +518,7 @@
                   correctLevel: 2
                 });
               } catch (err) {
-                console.error('QR Generation error:', err);
+                console.error(err);
               }
             }
           }
@@ -634,12 +529,11 @@
         }
       },
 
-      // 5. Time Zone & Meeting Buddy
       'timezone-buddy': {
         id: 'timezone-buddy',
         name: 'Time Zone Buddy',
         category: 'Productivity',
-        description: 'Search world cities with synchronized local hour slider.',
+        description: 'Interactive world clock with 25,000+ searchable cities and synchronized hour slider.',
         render: (toolId) => `
           <div class="flex flex-col h-full space-y-3 font-sans">
             <div class="relative">
@@ -647,14 +541,11 @@
               <div id="${toolId}_statusBadge" class="absolute right-2.5 top-2 text-[10px] font-mono text-workspace-muted hidden"></div>
               <div id="${toolId}_results" class="absolute left-0 right-0 top-full mt-1 bg-workspace-surface border border-workspace-border rounded-lg max-h-52 overflow-y-auto hidden z-30 shadow-2xl p-1 text-xs"></div>
             </div>
-
             <div class="flex items-center justify-between text-xs font-mono">
               <span class="text-workspace-muted">Drag Hour:</span>
               <span id="${toolId}_selectedHour" class="text-workspace-accent font-bold text-sm">12:00 UTC</span>
             </div>
-
             <input id="${toolId}_slider" type="range" min="0" max="23" value="12" step="1" class="w-full accent-workspace-accent cursor-pointer bg-workspace-bg rounded-lg h-2" />
-
             <div id="${toolId}_zonesContainer" class="space-y-1.5 max-h-56 overflow-y-auto pr-0.5 font-mono text-xs"></div>
           </div>
         `,
@@ -739,12 +630,10 @@
               results.classList.add('hidden');
               return;
             }
-
             const data = await loadCitiesDatabase();
             if (!data) return;
 
             const matches = data.filter(item => item.tokens.includes(q)).slice(0, 50);
-
             if (!matches.length) {
               results.innerHTML = `<div class="p-2 text-center text-workspace-muted text-xs font-mono">No matching cities found</div>`;
             } else {
@@ -785,29 +674,25 @@
         }
       },
 
-      // 6. Quick Password & PIN Generator
       'password-generator': {
         id: 'password-generator',
         name: 'Password & PIN',
         category: 'Security',
-        description: 'Generate instant secure random passwords or multi-digit PIN codes.',
+        description: 'Generate instant cryptographically secure passwords or numeric PIN codes.',
         render: (toolId) => `
           <div class="flex flex-col h-full space-y-3 font-sans">
             <div class="flex gap-2 bg-workspace-bg p-1 rounded-lg border border-workspace-border text-xs">
               <button id="${toolId}_tabPass" onclick="setPwType('${toolId}', 'pass')" class="flex-1 py-1 rounded bg-workspace-surface text-workspace-accent font-medium">Password</button>
               <button id="${toolId}_tabPin" onclick="setPwType('${toolId}', 'pin')" class="flex-1 py-1 rounded text-workspace-muted hover:text-workspace-text font-medium">PIN Code</button>
             </div>
-
             <div class="relative">
               <input id="${toolId}_output" readonly type="text" class="w-full bg-workspace-bg border border-workspace-border rounded-lg p-2.5 text-sm font-mono text-workspace-accent pr-16 select-all focus:outline-none" />
               <button onclick="copyGeneratedPw('${toolId}')" class="absolute right-1.5 top-1.5 px-2.5 py-1 bg-workspace-surface hover:bg-workspace-border border border-workspace-border text-[11px] font-mono text-workspace-text rounded transition-all">Copy</button>
             </div>
-
             <div class="flex items-center justify-between text-xs font-mono text-workspace-muted">
               <span>Length: <strong id="${toolId}_lenLabel" class="text-workspace-text">16</strong></span>
               <input id="${toolId}_lenSlider" type="range" min="6" max="32" value="16" class="w-32 accent-workspace-accent cursor-pointer" />
             </div>
-
             <button onclick="generateNewPassword('${toolId}')" class="w-full py-2 bg-workspace-accent/10 border border-workspace-accent/30 hover:bg-workspace-accent/20 text-workspace-accent text-xs font-medium rounded-lg transition-all flex items-center justify-center gap-1.5">
               <span>⚡ Generate New</span>
             </button>
@@ -816,17 +701,14 @@
         init: (toolId) => {
           const slider = document.getElementById(`${toolId}_lenSlider`);
           const label = document.getElementById(`${toolId}_lenLabel`);
-
           slider.addEventListener('input', (e) => {
             label.textContent = e.target.value;
             generateNewPassword(toolId);
           });
-
           generateNewPassword(toolId);
         }
       },
 
-      // 7. Everyday Converter (Expanded 7-Category Any-to-Any Engine)
       'unit-converter': {
         id: 'unit-converter',
         name: 'Everyday Converter',
@@ -834,7 +716,6 @@
         description: 'Multi-category converter for data, length, mass, temperature, speed, volume, and time.',
         render: (toolId) => `
           <div class="flex flex-col h-full space-y-3 font-sans">
-            <!-- Top Controls: Category & Precision -->
             <div class="flex items-center justify-between gap-2">
               <select id="${toolId}_category" class="flex-1 bg-workspace-bg border border-workspace-border rounded-lg p-1.5 text-xs font-mono text-workspace-text focus:border-workspace-accent focus:outline-none">
                 <option value="digital">Digital Storage (B / KB / MB / GB...)</option>
@@ -845,7 +726,6 @@
                 <option value="volume">Volume (L, ml, gal, fl oz...)</option>
                 <option value="time">Time Duration (ms, s, min, h, d...)</option>
               </select>
-
               <select id="${toolId}_precision" title="Decimal precision" class="bg-workspace-bg border border-workspace-border rounded-lg p-1.5 text-xs font-mono text-workspace-muted hover:text-workspace-text focus:outline-none">
                 <option value="2">2 dec</option>
                 <option value="4" selected>4 dec</option>
@@ -853,28 +733,19 @@
                 <option value="0">0 dec</option>
               </select>
             </div>
-
-            <!-- Two-Way Unit Inputs Grid with Swap Button -->
             <div class="grid grid-cols-[1fr,auto,1fr] gap-2 items-center font-mono">
-              <!-- Left Unit Block -->
               <div class="space-y-1.5">
                 <select id="${toolId}_unitA" class="w-full bg-workspace-bg border border-workspace-border rounded p-1 text-[11px] text-workspace-text focus:outline-none"></select>
                 <input id="${toolId}_inputA" type="number" step="any" value="1" class="w-full bg-workspace-bg border border-workspace-border rounded p-2 text-xs text-workspace-text focus:border-workspace-accent focus:outline-none" />
               </div>
-
-              <!-- Swap Button -->
               <button id="${toolId}_btnSwap" type="button" title="Swap Units" class="p-1.5 mt-5 rounded bg-workspace-bg hover:bg-workspace-surfaceHover border border-workspace-border text-workspace-muted hover:text-workspace-accent transition-colors">
                 ⇄
               </button>
-
-              <!-- Right Unit Block -->
               <div class="space-y-1.5">
                 <select id="${toolId}_unitB" class="w-full bg-workspace-bg border border-workspace-border rounded p-1 text-[11px] text-workspace-text focus:outline-none"></select>
                 <input id="${toolId}_inputB" type="number" step="any" class="w-full bg-workspace-bg border border-workspace-border rounded p-2 text-xs text-workspace-accent font-bold focus:border-workspace-accent focus:outline-none" />
               </div>
             </div>
-
-            <!-- Formula / Ratio Feedback Bar -->
             <div id="${toolId}_formula" class="text-[11px] font-mono text-center text-workspace-muted pt-2 border-t border-workspace-border/50"></div>
           </div>
         `,
@@ -892,11 +763,9 @@
             const catKey = categorySelect.value;
             const config = CONVERTER_CONFIG[catKey];
             const entries = Object.entries(config.units);
-
             const optionsHtml = entries.map(([key, u]) => `<option value="${key}">${u.label}</option>`).join('');
             unitA.innerHTML = optionsHtml;
             unitB.innerHTML = optionsHtml;
-
             unitA.value = config.defaultA;
             unitB.value = config.defaultB;
           }
@@ -905,25 +774,20 @@
             if (isNaN(val) || val === '') return '';
             val = parseFloat(val);
 
-            // Special case: Temperature conversions
             if (catKey === 'temp') {
               let celsius = val;
               if (fromKey === 'f') celsius = (val - 32) * (5 / 9);
               else if (fromKey === 'k') celsius = val - 273.15;
-
               if (toKey === 'c') return celsius;
               if (toKey === 'f') return (celsius * (9 / 5)) + 32;
               if (toKey === 'k') return celsius + 273.15;
               return celsius;
             }
 
-            // Ratio-based conversion via base unit
             const config = CONVERTER_CONFIG[catKey];
             const fromRatio = config.units[fromKey].ratio;
             const toRatio = config.units[toKey].ratio;
-
-            const baseVal = val * fromRatio;
-            return baseVal / toRatio;
+            return (val * fromRatio) / toRatio;
           }
 
           function formatNumber(num) {
@@ -934,10 +798,7 @@
 
           function calculateFromA() {
             const catKey = categorySelect.value;
-            if (inputA.value === '') {
-              inputB.value = '';
-              return;
-            }
+            if (inputA.value === '') { inputB.value = ''; return; }
             const res = convertValue(inputA.value, unitA.value, unitB.value, catKey);
             inputB.value = formatNumber(res);
             updateFormulaBar();
@@ -945,10 +806,7 @@
 
           function calculateFromB() {
             const catKey = categorySelect.value;
-            if (inputB.value === '') {
-              inputA.value = '';
-              return;
-            }
+            if (inputB.value === '') { inputA.value = ''; return; }
             const res = convertValue(inputB.value, unitB.value, unitA.value, catKey);
             inputA.value = formatNumber(res);
             updateFormulaBar();
@@ -956,9 +814,6 @@
 
           function updateFormulaBar() {
             const catKey = categorySelect.value;
-            const uAName = unitA.options[unitA.selectedIndex]?.text || unitA.value;
-            const uBName = unitB.options[unitB.selectedIndex]?.text || unitB.value;
-
             if (catKey === 'temp') {
               formula.textContent = `${unitA.value.toUpperCase()} ↔ ${unitB.value.toUpperCase()}`;
             } else {
@@ -967,35 +822,25 @@
             }
           }
 
-          categorySelect.addEventListener('change', () => {
-            populateUnitOptions();
-            calculateFromA();
-          });
-
+          categorySelect.addEventListener('change', () => { populateUnitOptions(); calculateFromA(); });
           precisionSelect.addEventListener('change', calculateFromA);
           unitA.addEventListener('change', calculateFromA);
           unitB.addEventListener('change', calculateFromA);
-
           inputA.addEventListener('input', calculateFromA);
           inputB.addEventListener('input', calculateFromB);
-
           btnSwap.addEventListener('click', () => {
-            const tempUnit = unitA.value;
+            const temp = unitA.value;
             unitA.value = unitB.value;
-            unitB.value = tempUnit;
+            unitB.value = temp;
             calculateFromA();
           });
 
-          // Mount defaults
           populateUnitOptions();
           calculateFromA();
         }
       }
     };
 
-    /**
-     * WORKSPACE STATE MANAGER
-     */
     let activePinnedTools = JSON.parse(localStorage.getItem('tabkit_pinned_tools') || '[]');
 
     function saveWorkspaceState() {
@@ -1023,12 +868,10 @@
       const emptyState = document.getElementById('emptyWorkspaceState');
 
       grid.innerHTML = '';
-
       if (activePinnedTools.length === 0) {
         emptyState.classList.remove('hidden');
         return;
       }
-
       emptyState.classList.add('hidden');
 
       activePinnedTools.forEach(toolId => {
@@ -1056,15 +899,11 @@
             ${tool.render(toolId)}
           </div>
         `;
-
         grid.appendChild(card);
         tool.init(toolId);
       });
     }
 
-    /**
-     * TOOL 1: SCRATCHPAD & DIFF FUNCTIONS
-     */
     function toggleScratchMode(toolId, mode) {
       const notesBox = document.getElementById(`${toolId}_notesContainer`);
       const diffBox = document.getElementById(`${toolId}_diffContainer`);
@@ -1095,7 +934,6 @@
         const lineA = textA[i] || '';
         const lineB = textB[i] || '';
         const lineDiv = document.createElement('div');
-
         if (lineA === lineB) {
           lineDiv.className = 'text-workspace-muted';
           lineDiv.textContent = `  ${lineA}`;
@@ -1109,14 +947,10 @@
       }
     }
 
-    /**
-     * TOOL 2: BULK URL CLEANER FUNCTIONS
-     */
     function cleanUrls(toolId) {
       const input = document.getElementById(`${toolId}_input`).value;
       const countEl = document.getElementById(`${toolId}_count`);
       const output = document.getElementById(`${toolId}_output`);
-
       const urlRegex = /(https?:\/\/[^\s]+)/g;
       const matches = input.match(urlRegex) || [];
 
@@ -1156,24 +990,13 @@
       alert('Cleaned links copied to clipboard.');
     }
 
-    /**
-     * TOOL 3: TEXT & CASE CLEANER FUNCTIONS
-     */
     function transformCase(toolId, type) {
       const input = document.getElementById(`${toolId}_input`);
       let val = input.value;
-
-      if (type === 'upper') {
-        input.value = val.toUpperCase();
-      } else if (type === 'lower') {
-        input.value = val.toLowerCase();
-      } else if (type === 'title') {
-        input.value = val.replace(/\w\S*/g, txt => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase());
-      } else if (type === 'dedupe') {
-        const lines = val.split('\n');
-        input.value = [...new Set(lines)].join('\n');
-      }
-
+      if (type === 'upper') input.value = val.toUpperCase();
+      else if (type === 'lower') input.value = val.toLowerCase();
+      else if (type === 'title') input.value = val.replace(/\w\S*/g, txt => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase());
+      else if (type === 'dedupe') input.value = [...new Set(val.split('\n'))].join('\n');
       input.dispatchEvent(new Event('input'));
     }
 
@@ -1183,9 +1006,6 @@
       alert('Text copied to clipboard.');
     }
 
-    /**
-     * TOOL 4: QR CODE HELPERS
-     */
     function copyQrSource(toolId) {
       const input = document.getElementById(`${toolId}_input`);
       navigator.clipboard.writeText(input.value);
@@ -1197,14 +1017,7 @@
       if (!container) return;
       const img = container.querySelector('img');
       const canvas = container.querySelector('canvas');
-
-      let url = null;
-      if (img && img.src) {
-        url = img.src;
-      } else if (canvas) {
-        url = canvas.toDataURL('image/png');
-      }
-
+      let url = img && img.src ? img.src : (canvas ? canvas.toDataURL('image/png') : null);
       if (!url) return alert('No QR code generated yet.');
       const a = document.createElement('a');
       a.href = url;
@@ -1212,11 +1025,7 @@
       a.click();
     }
 
-    /**
-     * TOOL 6: PASSWORD & PIN GENERATOR
-     */
     let currentPwMode = 'pass';
-
     function setPwType(toolId, mode) {
       currentPwMode = mode;
       const tabPass = document.getElementById(`${toolId}_tabPass`);
@@ -1227,15 +1036,11 @@
       if (mode === 'pass') {
         tabPass.className = 'flex-1 py-1 rounded bg-workspace-surface text-workspace-accent font-medium';
         tabPin.className = 'flex-1 py-1 rounded text-workspace-muted hover:text-workspace-text font-medium';
-        slider.min = '8';
-        slider.max = '32';
-        slider.value = '16';
+        slider.min = '8'; slider.max = '32'; slider.value = '16';
       } else {
         tabPin.className = 'flex-1 py-1 rounded bg-workspace-surface text-workspace-accent font-medium';
         tabPass.className = 'flex-1 py-1 rounded text-workspace-muted hover:text-workspace-text font-medium';
-        slider.min = '4';
-        slider.max = '8';
-        slider.value = '6';
+        slider.min = '4'; slider.max = '8'; slider.value = '6';
       }
       label.textContent = slider.value;
       generateNewPassword(toolId);
@@ -1245,21 +1050,14 @@
       const output = document.getElementById(`${toolId}_output`);
       const slider = document.getElementById(`${toolId}_lenSlider`);
       if (!output || !slider) return;
-
       const len = parseInt(slider.value, 10);
-      let chars = '';
-      if (currentPwMode === 'pass') {
-        chars = 'abcdefghjkmnpqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ23456789!@#$%&*?_';
-      } else {
-        chars = '0123456789';
-      }
-
+      let chars = currentPwMode === 'pass' 
+        ? 'abcdefghjkmnpqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ23456789!@#$%&*?_' 
+        : '0123456789';
       let res = '';
       const array = new Uint32Array(len);
       window.crypto.getRandomValues(array);
-      for (let i = 0; i < len; i++) {
-        res += chars[array[i] % chars.length];
-      }
+      for (let i = 0; i < len; i++) res += chars[array[i] % chars.length];
       output.value = res;
     }
 
@@ -1269,9 +1067,6 @@
       alert('Copied to clipboard.');
     }
 
-    /**
-     * STORAGE & UTILITIES
-     */
     function updateStorageIndicator() {
       let totalBytes = 0;
       for (let key in localStorage) {
@@ -1288,9 +1083,6 @@
       return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
     }
 
-    /**
-     * COMMAND PALETTE
-     */
     const commandModal = document.getElementById('commandPaletteModal');
     const commandInput = document.getElementById('commandInput');
     const commandResults = document.getElementById('commandResultsList');
@@ -1339,29 +1131,19 @@
 
     commandInput.addEventListener('input', (e) => renderCommandList(e.target.value));
 
-    /**
-     * CAPTURE-PHASE KEYBOARD SHORTCUTS
-     */
     document.addEventListener('keydown', (e) => {
       const isCmdOrCtrl = e.ctrlKey || e.metaKey;
       const isKeyK = e.code === 'KeyK' || (e.key && e.key.toLowerCase() === 'k');
-
       if (isCmdOrCtrl && isKeyK) {
         e.preventDefault();
-        e.stopPropagation();
-        e.stopImmediatePropagation();
         openCommandPalette();
-        return false;
       }
-
       if (e.key === 'Escape' && !commandModal.classList.contains('hidden')) {
         e.preventDefault();
-        e.stopPropagation();
         closeCommandPalette();
       }
     }, true);
 
-    // Event Listeners
     document.getElementById('btnOpenCommandPalette').addEventListener('click', openCommandPalette);
     document.getElementById('btnOpenToolCatalog').addEventListener('click', openCommandPalette);
     commandModal.addEventListener('click', (e) => {
@@ -1380,7 +1162,6 @@
       }
     });
 
-    // Boot
     renderWorkbench();
     updateStorageIndicator();
   </script>
