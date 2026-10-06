@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>About TabKit Tools | Privacy-First, Zero-Server Browser Utilities</title>
-  <meta name="description" content="Why TabKit Tools was built: a single-tab browser workbench running 100% in your client sandbox. No paywalls, no tracking, and no server uploads." />
+  <title>About TabKit Tools | Clean, Fast Everyday Browser Utilities</title>
+  <meta name="description" content="Why TabKit Tools exists: quick, clean tools for everyday browser tasks without ads, signups, or tracking." />
   <link rel="canonical" href="https://tabkit.tools/about" />
 
   <!-- Preconnect and Fonts -->
@@ -41,28 +41,6 @@
     };
   </script>
 
-  <!-- Structured Data -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "AboutPage",
-    "name": "About TabKit Tools",
-    "url": "https://tabkit.tools/about",
-    "description": "TabKit Tools is a fast, local-first browser workbench providing developer and daily productivity utilities that run entirely in the user's browser.",
-    "mainEntity": {
-      "@type": "SoftwareApplication",
-      "name": "TabKit Tools",
-      "applicationCategory": "UtilitiesApplication",
-      "operatingSystem": "All",
-      "offers": {
-        "@type": "Offer",
-        "price": "0",
-        "priceCurrency": "USD"
-      }
-    }
-  }
-  </script>
-
   <style>
     ::-webkit-scrollbar {
       width: 6px;
@@ -74,15 +52,12 @@
       background: #262A34;
       border-radius: 3px;
     }
-    ::-webkit-scrollbar-thumb:hover {
-      background: #353B49;
-    }
   </style>
 </head>
 
 <body class="bg-workspace-bg text-workspace-text font-sans antialiased min-h-screen flex flex-col selection:bg-workspace-accent selection:text-black">
 
-  <!-- ==================== HEADER RAIL ==================== -->
+  <!-- ==================== HEADER ==================== -->
   <header class="h-12 border-b border-workspace-border bg-workspace-surface/80 backdrop-blur-md px-4 flex items-center justify-between sticky top-0 z-40">
     <a href="/" class="flex items-center gap-2 group">
       <svg class="w-5 h-5 text-workspace-accent transition-transform group-hover:scale-105" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
@@ -98,116 +73,78 @@
         <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
           <path stroke-linecap="round" stroke-linejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
         </svg>
-        <span>Open Workbench</span>
+        <span>Back to Tools</span>
       </a>
     </div>
   </header>
 
   <!-- ==================== MAIN CONTENT ==================== -->
-  <main class="flex-1 max-w-3xl mx-auto px-4 py-12 md:py-16 w-full">
+  <main class="flex-1 max-w-2xl mx-auto px-4 py-12 md:py-16 w-full">
     
-    <!-- Manifesto Header -->
-    <div class="mb-12">
-      <div class="inline-flex items-center gap-2 px-2.5 py-1 rounded-full bg-workspace-accent/10 border border-workspace-accent/20 text-workspace-accent text-xs font-mono font-medium mb-4">
-        <span class="w-1.5 h-1.5 rounded-full bg-workspace-accent animate-pulse"></span>
-        Manifesto &amp; Architecture
-      </div>
-      <h1 class="text-2xl md:text-3xl font-bold tracking-tight text-workspace-text mb-4">
-        The web utility experience is broken. TabKit is the reset button.
+    <!-- Hero / Intro -->
+    <div class="mb-10 text-center sm:text-left">
+      <span class="text-xs font-mono font-medium text-workspace-accent uppercase tracking-wider mb-2 block">Simple by design</span>
+      <h1 class="text-2xl md:text-3xl font-bold tracking-tight text-workspace-text mb-3">
+        One clean tab for your quick daily tasks.
       </h1>
       <p class="text-sm md:text-base text-workspace-muted leading-relaxed">
-        Most free online tools have become bloated traps: cookie banners, video popups, mandatory email signups, and servers scraping your private files. TabKit Tools was built on a single premise: <strong class="text-workspace-text">your daily utilities should live entirely inside your browser</strong>.
+        Ever notice how doing simple things online—like cleaning messy links, jotting a quick note, or formatting text—forces you to open 5 different websites covered in popup ads and signup forms? TabKit puts those small tools together in one calm, quiet tab.
       </p>
     </div>
 
-    <!-- Core Pillars Grid -->
-    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-12">
+    <!-- The 3 Basic Rules -->
+    <div class="space-y-4 mb-10">
       
-      <div class="p-5 rounded-xl border border-workspace-border bg-workspace-surface flex flex-col justify-between">
-        <div>
-          <div class="w-8 h-8 rounded-lg bg-workspace-bg border border-workspace-border flex items-center justify-center text-workspace-accent mb-3 font-mono text-xs font-bold">
-            01
-          </div>
-          <h2 class="text-sm font-bold text-workspace-text mb-1">100% Client-Side Sandbox</h2>
-          <p class="text-xs text-workspace-muted leading-relaxed">
-            Every tool runs directly on your computer using modern HTML5 Web APIs, WebAssembly, and local storage. No text, confidential links, or files ever touch an external server.
-          </p>
+      <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface flex items-start gap-4">
+        <div class="w-8 h-8 rounded-lg bg-workspace-bg border border-workspace-border flex items-center justify-center text-workspace-accent shrink-0 font-bold text-sm">
+          ✓
         </div>
-        <div class="mt-4 pt-3 border-t border-workspace-border/50 text-[11px] font-mono text-workspace-accent">
-          Zero backend telemetry
+        <div>
+          <h2 class="text-sm font-bold text-workspace-text mb-0.5">No accounts, no email required</h2>
+          <p class="text-xs text-workspace-muted leading-relaxed">
+            You don't need to sign up, create a password, or verify an email address to use anything here. Open the tab, get your task done, and move on with your day.
+          </p>
         </div>
       </div>
 
-      <div class="p-5 rounded-xl border border-workspace-border bg-workspace-surface flex flex-col justify-between">
-        <div>
-          <div class="w-8 h-8 rounded-lg bg-workspace-bg border border-workspace-border flex items-center justify-center text-workspace-accent mb-3 font-mono text-xs font-bold">
-            02
-          </div>
-          <h2 class="text-sm font-bold text-workspace-text mb-1">Single-Tab Command Center</h2>
-          <p class="text-xs text-workspace-muted leading-relaxed">
-            Instead of cluttering your browser with 15 separate tabs for basic daily tasks, pin TabKit as your primary tab. Keep notes, scrub tracking links, and format text on one unified screen.
-          </p>
+      <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface flex items-start gap-4">
+        <div class="w-8 h-8 rounded-lg bg-workspace-bg border border-workspace-border flex items-center justify-center text-workspace-accent shrink-0 font-bold text-sm">
+          🔒
         </div>
-        <div class="mt-4 pt-3 border-t border-workspace-border/50 text-[11px] font-mono text-workspace-accent">
-          One pinned tab replaces 10
+        <div>
+          <h2 class="text-sm font-bold text-workspace-text mb-0.5">Your work stays on your computer</h2>
+          <p class="text-xs text-workspace-muted leading-relaxed">
+            Whatever you write, paste, or clean stays inside your browser. We don't save your text to any server or track what you are working on.
+          </p>
         </div>
       </div>
 
-      <div class="p-5 rounded-xl border border-workspace-border bg-workspace-surface flex flex-col justify-between">
+      <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface flex items-start gap-4">
+        <div class="w-8 h-8 rounded-lg bg-workspace-bg border border-workspace-border flex items-center justify-center text-workspace-accent shrink-0 font-bold text-sm">
+          ⚡
+        </div>
         <div>
-          <div class="w-8 h-8 rounded-lg bg-workspace-bg border border-workspace-border flex items-center justify-center text-workspace-accent mb-3 font-mono text-xs font-bold">
-            03
-          </div>
-          <h2 class="text-sm font-bold text-workspace-text mb-1">Zero Paywalls &amp; Zero Accounts</h2>
+          <h2 class="text-sm font-bold text-workspace-text mb-0.5">Customize your own desk</h2>
           <p class="text-xs text-workspace-muted leading-relaxed">
-            No "free trial" baits, no watermarks, and no "Create an account to export" gates. The tools load instantly and execute their job in seconds without asking for your email address.
+            Pick only the tools you actually use and pin them to your screen. When you close your browser and come back tomorrow, your notes and tools are right where you left them.
           </p>
-        </div>
-        <div class="mt-4 pt-3 border-t border-workspace-border/50 text-[11px] font-mono text-workspace-accent">
-          No signup required
-        </div>
-      </div>
-
-      <div class="p-5 rounded-xl border border-workspace-border bg-workspace-surface flex flex-col justify-between">
-        <div>
-          <div class="w-8 h-8 rounded-lg bg-workspace-bg border border-workspace-border flex items-center justify-center text-workspace-accent mb-3 font-mono text-xs font-bold">
-            04
-          </div>
-          <h2 class="text-sm font-bold text-workspace-text mb-1">Eye-Comfort Ergonomics</h2>
-          <p class="text-xs text-workspace-muted leading-relaxed">
-            Designed on a low-contrast matte slate canvas (`#0F1117`) to eliminate optical halation and pupil fatigue caused by harsh black backgrounds or blinding white utilities during long shifts.
-          </p>
-        </div>
-        <div class="mt-4 pt-3 border-t border-workspace-border/50 text-[11px] font-mono text-workspace-accent">
-          Low fatigue palette
         </div>
       </div>
 
     </div>
 
-    <!-- Technical Transparency Section -->
-    <div class="p-6 rounded-xl border border-workspace-border bg-workspace-surface/50 mb-12">
-      <h2 class="text-sm font-bold text-workspace-text mb-2 font-mono uppercase tracking-wider">How Your Data Is Handled</h2>
-      <ul class="space-y-3 text-xs text-workspace-muted leading-relaxed font-sans">
-        <li class="flex items-start gap-2">
-          <span class="text-workspace-accent font-bold mt-0.5">✓</span>
-          <span><strong class="text-workspace-text">Local Storage Isolation:</strong> Notes, preferences, and pinned configurations are saved strictly to your browser's private local key-value store.</span>
-        </li>
-        <li class="flex items-start gap-2">
-          <span class="text-workspace-accent font-bold mt-0.5">✓</span>
-          <span><strong class="text-workspace-text">In-Memory Execution:</strong> Heavy operations execute in temporary browser memory and are wiped when the tab closes.</span>
-        </li>
-        <li class="flex items-start gap-2">
-          <span class="text-workspace-accent font-bold mt-0.5">✓</span>
-          <span><strong class="text-workspace-text">Offline Capability:</strong> Once loaded, the core workbench functions entirely without an active internet connection.</span>
-        </li>
-      </ul>
+    <!-- How to use it box -->
+    <div class="p-5 rounded-xl border border-workspace-border bg-workspace-surface/50 mb-10">
+      <h2 class="text-xs font-mono uppercase tracking-wider text-workspace-text font-bold mb-2">How to get the most out of it</h2>
+      <p class="text-xs text-workspace-muted leading-relaxed">
+        Pin <strong class="text-workspace-text">tabkit.tools</strong> as your first browser tab at work or home. Whenever you need to take a quick scratchpad note, strip messy tracking codes off a link, or compare two versions of text, it's just one click away.
+      </p>
     </div>
 
-    <!-- Call to Action -->
-    <div class="text-center pt-4">
-      <a href="/" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-workspace-accent hover:bg-workspace-accentHover text-black text-xs font-bold transition-all shadow-lg shadow-workspace-accent/10">
-        <span>Launch TabKit Workbench</span>
+    <!-- Action -->
+    <div class="text-center sm:text-left">
+      <a href="/" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-workspace-accent hover:bg-workspace-accentHover text-black text-xs font-bold transition-all">
+        <span>Go to Workspace</span>
         <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
           <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
         </svg>
@@ -218,13 +155,12 @@
 
   <!-- ==================== FOOTER ==================== -->
   <footer class="h-10 border-t border-workspace-border bg-workspace-surface px-4 flex items-center justify-between text-[11px] font-mono text-workspace-muted">
-    <div>TabKit Tools • All processing happens on your device</div>
+    <div>TabKit Tools</div>
     <div class="flex items-center gap-4">
-      <a href="/" class="hover:text-workspace-accent transition-colors">Workbench</a>
+      <a href="/" class="hover:text-workspace-accent transition-colors">Tools</a>
       <span class="text-workspace-borderLight">•</span>
       <span class="text-workspace-text">About</span>
     </div>
   </footer>
 
 </body>
-</html>
