@@ -173,7 +173,7 @@
             <span>Instant QR Handoff</span>
             <span class="text-workspace-accent">+</span>
           </div>
-          <p class="text-[11px] text-workspace-muted">Generate instant QR codes to beam links or text to your phone.</p>
+          <p class="text-[11px] text-workspace-muted">Generate instant QR codes for links, numbers, phrases, or notes.</p>
         </div>
 
         <div onclick="pinTool('timezone-buddy')" class="p-3.5 rounded-xl border border-workspace-border hover:border-workspace-accent/50 bg-workspace-surface hover:bg-workspace-surfaceHover cursor-pointer transition-all">
@@ -181,7 +181,7 @@
             <span>Time Zone Buddy</span>
             <span class="text-workspace-accent">+</span>
           </div>
-          <p class="text-[11px] text-workspace-muted">Search every country and city in the world (e.g. Osaka, Miami, Sousse, Doha).</p>
+          <p class="text-[11px] text-workspace-muted">Search global cities with synchronized local hour slider.</p>
         </div>
       </div>
 
@@ -246,215 +246,91 @@
   <!-- ==================== SCRIPT: PLUGIN REGISTRY & CORE ==================== -->
   <script>
     /**
-     * CITY & REGION ALIAS DICTIONARY
-     * Bridges popular non-anchor world cities to their canonical IANA timezones.
+     * UNIVERSAL CITY & TIMEZONE LAZY-LOAD LOADER
+     * Adapts automatically to array-of-tuples, array-of-objects, or indexed JSON formats.
      */
-    const CITY_ZONE_ALIASES = [
-      // Japan
-      { city: 'Osaka', country: 'Japan', iana: 'Asia/Tokyo' },
-      { city: 'Kyoto', country: 'Japan', iana: 'Asia/Tokyo' },
-      { city: 'Yokohama', country: 'Japan', iana: 'Asia/Tokyo' },
-      { city: 'Nagoya', country: 'Japan', iana: 'Asia/Tokyo' },
-      { city: 'Sapporo', country: 'Japan', iana: 'Asia/Tokyo' },
-      { city: 'Fukuoka', country: 'Japan', iana: 'Asia/Tokyo' },
-      { city: 'Kobe', country: 'Japan', iana: 'Asia/Tokyo' },
-      { city: 'Hiroshima', country: 'Japan', iana: 'Asia/Tokyo' },
+    let citiesDataset = null;
+    let isFetchingCities = false;
 
-      // United States
-      { city: 'San Francisco', country: 'United States', iana: 'America/Los_Angeles' },
-      { city: 'Seattle', country: 'United States', iana: 'America/Los_Angeles' },
-      { city: 'San Diego', country: 'United States', iana: 'America/Los_Angeles' },
-      { city: 'San Jose', country: 'United States', iana: 'America/Los_Angeles' },
-      { city: 'Las Vegas', country: 'United States', iana: 'America/Los_Angeles' },
-      { city: 'Portland', country: 'United States', iana: 'America/Los_Angeles' },
-      { city: 'Miami', country: 'United States', iana: 'America/New_York' },
-      { city: 'Boston', country: 'United States', iana: 'America/New_York' },
-      { city: 'Atlanta', country: 'United States', iana: 'America/New_York' },
-      { city: 'Washington DC', country: 'United States', iana: 'America/New_York' },
-      { city: 'Philadelphia', country: 'United States', iana: 'America/New_York' },
-      { city: 'Houston', country: 'United States', iana: 'America/Chicago' },
-      { city: 'Dallas', country: 'United States', iana: 'America/Chicago' },
-      { city: 'Austin', country: 'United States', iana: 'America/Chicago' },
-      { city: 'Salt Lake City', country: 'United States', iana: 'America/Denver' },
+    async function loadCitiesDatabase(onProgress) {
+      if (citiesDataset) return citiesDataset;
+      if (isFetchingCities) return null;
+      isFetchingCities = true;
 
-      // Qatar & Gulf
-      { city: 'Al Rayyan', country: 'Qatar', iana: 'Asia/Qatar' },
-      { city: 'Al Wakrah', country: 'Qatar', iana: 'Asia/Qatar' },
-      { city: 'Al Khor', country: 'Qatar', iana: 'Asia/Qatar' },
-      { city: 'Lusail', country: 'Qatar', iana: 'Asia/Qatar' },
-      { city: 'Abu Dhabi', country: 'United Arab Emirates', iana: 'Asia/Dubai' },
-      { city: 'Sharjah', country: 'United Arab Emirates', iana: 'Asia/Dubai' },
-      { city: 'Jeddah', country: 'Saudi Arabia', iana: 'Asia/Riyadh' },
-      { city: 'Dammam', country: 'Saudi Arabia', iana: 'Asia/Riyadh' },
-      { city: 'Mecca', country: 'Saudi Arabia', iana: 'Asia/Riyadh' },
-      { city: 'Medina', country: 'Saudi Arabia', iana: 'Asia/Riyadh' },
-      { city: 'Manama', country: 'Bahrain', iana: 'Asia/Bahrain' },
-      { city: 'Kuwait City', country: 'Kuwait', iana: 'Asia/Kuwait' },
-      { city: 'Muscat', country: 'Oman', iana: 'Asia/Muscat' },
-
-      // Tunisia & North Africa
-      { city: 'Sfax', country: 'Tunisia', iana: 'Africa/Tunis' },
-      { city: 'Sousse', country: 'Tunisia', iana: 'Africa/Tunis' },
-      { city: 'Kairouan', country: 'Tunisia', iana: 'Africa/Tunis' },
-      { city: 'Bizerte', country: 'Tunisia', iana: 'Africa/Tunis' },
-      { city: 'Gabes', country: 'Tunisia', iana: 'Africa/Tunis' },
-      { city: 'Monastir', country: 'Tunisia', iana: 'Africa/Tunis' },
-      { city: 'Sidi Bouzid', country: 'Tunisia', iana: 'Africa/Tunis' },
-      { city: 'Alexandria', country: 'Egypt', iana: 'Africa/Cairo' },
-      { city: 'Giza', country: 'Egypt', iana: 'Africa/Cairo' },
-      { city: 'Marrakech', country: 'Morocco', iana: 'Africa/Casablanca' },
-      { city: 'Rabat', country: 'Morocco', iana: 'Africa/Casablanca' },
-      { city: 'Oran', country: 'Algeria', iana: 'Africa/Algiers' },
-
-      // United Kingdom & Europe
-      { city: 'Manchester', country: 'United Kingdom', iana: 'Europe/London' },
-      { city: 'Birmingham', country: 'United Kingdom', iana: 'Europe/London' },
-      { city: 'Edinburgh', country: 'United Kingdom', iana: 'Europe/London' },
-      { city: 'Glasgow', country: 'United Kingdom', iana: 'Europe/London' },
-      { city: 'Lyon', country: 'France', iana: 'Europe/Paris' },
-      { city: 'Marseille', country: 'France', iana: 'Europe/Paris' },
-      { city: 'Nice', country: 'France', iana: 'Europe/Paris' },
-      { city: 'Munich', country: 'Germany', iana: 'Europe/Berlin' },
-      { city: 'Frankfurt', country: 'Germany', iana: 'Europe/Berlin' },
-      { city: 'Hamburg', country: 'Germany', iana: 'Europe/Berlin' },
-      { city: 'Barcelona', country: 'Spain', iana: 'Europe/Madrid' },
-      { city: 'Valencia', country: 'Spain', iana: 'Europe/Madrid' },
-      { city: 'Seville', country: 'Spain', iana: 'Europe/Madrid' },
-      { city: 'Milan', country: 'Italy', iana: 'Europe/Rome' },
-      { city: 'Naples', country: 'Italy', iana: 'Europe/Rome' },
-      { city: 'Geneva', country: 'Switzerland', iana: 'Europe/Zurich' },
-
-      // Canada & Australia
-      { city: 'Montreal', country: 'Canada', iana: 'America/Toronto' },
-      { city: 'Ottawa', country: 'Canada', iana: 'America/Toronto' },
-      { city: 'Calgary', country: 'Canada', iana: 'America/Edmonton' },
-      { city: 'Melbourne', country: 'Australia', iana: 'Australia/Melbourne' },
-      { city: 'Brisbane', country: 'Australia', iana: 'Australia/Brisbane' },
-      { city: 'Gold Coast', country: 'Australia', iana: 'Australia/Brisbane' },
-
-      // India & Asia
-      { city: 'Mumbai', country: 'India', iana: 'Asia/Kolkata' },
-      { city: 'Bangalore', country: 'India', iana: 'Asia/Kolkata' },
-      { city: 'Hyderabad', country: 'India', iana: 'Asia/Kolkata' },
-      { city: 'Chennai', country: 'India', iana: 'Asia/Kolkata' },
-      { city: 'Beijing', country: 'China', iana: 'Asia/Shanghai' },
-      { city: 'Shenzhen', country: 'China', iana: 'Asia/Shanghai' },
-      { city: 'Guangzhou', country: 'China', iana: 'Asia/Shanghai' }
-    ];
-
-    const KNOWN_COUNTRY_MAPPINGS = {
-      'Qatar': ['Asia/Qatar'],
-      'Tunisia': ['Africa/Tunis'],
-      'Japan': ['Asia/Tokyo'],
-      'United States': ['America/New_York', 'America/Chicago', 'America/Denver', 'America/Los_Angeles', 'America/Anchorage', 'Pacific/Honolulu', 'America/Phoenix', 'America/Detroit', 'America/Indiana/Indianapolis'],
-      'USA': ['America/New_York', 'America/Chicago', 'America/Denver', 'America/Los_Angeles', 'America/Anchorage', 'Pacific/Honolulu'],
-      'United Kingdom': ['Europe/London'],
-      'UK': ['Europe/London'],
-      'France': ['Europe/Paris'],
-      'Germany': ['Europe/Berlin'],
-      'Canada': ['America/Toronto', 'America/Vancouver', 'America/Montreal', 'America/Edmonton', 'America/Winnipeg', 'America/Halifax', 'America/St_Johns'],
-      'Australia': ['Australia/Sydney', 'Australia/Melbourne', 'Australia/Brisbane', 'Australia/Perth', 'Australia/Adelaide', 'Australia/Darwin', 'Australia/Hobart'],
-      'United Arab Emirates': ['Asia/Dubai'],
-      'UAE': ['Asia/Dubai'],
-      'Saudi Arabia': ['Asia/Riyadh'],
-      'Egypt': ['Africa/Cairo'],
-      'Morocco': ['Africa/Casablanca'],
-      'Algeria': ['Africa/Algiers'],
-      'Turkey': ['Europe/Istanbul'],
-      'China': ['Asia/Shanghai', 'Asia/Urumqi', 'Asia/Hong_Kong', 'Asia/Macau'],
-      'India': ['Asia/Kolkata'],
-      'Pakistan': ['Asia/Karachi'],
-      'Russia': ['Europe/Moscow', 'Asia/Yekaterinburg', 'Asia/Novosibirsk', 'Asia/Krasnoyarsk', 'Asia/Irkutsk', 'Asia/Yakutsk', 'Asia/Vladivostok', 'Asia/Magadan', 'Asia/Kamchatka'],
-      'Brazil': ['America/Sao_Paulo', 'America/Manaus', 'America/Fortaleza', 'America/Recife', 'America/Cuiaba'],
-      'Mexico': ['America/Mexico_City', 'America/Cancun', 'America/Tijuana', 'America/Monterrey'],
-      'Spain': ['Europe/Madrid', 'Atlantic/Canary'],
-      'Italy': ['Europe/Rome'],
-      'Netherlands': ['Europe/Amsterdam'],
-      'Switzerland': ['Europe/Zurich'],
-      'Sweden': ['Europe/Stockholm'],
-      'Norway': ['Europe/Oslo'],
-      'South Korea': ['Asia/Seoul'],
-      'Singapore': ['Asia/Singapore'],
-      'Malaysia': ['Asia/Kuala_Lumpur'],
-      'Indonesia': ['Asia/Jakarta', 'Asia/Makassar', 'Asia/Jayapura'],
-      'South Africa': ['Africa/Johannesburg'],
-      'Nigeria': ['Africa/Lagos'],
-      'Kenya': ['Africa/Nairobi'],
-      'Argentina': ['America/Argentina/Buenos_Aires'],
-      'Chile': ['America/Santiago'],
-      'Colombia': ['America/Bogota'],
-      'New Zealand': ['Pacific/Auckland', 'Pacific/Chatham'],
-      'UTC': ['UTC']
-    };
-
-    function getAllAvailableTimeZones() {
-      let rawZones = [];
-      if (typeof Intl !== 'undefined' && typeof Intl.supportedValuesOf === 'function') {
-        try {
-          rawZones = Intl.supportedValuesOf('timeZone');
-        } catch (e) {
-          rawZones = [];
+      try {
+        if (onProgress) onProgress('Loading cities...');
+        const res = await fetch('/cities.min.json');
+        if (!res.ok) throw new Error('cities.min.json not found');
+        const raw = await res.json();
+        
+        // Format 1: Indexed format { tz: [...], c: [[name, country, tzIndex], ...] }
+        if (raw && raw.tz && Array.isArray(raw.c)) {
+          const tzList = raw.tz;
+          citiesDataset = raw.c.map(item => ({
+            city: item[0],
+            country: item[1] || '',
+            iana: tzList[item[2]],
+            tokens: `${item[0]} ${item[1] || ''} ${tzList[item[2]]}`.toLowerCase()
+          }));
         }
-      }
-      
-      if (!rawZones || !rawZones.length) {
-        rawZones = [
-          'UTC', 'Asia/Qatar', 'Africa/Tunis', 'Europe/London', 'Europe/Paris', 
-          'Europe/Berlin', 'America/New_York', 'America/Chicago', 'America/Denver', 
-          'America/Los_Angeles', 'Asia/Dubai', 'Asia/Tokyo', 'Asia/Singapore', 
-          'Australia/Sydney', 'America/Toronto', 'Asia/Hong_Kong', 'Asia/Kolkata'
-        ];
-      }
-
-      const lookupCatalog = [];
-      const seen = new Set();
-
-      // 1. Process all standard canonical IANA zones
-      rawZones.forEach(iana => {
-        if (seen.has(iana)) return;
-        seen.add(iana);
-
-        const parts = iana.split('/');
-        const continent = parts[0] ? parts[0].replace(/_/g, ' ') : '';
-        const rawCity = parts[parts.length - 1] ? parts[parts.length - 1].replace(/_/g, ' ') : iana;
-        const subRegion = parts.length > 2 ? parts[1].replace(/_/g, ' ') : '';
-
-        let matchedCountries = [];
-        for (const [countryName, zones] of Object.entries(KNOWN_COUNTRY_MAPPINGS)) {
-          if (zones.includes(iana)) {
-            matchedCountries.push(countryName);
-          }
+        // Format 2: Array of objects [ { name, country, timezone/tz/iana }, ... ]
+        else if (Array.isArray(raw) && raw.length && typeof raw[0] === 'object' && !Array.isArray(raw[0])) {
+          citiesDataset = raw.map(item => {
+            const city = item.name || item.city || '';
+            const country = item.country || item.country_name || '';
+            const iana = item.timezone || item.tz || item.iana || '';
+            return {
+              city,
+              country,
+              iana,
+              tokens: `${city} ${country} ${iana}`.toLowerCase()
+            };
+          }).filter(x => x.city && x.iana);
+        }
+        // Format 3: Array of tuples [ [name, country, timezone], ... ]
+        else if (Array.isArray(raw) && Array.isArray(raw[0])) {
+          citiesDataset = raw.map(item => ({
+            city: item[0],
+            country: item[1] || '',
+            iana: item[2],
+            tokens: `${item[0]} ${item[1] || ''} ${item[2]}`.toLowerCase()
+          })).filter(x => x.city && x.iana);
         }
 
-        lookupCatalog.push({
-          iana: iana,
-          city: rawCity,
-          continent: continent,
-          subRegion: subRegion,
-          countries: matchedCountries,
-          searchTokens: `${rawCity} ${continent} ${subRegion} ${matchedCountries.join(' ')} ${iana}`.toLowerCase()
-        });
-      });
-
-      // 2. Inject popular non-anchor city aliases
-      CITY_ZONE_ALIASES.forEach(alias => {
-        lookupCatalog.push({
-          iana: alias.iana,
-          city: alias.city,
-          continent: alias.iana.split('/')[0],
-          subRegion: '',
-          countries: [alias.country],
-          searchTokens: `${alias.city} ${alias.country} ${alias.iana}`.toLowerCase()
-        });
-      });
-
-      return lookupCatalog;
+        if (onProgress) onProgress('');
+        return citiesDataset;
+      } catch (e) {
+        console.warn('Falling back to browser Intl timezones:', e);
+        if (onProgress) onProgress('');
+        return fallbackIntlZones();
+      } finally {
+        isFetchingCities = false;
+      }
     }
 
-    const GLOBAL_TZ_CATALOG = getAllAvailableTimeZones();
+    function fallbackIntlZones() {
+      let raw = [];
+      if (typeof Intl !== 'undefined' && typeof Intl.supportedValuesOf === 'function') {
+        try { raw = Intl.supportedValuesOf('timeZone'); } catch(e){}
+      }
+      if (!raw || !raw.length) {
+        raw = ['UTC', 'Asia/Qatar', 'Africa/Tunis', 'Asia/Tokyo', 'America/New_York', 'America/Los_Angeles', 'Europe/London', 'Europe/Paris'];
+      }
+      return raw.map(iana => {
+        const parts = iana.split('/');
+        const city = parts[parts.length - 1].replace(/_/g, ' ');
+        return {
+          city: city,
+          country: parts[0],
+          iana: iana,
+          tokens: `${city} ${parts[0]} ${iana}`.toLowerCase()
+        };
+      });
+    }
 
     /**
      * CENTRAL PLUGIN REGISTRY
+     * 7 isolated tools ready to mount on demand.
      */
     const TOOLS_REGISTRY = {
       // 1. Scratchpad & Diff Checker
@@ -573,42 +449,55 @@
         }
       },
 
-      // 4. Instant QR Code Generator & Mobile Handoff
+      // 4. Instant QR Code Generator & Mobile Handoff (Universal: Numbers, Phrases, Links)
       'qr-generator': {
         id: 'qr-generator',
         name: 'Instant QR Handoff',
         category: 'Utilities',
-        description: 'Instant zero-tracker QR code to beam links or text straight to your phone.',
+        description: 'Generate QR codes for links, raw numbers, multi-line phrases, or notes.',
         render: (toolId) => `
           <div class="flex flex-col h-full space-y-3 font-sans">
-            <input id="${toolId}_input" type="text" class="w-full bg-workspace-bg border border-workspace-border rounded-lg p-2.5 text-xs text-workspace-text placeholder-workspace-muted focus:outline-none font-mono" placeholder="Type or paste link/text..." value="https://tabkit.tools" />
+            <textarea id="${toolId}_input" rows="2" class="w-full bg-workspace-bg border border-workspace-border rounded-lg p-2.5 text-xs text-workspace-text placeholder-workspace-muted focus:border-workspace-accent focus:outline-none font-mono resize-none" placeholder="Type or paste anything: links, raw numbers, full sentences, phrases..."></textarea>
             
             <div class="flex items-center justify-center p-3 bg-white rounded-lg border border-workspace-border w-fit mx-auto shadow-inner">
               <div id="${toolId}_canvas"></div>
             </div>
 
             <div class="flex items-center justify-between text-[11px] font-mono text-workspace-muted">
-              <span>Scan directly with phone camera</span>
-              <button onclick="copyQrSource('${toolId}')" class="px-2 py-0.5 bg-workspace-bg border border-workspace-border hover:border-workspace-accent text-workspace-text rounded transition-all">Copy Text</button>
+              <span id="${toolId}_charCount">0 characters</span>
+              <div class="flex gap-2">
+                <button onclick="downloadQrCode('${toolId}')" class="px-2 py-0.5 bg-workspace-bg border border-workspace-border hover:border-workspace-accent text-workspace-text rounded transition-all">Save Image</button>
+                <button onclick="copyQrSource('${toolId}')" class="px-2 py-0.5 bg-workspace-bg border border-workspace-border hover:border-workspace-accent text-workspace-text rounded transition-all">Copy Text</button>
+              </div>
             </div>
           </div>
         `,
         init: (toolId) => {
           const input = document.getElementById(`${toolId}_input`);
           const container = document.getElementById(`${toolId}_canvas`);
+          const count = document.getElementById(`${toolId}_charCount`);
           let qr = null;
 
           function generate() {
             container.innerHTML = '';
-            const val = input.value.trim() || 'https://tabkit.tools';
-            qr = new QRCode(container, {
-              text: val,
-              width: 140,
-              height: 140,
-              colorDark: '#0F1117',
-              colorLight: '#FFFFFF',
-              correctLevel: QRCode.CorrectLevel.M
-            });
+            const rawVal = input.value;
+            // Preserves raw numbers and zero correctly without fallback overrides
+            const textToEncode = rawVal.length > 0 ? String(rawVal) : 'https://tabkit.tools';
+            
+            count.textContent = `${rawVal.length} character${rawVal.length === 1 ? '' : 's'}`;
+
+            try {
+              qr = new QRCode(container, {
+                text: textToEncode,
+                width: 140,
+                height: 140,
+                colorDark: '#0F1117',
+                colorLight: '#FFFFFF',
+                correctLevel: QRCode.CorrectLevel.M
+              });
+            } catch (err) {
+              console.error('QR Generation error:', err);
+            }
           }
 
           input.addEventListener('input', generate);
@@ -616,16 +505,17 @@
         }
       },
 
-      // 5. Time Zone & Meeting Buddy
+      // 5. Time Zone & Meeting Buddy (Lazy-Loaded Universal City Directory)
       'timezone-buddy': {
         id: 'timezone-buddy',
         name: 'Time Zone Buddy',
         category: 'Productivity',
-        description: 'Search every country or city in the world with local hour synchronization.',
+        description: 'Search world cities with synchronized local hour slider.',
         render: (toolId) => `
           <div class="flex flex-col h-full space-y-3 font-sans">
             <div class="relative">
-              <input id="${toolId}_search" type="text" placeholder="Type any country (e.g. Japan, Qatar) or city (e.g. Osaka, Miami, Sousse)..." class="w-full bg-workspace-bg border border-workspace-border rounded-lg px-2.5 py-1.5 text-xs font-mono text-workspace-text placeholder-workspace-muted focus:border-workspace-accent focus:outline-none" />
+              <input id="${toolId}_search" type="text" placeholder="Search any city (e.g. Osaka, Sousse, Miami) or country..." class="w-full bg-workspace-bg border border-workspace-border rounded-lg px-2.5 py-1.5 text-xs font-mono text-workspace-text placeholder-workspace-muted focus:border-workspace-accent focus:outline-none" />
+              <div id="${toolId}_statusBadge" class="absolute right-2.5 top-2 text-[10px] font-mono text-workspace-muted hidden"></div>
               <div id="${toolId}_results" class="absolute left-0 right-0 top-full mt-1 bg-workspace-surface border border-workspace-border rounded-lg max-h-52 overflow-y-auto hidden z-30 shadow-2xl p-1 text-xs"></div>
             </div>
 
@@ -646,6 +536,7 @@
           const container = document.getElementById(`${toolId}_zonesContainer`);
           const search = document.getElementById(`${toolId}_search`);
           const results = document.getElementById(`${toolId}_results`);
+          const badge = document.getElementById(`${toolId}_statusBadge`);
 
           const currentUtc = new Date().getUTCHours();
           slider.value = currentUtc;
@@ -666,13 +557,11 @@
 
           function renderPinnedZones() {
             container.innerHTML = pinned.map(iana => {
-              const item = GLOBAL_TZ_CATALOG.find(m => m.iana === iana);
-              const title = item ? item.city : iana.split('/').pop().replace(/_/g, ' ');
-              const subtitle = item && item.countries.length 
-                ? item.countries[0] 
-                : (item ? item.continent : iana.split('/')[0]);
-
+              const parts = iana.split('/');
+              const title = parts[parts.length - 1].replace(/_/g, ' ');
+              const subtitle = parts[0] || 'Zone';
               const { timeStr, isWork } = getZoneDisplay(iana, parseInt(slider.value, 10));
+
               return `
                 <div class="flex items-center justify-between p-2 rounded bg-workspace-bg border border-workspace-border">
                   <div>
@@ -705,23 +594,38 @@
             renderPinnedZones();
           };
 
-          search.oninput = () => {
+          // Lazy load cities on focus
+          search.addEventListener('focus', async () => {
+            if (!citiesDataset) {
+              badge.classList.remove('hidden');
+              await loadCitiesDatabase((msg) => {
+                badge.textContent = msg;
+                if (!msg) badge.classList.add('hidden');
+              });
+            }
+          });
+
+          // Perform instant in-memory search
+          search.oninput = async () => {
             const q = search.value.toLowerCase().trim();
             if (!q) {
               results.classList.add('hidden');
               return;
             }
 
-            const matches = GLOBAL_TZ_CATALOG.filter(item => item.searchTokens.includes(q)).slice(0, 40);
+            const data = await loadCitiesDatabase();
+            if (!data) return;
+
+            const matches = data.filter(item => item.tokens.includes(q)).slice(0, 50);
 
             if (!matches.length) {
-              results.innerHTML = `<div class="p-2 text-center text-workspace-muted text-xs font-mono">No matching country or city found</div>`;
+              results.innerHTML = `<div class="p-2 text-center text-workspace-muted text-xs font-mono">No matching cities found</div>`;
             } else {
               results.innerHTML = matches.map(item => `
                 <div data-pick-iana="${item.iana}" class="p-2 hover:bg-workspace-surfaceHover rounded cursor-pointer flex items-center justify-between">
                   <div>
                     <span class="font-bold text-workspace-text">${item.city}</span>
-                    <span class="text-workspace-muted text-[11px]"> (${item.countries.length ? item.countries[0] + ' · ' : ''}${item.continent})</span>
+                    <span class="text-workspace-muted text-[11px]"> (${item.country})</span>
                   </div>
                   <span class="text-[10px] font-mono text-workspace-accent">${item.iana}</span>
                 </div>
@@ -1028,7 +932,16 @@
     function copyQrSource(toolId) {
       const input = document.getElementById(`${toolId}_input`);
       navigator.clipboard.writeText(input.value);
-      alert('Link/text copied to clipboard.');
+      alert('Content copied to clipboard.');
+    }
+
+    function downloadQrCode(toolId) {
+      const img = document.querySelector(`#${toolId}_canvas img`);
+      if (!img || !img.src) return alert('No QR code generated yet.');
+      const a = document.createElement('a');
+      a.href = img.src;
+      a.download = `tabkit-qr-${Date.now()}.png`;
+      a.click();
     }
 
     /**
