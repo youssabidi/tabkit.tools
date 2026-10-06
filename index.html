@@ -106,8 +106,25 @@
 
     <!-- Right Controls -->
     <div class="flex items-center gap-2">
+      <!-- Backup Export Button -->
+      <button onclick="exportWorkspaceBackup()" type="button" title="Export JSON workspace backup" class="flex items-center gap-1 px-2.5 py-1 rounded-lg bg-workspace-bg border border-workspace-border hover:border-workspace-borderLight text-workspace-muted hover:text-workspace-text text-xs font-mono transition-all">
+        <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+        </svg>
+        <span class="hidden sm:inline">Export</span>
+      </button>
+
+      <!-- Backup Import Button -->
+      <button onclick="triggerImport()" type="button" title="Import JSON workspace backup" class="flex items-center gap-1 px-2.5 py-1 rounded-lg bg-workspace-bg border border-workspace-border hover:border-workspace-borderLight text-workspace-muted hover:text-workspace-text text-xs font-mono transition-all">
+        <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
+        </svg>
+        <span class="hidden sm:inline">Import</span>
+      </button>
+      <input type="file" id="backupFileInput" accept=".json" class="hidden" onchange="handleImportFile(event)" />
+
       <a href="/about" class="px-2.5 py-1 rounded-lg hover:bg-workspace-bg text-workspace-muted hover:text-workspace-text border border-transparent hover:border-workspace-border text-xs font-mono transition-all">
-        About &amp; Manifesto
+        About
       </a>
 
       <button id="btnOpenToolCatalog" type="button" class="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-workspace-accent/10 border border-workspace-accent/30 hover:bg-workspace-accent/20 text-workspace-accent text-xs font-medium transition-all">
@@ -546,7 +563,7 @@
               <span id="${toolId}_selectedHour" class="text-workspace-accent font-bold text-sm">12:00 UTC</span>
             </div>
             <input id="${toolId}_slider" type="range" min="0" max="23" value="12" step="1" class="w-full accent-workspace-accent cursor-pointer bg-workspace-bg rounded-lg h-2" />
-            <div id="${toolId}_zonesContainer" class="space-y-1.5 max-h-56 overflow-y-auto pr-0.5 font-mono text-xs"></div>
+            <div id="${toolId}_zonesContainer" class="space-y-1.5 max-h-56 overflow-y-pr-0.5 font-mono text-xs"></div>
           </div>
         `,
         init: (toolId) => {
@@ -1065,6 +1082,60 @@
       const output = document.getElementById(`${toolId}_output`);
       navigator.clipboard.writeText(output.value);
       alert('Copied to clipboard.');
+    }
+
+    /**
+     * WORKSPACE BACKUP & RESTORE
+     */
+    function exportWorkspaceBackup() {
+      const backup = {
+        version: 1,
+        exportedAt: new Date().toISOString(),
+        data: {}
+      };
+      for (let i = 0; i < localStorage.length; i++) {
+        const key = localStorage.key(i);
+        if (key && key.startsWith('tabkit_')) {
+          backup.data[key] = localStorage.getItem(key);
+        }
+      }
+      const blob = new Blob([JSON.stringify(backup, null, 2)], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      const d = new Date().toISOString().split('T')[0];
+      a.href = url;
+      a.download = `tabkit-backup-${d}.json`;
+      a.click();
+      URL.revokeObjectURL(url);
+    }
+
+    function triggerImport() {
+      document.getElementById('backupFileInput').click();
+    }
+
+    function handleImportFile(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        try {
+          const parsed = JSON.parse(e.target.result);
+          if (!parsed.data || typeof parsed.data !== 'object') {
+            throw new Error('Invalid backup file');
+          }
+          Object.entries(parsed.data).forEach(([k, v]) => {
+            localStorage.setItem(k, v);
+          });
+          activePinnedTools = JSON.parse(localStorage.getItem('tabkit_pinned_tools') || '[]');
+          renderWorkbench();
+          updateStorageIndicator();
+          alert('Workspace backup successfully restored!');
+        } catch (err) {
+          alert('Failed to import backup: invalid file format.');
+        }
+      };
+      reader.readAsText(file);
+      event.target.value = '';
     }
 
     function updateStorageIndicator() {
