@@ -165,7 +165,7 @@
           Load Recommended Starter Setup
         </button>
         <button onclick="openCommandPalette()" type="button" class="w-full sm:w-auto px-4 py-2 rounded-lg bg-workspace-surface border border-workspace-border hover:border-workspace-borderLight text-xs font-medium text-workspace-text transition-all">
-          Browse All 7 Tools
+          Browse All 10 Tools
         </button>
       </div>
     </div>
@@ -405,6 +405,55 @@
       }
     };
 
+    // --- GLOBAL FUNCTIONS FOR NEW TOOLS ---
+    function calcPct1(toolId) {
+      const a = parseFloat(document.getElementById(`${toolId}_p1A`).value) || 0;
+      const b = parseFloat(document.getElementById(`${toolId}_p1B`).value) || 0;
+      document.getElementById(`${toolId}_p1R`).textContent = ((a / 100) * b).toFixed(2).replace(/\.00$/, '');
+    }
+    function calcPct2(toolId) {
+      const a = parseFloat(document.getElementById(`${toolId}_p2A`).value) || 0;
+      const b = parseFloat(document.getElementById(`${toolId}_p2B`).value) || 0;
+      document.getElementById(`${toolId}_p2R`).textContent = b === 0 ? '0' : ((a / b) * 100).toFixed(2).replace(/\.00$/, '');
+    }
+    function calcPct3(toolId) {
+      const a = parseFloat(document.getElementById(`${toolId}_p3A`).value) || 0;
+      const b = parseFloat(document.getElementById(`${toolId}_p3B`).value) || 0;
+      document.getElementById(`${toolId}_p3R`).textContent = (a + (a * (b / 100))).toFixed(2).replace(/\.00$/, '');
+    }
+
+    function calcDateDiff(toolId) {
+      const a = document.getElementById(`${toolId}_d1A`).value;
+      const b = document.getElementById(`${toolId}_d1B`).value;
+      if(a && b) {
+        const diffTime = Math.abs(new Date(b) - new Date(a));
+        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+        document.getElementById(`${toolId}_d1R`).textContent = diffDays + ' days';
+      }
+    }
+    function calcDateAdd(toolId) {
+      const a = document.getElementById(`${toolId}_d2A`).value;
+      const days = parseInt(document.getElementById(`${toolId}_d2B`).value) || 0;
+      if(a) {
+        const d = new Date(a);
+        d.setDate(d.getDate() + days);
+        document.getElementById(`${toolId}_d2R`).textContent = d.toDateString();
+      }
+    }
+
+    function rollNumber(toolId) {
+      const min = parseInt(document.getElementById(`${toolId}_min`).value) || 0;
+      const max = parseInt(document.getElementById(`${toolId}_max`).value) || 0;
+      const res = Math.floor(Math.random() * (max - min + 1)) + min;
+      document.getElementById(`${toolId}_numRes`).textContent = res;
+    }
+    function pickRandom(toolId) {
+      const list = document.getElementById(`${toolId}_list`).value.split('\n').filter(x => x.trim());
+      if (!list.length) return;
+      const res = list[Math.floor(Math.random() * list.length)];
+      document.getElementById(`${toolId}_listRes`).textContent = res;
+    }
+
     // --- REGISTRY OF TOOLS ---
     const TOOLS_REGISTRY = {
       'scratchpad': {
@@ -448,7 +497,7 @@
               localStorage.setItem('tabkit_scratchpad_data', textarea.value);
               status.textContent = 'Synced';
               updateStorageIndicator();
-            }, 500); // Debounce save to prevent typing lag
+            }, 500);
           });
         }
       },
@@ -922,6 +971,121 @@
           populateUnitOptions();
           calculateFromA();
         }
+      },
+
+      'percentage-calc': {
+        id: 'percentage-calc',
+        name: 'Percentage Math',
+        category: 'Utilities',
+        description: 'Everyday percentage calculator for discounts, tips, and fractions.',
+        render: (toolId) => `
+          <div class="flex flex-col h-full space-y-3 font-sans text-xs">
+            <div class="p-2.5 bg-workspace-bg border border-workspace-border rounded-lg flex items-center justify-between gap-2">
+              <div class="flex items-center gap-2">
+                <span class="text-workspace-muted">What is</span>
+                <input id="${toolId}_p1A" type="number" oninput="calcPct1('${toolId}')" class="w-14 bg-workspace-surface border border-workspace-border rounded px-1.5 py-1 text-workspace-text focus:outline-none" value="15">
+                <span class="text-workspace-muted">% of</span>
+                <input id="${toolId}_p1B" type="number" oninput="calcPct1('${toolId}')" class="w-20 bg-workspace-surface border border-workspace-border rounded px-1.5 py-1 text-workspace-text focus:outline-none" value="100">
+              </div>
+              <div class="flex items-center gap-2">
+                <span class="text-workspace-muted">=</span>
+                <span id="${toolId}_p1R" class="font-bold text-workspace-accent text-sm w-12 text-right">15</span>
+              </div>
+            </div>
+            <div class="p-2.5 bg-workspace-bg border border-workspace-border rounded-lg flex items-center justify-between gap-2">
+              <div class="flex items-center gap-2">
+                <input id="${toolId}_p2A" type="number" oninput="calcPct2('${toolId}')" class="w-16 bg-workspace-surface border border-workspace-border rounded px-1.5 py-1 text-workspace-text focus:outline-none" value="25">
+                <span class="text-workspace-muted">is what % of</span>
+                <input id="${toolId}_p2B" type="number" oninput="calcPct2('${toolId}')" class="w-20 bg-workspace-surface border border-workspace-border rounded px-1.5 py-1 text-workspace-text focus:outline-none" value="100">
+              </div>
+              <div class="flex items-center gap-2">
+                <span class="text-workspace-muted">=</span>
+                <span id="${toolId}_p2R" class="font-bold text-workspace-accent text-sm w-12 text-right">25</span>
+              </div>
+            </div>
+            <div class="p-2.5 bg-workspace-bg border border-workspace-border rounded-lg flex items-center justify-between gap-2">
+              <div class="flex items-center gap-2">
+                <span class="text-workspace-muted">Increase</span>
+                <input id="${toolId}_p3A" type="number" oninput="calcPct3('${toolId}')" class="w-16 bg-workspace-surface border border-workspace-border rounded px-1.5 py-1 text-workspace-text focus:outline-none" value="100">
+                <span class="text-workspace-muted">by</span>
+                <input id="${toolId}_p3B" type="number" oninput="calcPct3('${toolId}')" class="w-14 bg-workspace-surface border border-workspace-border rounded px-1.5 py-1 text-workspace-text focus:outline-none" value="10">
+                <span class="text-workspace-muted">%</span>
+              </div>
+              <div class="flex items-center gap-2">
+                <span class="text-workspace-muted">=</span>
+                <span id="${toolId}_p3R" class="font-bold text-workspace-accent text-sm w-12 text-right">110</span>
+              </div>
+            </div>
+          </div>
+        `,
+        init: (toolId) => {
+          calcPct1(toolId);
+          calcPct2(toolId);
+          calcPct3(toolId);
+        }
+      },
+
+      'date-calc': {
+        id: 'date-calc',
+        name: 'Date Math',
+        category: 'Utilities',
+        description: 'Calculate days between dates or add/subtract days from a date.',
+        render: (toolId) => `
+          <div class="flex flex-col h-full space-y-3 font-sans text-xs">
+            <div class="p-3 bg-workspace-bg border border-workspace-border rounded-lg space-y-2.5">
+              <div class="text-workspace-muted font-mono text-[10px] uppercase tracking-wider">Days Between Dates</div>
+              <div class="flex items-center gap-2">
+                <input id="${toolId}_d1A" type="date" onchange="calcDateDiff('${toolId}')" class="flex-1 bg-workspace-surface border border-workspace-border rounded px-2 py-1.5 text-workspace-text focus:outline-none">
+                <span class="text-workspace-muted">and</span>
+                <input id="${toolId}_d1B" type="date" onchange="calcDateDiff('${toolId}')" class="flex-1 bg-workspace-surface border border-workspace-border rounded px-2 py-1.5 text-workspace-text focus:outline-none">
+              </div>
+              <div class="text-workspace-accent font-bold text-sm text-right" id="${toolId}_d1R">0 days</div>
+            </div>
+            <div class="p-3 bg-workspace-bg border border-workspace-border rounded-lg space-y-2.5">
+              <div class="text-workspace-muted font-mono text-[10px] uppercase tracking-wider">Add / Subtract Days</div>
+              <div class="flex items-center gap-2">
+                <input id="${toolId}_d2A" type="date" onchange="calcDateAdd('${toolId}')" class="flex-1 bg-workspace-surface border border-workspace-border rounded px-2 py-1.5 text-workspace-text focus:outline-none">
+                <span class="text-workspace-muted">+</span>
+                <input id="${toolId}_d2B" type="number" value="30" oninput="calcDateAdd('${toolId}')" class="w-16 bg-workspace-surface border border-workspace-border rounded px-2 py-1.5 text-workspace-text focus:outline-none">
+                <span class="text-workspace-muted">days</span>
+              </div>
+              <div class="text-workspace-accent font-bold text-sm text-right" id="${toolId}_d2R">--</div>
+            </div>
+          </div>
+        `,
+        init: (toolId) => {
+          const today = new Date().toISOString().split('T')[0];
+          document.getElementById(`${toolId}_d1A`).value = today;
+          document.getElementById(`${toolId}_d1B`).value = today;
+          document.getElementById(`${toolId}_d2A`).value = today;
+          calcDateDiff(toolId);
+          calcDateAdd(toolId);
+        }
+      },
+
+      'randomizer': {
+        id: 'randomizer',
+        name: 'Random Picker',
+        category: 'Utilities',
+        description: 'Pick a random name from a list or generate a random number.',
+        render: (toolId) => `
+          <div class="flex flex-col h-full space-y-3 font-sans text-xs">
+            <div class="p-2.5 bg-workspace-bg border border-workspace-border rounded-lg flex items-center gap-2">
+              <input id="${toolId}_min" type="number" value="1" class="w-16 bg-workspace-surface border border-workspace-border rounded p-1.5 text-workspace-text focus:outline-none" placeholder="Min">
+              <span class="text-workspace-muted">to</span>
+              <input id="${toolId}_max" type="number" value="100" class="w-20 bg-workspace-surface border border-workspace-border rounded p-1.5 text-workspace-text focus:outline-none" placeholder="Max">
+              <button onclick="rollNumber('${toolId}')" class="flex-1 bg-workspace-surface border border-workspace-border py-1.5 rounded hover:text-workspace-accent transition-colors">Roll</button>
+              <div id="${toolId}_numRes" class="w-12 text-center font-mono text-base font-bold text-workspace-accent">--</div>
+            </div>
+            
+            <div class="flex-1 flex flex-col space-y-2">
+              <textarea id="${toolId}_list" class="w-full h-24 bg-workspace-bg border border-workspace-border rounded-lg p-2.5 text-workspace-text focus:outline-none resize-none" placeholder="Paste a list of names or items (one per line)..."></textarea>
+              <button onclick="pickRandom('${toolId}')" class="w-full py-2 bg-workspace-accent/10 border border-workspace-accent/30 hover:bg-workspace-accent/20 text-workspace-accent font-medium rounded-lg transition-all">Pick Random Item</button>
+              <div id="${toolId}_listRes" class="text-center font-bold text-workspace-accent py-1 truncate text-sm">--</div>
+            </div>
+          </div>
+        `,
+        init: (toolId) => {}
       }
     };
 
@@ -1001,186 +1165,6 @@
           tool.init(toolId);
         }
       });
-    }
-
-    // --- TOOL ACTIONS & UTILITIES ---
-    function toggleScratchMode(toolId, mode) {
-      const notesBox = document.getElementById(`${toolId}_notesContainer`);
-      const diffBox = document.getElementById(`${toolId}_diffContainer`);
-      const tabNote = document.getElementById(`${toolId}_tabNote`);
-      const tabDiff = document.getElementById(`${toolId}_tabDiff`);
-
-      if (mode === 'notes') {
-        notesBox.classList.remove('hidden');
-        diffBox.classList.add('hidden');
-        tabNote.className = 'px-2 py-0.5 rounded text-[11px] font-medium bg-workspace-surface text-workspace-accent';
-        tabDiff.className = 'px-2 py-0.5 rounded text-[11px] font-medium text-workspace-muted hover:text-workspace-text';
-      } else {
-        notesBox.classList.add('hidden');
-        diffBox.classList.remove('hidden');
-        tabDiff.className = 'px-2 py-0.5 rounded text-[11px] font-medium bg-workspace-surface text-workspace-accent';
-        tabNote.className = 'px-2 py-0.5 rounded text-[11px] font-medium text-workspace-muted hover:text-workspace-text';
-      }
-    }
-
-    function runTextDiff(toolId) {
-      const textA = (document.getElementById(`${toolId}_diffA`).value || '').split('\n');
-      const textB = (document.getElementById(`${toolId}_diffB`).value || '').split('\n');
-      const output = document.getElementById(`${toolId}_diffOutput`);
-      output.innerHTML = '';
-
-      const diff = computeLCSDiff(textA, textB);
-      diff.forEach(item => {
-        const lineDiv = document.createElement('div');
-        if (item.type === 'same') {
-          lineDiv.className = 'text-workspace-muted px-1';
-          lineDiv.textContent = `  ${item.text}`;
-        } else if (item.type === 'del') {
-          lineDiv.className = 'text-rose-400 bg-rose-950/40 px-1 rounded';
-          lineDiv.textContent = `- ${item.text}`;
-        } else if (item.type === 'add') {
-          lineDiv.className = 'text-emerald-400 bg-emerald-950/40 px-1 rounded';
-          lineDiv.textContent = `+ ${item.text}`;
-        }
-        output.appendChild(lineDiv);
-      });
-    }
-
-    function cleanUrls(toolId) {
-      const input = document.getElementById(`${toolId}_input`).value;
-      const countEl = document.getElementById(`${toolId}_count`);
-      const output = document.getElementById(`${toolId}_output`);
-      const urlRegex = /(https?:\/\/[^\s]+)/g;
-      const rawMatches = input.match(urlRegex) || [];
-
-      const cleaned = rawMatches.map(raw => {
-        // Strip common sentence-ending punctuation like .,!?:;)
-        const trimmed = raw.replace(/[.,!?:;)]+$/, '');
-        try {
-          const parsed = new URL(trimmed);
-          const trackingPrefixes = ['utm_', 'fbclid', 'gclid', 'ref', 'source', 'mc_cid', 'mc_eid', '_ga'];
-          const keysToDelete = [];
-          parsed.searchParams.forEach((_, key) => {
-            if (trackingPrefixes.some(pref => key.toLowerCase().startsWith(pref))) {
-              keysToDelete.push(key);
-            }
-          });
-          keysToDelete.forEach(k => parsed.searchParams.delete(k));
-          return parsed.toString();
-        } catch (e) {
-          return trimmed;
-        }
-      });
-
-      const unique = [...new Set(cleaned)];
-      output.value = unique.join('\n');
-      countEl.textContent = `${unique.length} links`;
-      showToast(`Cleaned ${unique.length} URLs`);
-    }
-
-    function openAllCleanUrls(toolId) {
-      const output = document.getElementById(`${toolId}_output`).value;
-      const links = output.split('\n').map(l => l.trim()).filter(Boolean);
-      if (!links.length) return showToast('No cleaned links to open', 'error');
-
-      let blockedCount = 0;
-      links.forEach((url) => {
-        const win = window.open(url, '_blank');
-        if (!win) blockedCount++;
-      });
-
-      if (blockedCount > 0) {
-        showToast(`${links.length - blockedCount} opened. ${blockedCount} blocked by browser popup blocker.`, 'error');
-      } else {
-        showToast(`Opened ${links.length} links in new tabs`);
-      }
-    }
-
-    function copyCleanUrls(toolId) {
-      const output = document.getElementById(`${toolId}_output`);
-      if (!output.value) return;
-      navigator.clipboard.writeText(output.value);
-      showToast('Cleaned links copied to clipboard');
-    }
-
-    function transformCase(toolId, type) {
-      const input = document.getElementById(`${toolId}_input`);
-      let val = input.value;
-      if (type === 'upper') input.value = val.toUpperCase();
-      else if (type === 'lower') input.value = val.toLowerCase();
-      else if (type === 'title') input.value = val.replace(/\w\S*/g, txt => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase());
-      else if (type === 'dedupe') input.value = [...new Set(val.split('\n'))].join('\n');
-      input.dispatchEvent(new Event('input'));
-    }
-
-    function copyTextTool(toolId) {
-      const input = document.getElementById(`${toolId}_input`);
-      navigator.clipboard.writeText(input.value);
-      showToast('Text copied to clipboard');
-    }
-
-    function copyQrSource(toolId) {
-      const input = document.getElementById(`${toolId}_input`);
-      navigator.clipboard.writeText(input.value);
-      showToast('Content copied to clipboard');
-    }
-
-    function downloadQrCode(toolId) {
-      const container = document.getElementById(`${toolId}_canvas`);
-      if (!container) return;
-      const img = container.querySelector('img');
-      const canvas = container.querySelector('canvas');
-      let url = img && img.src ? img.src : (canvas ? canvas.toDataURL('image/png') : null);
-      if (!url) return showToast('No QR code generated', 'error');
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = `tabkit-qr-${Date.now()}.png`;
-      a.click();
-    }
-
-    function setPwType(toolId, mode) {
-      const card = document.getElementById(`card_${toolId}`);
-      if (card) card.dataset.mode = mode;
-
-      const tabPass = document.getElementById(`${toolId}_tabPass`);
-      const tabPin = document.getElementById(`${toolId}_tabPin`);
-      const slider = document.getElementById(`${toolId}_lenSlider`);
-      const label = document.getElementById(`${toolId}_lenLabel`);
-
-      if (mode === 'pass') {
-        tabPass.className = 'flex-1 py-1 rounded bg-workspace-surface text-workspace-accent font-medium';
-        tabPin.className = 'flex-1 py-1 rounded text-workspace-muted hover:text-workspace-text font-medium';
-        slider.min = '8'; slider.max = '32'; slider.value = '16';
-      } else {
-        tabPin.className = 'flex-1 py-1 rounded bg-workspace-surface text-workspace-accent font-medium';
-        tabPass.className = 'flex-1 py-1 rounded text-workspace-muted hover:text-workspace-text font-medium';
-        slider.min = '4'; slider.max = '8'; slider.value = '6';
-      }
-      label.textContent = slider.value;
-      generateNewPassword(toolId);
-    }
-
-    function generateNewPassword(toolId) {
-      const card = document.getElementById(`card_${toolId}`);
-      const mode = (card && card.dataset.mode) || 'pass';
-      const output = document.getElementById(`${toolId}_output`);
-      const slider = document.getElementById(`${toolId}_lenSlider`);
-      if (!output || !slider) return;
-      const len = parseInt(slider.value, 10);
-      let chars = mode === 'pass' 
-        ? 'abcdefghjkmnpqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ23456789!@#$%&*?_' 
-        : '0123456789';
-      let res = '';
-      const array = new Uint32Array(len);
-      window.crypto.getRandomValues(array);
-      for (let i = 0; i < len; i++) res += chars[array[i] % chars.length];
-      output.value = res;
-    }
-
-    function copyGeneratedPw(toolId) {
-      const output = document.getElementById(`${toolId}_output`);
-      navigator.clipboard.writeText(output.value);
-      showToast('Password copied to clipboard');
     }
 
     // --- WORKSPACE BACKUP & RESTORE ---
