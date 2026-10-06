@@ -41,6 +41,9 @@
     };
   </script>
 
+  <!-- Lightweight Standalone Client-Side QR Code Library -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
   <!-- Structured Data -->
   <script type="application/ld+json">
   {
@@ -165,20 +168,20 @@
           <p class="text-[11px] text-workspace-muted">Quick notes and split-screen text difference comparison.</p>
         </div>
 
-        <div onclick="pinTool('url-cleaner')" class="p-3.5 rounded-xl border border-workspace-border hover:border-workspace-accent/50 bg-workspace-surface hover:bg-workspace-surfaceHover cursor-pointer transition-all">
+        <div onclick="pinTool('qr-generator')" class="p-3.5 rounded-xl border border-workspace-border hover:border-workspace-accent/50 bg-workspace-surface hover:bg-workspace-surfaceHover cursor-pointer transition-all">
           <div class="text-xs font-semibold text-workspace-text flex items-center justify-between mb-1">
-            <span>Bulk URL Cleaner</span>
+            <span>Instant QR Handoff</span>
             <span class="text-workspace-accent">+</span>
           </div>
-          <p class="text-[11px] text-workspace-muted">Strip utm/tracking parameters and batch open or copy clean links.</p>
+          <p class="text-[11px] text-workspace-muted">Generate instant QR codes to beam links or text to your phone.</p>
         </div>
 
-        <div onclick="pinTool('text-cleaner')" class="p-3.5 rounded-xl border border-workspace-border hover:border-workspace-accent/50 bg-workspace-surface hover:bg-workspace-surfaceHover cursor-pointer transition-all">
+        <div onclick="pinTool('timezone-buddy')" class="p-3.5 rounded-xl border border-workspace-border hover:border-workspace-accent/50 bg-workspace-surface hover:bg-workspace-surfaceHover cursor-pointer transition-all">
           <div class="text-xs font-semibold text-workspace-text flex items-center justify-between mb-1">
-            <span>Text &amp; Case Formatter</span>
+            <span>Time Zone Buddy</span>
             <span class="text-workspace-accent">+</span>
           </div>
-          <p class="text-[11px] text-workspace-muted">Deduplicate lines, toggle cases, and trim whitespace formatting.</p>
+          <p class="text-[11px] text-workspace-muted">Hour slider across Doha, Europe, London, and New York.</p>
         </div>
       </div>
 
@@ -216,11 +219,11 @@
       </div>
       <div>
         <h3 class="font-bold text-workspace-text mb-1">Zero Paywalls &amp; Zero Bloat</h3>
-        <p>Built for daily power workflows, developer utilities, and high-frequency clipboard manipulation without subscription gates or intrusive popups. <a href="/about" class="text-workspace-accent underline">Read the full manifesto</a>.</p>
+        <p>Built for daily power workflows, developer utilities, and high-frequency clipboard manipulation without subscription gates or intrusive popups. <a href="/about" class="text-workspace-accent underline">Read our full manifesto</a>.</p>
       </div>
       <div>
-        <h3 class="font-bold text-workspace-text mb-1">Standalone Route Mapping</h3>
-        <p>Every utility mounts natively inside this central dashboard or functions independently on its dedicated utility route for rapid search access.</p>
+        <h3 class="font-bold text-workspace-text mb-1">Single-Tab Command Center</h3>
+        <p>Pin this workbench as your daily first tab to consolidate link cleaners, diff checks, QR generation, and quick timezone shifts without tab clutter.</p>
       </div>
     </div>
   </details>
@@ -244,8 +247,10 @@
   <script>
     /**
      * CENTRAL PLUGIN REGISTRY
+     * 7 isolated tools ready to mount on demand.
      */
     const TOOLS_REGISTRY = {
+      // 1. Scratchpad & Diff Checker
       'scratchpad': {
         id: 'scratchpad',
         name: 'Scratchpad & Diff',
@@ -266,7 +271,7 @@
               <textarea id="${toolId}_textarea" class="w-full h-44 bg-workspace-bg border border-workspace-border rounded-lg p-3 text-xs font-mono text-workspace-text placeholder-workspace-muted focus:border-workspace-borderLight focus:outline-none resize-none" placeholder="Type or paste quick notes here (auto-saved locally)..."></textarea>
             </div>
 
-            <!-- Diff Mode (Hidden by default) -->
+            <!-- Diff Mode -->
             <div id="${toolId}_diffContainer" class="hidden flex-1 flex flex-col space-y-2">
               <div class="grid grid-cols-2 gap-2 h-36">
                 <textarea id="${toolId}_diffA" class="w-full h-full bg-workspace-bg border border-workspace-border rounded-lg p-2 text-[11px] font-mono text-workspace-text placeholder-workspace-muted focus:outline-none resize-none" placeholder="Original text..."></textarea>
@@ -294,6 +299,7 @@
         }
       },
 
+      // 2. Bulk URL Cleaner
       'url-cleaner': {
         id: 'url-cleaner',
         name: 'Bulk URL Cleaner',
@@ -321,6 +327,7 @@
         init: (toolId) => {}
       },
 
+      // 3. Text & Case Formatter
       'text-cleaner': {
         id: 'text-cleaner',
         name: 'Text & Case Formatter',
@@ -358,6 +365,192 @@
             const wordCount = val.trim() ? val.trim().split(/\s+/).length : 0;
             words.textContent = `${wordCount} words`;
           });
+        }
+      },
+
+      // 4. Instant QR Code Generator & Mobile Handoff
+      'qr-generator': {
+        id: 'qr-generator',
+        name: 'Instant QR Handoff',
+        category: 'Utilities',
+        description: 'Instant zero-tracker QR code to beam links or text straight to your phone.',
+        render: (toolId) => `
+          <div class="flex flex-col h-full space-y-3 font-sans">
+            <input id="${toolId}_input" type="text" class="w-full bg-workspace-bg border border-workspace-border rounded-lg p-2.5 text-xs text-workspace-text placeholder-workspace-muted focus:outline-none font-mono" placeholder="Type or paste link/text..." value="https://tabkit.tools" />
+            
+            <div class="flex items-center justify-center p-3 bg-white rounded-lg border border-workspace-border w-fit mx-auto shadow-inner">
+              <div id="${toolId}_canvas"></div>
+            </div>
+
+            <div class="flex items-center justify-between text-[11px] font-mono text-workspace-muted">
+              <span>Scan directly with phone camera</span>
+              <button onclick="copyQrSource('${toolId}')" class="px-2 py-0.5 bg-workspace-bg border border-workspace-border hover:border-workspace-accent text-workspace-text rounded transition-all">Copy Text</button>
+            </div>
+          </div>
+        `,
+        init: (toolId) => {
+          const input = document.getElementById(`${toolId}_input`);
+          const container = document.getElementById(`${toolId}_canvas`);
+          let qr = null;
+
+          function generate() {
+            container.innerHTML = '';
+            const val = input.value.trim() || 'https://tabkit.tools';
+            qr = new QRCode(container, {
+              text: val,
+              width: 140,
+              height: 140,
+              colorDark: '#0F1117',
+              colorLight: '#FFFFFF',
+              correctLevel: QRCode.CorrectLevel.M
+            });
+          }
+
+          input.addEventListener('input', generate);
+          generate();
+        }
+      },
+
+      // 5. Time Zone & Meeting Buddy
+      'timezone-buddy': {
+        id: 'timezone-buddy',
+        name: 'Time Zone Buddy',
+        category: 'Productivity',
+        description: 'Quick hour slider across major global work time zones.',
+        render: (toolId) => `
+          <div class="flex flex-col h-full space-y-3 font-sans">
+            <div class="flex items-center justify-between text-xs font-mono">
+              <span class="text-workspace-muted">Drag Local Hour:</span>
+              <span id="${toolId}_selectedHour" class="text-workspace-accent font-bold text-sm">12:00</span>
+            </div>
+
+            <input id="${toolId}_slider" type="range" min="0" max="23" value="12" step="1" class="w-full accent-workspace-accent cursor-pointer bg-workspace-bg rounded-lg h-2" />
+
+            <div class="space-y-2 pt-1 font-mono text-xs">
+              <div class="flex items-center justify-between p-2 rounded bg-workspace-bg border border-workspace-border">
+                <span class="text-workspace-text">Doha / Riyadh (UTC+3)</span>
+                <span id="${toolId}_doha" class="font-bold text-workspace-accent">12:00</span>
+              </div>
+              <div class="flex items-center justify-between p-2 rounded bg-workspace-bg border border-workspace-border">
+                <span class="text-workspace-muted">Tunis / Paris (UTC+1)</span>
+                <span id="${toolId}_tunis" class="text-workspace-text">10:00</span>
+              </div>
+              <div class="flex items-center justify-between p-2 rounded bg-workspace-bg border border-workspace-border">
+                <span class="text-workspace-muted">London / UTC (UTC+0)</span>
+                <span id="${toolId}_london" class="text-workspace-text">09:00</span>
+              </div>
+              <div class="flex items-center justify-between p-2 rounded bg-workspace-bg border border-workspace-border">
+                <span class="text-workspace-muted">New York / EST (UTC-5)</span>
+                <span id="${toolId}_ny" class="text-workspace-text">04:00</span>
+              </div>
+            </div>
+          </div>
+        `,
+        init: (toolId) => {
+          const slider = document.getElementById(`${toolId}_slider`);
+          const label = document.getElementById(`${toolId}_selectedHour`);
+          const doha = document.getElementById(`${toolId}_doha`);
+          const tunis = document.getElementById(`${toolId}_tunis`);
+          const london = document.getElementById(`${toolId}_london`);
+          const ny = document.getElementById(`${toolId}_ny`);
+
+          function updateHours(baseHour) {
+            baseHour = parseInt(baseHour, 10);
+            const fmt = (h) => {
+              const normalized = (h % 24 + 24) % 24;
+              return `${String(normalized).padStart(2, '0')}:00`;
+            };
+
+            label.textContent = fmt(baseHour);
+            doha.textContent = fmt(baseHour);
+            tunis.textContent = fmt(baseHour - 2);
+            london.textContent = fmt(baseHour - 3);
+            ny.textContent = fmt(baseHour - 8);
+          }
+
+          // Default to user's real local current hour
+          const currentHour = new Date().getHours();
+          slider.value = currentHour;
+          updateHours(currentHour);
+
+          slider.addEventListener('input', (e) => updateHours(e.target.value));
+        }
+      },
+
+      // 6. Quick Password & PIN Generator
+      'password-generator': {
+        id: 'password-generator',
+        name: 'Password & PIN',
+        category: 'Security',
+        description: 'Generate instant secure random passwords or multi-digit PIN codes.',
+        render: (toolId) => `
+          <div class="flex flex-col h-full space-y-3 font-sans">
+            <div class="flex gap-2 bg-workspace-bg p-1 rounded-lg border border-workspace-border text-xs">
+              <button id="${toolId}_tabPass" onclick="setPwType('${toolId}', 'pass')" class="flex-1 py-1 rounded bg-workspace-surface text-workspace-accent font-medium">Password</button>
+              <button id="${toolId}_tabPin" onclick="setPwType('${toolId}', 'pin')" class="flex-1 py-1 rounded text-workspace-muted hover:text-workspace-text font-medium">PIN Code</button>
+            </div>
+
+            <div class="relative">
+              <input id="${toolId}_output" readonly type="text" class="w-full bg-workspace-bg border border-workspace-border rounded-lg p-2.5 text-sm font-mono text-workspace-accent pr-16 select-all focus:outline-none" />
+              <button onclick="copyGeneratedPw('${toolId}')" class="absolute right-1.5 top-1.5 px-2.5 py-1 bg-workspace-surface hover:bg-workspace-border border border-workspace-border text-[11px] font-mono text-workspace-text rounded transition-all">Copy</button>
+            </div>
+
+            <div class="flex items-center justify-between text-xs font-mono text-workspace-muted">
+              <span>Length: <strong id="${toolId}_lenLabel" class="text-workspace-text">16</strong></span>
+              <input id="${toolId}_lenSlider" type="range" min="6" max="32" value="16" class="w-32 accent-workspace-accent cursor-pointer" />
+            </div>
+
+            <button onclick="generateNewPassword('${toolId}')" class="w-full py-2 bg-workspace-accent/10 border border-workspace-accent/30 hover:bg-workspace-accent/20 text-workspace-accent text-xs font-medium rounded-lg transition-all flex items-center justify-center gap-1.5">
+              <span>⚡ Generate New</span>
+            </button>
+          </div>
+        `,
+        init: (toolId) => {
+          const slider = document.getElementById(`${toolId}_lenSlider`);
+          const label = document.getElementById(`${toolId}_lenLabel`);
+
+          slider.addEventListener('input', (e) => {
+            label.textContent = e.target.value;
+            generateNewPassword(toolId);
+          });
+
+          generateNewPassword(toolId);
+        }
+      },
+
+      // 7. Everyday Unit & File Converter
+      'unit-converter': {
+        id: 'unit-converter',
+        name: 'Everyday Converter',
+        category: 'Utilities',
+        description: 'Instant conversion for kg/lbs, cm/in, celsius/fahrenheit, and MB/GB.',
+        render: (toolId) => `
+          <div class="flex flex-col h-full space-y-3 font-sans">
+            <select id="${toolId}_type" onchange="setupUnitConverter('${toolId}')" class="w-full bg-workspace-bg border border-workspace-border rounded-lg p-2 text-xs font-mono text-workspace-text focus:outline-none">
+              <option value="weight">Weight (Kilograms ↔ Pounds)</option>
+              <option value="length">Length (Centimeters ↔ Inches)</option>
+              <option value="temp">Temperature (°C ↔ °F)</option>
+              <option value="digital">File Size (Megabytes ↔ Gigabytes)</option>
+            </select>
+
+            <div class="grid grid-cols-2 gap-2 font-mono">
+              <div class="space-y-1">
+                <span id="${toolId}_labelA" class="text-[10px] text-workspace-muted">Kilograms (kg)</span>
+                <input id="${toolId}_inputA" type="number" step="any" class="w-full bg-workspace-bg border border-workspace-border rounded p-2 text-xs text-workspace-text focus:outline-none" value="1" />
+              </div>
+              <div class="space-y-1">
+                <span id="${toolId}_labelB" class="text-[10px] text-workspace-muted">Pounds (lbs)</span>
+                <input id="${toolId}_inputB" type="number" step="any" class="w-full bg-workspace-bg border border-workspace-border rounded p-2 text-xs text-workspace-text focus:outline-none" />
+              </div>
+            </div>
+
+            <div id="${toolId}_formula" class="text-[10px] font-mono text-center text-workspace-muted pt-2 border-t border-workspace-border/50">
+              1 kg ≈ 2.20462 lbs
+            </div>
+          </div>
+        `,
+        init: (toolId) => {
+          setupUnitConverter(toolId);
         }
       }
     };
@@ -553,6 +746,125 @@
     }
 
     /**
+     * TOOL 4: QR CODE HELPERS
+     */
+    function copyQrSource(toolId) {
+      const input = document.getElementById(`${toolId}_input`);
+      navigator.clipboard.writeText(input.value);
+      alert('Link/text copied to clipboard.');
+    }
+
+    /**
+     * TOOL 6: PASSWORD & PIN GENERATOR
+     */
+    let currentPwMode = 'pass';
+
+    function setPwType(toolId, mode) {
+      currentPwMode = mode;
+      const tabPass = document.getElementById(`${toolId}_tabPass`);
+      const tabPin = document.getElementById(`${toolId}_tabPin`);
+      const slider = document.getElementById(`${toolId}_lenSlider`);
+      const label = document.getElementById(`${toolId}_lenLabel`);
+
+      if (mode === 'pass') {
+        tabPass.className = 'flex-1 py-1 rounded bg-workspace-surface text-workspace-accent font-medium';
+        tabPin.className = 'flex-1 py-1 rounded text-workspace-muted hover:text-workspace-text font-medium';
+        slider.min = '8';
+        slider.max = '32';
+        slider.value = '16';
+      } else {
+        tabPin.className = 'flex-1 py-1 rounded bg-workspace-surface text-workspace-accent font-medium';
+        tabPass.className = 'flex-1 py-1 rounded text-workspace-muted hover:text-workspace-text font-medium';
+        slider.min = '4';
+        slider.max = '8';
+        slider.value = '6';
+      }
+      label.textContent = slider.value;
+      generateNewPassword(toolId);
+    }
+
+    function generateNewPassword(toolId) {
+      const output = document.getElementById(`${toolId}_output`);
+      const slider = document.getElementById(`${toolId}_lenSlider`);
+      if (!output || !slider) return;
+
+      const len = parseInt(slider.value, 10);
+      let chars = '';
+      if (currentPwMode === 'pass') {
+        chars = 'abcdefghjkmnpqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ23456789!@#$%&*?_';
+      } else {
+        chars = '0123456789';
+      }
+
+      let res = '';
+      const array = new Uint32Array(len);
+      window.crypto.getRandomValues(array);
+      for (let i = 0; i < len; i++) {
+        res += chars[array[i] % chars.length];
+      }
+      output.value = res;
+    }
+
+    function copyGeneratedPw(toolId) {
+      const output = document.getElementById(`${toolId}_output`);
+      navigator.clipboard.writeText(output.value);
+      alert('Copied to clipboard.');
+    }
+
+    /**
+     * TOOL 7: EVERYDAY CONVERTER
+     */
+    function setupUnitConverter(toolId) {
+      const type = document.getElementById(`${toolId}_type`).value;
+      const labelA = document.getElementById(`${toolId}_labelA`);
+      const labelB = document.getElementById(`${toolId}_labelB`);
+      const inputA = document.getElementById(`${toolId}_inputA`);
+      const inputB = document.getElementById(`${toolId}_inputB`);
+      const formula = document.getElementById(`${toolId}_formula`);
+
+      inputA.oninput = null;
+      inputB.oninput = null;
+
+      if (type === 'weight') {
+        labelA.textContent = 'Kilograms (kg)';
+        labelB.textContent = 'Pounds (lbs)';
+        formula.textContent = '1 kg ≈ 2.20462 lbs';
+        const calcA = () => inputB.value = inputA.value ? (parseFloat(inputA.value) * 2.20462).toFixed(2) : '';
+        const calcB = () => inputA.value = inputB.value ? (parseFloat(inputB.value) / 2.20462).toFixed(2) : '';
+        inputA.oninput = calcA;
+        inputB.oninput = calcB;
+        calcA();
+      } else if (type === 'length') {
+        labelA.textContent = 'Centimeters (cm)';
+        labelB.textContent = 'Inches (in)';
+        formula.textContent = '1 in = 2.54 cm';
+        const calcA = () => inputB.value = inputA.value ? (parseFloat(inputA.value) / 2.54).toFixed(2) : '';
+        const calcB = () => inputA.value = inputB.value ? (parseFloat(inputB.value) * 2.54).toFixed(2) : '';
+        inputA.oninput = calcA;
+        inputB.oninput = calcB;
+        calcA();
+      } else if (type === 'temp') {
+        labelA.textContent = 'Celsius (°C)';
+        labelB.textContent = 'Fahrenheit (°F)';
+        formula.textContent = '°F = (°C × 9/5) + 32';
+        const calcA = () => inputB.value = inputA.value ? ((parseFloat(inputA.value) * 9/5) + 32).toFixed(1) : '';
+        const calcB = () => inputA.value = inputB.value ? (((parseFloat(inputB.value) - 32) * 5/9)).toFixed(1) : '';
+        inputA.oninput = calcA;
+        inputB.oninput = calcB;
+        calcA();
+      } else if (type === 'digital') {
+        labelA.textContent = 'Megabytes (MB)';
+        labelB.textContent = 'Gigabytes (GB)';
+        formula.textContent = '1 GB = 1024 MB';
+        const calcA = () => inputB.value = inputA.value ? (parseFloat(inputA.value) / 1024).toFixed(3) : '';
+        const calcB = () => inputA.value = inputB.value ? (parseFloat(inputB.value) * 1024).toFixed(0) : '';
+        inputA.oninput = calcA;
+        inputB.oninput = calcB;
+        calcA();
+      }
+    }
+
+    /**
      * STORAGE & UTILITIES
      */
     function updateStorageIndicator() {
@@ -652,7 +964,7 @@
     });
 
     document.getElementById('btnLoadStarterDeck').addEventListener('click', () => {
-      activePinnedTools = ['scratchpad', 'url-cleaner', 'text-cleaner'];
+      activePinnedTools = ['scratchpad', 'qr-generator', 'timezone-buddy'];
       saveWorkspaceState();
     });
 
