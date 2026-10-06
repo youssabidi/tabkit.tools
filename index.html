@@ -1260,7 +1260,7 @@
           const key = localStorage.key(i);
           if (key && key.startsWith('tabkit_')) {
             const val = localStorage.getItem(key);
-            totalBytes += (val ? val.length : 0 + key.length) * 2;
+            totalBytes += ((val ? val.length : 0) + key.length) * 2;
           }
         }
         const kb = (totalBytes / 1024).toFixed(1);
