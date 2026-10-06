@@ -146,8 +146,8 @@
   <main class="flex-1 p-3.5 sm:p-4 md:p-6 overflow-y-auto">
     <div id="workbenchGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 max-w-[1700px] mx-auto"></div>
 
-    <!-- Empty Workspace State (Categorized Catalog) -->
-    <div id="emptyWorkspaceState" class="hidden max-w-5xl mx-auto my-6 sm:my-10 p-6 sm:p-8 rounded-2xl border border-dashed border-workspace-border bg-workspace-surface/30 bg-dot-grid text-center">
+    <!-- Empty Workspace State -->
+    <div id="emptyWorkspaceState" class="hidden max-w-2xl mx-auto my-10 sm:my-16 p-6 sm:p-8 rounded-2xl border border-dashed border-workspace-border bg-workspace-surface/30 bg-dot-grid text-center">
       <div class="w-12 h-12 rounded-xl bg-workspace-surface border border-workspace-border flex items-center justify-center mx-auto mb-4 text-workspace-accent">
         <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
           <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
@@ -155,13 +155,19 @@
           <line x1="8" y1="12" x2="16" y2="12"></line>
         </svg>
       </div>
-      <h2 class="text-lg font-bold text-workspace-text tracking-tight mb-2">Your Workbench is Empty</h2>
-      <p class="text-sm text-workspace-muted max-w-lg mx-auto mb-8">
-        Click any tool below to pin it to your personal dashboard. Everything runs 100% locally in your browser.
+      <h2 class="text-base font-bold text-workspace-text tracking-tight mb-1">Your Workbench is Empty</h2>
+      <p class="text-xs text-workspace-muted max-w-md mx-auto mb-6">
+        Select utilities to pin to your personal browser dashboard. Zero server storage, zero telemetry, 100% client-side memory.
       </p>
 
-      <!-- Dynamic Catalog Container -->
-      <div id="emptyStateCatalog" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 text-left"></div>
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-3">
+        <button id="btnLoadStarterDeck" type="button" class="w-full sm:w-auto px-4 py-2 rounded-lg bg-workspace-accent hover:bg-workspace-accentHover text-xs font-semibold text-black transition-all shadow-md">
+          Load Recommended Starter Setup
+        </button>
+        <button onclick="openCommandPalette()" type="button" class="w-full sm:w-auto px-4 py-2 rounded-lg bg-workspace-surface border border-workspace-border hover:border-workspace-borderLight text-xs font-medium text-workspace-text transition-all">
+          Browse All 10 Tools
+        </button>
+      </div>
     </div>
   </main>
 
@@ -446,123 +452,6 @@
       if (!list.length) return;
       const res = list[Math.floor(Math.random() * list.length)];
       document.getElementById(`${toolId}_listRes`).textContent = res;
-    }
-
-    function formatJsonTool(toolId, minify = false) {
-      const input = document.getElementById(`${toolId}_input`);
-      try {
-        const obj = JSON.parse(input.value);
-        input.value = minify ? JSON.stringify(obj) : JSON.stringify(obj, null, 2);
-        showToast(minify ? 'JSON Minified' : 'JSON Formatted');
-      } catch (e) {
-        showToast('Invalid JSON: ' + e.message, 'error');
-      }
-    }
-
-    function convertBase64(toolId, action) {
-      const input = document.getElementById(`${toolId}_input`);
-      try {
-        if (action === 'encode') input.value = btoa(input.value);
-        else input.value = atob(input.value);
-      } catch (e) {
-        showToast('Invalid Base64 string', 'error');
-      }
-    }
-
-    async function generateHashes(toolId) {
-      const text = document.getElementById(`${toolId}_input`).value;
-      if (!text) {
-        document.getElementById(`${toolId}_sha256`).value = '';
-        document.getElementById(`${toolId}_sha384`).value = '';
-        document.getElementById(`${toolId}_sha512`).value = '';
-        return;
-      }
-      const msgBuffer = new TextEncoder().encode(text);
-      
-      const hash256 = await crypto.subtle.digest('SHA-256', msgBuffer);
-      document.getElementById(`${toolId}_sha256`).value = Array.from(new Uint8Array(hash256)).map(b => b.toString(16).padStart(2, '0')).join('');
-      
-      const hash384 = await crypto.subtle.digest('SHA-384', msgBuffer);
-      document.getElementById(`${toolId}_sha384`).value = Array.from(new Uint8Array(hash384)).map(b => b.toString(16).padStart(2, '0')).join('');
-      
-      const hash512 = await crypto.subtle.digest('SHA-512', msgBuffer);
-      document.getElementById(`${toolId}_sha512`).value = Array.from(new Uint8Array(hash512)).map(b => b.toString(16).padStart(2, '0')).join('');
-    }
-
-    function updateColorConverter(toolId, source) {
-      const hexInput = document.getElementById(`${toolId}_hex`);
-      const rgbInput = document.getElementById(`${toolId}_rgb`);
-      const hslInput = document.getElementById(`${toolId}_hsl`);
-      const picker = document.getElementById(`${toolId}_picker`);
-      
-      let hex = source === 'picker' ? picker.value : hexInput.value;
-      if (!hex.startsWith('#')) hex = '#' + hex;
-      
-      // Simple HEX validation
-      if (/^#[0-9A-F]{6}$/i.test(hex)) {
-        if (source !== 'hex') hexInput.value = hex;
-        if (source !== 'picker') picker.value = hex;
-        
-        // Convert to RGB
-        let r = parseInt(hex.slice(1, 3), 16), g = parseInt(hex.slice(3, 5), 16), b = parseInt(hex.slice(5, 7), 16);
-        rgbInput.value = `rgb(${r}, ${g}, ${b})`;
-        
-        // Convert to HSL
-        r /= 255; g /= 255; b /= 255;
-        let max = Math.max(r, g, b), min = Math.min(r, g, b);
-        let h, s, l = (max + min) / 2;
-        if (max === min) { h = s = 0; } 
-        else {
-          let d = max - min;
-          s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
-          switch (max) {
-            case r: h = (g - b) / d + (g < b ? 6 : 0); break;
-            case g: h = (b - r) / d + 2; break;
-            case b: h = (r - g) / d + 4; break;
-          }
-          h /= 6;
-        }
-        hslInput.value = `hsl(${Math.round(h * 360)}, ${Math.round(s * 100)}%, ${Math.round(l * 100)}%)`;
-      }
-    }
-
-    // Pomodoro Timer Global State
-    const timers = {};
-    function toggleTimer(toolId) {
-      const t = timers[toolId];
-      if (t.isRunning) {
-        clearInterval(t.interval);
-        t.isRunning = false;
-        document.getElementById(`${toolId}_btnToggle`).textContent = 'Start';
-      } else {
-        t.isRunning = true;
-        document.getElementById(`${toolId}_btnToggle`).textContent = 'Pause';
-        t.interval = setInterval(() => {
-          if (t.timeLeft > 0) {
-            t.timeLeft--;
-            updateTimerDisplay(toolId);
-          } else {
-            clearInterval(t.interval);
-            t.isRunning = false;
-            document.getElementById(`${toolId}_btnToggle`).textContent = 'Start';
-            showToast('Time is up!', 'info');
-          }
-        }, 1000);
-      }
-    }
-    function setTimer(toolId, minutes) {
-      const t = timers[toolId];
-      clearInterval(t.interval);
-      t.isRunning = false;
-      t.timeLeft = minutes * 60;
-      document.getElementById(`${toolId}_btnToggle`).textContent = 'Start';
-      updateTimerDisplay(toolId);
-    }
-    function updateTimerDisplay(toolId) {
-      const t = timers[toolId];
-      const m = Math.floor(t.timeLeft / 60).toString().padStart(2, '0');
-      const s = (t.timeLeft % 60).toString().padStart(2, '0');
-      document.getElementById(`${toolId}_display`).textContent = `${m}:${s}`;
     }
 
     // --- REGISTRY OF TOOLS ---
@@ -1197,120 +1086,6 @@
           </div>
         `,
         init: (toolId) => {}
-      },
-
-      'json-formatter': {
-        id: 'json-formatter',
-        name: 'JSON Formatter',
-        category: 'Developer',
-        description: 'Format, validate, and minify JSON strings instantly.',
-        render: (toolId) => `
-          <div class="flex flex-col h-full space-y-2.5 font-sans">
-            <textarea id="${toolId}_input" class="w-full h-40 bg-workspace-bg border border-workspace-border rounded-lg p-2.5 text-base sm:text-[11px] font-mono text-workspace-text placeholder-workspace-muted focus:outline-none resize-none" placeholder='Paste JSON here... e.g. {"key": "value"}'></textarea>
-            <div class="flex items-center gap-2">
-              <button onclick="formatJsonTool('${toolId}', false)" class="flex-1 py-1.5 bg-workspace-accent/10 border border-workspace-accent/30 hover:bg-workspace-accent/20 text-workspace-accent rounded-lg text-xs font-medium transition-all">Format JSON</button>
-              <button onclick="formatJsonTool('${toolId}', true)" class="px-3 py-1.5 bg-workspace-bg border border-workspace-border hover:border-workspace-borderLight text-workspace-text rounded-lg text-xs font-mono transition-all">Minify</button>
-              <button onclick="copyTextTool('${toolId}')" class="px-3 py-1.5 bg-workspace-bg border border-workspace-border hover:border-workspace-borderLight text-workspace-text rounded-lg text-xs font-mono transition-all">Copy</button>
-            </div>
-          </div>
-        `,
-        init: () => {}
-      },
-
-      'base64-converter': {
-        id: 'base64-converter',
-        name: 'Base64 Encoder',
-        category: 'Developer',
-        description: 'Encode or decode text to Base64 format locally.',
-        render: (toolId) => `
-          <div class="flex flex-col h-full space-y-2.5 font-sans">
-            <textarea id="${toolId}_input" class="w-full h-40 bg-workspace-bg border border-workspace-border rounded-lg p-2.5 text-base sm:text-xs font-mono text-workspace-text placeholder-workspace-muted focus:outline-none resize-none" placeholder="Paste text or Base64 string here..."></textarea>
-            <div class="flex items-center gap-2">
-              <button onclick="convertBase64('${toolId}', 'encode')" class="flex-1 py-1.5 bg-workspace-accent/10 border border-workspace-accent/30 hover:bg-workspace-accent/20 text-workspace-accent rounded-lg text-xs font-medium transition-all">Encode to Base64</button>
-              <button onclick="convertBase64('${toolId}', 'decode')" class="flex-1 py-1.5 bg-workspace-bg border border-workspace-border hover:border-workspace-borderLight text-workspace-text rounded-lg text-xs font-medium transition-all">Decode Base64</button>
-            </div>
-          </div>
-        `,
-        init: () => {}
-      },
-
-      'hash-generator': {
-        id: 'hash-generator',
-        name: 'Secure Hash Generator',
-        category: 'Security',
-        description: 'Generate SHA-256, SHA-384, and SHA-512 hashes instantly.',
-        render: (toolId) => `
-          <div class="flex flex-col h-full space-y-3 font-sans">
-            <textarea id="${toolId}_input" oninput="generateHashes('${toolId}')" class="w-full h-16 bg-workspace-bg border border-workspace-border rounded-lg p-2.5 text-base sm:text-xs font-mono text-workspace-text placeholder-workspace-muted focus:outline-none resize-none" placeholder="Type text to hash..."></textarea>
-            <div class="space-y-2 flex-1">
-              <div>
-                <div class="text-[10px] font-mono text-workspace-muted mb-0.5">SHA-256</div>
-                <input id="${toolId}_sha256" readonly class="w-full bg-workspace-bg border border-workspace-border rounded p-1.5 text-[10px] font-mono text-workspace-accent focus:outline-none select-all" />
-              </div>
-              <div>
-                <div class="text-[10px] font-mono text-workspace-muted mb-0.5">SHA-384</div>
-                <input id="${toolId}_sha384" readonly class="w-full bg-workspace-bg border border-workspace-border rounded p-1.5 text-[10px] font-mono text-workspace-accent focus:outline-none select-all" />
-              </div>
-              <div>
-                <div class="text-[10px] font-mono text-workspace-muted mb-0.5">SHA-512</div>
-                <input id="${toolId}_sha512" readonly class="w-full bg-workspace-bg border border-workspace-border rounded p-1.5 text-[10px] font-mono text-workspace-accent focus:outline-none select-all" />
-              </div>
-            </div>
-          </div>
-        `,
-        init: () => {}
-      },
-
-      'color-converter': {
-        id: 'color-converter',
-        name: 'Color Converter',
-        category: 'Developer',
-        description: 'Convert colors between HEX, RGB, and HSL formats.',
-        render: (toolId) => `
-          <div class="flex flex-col h-full space-y-3 font-sans">
-            <div class="flex items-center gap-3 p-3 bg-workspace-bg border border-workspace-border rounded-lg">
-              <input type="color" id="${toolId}_picker" value="#10B981" oninput="updateColorConverter('${toolId}', 'picker')" class="w-12 h-12 rounded cursor-pointer bg-transparent border-0 p-0">
-              <div class="flex-1">
-                <div class="text-[10px] font-mono text-workspace-muted mb-0.5">HEX Code</div>
-                <input id="${toolId}_hex" type="text" value="#10B981" oninput="updateColorConverter('${toolId}', 'hex')" class="w-full bg-workspace-surface border border-workspace-border rounded p-1.5 text-xs font-mono text-workspace-text focus:outline-none uppercase" />
-              </div>
-            </div>
-            <div class="space-y-2">
-              <div>
-                <div class="text-[10px] font-mono text-workspace-muted mb-0.5">RGB</div>
-                <input id="${toolId}_rgb" readonly value="rgb(16, 185, 129)" class="w-full bg-workspace-bg border border-workspace-border rounded p-1.5 text-xs font-mono text-workspace-accent focus:outline-none select-all" />
-              </div>
-              <div>
-                <div class="text-[10px] font-mono text-workspace-muted mb-0.5">HSL</div>
-                <input id="${toolId}_hsl" readonly value="hsl(160, 84%, 39%)" class="w-full bg-workspace-bg border border-workspace-border rounded p-1.5 text-xs font-mono text-workspace-accent focus:outline-none select-all" />
-              </div>
-            </div>
-          </div>
-        `,
-        init: () => {}
-      },
-
-      'pomodoro-timer': {
-        id: 'pomodoro-timer',
-        name: 'Focus Timer',
-        category: 'Productivity',
-        description: 'A simple Pomodoro countdown timer for focused work sessions.',
-        render: (toolId) => `
-          <div class="flex flex-col h-full space-y-4 font-sans items-center justify-center py-2">
-            <div class="flex gap-2 bg-workspace-bg p-1 rounded-lg border border-workspace-border text-xs w-full">
-              <button onclick="setTimer('${toolId}', 25)" class="flex-1 py-1 rounded bg-workspace-surface text-workspace-text hover:text-workspace-accent transition-colors">25 Work</button>
-              <button onclick="setTimer('${toolId}', 5)" class="flex-1 py-1 rounded bg-workspace-surface text-workspace-text hover:text-workspace-accent transition-colors">5 Break</button>
-            </div>
-            <div id="${toolId}_display" class="text-5xl font-bold font-mono text-workspace-accent tracking-widest">25:00</div>
-            <button id="${toolId}_btnToggle" onclick="toggleTimer('${toolId}')" class="w-full py-2 bg-workspace-accent/10 border border-workspace-accent/30 hover:bg-workspace-accent/20 text-workspace-accent font-bold rounded-lg transition-all text-sm">
-              Start
-            </button>
-          </div>
-        `,
-        init: (toolId) => {
-          timers[toolId] = { timeLeft: 25 * 60, isRunning: false, interval: null };
-          updateTimerDisplay(toolId);
-        }
       }
     };
 
@@ -1342,41 +1117,12 @@
     function renderWorkbench() {
       const grid = document.getElementById('workbenchGrid');
       const emptyState = document.getElementById('emptyWorkspaceState');
-      const catalogContainer = document.getElementById('emptyStateCatalog');
 
       if (activePinnedTools.length === 0) {
         grid.innerHTML = '';
         emptyState.classList.remove('hidden');
-        
-        // Render Categorized Catalog on Empty State
-        catalogContainer.innerHTML = '';
-        const categories = {};
-        Object.values(TOOLS_REGISTRY).forEach(t => {
-          if (!categories[t.category]) categories[t.category] = [];
-          categories[t.category].push(t);
-        });
-
-        Object.keys(categories).sort().forEach(cat => {
-          const catDiv = document.createElement('div');
-          catDiv.className = 'space-y-2';
-          catDiv.innerHTML = `<h3 class="text-xs font-bold text-workspace-muted uppercase tracking-wider border-b border-workspace-border pb-1 mb-2">${cat}</h3>`;
-          
-          categories[cat].forEach(tool => {
-            const btn = document.createElement('button');
-            btn.className = 'w-full text-left p-2.5 rounded-lg bg-workspace-bg border border-workspace-border hover:border-workspace-accent hover:bg-workspace-surface transition-all group';
-            btn.onclick = () => pinTool(tool.id);
-            btn.innerHTML = `
-              <div class="text-xs font-bold text-workspace-text group-hover:text-workspace-accent transition-colors">${tool.name}</div>
-              <div class="text-[10px] text-workspace-muted mt-0.5 leading-tight">${tool.description}</div>
-            `;
-            catDiv.appendChild(btn);
-          });
-          catalogContainer.appendChild(catDiv);
-        });
-
         return;
       }
-      
       emptyState.classList.add('hidden');
 
       // 1. Remove unpinned cards without re-rendering existing ones
@@ -1504,7 +1250,7 @@
         const kb = (totalBytes / 1024).toFixed(1);
         const badge = document.getElementById('storageUsageBadge');
         if (badge) badge.textContent = `Storage: ${kb} KB used`;
-      }, 300);
+      }, 300); // Debounce calculation to prevent UI lag
     }
 
     function escapeHtml(str) {
