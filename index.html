@@ -272,13 +272,16 @@
         if (Array.isArray(raw)) {
           citiesDataset = raw.map(item => {
             if (Array.isArray(item)) {
-              return { city: item[0], country: item[1] || '', iana: item[2], tokens: `${item[0]} ${item[1] || ''} ${item[2]}`.toLowerCase() };
+              // Convert -99 to empty string, and ensure iana is a string
+              const country = item[1] === -99 ? '' : (item[1] || '');
+              const iana = item[2] || '';
+              return { city: item[0], country, iana, tokens: `${item[0]} ${country} ${iana}`.toLowerCase() };
             }
             const city = item.name || item.city || '';
             const country = item.country || '';
             const iana = item.timezone || item.tz || item.iana || '';
             return { city, country, iana, tokens: `${city} ${country} ${iana}`.toLowerCase() };
-          }).filter(x => x.city && x.iana);
+          }).filter(x => x.city && x.iana && x.iana !== 'null'); // Filter out invalid/null timezones
         }
 
         if (onProgress) onProgress('');
@@ -1263,99 +1266,4 @@
     }
 
     // --- COMMAND PALETTE LOGIC ---
-    const commandModal = document.getElementById('commandPaletteModal');
-    const commandInput = document.getElementById('commandInput');
-    const commandResults = document.getElementById('commandResultsList');
-
-    function openCommandPalette() {
-      commandModal.classList.remove('hidden');
-      commandModal.classList.add('flex');
-      commandInput.value = '';
-      renderCommandList();
-      setTimeout(() => commandInput.focus(), 20);
-    }
-
-    function closeCommandPalette() {
-      commandModal.classList.add('hidden');
-      commandModal.classList.remove('flex');
-    }
-
-    function renderCommandList(query = '') {
-      commandResults.innerHTML = '';
-      const filtered = Object.values(TOOLS_REGISTRY).filter(t => 
-        t.name.toLowerCase().includes(query.toLowerCase()) || 
-        t.category.toLowerCase().includes(query.toLowerCase())
-      );
-
-      if (!filtered.length) {
-        commandResults.innerHTML = `<div class="p-3 text-center text-xs text-workspace-muted font-mono">No matching tools found.</div>`;
-        return;
-      }
-
-      filtered.forEach(tool => {
-        const isPinned = activePinnedTools.includes(tool.id);
-        const item = document.createElement('div');
-        item.className = 'p-2.5 rounded-lg hover:bg-workspace-bg flex items-center justify-between cursor-pointer border border-transparent hover:border-workspace-border gap-2';
-        item.onclick = () => isPinned ? unpinTool(tool.id) : pinTool(tool.id);
-
-        item.innerHTML = `
-          <div>
-            <div class="text-xs font-semibold text-workspace-text">${tool.name}</div>
-            <div class="text-[11px] text-workspace-muted">${tool.description}</div>
-          </div>
-          <span class="text-[10px] font-mono px-2 py-0.5 rounded shrink-0 ${isPinned ? 'bg-rose-950/40 text-rose-400 border border-rose-900/50' : 'bg-workspace-accent/10 text-workspace-accent border border-workspace-accent/20'}">
-            ${isPinned ? 'Unpin' : 'Pin to Board'}
-          </span>
-        `;
-        commandResults.appendChild(item);
-      });
-    }
-
-    commandInput.addEventListener('input', (e) => renderCommandList(e.target.value));
-
-    document.addEventListener('keydown', (e) => {
-      const isCmdOrCtrl = e.ctrlKey || e.metaKey;
-      const isKeyK = e.code === 'KeyK' || (e.key && e.key.toLowerCase() === 'k');
-      if (isCmdOrCtrl && isKeyK) {
-        e.preventDefault();
-        openCommandPalette();
-      }
-      if (e.key === 'Escape' && !commandModal.classList.contains('hidden')) {
-        e.preventDefault();
-        closeCommandPalette();
-      }
-    }, true);
-
-    document.getElementById('btnOpenCommandPalette').addEventListener('click', openCommandPalette);
-    document.getElementById('btnOpenToolCatalog').addEventListener('click', openCommandPalette);
-    commandModal.addEventListener('click', (e) => {
-      if (e.target === commandModal) closeCommandPalette();
-    });
-
-    document.getElementById('btnLoadStarterDeck').addEventListener('click', () => {
-      activePinnedTools = ['scratchpad', 'qr-generator', 'timezone-buddy'];
-      saveWorkspaceState();
-    });
-
-    document.getElementById('btnResetWorkspace').addEventListener('click', () => {
-      if (confirm('Clear all tools from your active workbench?')) {
-        activePinnedTools = [];
-        saveWorkspaceState();
-      }
-    });
-
-    // --- SERVICE WORKER REGISTRATION (OFFLINE SUPPORT) ---
-    if ('serviceWorker' in navigator) {
-      window.addEventListener('load', () => {
-        navigator.serviceWorker.register('/sw.js').catch(err => {
-          console.warn('Offline ServiceWorker registration failed:', err);
-        });
-      });
-    }
-
-    // Initial Execution
-    renderWorkbench();
-    updateStorageIndicator();
-  </script>
-</body>
-</html>
+    const commandModal = document
