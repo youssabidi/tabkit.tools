@@ -181,7 +181,7 @@
             <span>Time Zone Buddy</span>
             <span class="text-workspace-accent">+</span>
           </div>
-          <p class="text-[11px] text-workspace-muted">Search every city and country in the world with local hour synchronization.</p>
+          <p class="text-[11px] text-workspace-muted">Search every country and city in the world (e.g. Osaka, Miami, Sousse, Doha).</p>
         </div>
       </div>
 
@@ -246,13 +246,106 @@
   <!-- ==================== SCRIPT: PLUGIN REGISTRY & CORE ==================== -->
   <script>
     /**
-     * GLOBAL WORLD TIMEZONE DIRECTORY
-     * Uses browser native Intl.supportedValuesOf('timeZone') combined with canonical country mappings
-     * to support EVERY city, country, region, and continent on earth with zero server downloads.
+     * CITY & REGION ALIAS DICTIONARY
+     * Bridges popular non-anchor world cities to their canonical IANA timezones.
      */
+    const CITY_ZONE_ALIASES = [
+      // Japan
+      { city: 'Osaka', country: 'Japan', iana: 'Asia/Tokyo' },
+      { city: 'Kyoto', country: 'Japan', iana: 'Asia/Tokyo' },
+      { city: 'Yokohama', country: 'Japan', iana: 'Asia/Tokyo' },
+      { city: 'Nagoya', country: 'Japan', iana: 'Asia/Tokyo' },
+      { city: 'Sapporo', country: 'Japan', iana: 'Asia/Tokyo' },
+      { city: 'Fukuoka', country: 'Japan', iana: 'Asia/Tokyo' },
+      { city: 'Kobe', country: 'Japan', iana: 'Asia/Tokyo' },
+      { city: 'Hiroshima', country: 'Japan', iana: 'Asia/Tokyo' },
+
+      // United States
+      { city: 'San Francisco', country: 'United States', iana: 'America/Los_Angeles' },
+      { city: 'Seattle', country: 'United States', iana: 'America/Los_Angeles' },
+      { city: 'San Diego', country: 'United States', iana: 'America/Los_Angeles' },
+      { city: 'San Jose', country: 'United States', iana: 'America/Los_Angeles' },
+      { city: 'Las Vegas', country: 'United States', iana: 'America/Los_Angeles' },
+      { city: 'Portland', country: 'United States', iana: 'America/Los_Angeles' },
+      { city: 'Miami', country: 'United States', iana: 'America/New_York' },
+      { city: 'Boston', country: 'United States', iana: 'America/New_York' },
+      { city: 'Atlanta', country: 'United States', iana: 'America/New_York' },
+      { city: 'Washington DC', country: 'United States', iana: 'America/New_York' },
+      { city: 'Philadelphia', country: 'United States', iana: 'America/New_York' },
+      { city: 'Houston', country: 'United States', iana: 'America/Chicago' },
+      { city: 'Dallas', country: 'United States', iana: 'America/Chicago' },
+      { city: 'Austin', country: 'United States', iana: 'America/Chicago' },
+      { city: 'Salt Lake City', country: 'United States', iana: 'America/Denver' },
+
+      // Qatar & Gulf
+      { city: 'Al Rayyan', country: 'Qatar', iana: 'Asia/Qatar' },
+      { city: 'Al Wakrah', country: 'Qatar', iana: 'Asia/Qatar' },
+      { city: 'Al Khor', country: 'Qatar', iana: 'Asia/Qatar' },
+      { city: 'Lusail', country: 'Qatar', iana: 'Asia/Qatar' },
+      { city: 'Abu Dhabi', country: 'United Arab Emirates', iana: 'Asia/Dubai' },
+      { city: 'Sharjah', country: 'United Arab Emirates', iana: 'Asia/Dubai' },
+      { city: 'Jeddah', country: 'Saudi Arabia', iana: 'Asia/Riyadh' },
+      { city: 'Dammam', country: 'Saudi Arabia', iana: 'Asia/Riyadh' },
+      { city: 'Mecca', country: 'Saudi Arabia', iana: 'Asia/Riyadh' },
+      { city: 'Medina', country: 'Saudi Arabia', iana: 'Asia/Riyadh' },
+      { city: 'Manama', country: 'Bahrain', iana: 'Asia/Bahrain' },
+      { city: 'Kuwait City', country: 'Kuwait', iana: 'Asia/Kuwait' },
+      { city: 'Muscat', country: 'Oman', iana: 'Asia/Muscat' },
+
+      // Tunisia & North Africa
+      { city: 'Sfax', country: 'Tunisia', iana: 'Africa/Tunis' },
+      { city: 'Sousse', country: 'Tunisia', iana: 'Africa/Tunis' },
+      { city: 'Kairouan', country: 'Tunisia', iana: 'Africa/Tunis' },
+      { city: 'Bizerte', country: 'Tunisia', iana: 'Africa/Tunis' },
+      { city: 'Gabes', country: 'Tunisia', iana: 'Africa/Tunis' },
+      { city: 'Monastir', country: 'Tunisia', iana: 'Africa/Tunis' },
+      { city: 'Sidi Bouzid', country: 'Tunisia', iana: 'Africa/Tunis' },
+      { city: 'Alexandria', country: 'Egypt', iana: 'Africa/Cairo' },
+      { city: 'Giza', country: 'Egypt', iana: 'Africa/Cairo' },
+      { city: 'Marrakech', country: 'Morocco', iana: 'Africa/Casablanca' },
+      { city: 'Rabat', country: 'Morocco', iana: 'Africa/Casablanca' },
+      { city: 'Oran', country: 'Algeria', iana: 'Africa/Algiers' },
+
+      // United Kingdom & Europe
+      { city: 'Manchester', country: 'United Kingdom', iana: 'Europe/London' },
+      { city: 'Birmingham', country: 'United Kingdom', iana: 'Europe/London' },
+      { city: 'Edinburgh', country: 'United Kingdom', iana: 'Europe/London' },
+      { city: 'Glasgow', country: 'United Kingdom', iana: 'Europe/London' },
+      { city: 'Lyon', country: 'France', iana: 'Europe/Paris' },
+      { city: 'Marseille', country: 'France', iana: 'Europe/Paris' },
+      { city: 'Nice', country: 'France', iana: 'Europe/Paris' },
+      { city: 'Munich', country: 'Germany', iana: 'Europe/Berlin' },
+      { city: 'Frankfurt', country: 'Germany', iana: 'Europe/Berlin' },
+      { city: 'Hamburg', country: 'Germany', iana: 'Europe/Berlin' },
+      { city: 'Barcelona', country: 'Spain', iana: 'Europe/Madrid' },
+      { city: 'Valencia', country: 'Spain', iana: 'Europe/Madrid' },
+      { city: 'Seville', country: 'Spain', iana: 'Europe/Madrid' },
+      { city: 'Milan', country: 'Italy', iana: 'Europe/Rome' },
+      { city: 'Naples', country: 'Italy', iana: 'Europe/Rome' },
+      { city: 'Geneva', country: 'Switzerland', iana: 'Europe/Zurich' },
+
+      // Canada & Australia
+      { city: 'Montreal', country: 'Canada', iana: 'America/Toronto' },
+      { city: 'Ottawa', country: 'Canada', iana: 'America/Toronto' },
+      { city: 'Calgary', country: 'Canada', iana: 'America/Edmonton' },
+      { city: 'Melbourne', country: 'Australia', iana: 'Australia/Melbourne' },
+      { city: 'Brisbane', country: 'Australia', iana: 'Australia/Brisbane' },
+      { city: 'Gold Coast', country: 'Australia', iana: 'Australia/Brisbane' },
+
+      // India & Asia
+      { city: 'Mumbai', country: 'India', iana: 'Asia/Kolkata' },
+      { city: 'Bangalore', country: 'India', iana: 'Asia/Kolkata' },
+      { city: 'Hyderabad', country: 'India', iana: 'Asia/Kolkata' },
+      { city: 'Chennai', country: 'India', iana: 'Asia/Kolkata' },
+      { city: 'Beijing', country: 'China', iana: 'Asia/Shanghai' },
+      { city: 'Shenzhen', country: 'China', iana: 'Asia/Shanghai' },
+      { city: 'Guangzhou', country: 'China', iana: 'Asia/Shanghai' }
+    ];
+
     const KNOWN_COUNTRY_MAPPINGS = {
       'Qatar': ['Asia/Qatar'],
       'Tunisia': ['Africa/Tunis'],
+      'Japan': ['Asia/Tokyo'],
       'United States': ['America/New_York', 'America/Chicago', 'America/Denver', 'America/Los_Angeles', 'America/Anchorage', 'Pacific/Honolulu', 'America/Phoenix', 'America/Detroit', 'America/Indiana/Indianapolis'],
       'USA': ['America/New_York', 'America/Chicago', 'America/Denver', 'America/Los_Angeles', 'America/Anchorage', 'Pacific/Honolulu'],
       'United Kingdom': ['Europe/London'],
@@ -268,7 +361,6 @@
       'Morocco': ['Africa/Casablanca'],
       'Algeria': ['Africa/Algiers'],
       'Turkey': ['Europe/Istanbul'],
-      'Japan': ['Asia/Tokyo'],
       'China': ['Asia/Shanghai', 'Asia/Urumqi', 'Asia/Hong_Kong', 'Asia/Macau'],
       'India': ['Asia/Kolkata'],
       'Pakistan': ['Asia/Karachi'],
@@ -295,7 +387,6 @@
       'UTC': ['UTC']
     };
 
-    // Dynamically retrieve all IANA timezones supported natively by the client browser
     function getAllAvailableTimeZones() {
       let rawZones = [];
       if (typeof Intl !== 'undefined' && typeof Intl.supportedValuesOf === 'function') {
@@ -306,7 +397,6 @@
         }
       }
       
-      // Fallback base list if legacy engine
       if (!rawZones || !rawZones.length) {
         rawZones = [
           'UTC', 'Asia/Qatar', 'Africa/Tunis', 'Europe/London', 'Europe/Paris', 
@@ -319,6 +409,7 @@
       const lookupCatalog = [];
       const seen = new Set();
 
+      // 1. Process all standard canonical IANA zones
       rawZones.forEach(iana => {
         if (seen.has(iana)) return;
         seen.add(iana);
@@ -328,7 +419,6 @@
         const rawCity = parts[parts.length - 1] ? parts[parts.length - 1].replace(/_/g, ' ') : iana;
         const subRegion = parts.length > 2 ? parts[1].replace(/_/g, ' ') : '';
 
-        // Match against known country references
         let matchedCountries = [];
         for (const [countryName, zones] of Object.entries(KNOWN_COUNTRY_MAPPINGS)) {
           if (zones.includes(iana)) {
@@ -346,6 +436,18 @@
         });
       });
 
+      // 2. Inject popular non-anchor city aliases
+      CITY_ZONE_ALIASES.forEach(alias => {
+        lookupCatalog.push({
+          iana: alias.iana,
+          city: alias.city,
+          continent: alias.iana.split('/')[0],
+          subRegion: '',
+          countries: [alias.country],
+          searchTokens: `${alias.city} ${alias.country} ${alias.iana}`.toLowerCase()
+        });
+      });
+
       return lookupCatalog;
     }
 
@@ -353,7 +455,6 @@
 
     /**
      * CENTRAL PLUGIN REGISTRY
-     * 7 isolated tools ready to mount on demand.
      */
     const TOOLS_REGISTRY = {
       // 1. Scratchpad & Diff Checker
@@ -372,12 +473,10 @@
               <span id="${toolId}_saveStatus" class="text-[10px] text-workspace-muted font-mono">Synced</span>
             </div>
 
-            <!-- Notes Mode -->
             <div id="${toolId}_notesContainer" class="flex-1 flex flex-col space-y-2">
               <textarea id="${toolId}_textarea" class="w-full h-44 bg-workspace-bg border border-workspace-border rounded-lg p-3 text-xs font-mono text-workspace-text placeholder-workspace-muted focus:border-workspace-borderLight focus:outline-none resize-none" placeholder="Type or paste quick notes here (auto-saved locally)..."></textarea>
             </div>
 
-            <!-- Diff Mode -->
             <div id="${toolId}_diffContainer" class="hidden flex-1 flex flex-col space-y-2">
               <div class="grid grid-cols-2 gap-2 h-36">
                 <textarea id="${toolId}_diffA" class="w-full h-full bg-workspace-bg border border-workspace-border rounded-lg p-2 text-[11px] font-mono text-workspace-text placeholder-workspace-muted focus:outline-none resize-none" placeholder="Original text..."></textarea>
@@ -517,7 +616,7 @@
         }
       },
 
-      // 5. Time Zone & Meeting Buddy (Global Complete World Coverage)
+      // 5. Time Zone & Meeting Buddy
       'timezone-buddy': {
         id: 'timezone-buddy',
         name: 'Time Zone Buddy',
@@ -525,9 +624,8 @@
         description: 'Search every country or city in the world with local hour synchronization.',
         render: (toolId) => `
           <div class="flex flex-col h-full space-y-3 font-sans">
-            <!-- Universal Country / City Search -->
             <div class="relative">
-              <input id="${toolId}_search" type="text" placeholder="Type any country (e.g. Qatar, Tunisia, Canada) or city (e.g. Dubai, Tokyo, Sydney)..." class="w-full bg-workspace-bg border border-workspace-border rounded-lg px-2.5 py-1.5 text-xs font-mono text-workspace-text placeholder-workspace-muted focus:border-workspace-accent focus:outline-none" />
+              <input id="${toolId}_search" type="text" placeholder="Type any country (e.g. Japan, Qatar) or city (e.g. Osaka, Miami, Sousse)..." class="w-full bg-workspace-bg border border-workspace-border rounded-lg px-2.5 py-1.5 text-xs font-mono text-workspace-text placeholder-workspace-muted focus:border-workspace-accent focus:outline-none" />
               <div id="${toolId}_results" class="absolute left-0 right-0 top-full mt-1 bg-workspace-surface border border-workspace-border rounded-lg max-h-52 overflow-y-auto hidden z-30 shadow-2xl p-1 text-xs"></div>
             </div>
 
@@ -538,7 +636,6 @@
 
             <input id="${toolId}_slider" type="range" min="0" max="23" value="12" step="1" class="w-full accent-workspace-accent cursor-pointer bg-workspace-bg rounded-lg h-2" />
 
-            <!-- Pinned Zones List -->
             <div id="${toolId}_zonesContainer" class="space-y-1.5 max-h-56 overflow-y-auto pr-0.5 font-mono text-xs"></div>
           </div>
         `,
@@ -550,7 +647,6 @@
           const search = document.getElementById(`${toolId}_search`);
           const results = document.getElementById(`${toolId}_results`);
 
-          // Sync default with current UTC hour
           const currentUtc = new Date().getUTCHours();
           slider.value = currentUtc;
           label.textContent = `${String(currentUtc).padStart(2, '0')}:00 UTC`;
