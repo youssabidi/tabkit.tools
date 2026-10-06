@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>TabKit Tools | Local-First Browser Workbench &amp; Utilities</title>
   <meta name="description" content="100% in-browser, privacy-first productivity toolkit and utilities. Zero server uploads, zero logins, zero clutter." />
   <link rel="canonical" href="https://tabkit.tools/" />
@@ -63,28 +63,23 @@
   </script>
 
   <style>
-    ::-webkit-scrollbar { width: 4px; height: 4px; }
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
     ::-webkit-scrollbar-track { background: #0F1117; }
     ::-webkit-scrollbar-thumb { background: #262A34; border-radius: 3px; }
     ::-webkit-scrollbar-thumb:hover { background: #353B49; }
     .bg-dot-grid {
       background-image: radial-gradient(#262A34 1px, transparent 1px);
-      background-size: 16px 16px;
-    }
-    /* Touch target comfort */
-    input[type="range"]::-webkit-slider-thumb {
-      width: 20px;
-      height: 20px;
+      background-size: 20px 20px;
     }
   </style>
 </head>
 
 <body class="bg-workspace-bg text-workspace-text font-sans antialiased min-h-screen flex flex-col selection:bg-workspace-accent selection:text-black">
 
-  <!-- ==================== TOP NAVIGATION RAIL ==================== -->
-  <header class="h-14 sm:h-12 border-b border-workspace-border bg-workspace-surface/90 backdrop-blur-md px-3 sm:px-4 flex items-center justify-between sticky top-0 z-40">
-    <div class="flex items-center gap-2 sm:gap-3">
-      <a href="/" class="flex items-center gap-2 group py-1">
+  <!-- ==================== TOP NAVIGATION RAIL (48px) ==================== -->
+  <header class="h-12 border-b border-workspace-border bg-workspace-surface/80 backdrop-blur-md px-2.5 sm:px-4 flex items-center justify-between sticky top-0 z-40 gap-2">
+    <div class="flex items-center gap-2 sm:gap-3 shrink-0">
+      <a href="/" class="flex items-center gap-1.5 sm:gap-2 group">
         <svg class="w-5 h-5 text-workspace-accent transition-transform group-hover:scale-105 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
           <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
           <line x1="3" y1="9" x2="21" y2="9"></line>
@@ -100,43 +95,48 @@
     </div>
 
     <!-- Center Quick Command Bar Trigger -->
-    <button id="btnOpenCommandPalette" type="button" class="flex items-center gap-1.5 sm:gap-2 px-2.5 sm:px-3 py-1.5 rounded-lg bg-workspace-bg border border-workspace-border hover:border-workspace-borderLight text-xs text-workspace-muted transition-all">
-      <svg class="w-3.5 h-3.5 text-workspace-muted" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+    <button id="btnOpenCommandPalette" type="button" class="flex items-center gap-2 px-2.5 sm:px-3 py-1.5 rounded-lg bg-workspace-bg border border-workspace-border hover:border-workspace-borderLight text-xs text-workspace-muted transition-all">
+      <svg class="w-3.5 h-3.5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
         <circle cx="11" cy="11" r="8"></circle>
         <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
       </svg>
-      <span class="inline">Tools</span>
-      <kbd class="hidden md:inline px-1.5 py-0.5 rounded bg-workspace-surface border border-workspace-border text-[10px] font-mono text-workspace-text">Ctrl K</kbd>
+      <span class="hidden md:inline">Quick Launcher</span>
+      <kbd class="hidden sm:inline px-1.5 py-0.5 rounded bg-workspace-surface border border-workspace-border text-[10px] font-mono text-workspace-text">Ctrl K</kbd>
     </button>
 
     <!-- Right Controls -->
-    <div class="flex items-center gap-1.5 sm:gap-2">
+    <div class="flex items-center gap-1 sm:gap-2 shrink-0">
       <!-- Backup Export Button -->
-      <button onclick="exportWorkspaceBackup()" type="button" title="Export JSON backup" class="p-1.5 sm:px-2.5 sm:py-1 rounded-lg bg-workspace-bg border border-workspace-border hover:border-workspace-borderLight text-workspace-muted hover:text-workspace-text text-xs font-mono transition-all">
-        <svg class="w-4 h-4 sm:w-3.5 sm:h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+      <button onclick="exportWorkspaceBackup()" type="button" title="Export JSON workspace backup" class="flex items-center gap-1 px-2 sm:px-2.5 py-1 rounded-lg bg-workspace-bg border border-workspace-border hover:border-workspace-borderLight text-workspace-muted hover:text-workspace-text text-xs font-mono transition-all">
+        <svg class="w-3.5 h-3.5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
           <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
         </svg>
-        <span class="hidden sm:inline ml-1">Export</span>
+        <span class="hidden md:inline">Export</span>
       </button>
 
       <!-- Backup Import Button -->
-      <button onclick="triggerImport()" type="button" title="Import JSON backup" class="p-1.5 sm:px-2.5 sm:py-1 rounded-lg bg-workspace-bg border border-workspace-border hover:border-workspace-borderLight text-workspace-muted hover:text-workspace-text text-xs font-mono transition-all">
-        <svg class="w-4 h-4 sm:w-3.5 sm:h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+      <button onclick="triggerImport()" type="button" title="Import JSON workspace backup" class="flex items-center gap-1 px-2 sm:px-2.5 py-1 rounded-lg bg-workspace-bg border border-workspace-border hover:border-workspace-borderLight text-workspace-muted hover:text-workspace-text text-xs font-mono transition-all">
+        <svg class="w-3.5 h-3.5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
           <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
         </svg>
-        <span class="hidden sm:inline ml-1">Import</span>
+        <span class="hidden md:inline">Import</span>
       </button>
       <input type="file" id="backupFileInput" accept=".json" class="hidden" onchange="handleImportFile(event)" />
 
-      <button id="btnOpenToolCatalog" type="button" class="flex items-center gap-1 px-2.5 py-1.5 sm:py-1 rounded-lg bg-workspace-accent/10 border border-workspace-accent/30 hover:bg-workspace-accent/20 text-workspace-accent text-xs font-medium transition-all">
-        <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+      <!-- Restored About Link (Visible on both Mobile & Desktop) -->
+      <a href="/about" class="px-2 sm:px-2.5 py-1 rounded-lg hover:bg-workspace-bg text-workspace-muted hover:text-workspace-text border border-transparent hover:border-workspace-border text-xs font-mono transition-all">
+        About
+      </a>
+
+      <button id="btnOpenToolCatalog" type="button" class="flex items-center gap-1.5 px-2 sm:px-2.5 py-1 rounded-lg bg-workspace-accent/10 border border-workspace-accent/30 hover:bg-workspace-accent/20 text-workspace-accent text-xs font-medium transition-all">
+        <svg class="w-3.5 h-3.5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
           <line x1="12" y1="5" x2="12" y2="19"></line>
           <line x1="5" y1="12" x2="19" y2="12"></line>
         </svg>
-        <span class="hidden xs:inline">Add</span>
+        <span class="hidden sm:inline">Add Tool</span>
       </button>
 
-      <button id="btnResetWorkspace" type="button" title="Clear pinned workbench" class="p-2 sm:p-1.5 rounded-lg hover:bg-workspace-bg text-workspace-muted hover:text-workspace-danger border border-transparent hover:border-workspace-border transition-all">
+      <button id="btnResetWorkspace" type="button" title="Clear pinned workbench" class="p-1.5 rounded-lg hover:bg-workspace-bg text-workspace-muted hover:text-workspace-danger border border-transparent hover:border-workspace-border transition-all">
         <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
           <path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
         </svg>
@@ -145,12 +145,12 @@
   </header>
 
   <!-- ==================== MAIN WORKBENCH VIEWPORT ==================== -->
-  <main class="flex-1 p-3 sm:p-4 md:p-6 overflow-y-auto">
+  <main class="flex-1 p-3.5 sm:p-4 md:p-6 overflow-y-auto">
     <!-- Active Tools Grid Container -->
-    <div id="workbenchGrid" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3.5 sm:gap-5 max-w-[1700px] mx-auto"></div>
+    <div id="workbenchGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 max-w-[1700px] mx-auto"></div>
 
     <!-- Empty Workspace State -->
-    <div id="emptyWorkspaceState" class="hidden max-w-xl mx-auto my-8 sm:my-16 p-6 sm:p-8 rounded-2xl border border-dashed border-workspace-border bg-workspace-surface/30 bg-dot-grid text-center">
+    <div id="emptyWorkspaceState" class="hidden max-w-2xl mx-auto my-10 sm:my-16 p-6 sm:p-8 rounded-2xl border border-dashed border-workspace-border bg-workspace-surface/30 bg-dot-grid text-center">
       <div class="w-12 h-12 rounded-xl bg-workspace-surface border border-workspace-border flex items-center justify-center mx-auto mb-4 text-workspace-accent">
         <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
           <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
@@ -163,41 +163,42 @@
         Select utilities to pin to your personal browser dashboard. Zero server storage, zero telemetry, 100% client-side memory.
       </p>
 
-      <div class="flex flex-col sm:flex-row items-center justify-center gap-2.5 sm:gap-3">
-        <button id="btnLoadStarterDeck" type="button" class="w-full sm:w-auto px-4 py-2.5 rounded-lg bg-workspace-accent hover:bg-workspace-accentHover text-xs font-semibold text-black transition-all shadow-md">
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-3">
+        <button id="btnLoadStarterDeck" type="button" class="w-full sm:w-auto px-4 py-2 rounded-lg bg-workspace-accent hover:bg-workspace-accentHover text-xs font-semibold text-black transition-all shadow-md">
           Load Recommended Starter Setup
         </button>
-        <button onclick="openCommandPalette()" type="button" class="w-full sm:w-auto px-4 py-2.5 rounded-lg bg-workspace-surface border border-workspace-border hover:border-workspace-borderLight text-xs font-medium text-workspace-text transition-all">
-          Browse All Tools
+        <button onclick="openCommandPalette()" type="button" class="w-full sm:w-auto px-4 py-2 rounded-lg bg-workspace-surface border border-workspace-border hover:border-workspace-borderLight text-xs font-medium text-workspace-text transition-all">
+          Browse All 7 Tools
         </button>
       </div>
     </div>
   </main>
 
-  <!-- ==================== MICRO STATUS BAR ==================== -->
-  <footer class="h-8 border-t border-workspace-border bg-workspace-surface/90 px-3 sm:px-4 flex items-center justify-between text-[11px] font-mono text-workspace-muted">
+  <!-- ==================== MICRO STATUS BAR (32px) ==================== -->
+  <footer class="h-8 border-t border-workspace-border bg-workspace-surface/90 px-4 flex items-center justify-between text-[11px] font-mono text-workspace-muted">
     <div class="flex items-center gap-3">
       <span id="storageUsageBadge">Storage: calculating...</span>
-    </div>
-    <div class="flex items-center gap-3 sm:gap-4">
       <span class="hidden md:inline">• Zero Server Telemetry</span>
+    </div>
+    <div class="flex items-center gap-4">
+      <span class="hidden sm:inline"><kbd class="text-workspace-text">Ctrl+K</kbd> Search</span>
+      <span class="hidden sm:inline"><kbd class="text-workspace-text">Esc</kbd> Close</span>
       <a href="/about" class="hover:text-workspace-accent transition-colors">Why Local-First?</a>
     </div>
   </footer>
 
-  <!-- ==================== COMMAND PALETTE MODAL / MOBILE SHEET ==================== -->
-  <div id="commandPaletteModal" class="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 hidden flex items-end sm:items-start justify-center p-0 sm:pt-20 sm:px-4">
-    <div class="w-full sm:max-w-lg rounded-t-2xl sm:rounded-xl border border-workspace-border bg-workspace-surface shadow-2xl overflow-hidden max-h-[85vh] flex flex-col">
-      <div class="p-3.5 border-b border-workspace-border flex items-center gap-2.5">
+  <!-- ==================== COMMAND PALETTE MODAL ==================== -->
+  <div id="commandPaletteModal" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 hidden flex items-start justify-center pt-14 sm:pt-20 px-4">
+    <div class="w-full max-w-lg rounded-xl border border-workspace-border bg-workspace-surface shadow-2xl overflow-hidden">
+      <div class="p-3 border-b border-workspace-border flex items-center gap-2">
         <svg class="w-4 h-4 text-workspace-muted shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <circle cx="11" cy="11" r="8"></circle>
           <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
         </svg>
-        <input id="commandInput" type="text" placeholder="Type a tool name..." class="w-full bg-transparent text-base sm:text-sm text-workspace-text placeholder-workspace-muted focus:outline-none" />
-        <button onclick="closeCommandPalette()" class="sm:hidden px-2 py-1 text-xs font-mono text-workspace-muted">Close</button>
-        <kbd class="hidden sm:inline px-1.5 py-0.5 rounded bg-workspace-bg border border-workspace-border text-[10px] font-mono text-workspace-muted">ESC</kbd>
+        <input id="commandInput" type="text" placeholder="Type a tool name or command..." class="w-full bg-transparent text-base sm:text-sm text-workspace-text placeholder-workspace-muted focus:outline-none" />
+        <kbd onclick="closeCommandPalette()" class="cursor-pointer px-1.5 py-0.5 rounded bg-workspace-bg border border-workspace-border text-[10px] font-mono text-workspace-muted">ESC</kbd>
       </div>
-      <div id="commandResultsList" class="overflow-y-auto p-2 space-y-1.5 flex-1"></div>
+      <div id="commandResultsList" class="max-h-72 overflow-y-auto p-2 space-y-1"></div>
     </div>
   </div>
 
@@ -217,17 +218,7 @@
         if (!res.ok) throw new Error('cities.min.json not found');
         const raw = await res.json();
         
-        // Compact array tuple format [name, country, iana, lat, lon]
-        if (Array.isArray(raw) && raw.length && Array.isArray(raw[0])) {
-          citiesDataset = raw.map(item => ({
-            city: item[0],
-            country: item[1] || '',
-            iana: item[2],
-            tokens: `${item[0]} ${item[1] || ''} ${item[2]}`.toLowerCase()
-          })).filter(x => x.city && x.iana);
-        }
-        // Object containing indexed arrays { tz: [...], c: [...] }
-        else if (raw && raw.tz && Array.isArray(raw.c)) {
+        if (raw && raw.tz && Array.isArray(raw.c)) {
           const tzList = raw.tz;
           citiesDataset = raw.c.map(item => ({
             city: item[0],
@@ -235,15 +226,20 @@
             iana: tzList[item[2]],
             tokens: `${item[0]} ${item[1] || ''} ${tzList[item[2]]}`.toLowerCase()
           }));
-        } 
-        // Standard object format [{ name: "...", ... }]
-        else if (Array.isArray(raw) && raw.length && typeof raw[0] === 'object') {
+        } else if (Array.isArray(raw) && raw.length && typeof raw[0] === 'object' && !Array.isArray(raw[0])) {
           citiesDataset = raw.map(item => {
             const city = item.name || item.city || '';
             const country = item.country || item.country_name || '';
             const iana = item.timezone || item.tz || item.iana || '';
             return { city, country, iana, tokens: `${city} ${country} ${iana}`.toLowerCase() };
           }).filter(x => x.city && x.iana);
+        } else if (Array.isArray(raw) && Array.isArray(raw[0])) {
+          citiesDataset = raw.map(item => ({
+            city: item[0],
+            country: item[1] || '',
+            iana: item[2],
+            tokens: `${item[0]} ${item[1] || ''} ${item[2]}`.toLowerCase()
+          })).filter(x => x.city && x.iana);
         }
 
         if (onProgress) onProgress('');
@@ -375,8 +371,8 @@
           <div class="flex flex-col h-full space-y-3 font-sans">
             <div class="flex items-center justify-between text-xs">
               <div class="flex gap-1 bg-workspace-bg p-0.5 rounded-lg border border-workspace-border">
-                <button id="${toolId}_tabNote" onclick="toggleScratchMode('${toolId}', 'notes')" class="px-3 py-1 rounded text-xs font-medium bg-workspace-surface text-workspace-accent">Notes</button>
-                <button id="${toolId}_tabDiff" onclick="toggleScratchMode('${toolId}', 'diff')" class="px-3 py-1 rounded text-xs font-medium text-workspace-muted hover:text-workspace-text">Diff</button>
+                <button id="${toolId}_tabNote" onclick="toggleScratchMode('${toolId}', 'notes')" class="px-2 py-0.5 rounded text-[11px] font-medium bg-workspace-surface text-workspace-accent">Notes</button>
+                <button id="${toolId}_tabDiff" onclick="toggleScratchMode('${toolId}', 'diff')" class="px-2 py-0.5 rounded text-[11px] font-medium text-workspace-muted hover:text-workspace-text">Diff</button>
               </div>
               <span id="${toolId}_saveStatus" class="text-[10px] text-workspace-muted font-mono">Synced</span>
             </div>
@@ -384,12 +380,12 @@
               <textarea id="${toolId}_textarea" class="w-full h-44 bg-workspace-bg border border-workspace-border rounded-lg p-3 text-base sm:text-xs font-mono text-workspace-text placeholder-workspace-muted focus:border-workspace-borderLight focus:outline-none resize-none" placeholder="Type or paste quick notes here (auto-saved locally)..."></textarea>
             </div>
             <div id="${toolId}_diffContainer" class="hidden flex-1 flex flex-col space-y-2">
-              <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 h-44 sm:h-36">
-                <textarea id="${toolId}_diffA" class="w-full h-20 sm:h-full bg-workspace-bg border border-workspace-border rounded-lg p-2 text-base sm:text-[11px] font-mono text-workspace-text placeholder-workspace-muted focus:outline-none resize-none" placeholder="Original text..."></textarea>
-                <textarea id="${toolId}_diffB" class="w-full h-20 sm:h-full bg-workspace-bg border border-workspace-border rounded-lg p-2 text-base sm:text-[11px] font-mono text-workspace-text placeholder-workspace-muted focus:outline-none resize-none" placeholder="Modified text..."></textarea>
+              <div class="grid grid-cols-2 gap-2 h-36">
+                <textarea id="${toolId}_diffA" class="w-full h-full bg-workspace-bg border border-workspace-border rounded-lg p-2 text-base sm:text-[11px] font-mono text-workspace-text placeholder-workspace-muted focus:outline-none resize-none" placeholder="Original text..."></textarea>
+                <textarea id="${toolId}_diffB" class="w-full h-full bg-workspace-bg border border-workspace-border rounded-lg p-2 text-base sm:text-[11px] font-mono text-workspace-text placeholder-workspace-muted focus:outline-none resize-none" placeholder="Modified text..."></textarea>
               </div>
-              <button onclick="runTextDiff('${toolId}')" class="w-full py-2 sm:py-1 bg-workspace-bg border border-workspace-border hover:border-workspace-accent text-xs sm:text-[11px] rounded text-workspace-text font-mono transition-all">Compare Lines</button>
-              <div id="${toolId}_diffOutput" class="max-h-28 overflow-y-auto p-2 bg-workspace-bg border border-workspace-border rounded text-[10px] font-mono space-y-0.5"></div>
+              <button onclick="runTextDiff('${toolId}')" class="w-full py-1 bg-workspace-bg border border-workspace-border hover:border-workspace-accent text-[11px] rounded text-workspace-text font-mono transition-all">Compare Lines</button>
+              <div id="${toolId}_diffOutput" class="max-h-24 overflow-y-auto p-2 bg-workspace-bg border border-workspace-border rounded text-[10px] font-mono space-y-0.5"></div>
             </div>
           </div>
         `,
@@ -418,10 +414,10 @@
         render: (toolId) => `
           <div class="flex flex-col h-full space-y-2.5 font-sans">
             <textarea id="${toolId}_input" class="w-full h-24 bg-workspace-bg border border-workspace-border rounded-lg p-2.5 text-base sm:text-xs font-mono text-workspace-text placeholder-workspace-muted focus:outline-none resize-none" placeholder="Paste messy text with URLs or links with ?utm_ params..."></textarea>
-            <div class="grid grid-cols-3 gap-2">
-              <button onclick="cleanUrls('${toolId}')" class="py-2 sm:py-1.5 bg-workspace-accent/10 border border-workspace-accent/30 hover:bg-workspace-accent/20 text-workspace-accent rounded-lg text-xs font-medium transition-all">Sanitize</button>
-              <button onclick="openAllCleanUrls('${toolId}')" class="py-2 sm:py-1.5 bg-workspace-bg border border-workspace-border hover:border-workspace-borderLight text-workspace-text rounded-lg text-xs font-mono transition-all">Open All</button>
-              <button onclick="copyCleanUrls('${toolId}')" class="py-2 sm:py-1.5 bg-workspace-bg border border-workspace-border hover:border-workspace-borderLight text-workspace-text rounded-lg text-xs font-mono transition-all">Copy</button>
+            <div class="flex items-center gap-2">
+              <button onclick="cleanUrls('${toolId}')" class="flex-1 py-1.5 bg-workspace-accent/10 border border-workspace-accent/30 hover:bg-workspace-accent/20 text-workspace-accent rounded-lg text-xs font-medium transition-all">Sanitize URLs</button>
+              <button onclick="openAllCleanUrls('${toolId}')" class="px-3 py-1.5 bg-workspace-bg border border-workspace-border hover:border-workspace-borderLight text-workspace-text rounded-lg text-xs font-mono transition-all">Open All</button>
+              <button onclick="copyCleanUrls('${toolId}')" class="px-3 py-1.5 bg-workspace-bg border border-workspace-border hover:border-workspace-borderLight text-workspace-text rounded-lg text-xs font-mono transition-all">Copy</button>
             </div>
             <div class="flex-1">
               <div class="text-[10px] font-mono text-workspace-muted mb-1 flex justify-between">
@@ -442,20 +438,20 @@
         description: 'Deduplicate lines, toggle cases, and count words and characters without uploads.',
         render: (toolId) => `
           <div class="flex flex-col h-full space-y-2.5 font-sans">
-            <div class="grid grid-cols-4 gap-1.5 text-xs sm:text-[11px] font-mono">
-              <button onclick="transformCase('${toolId}', 'upper')" class="py-1.5 bg-workspace-bg border border-workspace-border hover:border-workspace-borderLight rounded text-workspace-text">UPPER</button>
-              <button onclick="transformCase('${toolId}', 'lower')" class="py-1.5 bg-workspace-bg border border-workspace-border hover:border-workspace-borderLight rounded text-workspace-text">lower</button>
-              <button onclick="transformCase('${toolId}', 'title')" class="py-1.5 bg-workspace-bg border border-workspace-border hover:border-workspace-borderLight rounded text-workspace-text">Title</button>
-              <button onclick="transformCase('${toolId}', 'dedupe')" class="py-1.5 bg-workspace-bg border border-workspace-border hover:border-workspace-borderLight rounded text-workspace-text">Dedupe</button>
+            <div class="grid grid-cols-4 gap-1.5 text-[11px] font-mono">
+              <button onclick="transformCase('${toolId}', 'upper')" class="py-1 bg-workspace-bg border border-workspace-border hover:border-workspace-borderLight rounded text-workspace-text">UPPER</button>
+              <button onclick="transformCase('${toolId}', 'lower')" class="py-1 bg-workspace-bg border border-workspace-border hover:border-workspace-borderLight rounded text-workspace-text">lower</button>
+              <button onclick="transformCase('${toolId}', 'title')" class="py-1 bg-workspace-bg border border-workspace-border hover:border-workspace-borderLight rounded text-workspace-text">Title</button>
+              <button onclick="transformCase('${toolId}', 'dedupe')" class="py-1 bg-workspace-bg border border-workspace-border hover:border-workspace-borderLight rounded text-workspace-text">Dedupe</button>
             </div>
             <textarea id="${toolId}_input" class="w-full h-36 bg-workspace-bg border border-workspace-border rounded-lg p-2.5 text-base sm:text-xs font-mono text-workspace-text placeholder-workspace-muted focus:outline-none resize-none" placeholder="Paste text to reformat..."></textarea>
-            <div class="flex items-center justify-between text-xs sm:text-[11px] font-mono text-workspace-muted">
+            <div class="flex items-center justify-between text-[11px] font-mono text-workspace-muted">
               <div class="flex gap-2">
                 <span id="${toolId}_statsWords">0 words</span>
                 <span>•</span>
                 <span id="${toolId}_statsChars">0 chars</span>
               </div>
-              <button onclick="copyTextTool('${toolId}')" class="px-3 py-1 bg-workspace-bg border border-workspace-border hover:border-workspace-accent text-workspace-text rounded text-xs transition-all">Copy</button>
+              <button onclick="copyTextTool('${toolId}')" class="px-2.5 py-0.5 bg-workspace-bg border border-workspace-border hover:border-workspace-accent text-workspace-text rounded text-xs transition-all">Copy Text</button>
             </div>
           </div>
         `,
@@ -483,21 +479,21 @@
             <div id="${toolId}_telBar" class="hidden flex items-center justify-between px-2.5 py-1.5 rounded-lg bg-workspace-bg border border-workspace-border text-xs font-mono">
               <div class="flex items-center gap-1.5">
                 <span class="w-1.5 h-1.5 rounded-full bg-workspace-accent"></span>
-                <span class="text-[11px] text-workspace-muted">Phone Number</span>
+                <span class="text-[11px] text-workspace-muted">Phone Number Detected</span>
               </div>
-              <label class="flex items-center gap-1.5 cursor-pointer text-xs text-workspace-text">
-                <input id="${toolId}_telToggle" type="checkbox" checked class="accent-[#10B981] rounded w-4 h-4" />
-                <span>Open Keypad</span>
+              <label class="flex items-center gap-1.5 cursor-pointer text-[11px] text-workspace-text">
+                <input id="${toolId}_telToggle" type="checkbox" checked class="accent-[#10B981] rounded" />
+                <span>Open Phone Keypad</span>
               </label>
             </div>
             <div class="flex items-center justify-center p-3 bg-white rounded-lg border border-workspace-border w-fit mx-auto shadow-inner">
               <div id="${toolId}_canvas"></div>
             </div>
-            <div class="flex items-center justify-between text-xs sm:text-[11px] font-mono text-workspace-muted">
+            <div class="flex items-center justify-between text-[11px] font-mono text-workspace-muted">
               <span id="${toolId}_charCount">0 characters</span>
               <div class="flex gap-2">
-                <button onclick="downloadQrCode('${toolId}')" class="px-2.5 py-1 bg-workspace-bg border border-workspace-border hover:border-workspace-accent text-workspace-text rounded transition-all">Save</button>
-                <button onclick="copyQrSource('${toolId}')" class="px-2.5 py-1 bg-workspace-bg border border-workspace-border hover:border-workspace-accent text-workspace-text rounded transition-all">Copy</button>
+                <button onclick="downloadQrCode('${toolId}')" class="px-2 py-0.5 bg-workspace-bg border border-workspace-border hover:border-workspace-accent text-workspace-text rounded transition-all">Save Image</button>
+                <button onclick="copyQrSource('${toolId}')" class="px-2 py-0.5 bg-workspace-bg border border-workspace-border hover:border-workspace-accent text-workspace-text rounded transition-all">Copy Text</button>
               </div>
             </div>
           </div>
@@ -527,7 +523,7 @@
               textToEncode = 'tel:' + sanitizedPhone;
             }
             
-            count.textContent = `${rawVal.length} char${rawVal.length === 1 ? '' : 's'}${isPhone && telToggle.checked ? ' (Dialer ready)' : ''}`;
+            count.textContent = `${rawVal.length} character${rawVal.length === 1 ? '' : 's'}${isPhone && telToggle.checked ? ' (Dialer ready)' : ''}`;
 
             if (typeof QRCode !== 'undefined') {
               try {
@@ -559,16 +555,16 @@
         render: (toolId) => `
           <div class="flex flex-col h-full space-y-3 font-sans">
             <div class="relative">
-              <input id="${toolId}_search" type="text" placeholder="Search city (e.g. Doha, Osaka, Miami)..." class="w-full bg-workspace-bg border border-workspace-border rounded-lg px-3 py-2 text-base sm:text-xs font-mono text-workspace-text placeholder-workspace-muted focus:border-workspace-accent focus:outline-none" autocomplete="off" />
-              <div id="${toolId}_statusBadge" class="absolute right-2.5 top-2.5 text-[10px] font-mono text-workspace-muted hidden"></div>
-              <div id="${toolId}_results" class="absolute left-0 right-0 top-full mt-1 bg-workspace-surface border border-workspace-border rounded-lg max-h-56 overflow-y-auto hidden z-30 shadow-2xl p-1 text-xs"></div>
+              <input id="${toolId}_search" type="text" placeholder="Search any city (e.g. Osaka, Sousse, Miami) or country..." class="w-full bg-workspace-bg border border-workspace-border rounded-lg px-2.5 py-1.5 text-base sm:text-xs font-mono text-workspace-text placeholder-workspace-muted focus:border-workspace-accent focus:outline-none" autocomplete="off" />
+              <div id="${toolId}_statusBadge" class="absolute right-2.5 top-2 text-[10px] font-mono text-workspace-muted hidden"></div>
+              <div id="${toolId}_results" class="absolute left-0 right-0 top-full mt-1 bg-workspace-surface border border-workspace-border rounded-lg max-h-52 overflow-y-auto hidden z-30 shadow-2xl p-1 text-xs"></div>
             </div>
             <div class="flex items-center justify-between text-xs font-mono">
-              <span class="text-workspace-muted">Drag Synchronized Hour:</span>
+              <span class="text-workspace-muted">Drag Hour:</span>
               <span id="${toolId}_selectedHour" class="text-workspace-accent font-bold text-sm">12:00 UTC</span>
             </div>
-            <input id="${toolId}_slider" type="range" min="0" max="23" value="12" step="1" class="w-full accent-workspace-accent cursor-pointer bg-workspace-bg rounded-lg h-3 sm:h-2" />
-            <div id="${toolId}_zonesContainer" class="space-y-2 max-h-60 overflow-y-auto font-mono text-xs"></div>
+            <input id="${toolId}_slider" type="range" min="0" max="23" value="12" step="1" class="w-full accent-workspace-accent cursor-pointer bg-workspace-bg rounded-lg h-2" />
+            <div id="${toolId}_zonesContainer" class="space-y-1.5 max-h-56 overflow-y-auto font-mono text-xs"></div>
           </div>
         `,
         init: (toolId) => {
@@ -606,17 +602,17 @@
               const { timeStr, isWork } = getZoneDisplay(iana, parseInt(slider.value, 10));
 
               return `
-                <div class="flex items-center justify-between p-2.5 rounded-lg bg-workspace-bg border border-workspace-border">
-                  <div class="pr-2">
-                    <div class="flex items-center gap-1.5 flex-wrap">
-                      <span class="text-workspace-text font-bold text-xs sm:text-sm">${title}</span>
-                      <span class="text-workspace-muted text-[10px] sm:text-[11px]">— ${subtitle}</span>
+                <div class="flex items-center justify-between p-2 rounded bg-workspace-bg border border-workspace-border">
+                  <div>
+                    <div class="flex items-center gap-1.5">
+                      <span class="text-workspace-text font-bold">${title}</span>
+                      <span class="text-workspace-muted text-[11px]">— ${subtitle}</span>
                     </div>
-                    <span class="text-[10px] text-workspace-muted block truncate max-w-[170px] sm:max-w-none">${iana}</span>
+                    <span class="text-[10px] text-workspace-muted">${iana}</span>
                   </div>
-                  <div class="flex items-center gap-3 shrink-0">
-                    <span class="font-bold text-sm sm:text-base ${isWork ? 'text-workspace-accent' : 'text-workspace-muted'}">${timeStr}</span>
-                    <button data-remove-iana="${iana}" title="Remove zone" class="text-workspace-muted hover:text-workspace-danger p-1 text-base leading-none">×</button>
+                  <div class="flex items-center gap-2">
+                    <span class="font-bold text-sm ${isWork ? 'text-workspace-accent' : 'text-workspace-muted'}">${timeStr}</span>
+                    <button data-remove-iana="${iana}" title="Remove zone" class="text-workspace-muted hover:text-workspace-danger p-0.5 rounded text-xs leading-none">×</button>
                   </div>
                 </div>
               `;
@@ -651,11 +647,10 @@
             clearTimeout(searchDebounceTimer);
             searchDebounceTimer = setTimeout(async () => {
               const q = search.value.toLowerCase().trim();
-              if (q.length < 2) {
+              if (!q) {
                 results.classList.add('hidden');
                 return;
               }
-
               const data = await loadCitiesDatabase();
               if (!data) return;
 
@@ -668,15 +663,15 @@
               }
 
               if (!matches.length) {
-                results.innerHTML = `<div class="p-3 text-center text-workspace-muted text-xs font-mono">No matching cities found</div>`;
+                results.innerHTML = `<div class="p-2 text-center text-workspace-muted text-xs font-mono">No matching cities found</div>`;
               } else {
                 results.innerHTML = matches.map(item => `
-                  <div data-pick-iana="${item.iana}" class="p-2.5 sm:p-2 hover:bg-workspace-surfaceHover rounded cursor-pointer flex items-center justify-between border-b border-workspace-border/30 last:border-0">
+                  <div data-pick-iana="${item.iana}" class="p-2 hover:bg-workspace-surfaceHover rounded cursor-pointer flex items-center justify-between">
                     <div>
                       <span class="font-bold text-workspace-text">${item.city}</span>
-                      <span class="text-workspace-muted text-[11px]">${item.country ? ' (' + item.country + ')' : ''}</span>
+                      <span class="text-workspace-muted text-[11px]"> (${item.country})</span>
                     </div>
-                    <span class="text-[10px] font-mono text-workspace-accent shrink-0 ml-2">${item.iana}</span>
+                    <span class="text-[10px] font-mono text-workspace-accent">${item.iana}</span>
                   </div>
                 `).join('');
 
@@ -695,7 +690,7 @@
                 });
               }
               results.classList.remove('hidden');
-            }, 150);
+            }, 120);
           };
 
           document.addEventListener('click', (e) => {
@@ -716,18 +711,18 @@
         render: (toolId) => `
           <div class="flex flex-col h-full space-y-3 font-sans">
             <div class="flex gap-2 bg-workspace-bg p-1 rounded-lg border border-workspace-border text-xs">
-              <button id="${toolId}_tabPass" onclick="setPwType('${toolId}', 'pass')" class="flex-1 py-1.5 rounded bg-workspace-surface text-workspace-accent font-medium">Password</button>
-              <button id="${toolId}_tabPin" onclick="setPwType('${toolId}', 'pin')" class="flex-1 py-1.5 rounded text-workspace-muted hover:text-workspace-text font-medium">PIN Code</button>
+              <button id="${toolId}_tabPass" onclick="setPwType('${toolId}', 'pass')" class="flex-1 py-1 rounded bg-workspace-surface text-workspace-accent font-medium">Password</button>
+              <button id="${toolId}_tabPin" onclick="setPwType('${toolId}', 'pin')" class="flex-1 py-1 rounded text-workspace-muted hover:text-workspace-text font-medium">PIN Code</button>
             </div>
             <div class="relative">
               <input id="${toolId}_output" readonly type="text" class="w-full bg-workspace-bg border border-workspace-border rounded-lg p-2.5 text-base sm:text-sm font-mono text-workspace-accent pr-16 select-all focus:outline-none" />
-              <button onclick="copyGeneratedPw('${toolId}')" class="absolute right-1.5 top-1.5 px-3 py-1.5 bg-workspace-surface hover:bg-workspace-border border border-workspace-border text-xs sm:text-[11px] font-mono text-workspace-text rounded transition-all">Copy</button>
+              <button onclick="copyGeneratedPw('${toolId}')" class="absolute right-1.5 top-1.5 px-2.5 py-1 bg-workspace-surface hover:bg-workspace-border border border-workspace-border text-[11px] font-mono text-workspace-text rounded transition-all">Copy</button>
             </div>
             <div class="flex items-center justify-between text-xs font-mono text-workspace-muted">
               <span>Length: <strong id="${toolId}_lenLabel" class="text-workspace-text">16</strong></span>
-              <input id="${toolId}_lenSlider" type="range" min="6" max="32" value="16" class="w-28 sm:w-32 accent-workspace-accent cursor-pointer" />
+              <input id="${toolId}_lenSlider" type="range" min="6" max="32" value="16" class="w-32 accent-workspace-accent cursor-pointer" />
             </div>
-            <button onclick="generateNewPassword('${toolId}')" class="w-full py-2.5 sm:py-2 bg-workspace-accent/10 border border-workspace-accent/30 hover:bg-workspace-accent/20 text-workspace-accent text-xs font-medium rounded-lg transition-all flex items-center justify-center gap-1.5">
+            <button onclick="generateNewPassword('${toolId}')" class="w-full py-2 bg-workspace-accent/10 border border-workspace-accent/30 hover:bg-workspace-accent/20 text-workspace-accent text-xs font-medium rounded-lg transition-all flex items-center justify-center gap-1.5">
               <span>⚡ Generate New</span>
             </button>
           </div>
@@ -750,8 +745,8 @@
         description: 'Multi-category converter for data, length, mass, temperature, speed, volume, and time.',
         render: (toolId) => `
           <div class="flex flex-col h-full space-y-3 font-sans">
-            <div class="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-2">
-              <select id="${toolId}_category" class="flex-1 bg-workspace-bg border border-workspace-border rounded-lg p-2 sm:p-1.5 text-base sm:text-xs font-mono text-workspace-text focus:border-workspace-accent focus:outline-none">
+            <div class="flex items-center justify-between gap-2">
+              <select id="${toolId}_category" class="flex-1 bg-workspace-bg border border-workspace-border rounded-lg p-1.5 text-base sm:text-xs font-mono text-workspace-text focus:border-workspace-accent focus:outline-none">
                 <option value="digital">Digital Storage (B / KB / MB / GB...)</option>
                 <option value="length">Length &amp; Distance (cm, m, in, ft...)</option>
                 <option value="weight">Weight &amp; Mass (kg, lbs, oz, g...)</option>
@@ -760,27 +755,27 @@
                 <option value="volume">Volume (L, ml, gal, fl oz...)</option>
                 <option value="time">Time Duration (ms, s, min, h, d...)</option>
               </select>
-              <select id="${toolId}_precision" title="Decimal precision" class="bg-workspace-bg border border-workspace-border rounded-lg p-2 sm:p-1.5 text-base sm:text-xs font-mono text-workspace-muted hover:text-workspace-text focus:outline-none">
-                <option value="2">2 decimals</option>
-                <option value="4" selected>4 decimals</option>
-                <option value="6">6 decimals</option>
-                <option value="0">0 decimals</option>
+              <select id="${toolId}_precision" title="Decimal precision" class="bg-workspace-bg border border-workspace-border rounded-lg p-1.5 text-base sm:text-xs font-mono text-workspace-muted hover:text-workspace-text focus:outline-none">
+                <option value="2">2 dec</option>
+                <option value="4" selected>4 dec</option>
+                <option value="6">6 dec</option>
+                <option value="0">0 dec</option>
               </select>
             </div>
-            <div class="grid grid-cols-[1fr,auto,1fr] gap-1.5 sm:gap-2 items-center font-mono">
+            <div class="grid grid-cols-[1fr,auto,1fr] gap-2 items-center font-mono">
               <div class="space-y-1.5">
-                <select id="${toolId}_unitA" class="w-full bg-workspace-bg border border-workspace-border rounded p-1.5 sm:p-1 text-xs sm:text-[11px] text-workspace-text focus:outline-none"></select>
+                <select id="${toolId}_unitA" class="w-full bg-workspace-bg border border-workspace-border rounded p-1 text-base sm:text-[11px] text-workspace-text focus:outline-none"></select>
                 <input id="${toolId}_inputA" type="number" step="any" value="1" class="w-full bg-workspace-bg border border-workspace-border rounded p-2 text-base sm:text-xs text-workspace-text focus:border-workspace-accent focus:outline-none" />
               </div>
-              <button id="${toolId}_btnSwap" type="button" title="Swap Units" class="p-2 sm:p-1.5 mt-5 rounded bg-workspace-bg hover:bg-workspace-surfaceHover border border-workspace-border text-workspace-muted hover:text-workspace-accent transition-colors">
+              <button id="${toolId}_btnSwap" type="button" title="Swap Units" class="p-1.5 mt-5 rounded bg-workspace-bg hover:bg-workspace-surfaceHover border border-workspace-border text-workspace-muted hover:text-workspace-accent transition-colors">
                 ⇄
               </button>
               <div class="space-y-1.5">
-                <select id="${toolId}_unitB" class="w-full bg-workspace-bg border border-workspace-border rounded p-1.5 sm:p-1 text-xs sm:text-[11px] text-workspace-text focus:outline-none"></select>
+                <select id="${toolId}_unitB" class="w-full bg-workspace-bg border border-workspace-border rounded p-1 text-base sm:text-[11px] text-workspace-text focus:outline-none"></select>
                 <input id="${toolId}_inputB" type="number" step="any" class="w-full bg-workspace-bg border border-workspace-border rounded p-2 text-base sm:text-xs text-workspace-accent font-bold focus:border-workspace-accent focus:outline-none" />
               </div>
             </div>
-            <div id="${toolId}_formula" class="text-xs sm:text-[11px] font-mono text-center text-workspace-muted pt-2 border-t border-workspace-border/50"></div>
+            <div id="${toolId}_formula" class="text-[11px] font-mono text-center text-workspace-muted pt-2 border-t border-workspace-border/50"></div>
           </div>
         `,
         init: (toolId) => {
@@ -913,17 +908,17 @@
         if (!tool) return;
 
         const card = document.createElement('div');
-        card.className = 'rounded-xl border border-workspace-border bg-workspace-surface p-3.5 sm:p-4 flex flex-col justify-between shadow-lg relative group';
+        card.className = 'rounded-xl border border-workspace-border bg-workspace-surface p-4 flex flex-col justify-between shadow-lg relative group';
         card.id = `card_${toolId}`;
 
         card.innerHTML = `
-          <div class="flex items-center justify-between pb-2.5 border-b border-workspace-border mb-3">
+          <div class="flex items-center justify-between pb-3 border-b border-workspace-border mb-3">
             <div class="flex items-center gap-2">
               <span class="w-2 h-2 rounded-full bg-workspace-accent"></span>
               <h3 class="text-xs font-bold text-workspace-text tracking-tight uppercase font-mono">${tool.name}</h3>
             </div>
             <button onclick="unpinTool('${toolId}')" title="Unpin from workbench" class="text-workspace-muted hover:text-workspace-danger p-1 rounded transition-colors">
-              <svg class="w-4 h-4 sm:w-3.5 sm:h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <line x1="18" y1="6" x2="6" y2="18"></line>
                 <line x1="6" y1="6" x2="18" y2="18"></line>
               </svg>
@@ -947,13 +942,13 @@
       if (mode === 'notes') {
         notesBox.classList.remove('hidden');
         diffBox.classList.add('hidden');
-        tabNote.className = 'px-3 py-1 rounded text-xs font-medium bg-workspace-surface text-workspace-accent';
-        tabDiff.className = 'px-3 py-1 rounded text-xs font-medium text-workspace-muted hover:text-workspace-text';
+        tabNote.className = 'px-2 py-0.5 rounded text-[11px] font-medium bg-workspace-surface text-workspace-accent';
+        tabDiff.className = 'px-2 py-0.5 rounded text-[11px] font-medium text-workspace-muted hover:text-workspace-text';
       } else {
         notesBox.classList.add('hidden');
         diffBox.classList.remove('hidden');
-        tabDiff.className = 'px-3 py-1 rounded text-xs font-medium bg-workspace-surface text-workspace-accent';
-        tabNote.className = 'px-3 py-1 rounded text-xs font-medium text-workspace-muted hover:text-workspace-text';
+        tabDiff.className = 'px-2 py-0.5 rounded text-[11px] font-medium bg-workspace-surface text-workspace-accent';
+        tabNote.className = 'px-2 py-0.5 rounded text-[11px] font-medium text-workspace-muted hover:text-workspace-text';
       }
     }
 
@@ -1068,12 +1063,12 @@
       const label = document.getElementById(`${toolId}_lenLabel`);
 
       if (mode === 'pass') {
-        tabPass.className = 'flex-1 py-1.5 rounded bg-workspace-surface text-workspace-accent font-medium';
-        tabPin.className = 'flex-1 py-1.5 rounded text-workspace-muted hover:text-workspace-text font-medium';
+        tabPass.className = 'flex-1 py-1 rounded bg-workspace-surface text-workspace-accent font-medium';
+        tabPin.className = 'flex-1 py-1 rounded text-workspace-muted hover:text-workspace-text font-medium';
         slider.min = '8'; slider.max = '32'; slider.value = '16';
       } else {
-        tabPin.className = 'flex-1 py-1.5 rounded bg-workspace-surface text-workspace-accent font-medium';
-        tabPass.className = 'flex-1 py-1.5 rounded text-workspace-muted hover:text-workspace-text font-medium';
+        tabPin.className = 'flex-1 py-1 rounded bg-workspace-surface text-workspace-accent font-medium';
+        tabPass.className = 'flex-1 py-1 rounded text-workspace-muted hover:text-workspace-text font-medium';
         slider.min = '4'; slider.max = '8'; slider.value = '6';
       }
       label.textContent = slider.value;
@@ -1101,6 +1096,9 @@
       alert('Copied to clipboard.');
     }
 
+    /**
+     * WORKSPACE BACKUP & RESTORE
+     */
     function exportWorkspaceBackup() {
       const backup = {
         version: 1,
@@ -1176,7 +1174,7 @@
       commandModal.classList.remove('hidden');
       commandInput.value = '';
       renderCommandList();
-      setTimeout(() => commandInput.focus(), 50);
+      setTimeout(() => commandInput.focus(), 20);
     }
 
     function closeCommandPalette() {
@@ -1198,16 +1196,16 @@
       filtered.forEach(tool => {
         const isPinned = activePinnedTools.includes(tool.id);
         const item = document.createElement('div');
-        item.className = 'p-3 sm:p-2.5 rounded-lg hover:bg-workspace-bg flex items-center justify-between cursor-pointer border border-transparent hover:border-workspace-border';
+        item.className = 'p-2.5 rounded-lg hover:bg-workspace-bg flex items-center justify-between cursor-pointer border border-transparent hover:border-workspace-border gap-2';
         item.onclick = () => isPinned ? unpinTool(tool.id) : pinTool(tool.id);
 
         item.innerHTML = `
-          <div class="pr-2">
+          <div>
             <div class="text-xs font-semibold text-workspace-text">${tool.name}</div>
-            <div class="text-[11px] text-workspace-muted line-clamp-1">${tool.description}</div>
+            <div class="text-[11px] text-workspace-muted">${tool.description}</div>
           </div>
-          <span class="text-[10px] font-mono px-2 py-1 rounded shrink-0 ${isPinned ? 'bg-rose-950/40 text-rose-400 border border-rose-900/50' : 'bg-workspace-accent/10 text-workspace-accent border border-workspace-accent/20'}">
-            ${isPinned ? 'Unpin' : 'Pin'}
+          <span class="text-[10px] font-mono px-2 py-0.5 rounded shrink-0 ${isPinned ? 'bg-rose-950/40 text-rose-400 border border-rose-900/50' : 'bg-workspace-accent/10 text-workspace-accent border border-workspace-accent/20'}">
+            ${isPinned ? 'Unpin' : 'Pin to Board'}
           </span>
         `;
         commandResults.appendChild(item);
