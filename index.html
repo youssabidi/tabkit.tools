@@ -89,14 +89,14 @@
   <!-- ==================== TOP NAVIGATION RAIL (48px) ==================== -->
   <header class="h-12 border-b border-workspace-border bg-workspace-surface/80 backdrop-blur-md px-4 flex items-center justify-between sticky top-0 z-40">
     <div class="flex items-center gap-3">
-      <div class="flex items-center gap-2">
-        <svg class="w-5 h-5 text-workspace-accent" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+      <a href="/" class="flex items-center gap-2 group">
+        <svg class="w-5 h-5 text-workspace-accent transition-transform group-hover:scale-105" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
           <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
           <line x1="3" y1="9" x2="21" y2="9"></line>
           <line x1="9" y1="21" x2="9" y2="9"></line>
         </svg>
         <span class="font-bold tracking-tight text-workspace-text text-sm">tabkit<span class="text-workspace-accent font-mono font-medium">.tools</span></span>
-      </div>
+      </a>
 
       <div class="hidden sm:flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-workspace-bg border border-workspace-border text-[11px] text-workspace-muted font-mono">
         <span class="w-1.5 h-1.5 rounded-full bg-workspace-accent animate-pulse"></span>
@@ -116,6 +116,10 @@
 
     <!-- Right Controls -->
     <div class="flex items-center gap-2">
+      <a href="/about" class="px-2.5 py-1 rounded-lg hover:bg-workspace-bg text-workspace-muted hover:text-workspace-text border border-transparent hover:border-workspace-border text-xs font-mono transition-all">
+        About
+      </a>
+
       <button id="btnOpenToolCatalog" type="button" class="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-workspace-accent/10 border border-workspace-accent/30 hover:bg-workspace-accent/20 text-workspace-accent text-xs font-medium transition-all">
         <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
           <line x1="12" y1="5" x2="12" y2="19"></line>
@@ -193,7 +197,9 @@
     <div class="flex items-center gap-4">
       <span class="hidden sm:inline"><kbd class="text-workspace-text">Ctrl+K</kbd> Search</span>
       <span class="hidden sm:inline"><kbd class="text-workspace-text">Esc</kbd> Close</span>
-      <a href="#seoDrawer" class="hover:text-workspace-accent transition-colors">Specifications</a>
+      <a href="/about" class="hover:text-workspace-accent transition-colors">About &amp; Manifesto</a>
+      <span class="text-workspace-borderLight">•</span>
+      <a href="#seoDrawer" class="hover:text-workspace-accent transition-colors">Specs</a>
     </div>
   </footer>
 
@@ -210,7 +216,7 @@
       </div>
       <div>
         <h3 class="font-bold text-workspace-text mb-1">Zero Paywalls &amp; Zero Bloat</h3>
-        <p>Built for daily power workflows, developer utilities, and high-frequency clipboard manipulation without subscription gates or intrusive popups.</p>
+        <p>Built for daily power workflows, developer utilities, and high-frequency clipboard manipulation without subscription gates or intrusive popups. <a href="/about" class="text-workspace-accent underline">Read the full manifesto</a>.</p>
       </div>
       <div>
         <h3 class="font-bold text-workspace-text mb-1">Standalone Route Mapping</h3>
@@ -616,7 +622,7 @@
     commandInput.addEventListener('input', (e) => renderCommandList(e.target.value));
 
     /**
-     * ROBUST CAPTURE-PHASE KEYBOARD SHORTCUTS
+     * CAPTURE-PHASE KEYBOARD SHORTCUTS
      * Uses { capture: true } and checks e.code === 'KeyK' to intercept before browser omnibox.
      */
     document.addEventListener('keydown', (e) => {
