@@ -1,156 +1,130 @@
 <!DOCTYPE html>
-<html lang="en" class="dark">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>TabKit Tools | Pinned Command Center &amp; Local Workstation</title>
-  <meta name="description" content="Distraction-free, single-tab daily utility workbench. 100% client-side, zero server telemetry, privacy-first." />
-  
-  <!-- Inter & JetBrains Mono Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-  
+  <title>TabKit Tools | Local-First Browser Workbench &amp; Utilities</title>
+  <meta name="description" content="100% in-browser, privacy-first productivity toolkit and utilities. Zero server uploads, zero logins, zero clutter." />
+  <link rel="canonical" href="https://tabkit.tools/" />
+
+  <!-- Preconnect and Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
-      darkMode: 'class',
       theme: {
         extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace']
+          },
           colors: {
-            brand: {
+            workspace: {
               bg: '#0F1117',
               surface: '#1A1D24',
-              surfaceHover: '#222631',
+              surfaceHover: '#222630',
               border: '#262A34',
-              borderHover: '#383E4D',
+              borderLight: '#353B49',
               text: '#E6EDF3',
-              muted: '#94A3B8',
+              muted: '#8B949E',
               accent: '#10B981',
               accentHover: '#059669',
-              accentMuted: 'rgba(16, 185, 129, 0.12)',
-              danger: '#EF4444',
-              dangerMuted: 'rgba(239, 68, 68, 0.12)',
-              warning: '#F59E0B',
-              info: '#38BDF8',
+              danger: '#EF4444'
             }
-          },
-          fontFamily: {
-            sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
-            mono: ['JetBrains Mono', 'ui-monospace', 'monospace'],
           }
         }
       }
     };
   </script>
 
-  <style>
-    /* Eye-comfort dot-matrix blueprint background */
-    .blueprint-dots {
-      background-size: 24px 24px;
-      background-image: radial-gradient(circle, rgba(230, 237, 243, 0.07) 1.5px, transparent 1.5px);
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "TabKit Tools",
+    "url": "https://tabkit.tools",
+    "applicationCategory": "UtilitiesApplication",
+    "operatingSystem": "Any",
+    "browserRequirements": "Requires JavaScript. Modern HTML5 browser.",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
     }
+  }
+  </script>
 
-    /* Precision subtle scrollbars */
+  <style>
+    /* Custom scrollbars */
     ::-webkit-scrollbar {
       width: 6px;
       height: 6px;
     }
     ::-webkit-scrollbar-track {
-      background: transparent;
+      background: #0F1117;
     }
     ::-webkit-scrollbar-thumb {
       background: #262A34;
-      border-radius: 9999px;
+      border-radius: 3px;
     }
     ::-webkit-scrollbar-thumb:hover {
-      background: #383E4D;
+      background: #353B49;
     }
 
-    /* Pulse animation for local-first indicator */
-    @keyframes subtle-pulse {
-      0%, 100% { opacity: 1; transform: scale(1); }
-      50% { opacity: 0.45; transform: scale(0.9); }
-    }
-    .animate-subtle-pulse {
-      animation: subtle-pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-    }
-
-    /* Card collapse animation transition */
-    .card-body-collapse {
-      transition: max-height 0.25s ease-in-out, opacity 0.2s ease-in-out;
-      overflow: hidden;
-    }
-    .card-body-collapse.collapsed {
-      max-height: 0 !important;
-      opacity: 0;
-      padding-top: 0 !important;
-      padding-bottom: 0 !important;
+    /* Subtle blueprint dot grid background for empty state */
+    .bg-dot-grid {
+      background-image: radial-gradient(#262A34 1px, transparent 1px);
+      background-size: 20px 20px;
     }
   </style>
 </head>
 
-<body class="bg-brand-bg text-brand-text font-sans min-h-screen flex flex-col selection:bg-brand-accentMuted selection:text-brand-accent antialiased">
+<body class="bg-workspace-bg text-workspace-text font-sans antialiased min-h-screen flex flex-col selection:bg-workspace-accent selection:text-black">
 
-  <!-- Top Bar (48px fixed height) -->
-  <header class="h-12 border-b border-brand-border bg-brand-surface/90 backdrop-blur-md sticky top-0 z-40 px-4 flex items-center justify-between select-none">
-    
-    <!-- Left: Brand & Local Status -->
+  <!-- ==================== TOP NAVIGATION RAIL (48px) ==================== -->
+  <header class="h-12 border-b border-workspace-border bg-workspace-surface/80 backdrop-blur-md px-4 flex items-center justify-between sticky top-0 z-40">
     <div class="flex items-center gap-3">
-      <a href="#" class="flex items-center gap-2 group focus:outline-none" title="TabKit Tools Home">
-        <div class="w-6 h-6 rounded bg-brand-accent/15 border border-brand-accent/30 flex items-center justify-center text-brand-accent font-mono font-bold text-xs group-hover:border-brand-accent transition-colors">
-          tk
-        </div>
-        <span class="font-bold text-sm tracking-tight text-brand-text flex items-center gap-1">
-          tabkit<span class="text-brand-muted font-normal text-xs">.tools</span>
-        </span>
-      </a>
+      <div class="flex items-center gap-2">
+        <svg class="w-5 h-5 text-workspace-accent" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+          <line x1="3" y1="9" x2="21" y2="9"></line>
+          <line x1="9" y1="21" x2="9" y2="9"></line>
+        </svg>
+        <span class="font-bold tracking-tight text-workspace-text text-sm">tabkit<span class="text-workspace-accent font-mono font-medium">.tools</span></span>
+      </div>
 
-      <div class="hidden sm:flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-brand-bg border border-brand-border text-[11px] text-brand-muted">
-        <span class="w-1.5 h-1.5 rounded-full bg-brand-accent animate-subtle-pulse"></span>
-        <span class="font-mono text-[10px] text-brand-muted">Local &amp; Offline Ready</span>
+      <div class="hidden sm:flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-workspace-bg border border-workspace-border text-[11px] text-workspace-muted font-mono">
+        <span class="w-1.5 h-1.5 rounded-full bg-workspace-accent animate-pulse"></span>
+        <span>Local &amp; Offline</span>
       </div>
     </div>
 
-    <!-- Center: Search & Command Palette Pill -->
-    <div class="flex-1 max-w-md mx-3">
-      <button 
-        id="cmdPaletteTrigger"
-        type="button"
-        class="w-full flex items-center justify-between px-3 py-1.5 rounded-lg bg-brand-bg border border-brand-border hover:border-brand-borderHover text-brand-muted hover:text-brand-text text-xs transition-all duration-150 focus:outline-none focus:ring-1 focus:ring-brand-accent/50"
-      >
-        <span class="flex items-center gap-2 truncate">
-          <svg class="w-3.5 h-3.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-          </svg>
-          <span class="truncate">Search utilities or press Ctrl+K / ⌘K</span>
-        </span>
-        <kbd class="hidden sm:inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded bg-brand-surface border border-brand-border text-[10px] font-mono text-brand-muted">
-          <span>⌘</span>K
-        </kbd>
-      </button>
-    </div>
+    <!-- Center Quick Command Bar Trigger -->
+    <button id="btnOpenCommandPalette" class="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-workspace-bg border border-workspace-border hover:border-workspace-borderLight text-xs text-workspace-muted transition-all">
+      <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+        <circle cx="11" cy="11" r="8"></circle>
+        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+      </svg>
+      <span class="hidden md:inline">Quick Launcher</span>
+      <kbd class="px-1.5 py-0.5 rounded bg-workspace-surface border border-workspace-border text-[10px] font-mono text-workspace-text">Ctrl K</kbd>
+    </button>
 
-    <!-- Right: Workspace Actions -->
+    <!-- Right Controls -->
     <div class="flex items-center gap-2">
-      <button 
-        id="openCatalogBtn"
-        type="button" 
-        class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-brand-accent hover:bg-brand-accentHover text-brand-bg font-medium text-xs transition-colors shadow-sm focus:outline-none focus:ring-1 focus:ring-brand-accent"
-      >
+      <button id="btnOpenToolCatalog" class="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-workspace-accent/10 border border-workspace-accent/30 hover:bg-workspace-accent/20 text-workspace-accent text-xs font-medium transition-all">
         <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
+          <line x1="12" y1="5" x2="12" y2="19"></line>
+          <line x1="5" y1="12" x2="19" y2="12"></line>
         </svg>
-        <span class="hidden sm:inline">Add Tool</span>
+        <span>Add Tool</span>
       </button>
 
-      <button 
-        id="resetWorkspaceBtn"
-        type="button"
-        title="Reset workspace"
-        class="p-1.5 rounded-lg text-brand-muted hover:text-red-400 hover:bg-brand-surface border border-transparent hover:border-brand-border transition-colors focus:outline-none"
-      >
+      <button id="btnResetWorkspace" title="Clear pinned workbench" class="p-1.5 rounded-lg hover:bg-workspace-bg text-workspace-muted hover:text-workspace-danger border border-transparent hover:border-workspace-border transition-all">
         <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
           <path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
         </svg>
@@ -158,612 +132,530 @@
     </div>
   </header>
 
-  <!-- Main Viewport: Flexible Workspace Area -->
-  <main class="flex-1 w-full max-w-[1600px] mx-auto p-4 sm:p-6 flex flex-col">
-    
-    <!-- Empty Workbench View (Visible when 0 tools pinned) -->
-    <section id="emptyWorkbench" class="blueprint-dots flex-1 min-h-[500px] rounded-2xl border border-dashed border-brand-border flex flex-col items-center justify-center p-6 text-center transition-all duration-200">
-      <div class="max-w-lg mx-auto">
-        
-        <div class="w-12 h-12 rounded-xl bg-brand-surface border border-brand-border flex items-center justify-center mx-auto mb-4 text-brand-accent shadow-inner">
-          <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
-          </svg>
-        </div>
+  <!-- ==================== MAIN WORKBENCH VIEWPORT ==================== -->
+  <main class="flex-1 p-4 md:p-6 overflow-y-auto">
+    <!-- Active Tools Grid Container -->
+    <div id="workbenchGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 max-w-[1700px] mx-auto"></div>
 
-        <h1 class="text-xl sm:text-2xl font-bold tracking-tight text-brand-text mb-2">
-          Your workspace is empty
-        </h1>
-        <p class="text-xs sm:text-sm text-brand-muted leading-relaxed mb-6">
-          Pin the utilities you need for your daily flow. Everything runs 100% in your browser, stays private, and auto-saves to your local machine.
-        </p>
-
-        <!-- 3 Dashed Slot Dropzones -->
-        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-6 text-left">
-          
-          <button onclick="window.TabKit.pinTool('scratchpad')" class="group p-3.5 rounded-xl bg-brand-surface/70 border border-dashed border-brand-border hover:border-brand-accent transition-all flex flex-col justify-between">
-            <div class="flex items-center gap-2.5 mb-2">
-              <span class="p-1.5 rounded-lg bg-brand-bg text-brand-accent border border-brand-border group-hover:scale-105 transition-transform">
-                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
-                </svg>
-              </span>
-              <span class="text-xs font-semibold text-brand-text group-hover:text-brand-accent transition-colors">+ Pin Scratchpad &amp; Diff</span>
-            </div>
-            <p class="text-[11px] text-brand-muted leading-normal">Persistent buffer and visual side-by-side diff comparison.</p>
-          </button>
-
-          <button onclick="window.TabKit.pinTool('url-cleaner')" class="group p-3.5 rounded-xl bg-brand-surface/70 border border-dashed border-brand-border hover:border-brand-accent transition-all flex flex-col justify-between">
-            <div class="flex items-center gap-2.5 mb-2">
-              <span class="p-1.5 rounded-lg bg-brand-bg text-brand-accent border border-brand-border group-hover:scale-105 transition-transform">
-                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
-                </svg>
-              </span>
-              <span class="text-xs font-semibold text-brand-text group-hover:text-brand-accent transition-colors">+ Pin Bulk URL Cleaner</span>
-            </div>
-            <p class="text-[11px] text-brand-muted leading-normal">Strip tracking junk (?utm_, ref), extract URLs &amp; bulk open.</p>
-          </button>
-
-          <button onclick="window.TabKit.pinTool('text-cleaner')" class="group p-3.5 rounded-xl bg-brand-surface/70 border border-dashed border-brand-border hover:border-brand-accent transition-all flex flex-col justify-between">
-            <div class="flex items-center gap-2.5 mb-2">
-              <span class="p-1.5 rounded-lg bg-brand-bg text-brand-accent border border-brand-border group-hover:scale-105 transition-transform">
-                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M3 10h18M3 14h18m-9-4v8m-7 0h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
-                </svg>
-              </span>
-              <span class="text-xs font-semibold text-brand-text group-hover:text-brand-accent transition-colors">+ Pin Text Clean &amp; Case</span>
-            </div>
-            <p class="text-[11px] text-brand-muted leading-normal">Format casing, remove dupes, and clean whitespace.</p>
-          </button>
-
-        </div>
-
-        <!-- 1-Click Starter Deck -->
-        <button 
-          id="loadRecommendedBtn"
-          type="button" 
-          class="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-brand-surface hover:bg-brand-surfaceHover border border-brand-border hover:border-brand-borderHover text-brand-text font-medium text-xs transition-colors shadow-sm"
-        >
-          <svg class="w-4 h-4 text-brand-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
-          </svg>
-          <span>Load Recommended Starter Deck</span>
-        </button>
+    <!-- Empty Workspace State -->
+    <div id="emptyWorkspaceState" class="hidden max-w-4xl mx-auto my-12 p-8 rounded-2xl border border-dashed border-workspace-border bg-workspace-surface/30 bg-dot-grid text-center">
+      <div class="w-12 h-12 rounded-xl bg-workspace-surface border border-workspace-border flex items-center justify-center mx-auto mb-4 text-workspace-accent">
+        <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+          <line x1="12" y1="8" x2="12" y2="16"></line>
+          <line x1="8" y1="12" x2="16" y2="12"></line>
+        </svg>
       </div>
-    </section>
+      <h2 class="text-base font-bold text-workspace-text tracking-tight mb-1">Your Workbench is Empty</h2>
+      <p class="text-xs text-workspace-muted max-w-md mx-auto mb-6">
+        Select utilities to pin to your personal browser dashboard. All tools run 100% in your browser with zero server data storage.
+      </p>
 
-    <!-- Active Workbench Grid (Modular container for pinned plugins) -->
-    <div id="toolsGrid" class="hidden grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-5 items-start">
-      <!-- Injected dynamically by WorkspaceManager loop -->
+      <!-- Slot Targets -->
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6 text-left">
+        <div onclick="pinTool('scratchpad')" class="p-3.5 rounded-xl border border-workspace-border hover:border-workspace-accent/50 bg-workspace-surface hover:bg-workspace-surfaceHover cursor-pointer transition-all">
+          <div class="text-xs font-semibold text-workspace-text flex items-center justify-between mb-1">
+            <span>Scratchpad &amp; Diff</span>
+            <span class="text-workspace-accent">+</span>
+          </div>
+          <p class="text-[11px] text-workspace-muted">Quick notes and split-screen text difference comparison.</p>
+        </div>
+
+        <div onclick="pinTool('url-cleaner')" class="p-3.5 rounded-xl border border-workspace-border hover:border-workspace-accent/50 bg-workspace-surface hover:bg-workspace-surfaceHover cursor-pointer transition-all">
+          <div class="text-xs font-semibold text-workspace-text flex items-center justify-between mb-1">
+            <span>Bulk URL Cleaner</span>
+            <span class="text-workspace-accent">+</span>
+          </div>
+          <p class="text-[11px] text-workspace-muted">Strip utm/tracking parameters and batch open or copy clean links.</p>
+        </div>
+
+        <div onclick="pinTool('text-cleaner')" class="p-3.5 rounded-xl border border-workspace-border hover:border-workspace-accent/50 bg-workspace-surface hover:bg-workspace-surfaceHover cursor-pointer transition-all">
+          <div class="text-xs font-semibold text-workspace-text flex items-center justify-between mb-1">
+            <span>Text &amp; Case Formatter</span>
+            <span class="text-workspace-accent">+</span>
+          </div>
+          <p class="text-[11px] text-workspace-muted">Deduplicate lines, toggle cases, and trim whitespace formatting.</p>
+        </div>
+      </div>
+
+      <button id="btnLoadStarterDeck" class="px-4 py-2 rounded-lg bg-workspace-surface border border-workspace-borderLight hover:border-workspace-accent text-xs font-medium text-workspace-text hover:text-workspace-accent transition-all">
+        Load Recommended Starter Setup
+      </button>
     </div>
-
   </main>
 
-  <!-- Command Palette Modal (Ctrl+K / Cmd+K) -->
-  <div id="cmdPaletteModal" class="fixed inset-0 z-50 bg-black/75 backdrop-blur-sm hidden items-start justify-center p-4 pt-16 sm:pt-24" role="dialog" aria-modal="true">
-    <div class="w-full max-w-xl bg-brand-surface border border-brand-border rounded-2xl shadow-2xl overflow-hidden flex flex-col" onclick="event.stopPropagation()">
-      
-      <!-- Search Input Header -->
-      <div class="p-3.5 border-b border-brand-border flex items-center gap-3 bg-brand-surface">
-        <svg class="w-4 h-4 text-brand-muted flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-        </svg>
-        <input 
-          id="cmdPaletteInput"
-          type="text" 
-          placeholder="Search tools by name, tag, or description..." 
-          class="w-full bg-transparent text-brand-text text-sm placeholder-brand-muted focus:outline-none font-sans"
-          autocomplete="off"
-          spellcheck="false"
-        />
-        <kbd class="px-1.5 py-0.5 rounded bg-brand-bg border border-brand-border text-[10px] font-mono text-brand-muted">ESC</kbd>
-      </div>
-
-      <!-- Filterable Items List -->
-      <div id="cmdPaletteList" class="max-h-80 overflow-y-auto p-2 space-y-1" role="listbox">
-        <!-- Rendered dynamically -->
-      </div>
-
-      <!-- Palette Footer -->
-      <div class="px-4 py-2.5 border-t border-brand-border bg-brand-bg flex items-center justify-between text-[11px] text-brand-muted select-none">
-        <div class="flex items-center gap-3">
-          <span><kbd class="font-mono bg-brand-surface px-1 py-0.5 rounded border border-brand-border text-[10px]">↑↓</kbd> Navigate</span>
-          <span><kbd class="font-mono bg-brand-surface px-1 py-0.5 rounded border border-brand-border text-[10px]">↵</kbd> Toggle Pin</span>
-        </div>
-        <span class="font-mono text-[10px] text-brand-accent">100% In-Browser</span>
-      </div>
+  <!-- ==================== MICRO STATUS BAR (32px) ==================== -->
+  <footer class="h-8 border-t border-workspace-border bg-workspace-surface/90 px-4 flex items-center justify-between text-[11px] font-mono text-workspace-muted">
+    <div class="flex items-center gap-3">
+      <span id="storageUsageBadge">Storage: calculating...</span>
+      <span class="hidden md:inline">• Zero Server Telemetry</span>
     </div>
-  </div>
-
-  <!-- Catalog Modal -->
-  <div id="catalogModal" class="fixed inset-0 z-50 bg-black/75 backdrop-blur-sm hidden items-center justify-center p-4" role="dialog" aria-modal="true">
-    <div class="w-full max-w-2xl bg-brand-surface border border-brand-border rounded-2xl shadow-2xl overflow-hidden flex flex-col max-h-[85vh]" onclick="event.stopPropagation()">
-      
-      <div class="px-6 py-4 border-b border-brand-border flex items-center justify-between">
-        <div>
-          <h2 class="text-base font-semibold text-brand-text">Tool Catalog</h2>
-          <p class="text-xs text-brand-muted mt-0.5">Toggle utilities on your desk. Everything runs purely client-side.</p>
-        </div>
-        <button id="closeCatalogBtn" class="p-1.5 rounded-lg text-brand-muted hover:text-brand-text hover:bg-brand-bg transition-colors" title="Close catalog">
-          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
-          </svg>
-        </button>
-      </div>
-
-      <div id="catalogItemsContainer" class="p-5 overflow-y-auto space-y-3">
-        <!-- Injected dynamically -->
-      </div>
-    </div>
-  </div>
-
-  <!-- Reset Confirmation Modal (Zero alert/confirm calls) -->
-  <div id="resetConfirmModal" class="fixed inset-0 z-50 bg-black/75 backdrop-blur-sm hidden items-center justify-center p-4">
-    <div class="w-full max-w-md bg-brand-surface border border-brand-border rounded-2xl p-6 shadow-2xl" onclick="event.stopPropagation()">
-      <div class="flex items-center gap-3 mb-3 text-red-400">
-        <div class="p-2 rounded-xl bg-red-400/10 border border-red-400/20">
-          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-          </svg>
-        </div>
-        <h3 class="text-base font-semibold text-brand-text">Reset Desk Workspace?</h3>
-      </div>
-      <p class="text-xs text-brand-muted leading-relaxed mb-6">
-        This will unpin all tools from your board back to an empty desk. Your saved scratchpad text and data will remain safely intact in local storage.
-      </p>
-      <div class="flex items-center justify-end gap-2.5">
-        <button id="cancelResetBtn" class="px-3.5 py-2 rounded-xl text-xs font-medium text-brand-muted hover:text-brand-text hover:bg-brand-bg transition-colors">
-          Cancel
-        </button>
-        <button id="confirmResetBtn" class="px-4 py-2 rounded-xl bg-red-500 hover:bg-red-600 text-white text-xs font-medium transition-colors shadow-sm">
-          Clear Desk
-        </button>
-      </div>
-    </div>
-  </div>
-
-  <!-- Bottom Status Bar (32px fixed height) -->
-  <footer class="h-8 border-t border-brand-border bg-brand-surface/90 backdrop-blur-sm px-4 flex items-center justify-between text-[11px] font-mono text-brand-muted select-none">
-    
-    <!-- Left: Real-time storage counter -->
-    <div class="flex items-center gap-2">
-      <span class="w-1.5 h-1.5 rounded-full bg-brand-accent"></span>
-      <span id="storageUsageLabel">Storage: 0.00 KB used &bull; 100% Client-Side Privacy</span>
-    </div>
-
-    <!-- Center: Shortcuts helper -->
-    <div class="hidden md:flex items-center gap-3">
-      <span><kbd class="bg-brand-bg px-1 py-0.5 rounded border border-brand-border text-[10px]">Ctrl+K</kbd> Search</span>
-      <span>&bull;</span>
-      <span><kbd class="bg-brand-bg px-1 py-0.5 rounded border border-brand-border text-[10px]">Esc</kbd> Dismiss</span>
-    </div>
-
-    <!-- Right: Standalone pages indicator -->
-    <div class="flex items-center gap-1.5 text-brand-text/70 hover:text-brand-accent cursor-pointer transition-colors" onclick="window.TabKit.openCatalog()">
-      <span>Browse Standalone Pages</span>
-      <span>&rarr;</span>
+    <div class="flex items-center gap-4">
+      <span class="hidden sm:inline"><kbd class="text-workspace-text">Ctrl+K</kbd> Search</span>
+      <span class="hidden sm:inline"><kbd class="text-workspace-text">Esc</kbd> Close</span>
+      <a href="#seoDrawer" class="hover:text-workspace-accent transition-colors">Specifications</a>
     </div>
   </footer>
 
-  <!-- Toast Notification Container -->
-  <div id="toastContainer" class="fixed bottom-11 right-5 z-50 flex flex-col gap-2 pointer-events-none"></div>
+  <!-- ==================== SEO ACCORDION DRAWER ==================== -->
+  <details id="seoDrawer" class="group border-t border-workspace-border bg-workspace-surface text-workspace-muted text-xs">
+    <summary class="px-4 py-2 cursor-pointer list-none flex items-center justify-between font-mono text-[11px] hover:text-workspace-text">
+      <span>Platform Overview &amp; Specifications</span>
+      <span class="group-open:rotate-180 transition-transform">▼</span>
+    </summary>
+    <div class="p-6 grid grid-cols-1 md:grid-cols-3 gap-6 border-t border-workspace-border text-xs leading-relaxed">
+      <div>
+        <h3 class="font-bold text-workspace-text mb-1">Client-Side Architecture</h3>
+        <p>TabKit Tools operates completely inside your client browser sandbox using modern HTML5 Web APIs and localStorage. No text, URLs, or files ever leave your machine.</p>
+      </div>
+      <div>
+        <h3 class="font-bold text-workspace-text mb-1">Zero Paywalls &amp; Zero Bloat</h3>
+        <p>Built for daily power workflows, developer utilities, and high-frequency clipboard manipulation without subscription gates or intrusive popups.</p>
+      </div>
+      <div>
+        <h3 class="font-bold text-workspace-text mb-1">Standalone Route Mapping</h3>
+        <p>Every utility mounts natively inside this central dashboard or functions independently on its dedicated utility route for rapid search access.</p>
+      </div>
+    </div>
+  </details>
 
+  <!-- ==================== COMMAND PALETTE MODAL ==================== -->
+  <div id="commandPaletteModal" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 hidden flex items-start justify-center pt-20 px-4">
+    <div class="w-full max-w-lg rounded-xl border border-workspace-border bg-workspace-surface shadow-2xl overflow-hidden">
+      <div class="p-3 border-b border-workspace-border flex items-center gap-2">
+        <svg class="w-4 h-4 text-workspace-muted" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <circle cx="11" cy="11" r="8"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+        <input id="commandInput" type="text" placeholder="Type a tool name or command..." class="w-full bg-transparent text-sm text-workspace-text placeholder-workspace-muted focus:outline-none" />
+        <kbd class="px-1.5 py-0.5 rounded bg-workspace-bg border border-workspace-border text-[10px] font-mono text-workspace-muted">ESC</kbd>
+      </div>
+      <div id="commandResultsList" class="max-h-72 overflow-y-auto p-2 space-y-1"></div>
+    </div>
+  </div>
+
+  <!-- ==================== SCRIPT: PLUGIN REGISTRY & CORE ==================== -->
   <script>
     /**
-     * Client-side Longest Common Subsequence (LCS) Line Diff Algorithm
-     * Produces clean line-by-line additions, deletions, and unchanged lines.
-     */
-    function computeLineDiff(originalText, modifiedText) {
-      const origLines = originalText ? originalText.split('\n') : [];
-      const modLines = modifiedText ? modifiedText.split('\n') : [];
-      
-      const m = origLines.length;
-      const n = modLines.length;
-      
-      // Matrix for LCS DP table
-      const dp = Array(m + 1).fill(null).map(() => Array(n + 1).fill(0));
-      for (let i = 0; i < m; i++) {
-        for (let j = 0; j < n; j++) {
-          if (origLines[i] === modLines[j]) {
-            dp[i + 1][j + 1] = dp[i][j] + 1;
-          } else {
-            dp[i + 1][j + 1] = Math.max(dp[i + 1][j], dp[i][j + 1]);
-          }
-        }
-      }
-
-      // Backtrack to build diff ops
-      let i = m;
-      let j = n;
-      const result = [];
-      
-      while (i > 0 || j > 0) {
-        if (i > 0 && j > 0 && origLines[i - 1] === modLines[j - 1]) {
-          result.unshift({ type: 'same', text: origLines[i - 1] });
-          i--;
-          j--;
-        } else if (j > 0 && (i === 0 || dp[i][j - 1] >= dp[i - 1][j])) {
-          result.unshift({ type: 'add', text: modLines[j - 1] });
-          j--;
-        } else if (i > 0 && (j === 0 || dp[i][j - 1] < dp[i - 1][j])) {
-          result.unshift({ type: 'remove', text: origLines[i - 1] });
-          i--;
-        }
-      }
-      return result;
-    }
-
-    /**
-     * Clipboard fallback helper (execCommand fallback for iframe restrictions)
-     */
-    function copyTextToClipboard(text, onSuccess, onFail) {
-      if (!text) return;
-      if (navigator.clipboard && window.isSecureContext) {
-        navigator.clipboard.writeText(text).then(onSuccess).catch(() => {
-          fallbackCopy(text, onSuccess, onFail);
-        });
-      } else {
-        fallbackCopy(text, onSuccess, onFail);
-      }
-    }
-
-    function fallbackCopy(text, onSuccess, onFail) {
-      try {
-        const textArea = document.createElement("textarea");
-        textArea.value = text;
-        textArea.style.position = "fixed";
-        textArea.style.left = "-999999px";
-        textArea.style.top = "-999999px";
-        document.body.appendChild(textArea);
-        textArea.focus();
-        textArea.select();
-        const successful = document.execCommand('copy');
-        document.body.removeChild(textArea);
-        if (successful) onSuccess(); else if (onFail) onFail();
-      } catch (err) {
-        if (onFail) onFail();
-      }
-    }
-
-    /**
-     * PLUGIN REGISTRY
-     * Every tool defines its UI, state, and mount function independently.
+     * CENTRAL PLUGIN REGISTRY
+     * Every tool is an isolated object with:
+     * - id: Unique string identifier
+     * - name: Display title
+     * - category: Organizational grouping
+     * - description: Short utility brief
+     * - render: Pure render function returning clean HTML string
+     * - init: Hook to attach event listeners after DOM insertion
      */
     const TOOLS_REGISTRY = {
-      
-      /**
-       * TOOL 1: Persistent Scratchpad & Side-by-Side Diff Checker
-       */
       'scratchpad': {
         id: 'scratchpad',
         name: 'Scratchpad & Diff',
         category: 'Workspace',
-        badge: 'Essential',
-        tags: ['notes', 'diff', 'compare', 'text', 'buffer', 'draft'],
-        description: 'Auto-saving persistent notes plus side-by-side diff comparison.',
-        icon: `<svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" /></svg>`,
-        
-        mount(container, api) {
-          const storageKeyNotes = 'tabkit_scratchpad_notes';
-          const savedNotes = localStorage.getItem(storageKeyNotes) || '';
-
-          container.innerHTML = `
-            <div class="flex flex-col space-y-3">
-              
-              <!-- Tab Switcher -->
-              <div class="flex items-center justify-between border-b border-brand-border pb-2">
-                <div class="flex items-center gap-1 bg-brand-bg p-0.5 rounded-lg border border-brand-border text-xs">
-                  <button id="tabNotesBtn" class="px-2.5 py-1 rounded-md bg-brand-surface text-brand-text font-medium transition-all shadow-sm">Notes Buffer</button>
-                  <button id="tabDiffBtn" class="px-2.5 py-1 rounded-md text-brand-muted hover:text-brand-text transition-all">Diff Checker</button>
-                </div>
-                <div id="notesToolbar" class="flex items-center gap-1.5">
-                  <span id="scratchWordStats" class="text-[11px] text-brand-muted font-mono mr-1">0 words</span>
-                  <button id="copyNotesBtn" class="px-2 py-0.5 rounded bg-brand-bg hover:bg-brand-surfaceHover border border-brand-border text-brand-text text-[11px] transition-colors">Copy</button>
-                  <button id="clearNotesBtn" class="px-2 py-0.5 rounded bg-brand-bg hover:bg-brand-surfaceHover border border-brand-border text-brand-muted hover:text-red-400 text-[11px] transition-colors">Clear</button>
-                </div>
+        description: 'Auto-saving multi-block notes and instant text difference comparison.',
+        render: (toolId) => `
+          <div class="flex flex-col h-full space-y-3 font-sans">
+            <div class="flex items-center justify-between text-xs">
+              <div class="flex gap-1 bg-workspace-bg p-0.5 rounded-lg border border-workspace-border">
+                <button id="${toolId}_tabNote" onclick="toggleScratchMode('${toolId}', 'notes')" class="px-2 py-0.5 rounded text-[11px] font-medium bg-workspace-surface text-workspace-accent">Notes</button>
+                <button id="${toolId}_tabDiff" onclick="toggleScratchMode('${toolId}', 'diff')" class="px-2 py-0.5 rounded text-[11px] font-medium text-workspace-muted hover:text-workspace-text">Diff</button>
               </div>
-
-              <!-- VIEW 1: Notes Buffer -->
-              <div id="viewNotes" class="flex flex-col space-y-2">
-                <textarea 
-                  id="scratchNotesArea" 
-                  placeholder="Paste or write notes... Everything auto-saves instantly to your browser." 
-                  class="w-full h-44 bg-brand-bg border border-brand-border rounded-xl p-3 text-xs text-brand-text placeholder-brand-muted focus:outline-none focus:ring-1 focus:ring-brand-accent/50 resize-y font-mono leading-relaxed"
-                >${savedNotes}</textarea>
-              </div>
-
-              <!-- VIEW 2: Side-by-Side Diff Checker -->
-              <div id="viewDiff" class="hidden flex-col space-y-3">
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                  <div class="flex flex-col space-y-1">
-                    <span class="text-[10px] font-mono text-brand-muted uppercase">Original Text</span>
-                    <textarea 
-                      id="diffOriginal" 
-                      placeholder="Paste original version..." 
-                      class="w-full h-24 bg-brand-bg border border-brand-border rounded-xl p-2.5 text-xs text-brand-text font-mono placeholder-brand-muted focus:outline-none resize-none leading-relaxed"
-                    ></textarea>
-                  </div>
-                  <div class="flex flex-col space-y-1">
-                    <span class="text-[10px] font-mono text-brand-muted uppercase">Modified Text</span>
-                    <textarea 
-                      id="diffModified" 
-                      placeholder="Paste updated version..." 
-                      class="w-full h-24 bg-brand-bg border border-brand-border rounded-xl p-2.5 text-xs text-brand-text font-mono placeholder-brand-muted focus:outline-none resize-none leading-relaxed"
-                    ></textarea>
-                  </div>
-                </div>
-
-                <div class="flex items-center justify-between">
-                  <span id="diffSummaryLabel" class="text-[11px] text-brand-muted font-mono">Ready to compare</span>
-                  <button id="runDiffBtn" class="px-3 py-1 rounded bg-brand-accent hover:bg-brand-accentHover text-brand-bg font-medium text-xs transition-colors">Compare Lines</button>
-                </div>
-
-                <!-- Diff Visual Output -->
-                <div id="diffOutputContainer" class="hidden flex-col rounded-xl border border-brand-border bg-brand-bg overflow-hidden text-xs font-mono max-h-48 overflow-y-auto">
-                  <div id="diffLinesBox" class="p-2 space-y-0.5 divide-y divide-brand-border/30"></div>
-                </div>
-              </div>
-
+              <span id="${toolId}_saveStatus" class="text-[10px] text-workspace-muted font-mono">Synced</span>
             </div>
-          `;
 
-          // Notes DOM bindings
-          const notesArea = container.querySelector('#scratchNotesArea');
-          const wordStats = container.querySelector('#scratchWordStats');
-          const copyNotesBtn = container.querySelector('#copyNotesBtn');
-          const clearNotesBtn = container.querySelector('#clearNotesBtn');
-          const tabNotesBtn = container.querySelector('#tabNotesBtn');
-          const tabDiffBtn = container.querySelector('#tabDiffBtn');
-          const notesToolbar = container.querySelector('#notesToolbar');
-          const viewNotes = container.querySelector('#viewNotes');
-          const viewDiff = container.querySelector('#viewDiff');
+            <!-- Notes Mode -->
+            <div id="${toolId}_notesContainer" class="flex-1 flex flex-col space-y-2">
+              <textarea id="${toolId}_textarea" class="w-full h-44 bg-workspace-bg border border-workspace-border rounded-lg p-3 text-xs font-mono text-workspace-text placeholder-workspace-muted focus:border-workspace-borderLight focus:outline-none resize-none" placeholder="Type or paste quick notes here (auto-saved locally)..."></textarea>
+            </div>
 
-          // Diff DOM bindings
-          const diffOrig = container.querySelector('#diffOriginal');
-          const diffMod = container.querySelector('#diffModified');
-          const runDiffBtn = container.querySelector('#runDiffBtn');
-          const diffSummary = container.querySelector('#diffSummaryLabel');
-          const diffOutputContainer = container.querySelector('#diffOutputContainer');
-          const diffLinesBox = container.querySelector('#diffLinesBox');
+            <!-- Diff Mode (Hidden by default) -->
+            <div id="${toolId}_diffContainer" class="hidden flex-1 flex flex-col space-y-2">
+              <div class="grid grid-cols-2 gap-2 h-36">
+                <textarea id="${toolId}_diffA" class="w-full h-full bg-workspace-bg border border-workspace-border rounded-lg p-2 text-[11px] font-mono text-workspace-text placeholder-workspace-muted focus:outline-none resize-none" placeholder="Original text..."></textarea>
+                <textarea id="${toolId}_diffB" class="w-full h-full bg-workspace-bg border border-workspace-border rounded-lg p-2 text-[11px] font-mono text-workspace-text placeholder-workspace-muted focus:outline-none resize-none" placeholder="Modified text..."></textarea>
+              </div>
+              <button onclick="runTextDiff('${toolId}')" class="w-full py-1 bg-workspace-bg border border-workspace-border hover:border-workspace-accent text-[11px] rounded text-workspace-text font-mono transition-all">Compare Lines</button>
+              <div id="${toolId}_diffOutput" class="max-h-24 overflow-y-auto p-2 bg-workspace-bg border border-workspace-border rounded text-[10px] font-mono space-y-0.5"></div>
+            </div>
+          </div>
+        `,
+        init: (toolId) => {
+          const textarea = document.getElementById(`${toolId}_textarea`);
+          const status = document.getElementById(`${toolId}_saveStatus`);
+          const saved = localStorage.getItem(`tabkit_scratchpad_data`);
+          if (saved) textarea.value = saved;
 
-          function updateWordStats() {
-            const val = notesArea.value;
-            const words = val.trim() ? val.trim().split(/\s+/).length : 0;
-            const chars = val.length;
-            wordStats.textContent = `${words}w • ${chars}c`;
-          }
-
-          notesArea.addEventListener('input', () => {
-            localStorage.setItem(storageKeyNotes, notesArea.value);
-            updateWordStats();
-            api.refreshStorage();
+          textarea.addEventListener('input', () => {
+            localStorage.setItem(`tabkit_scratchpad_data`, textarea.value);
+            status.textContent = 'Saving...';
+            setTimeout(() => {
+              status.textContent = 'Synced';
+              updateStorageIndicator();
+            }, 300);
           });
-
-          copyNotesBtn.addEventListener('click', () => {
-            copyTextToClipboard(notesArea.value, () => api.toast('Copied scratchpad buffer'));
-          });
-
-          clearNotesBtn.addEventListener('click', () => {
-            notesArea.value = '';
-            localStorage.removeItem(storageKeyNotes);
-            updateWordStats();
-            api.refreshStorage();
-            api.toast('Scratchpad cleared');
-          });
-
-          // Tabs toggle
-          tabNotesBtn.addEventListener('click', () => {
-            tabNotesBtn.className = 'px-2.5 py-1 rounded-md bg-brand-surface text-brand-text font-medium transition-all shadow-sm';
-            tabDiffBtn.className = 'px-2.5 py-1 rounded-md text-brand-muted hover:text-brand-text transition-all';
-            viewNotes.classList.remove('hidden');
-            viewDiff.classList.add('hidden');
-            notesToolbar.classList.remove('hidden');
-          });
-
-          tabDiffBtn.addEventListener('click', () => {
-            tabDiffBtn.className = 'px-2.5 py-1 rounded-md bg-brand-surface text-brand-text font-medium transition-all shadow-sm';
-            tabNotesBtn.className = 'px-2.5 py-1 rounded-md text-brand-muted hover:text-brand-text transition-all';
-            viewDiff.classList.remove('hidden');
-            viewNotes.classList.add('hidden');
-            notesToolbar.classList.add('hidden');
-          });
-
-          // Diff action
-          runDiffBtn.addEventListener('click', () => {
-            const orig = diffOrig.value;
-            const mod = diffMod.value;
-            if (!orig && !mod) {
-              api.toast('Please input text into both diff boxes');
-              return;
-            }
-
-            const diff = computeLineDiff(orig, mod);
-            diffLinesBox.innerHTML = '';
-
-            let adds = 0;
-            let removes = 0;
-
-            diff.forEach((item, index) => {
-              const lineEl = document.createElement('div');
-              lineEl.className = 'flex items-start px-2 py-0.5 rounded text-[11px] leading-relaxed';
-              
-              if (item.type === 'add') {
-                adds++;
-                lineEl.classList.add('bg-emerald-500/10', 'text-emerald-400');
-                lineEl.innerHTML = `<span class="w-5 select-none font-bold text-emerald-500">+</span><span class="flex-1 whitespace-pre-wrap">${escapeHtml(item.text) || '&nbsp;'}</span>`;
-              } else if (item.type === 'remove') {
-                removes++;
-                lineEl.classList.add('bg-red-500/10', 'text-red-400');
-                lineEl.innerHTML = `<span class="w-5 select-none font-bold text-red-500">-</span><span class="flex-1 whitespace-pre-wrap">${escapeHtml(item.text) || '&nbsp;'}</span>`;
-              } else {
-                lineEl.classList.add('text-brand-muted');
-                lineEl.innerHTML = `<span class="w-5 select-none text-brand-border font-mono">&nbsp;</span><span class="flex-1 whitespace-pre-wrap">${escapeHtml(item.text) || '&nbsp;'}</span>`;
-              }
-              diffLinesBox.appendChild(lineEl);
-            });
-
-            diffSummary.textContent = `${adds} added • ${removes} removed`;
-            diffOutputContainer.classList.remove('hidden');
-            diffOutputContainer.classList.add('flex');
-            api.toast(`Diff calculated: +${adds} / -${removes}`);
-          });
-
-          updateWordStats();
         }
       },
 
-      /**
-       * TOOL 2: Bulk URL Sanitizer & Batch Opener
-       */
       'url-cleaner': {
         id: 'url-cleaner',
-        name: 'Bulk URL Sanitizer',
-        category: 'Links & Tabs',
-        badge: 'Privacy',
-        tags: ['links', 'urls', 'utm', 'cleaner', 'sanitize', 'batch', 'tabs'],
-        description: 'Strip tracking junk (?utm_, ref, fbclid), extract URLs, and batch open clean tabs.',
-        icon: `<svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" /></svg>`,
-        
-        mount(container, api) {
-          container.innerHTML = `
-            <div class="flex flex-col space-y-2.5">
-              
-              <!-- Input box -->
-              <textarea 
-                id="rawUrlInput" 
-                placeholder="Paste messy text, emails, or links (e.g., https://site.com/item?utm_source=news&fbclid=123)..." 
-                class="w-full h-24 bg-brand-bg border border-brand-border rounded-xl p-2.5 text-xs text-brand-text placeholder-brand-muted focus:outline-none focus:ring-1 focus:ring-brand-accent/50 resize-y font-mono leading-relaxed"
-              ></textarea>
-              
-              <!-- Options row -->
-              <div class="flex flex-wrap items-center justify-between gap-2 text-xs">
-                <div class="flex items-center gap-3">
-                  <label class="flex items-center gap-1.5 cursor-pointer text-[11px] text-brand-muted select-none">
-                    <input type="checkbox" id="stripAllParams" class="rounded bg-brand-bg border-brand-border text-brand-accent focus:ring-0">
-                    <span>Strip ALL query parameters</span>
-                  </label>
-                  <label class="flex items-center gap-1.5 cursor-pointer text-[11px] text-brand-muted select-none">
-                    <input type="checkbox" id="dedupeUrls" checked class="rounded bg-brand-bg border-brand-border text-brand-accent focus:ring-0">
-                    <span>Deduplicate</span>
-                  </label>
-                </div>
-                
-                <button id="sanitizeUrlsBtn" class="px-3 py-1 rounded-lg bg-brand-accent hover:bg-brand-accentHover text-brand-bg font-medium text-xs transition-colors">Clean Links</button>
-              </div>
-
-              <!-- Results Area -->
-              <div id="cleanedBox" class="hidden flex-col space-y-2 pt-2 border-t border-brand-border">
-                <div class="flex items-center justify-between">
-                  <span id="trackerCleanStats" class="text-[11px] font-mono text-brand-accent bg-brand-accentMuted px-2 py-0.5 rounded border border-brand-accent/20">0 trackers stripped</span>
-                  <div class="flex gap-1.5">
-                    <button id="copyCleanUrlsBtn" class="px-2.5 py-1 rounded bg-brand-bg hover:bg-brand-surfaceHover border border-brand-border text-brand-text text-[11px] transition-colors">Copy Clean</button>
-                    <button id="batchOpenUrlsBtn" class="px-2.5 py-1 rounded bg-brand-bg hover:bg-brand-surfaceHover border border-brand-border text-brand-text text-[11px] transition-colors">Open in Tabs</button>
-                  </div>
-                </div>
-                <textarea 
-                  id="cleanedOutputArea" 
-                  readonly 
-                  class="w-full h-24 bg-brand-bg/60 border border-brand-border rounded-xl p-2.5 text-xs text-brand-text font-mono focus:outline-none leading-relaxed"
-                ></textarea>
-              </div>
-
+        name: 'Bulk URL Cleaner',
+        category: 'Links',
+        description: 'Extract URLs, strip tracking tags, and copy or open clean links.',
+        render: (toolId) => `
+          <div class="flex flex-col h-full space-y-2.5 font-sans">
+            <textarea id="${toolId}_input" class="w-full h-24 bg-workspace-bg border border-workspace-border rounded-lg p-2.5 text-xs font-mono text-workspace-text placeholder-workspace-muted focus:outline-none resize-none" placeholder="Paste messy text with URLs or links with ?utm_ params..."></textarea>
+            
+            <div class="flex items-center gap-2">
+              <button onclick="cleanUrls('${toolId}')" class="flex-1 py-1.5 bg-workspace-accent/10 border border-workspace-accent/30 hover:bg-workspace-accent/20 text-workspace-accent rounded-lg text-xs font-medium transition-all">Sanitize URLs</button>
+              <button onclick="openAllCleanUrls('${toolId}')" class="px-3 py-1.5 bg-workspace-bg border border-workspace-border hover:border-workspace-borderLight text-workspace-text rounded-lg text-xs font-mono transition-all">Open All</button>
+              <button onclick="copyCleanUrls('${toolId}')" class="px-3 py-1.5 bg-workspace-bg border border-workspace-border hover:border-workspace-borderLight text-workspace-text rounded-lg text-xs font-mono transition-all">Copy</button>
             </div>
-          `;
 
-          const input = container.querySelector('#rawUrlInput');
-          const stripAll = container.querySelector('#stripAllParams');
-          const dedupe = container.querySelector('#dedupeUrls');
-          const cleanBtn = container.querySelector('#sanitizeUrlsBtn');
-          const cleanedBox = container.querySelector('#cleanedBox');
-          const cleanStats = container.querySelector('#trackerCleanStats');
-          const output = container.querySelector('#cleanedOutputArea');
-          const copyBtn = container.querySelector('#copyCleanUrlsBtn');
-          const openBtn = container.querySelector('#batchOpenUrlsBtn');
-
-          let cleanList = [];
-
-          // Comprehensive tracker blacklists
-          const TRACKING_PARAMS = [
-            'utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content', 'utm_id',
-            'fbclid', 'gclid', 'gclsrc', 'msclkid', 'dclid', 'twclid', 'igshid',
-            '_hsenc', '_hsmi', 'mkt_tok', 'mc_cid', 'mc_eid', 'ref', 'source', 'yclid'
-          ];
-
-          function processUrls() {
-            const raw = input.value;
-            const urlRegex = /(https?:\/\/[^\s"'<>]+)/gi;
-            const matches = raw.match(urlRegex) || [];
-
-            if (matches.length === 0) {
-              api.toast('No URLs detected in text');
-              return;
-            }
-
-            let strippedCount = 0;
-            const results = [];
-
-            matches.forEach(rawUrl => {
-              // Strip trailing punctuation
-              const cleanRaw = rawUrl.replace(/[),;.]+$/, '');
-              try {
-                const parsed = new URL(cleanRaw);
-                if (stripAll.checked) {
-                  const paramCount = Array.from(parsed.searchParams.keys()).length;
-                  strippedCount += paramCount;
-                  parsed.search = '';
-                } else {
-                  TRACKING_PARAMS.forEach(param => {
-                    if (parsed.searchParams.has(param)) {
-                      parsed.searchParams.delete(param);
-                      strippedCount++;
-                    }
-                  });
-                }
-                results.push(parsed.toString());
-              } catch (e) {
-                results.push(cleanRaw);
-              }
-            });
-
-            cleanList = dedupe.checked ? Array.from(new Set(results)) : results;
-            output.value = cleanList.join('\n');
-            cleanStats.textContent = `${strippedCount} tracker${strippedCount === 1 ? '' : 's'} purged • ${cleanList.length} clean`;
-            cleanedBox.classList.remove('hidden');
-            cleanedBox.classList.add('flex');
-            api.toast(`Purged ${strippedCount} tracking tag(s)`);
-          }
-
-          cleanBtn.addEventListener('click', processUrls);
-
-          copyBtn.addEventListener('click', () => {
-            copyTextToClipboard(output.value, () => api.toast(`Copied ${cleanList.length} clean URL(s)`));
-          });
-
-          openBtn.addEventListener('click', () => {
-            if (cleanList.length === 0) return;
-            let opened = 0;
-            cleanList.forEach(url => {
-              const win = window.open(url, '_blank');
-              if (win) opened++;
-            });
-            if (opened < cleanList.length) {
-              api.toast(`Opened ${opened} of ${cleanList.length}. Check browser popup permissions.`);
-            } else {
-              api.toast(`Opened ${opened} tab(s)`);
-            }
-          });
-        }
+            <div class="flex-1">
+              <div class="text-[10px] font-mono text-workspace-muted mb-1 flex justify-between">
+                <span>Sanitized Output:</span>
+                <span id="${toolId}_count">0 links</span>
+              </div>
+              <textarea id="${toolId}_output" readonly class="w-full h-24 bg-workspace-bg/50 border border-workspace-border rounded-lg p-2.5 text-[11px] font-mono text-workspace-text/80 focus:outline-none resize-none" placeholder="Clean links appear here..."></textarea>
+            </div>
+          </div>
+        `,
+        init: (toolId) => {}
       },
 
-      /**
-       * TOOL 3: Text Case & Formatter
-       */
       'text-cleaner': {
         id: 'text-cleaner',
-        name: 'Text Clean & Case',
-        category: 'Text & Data',
-        badge: 'Utility',
-        tags: ['text', 'case', 'formatter', 'whitespace', 'lines', 'csv', 'dedupe'],
-        description: 'Clean line breaks, deduplicate items, and format case (UPPER, lower, Title, camelCase).',
-        icon: `<svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 10h18M3 14h18m-9-4v8
+        name: 'Text & Case Formatter',
+        category: 'Text',
+        description: 'Deduplicate lines, toggle cases, and trim whitespace formatting.',
+        render: (toolId) => `
+          <div class="flex flex-col h-full space-y-2.5 font-sans">
+            <div class="grid grid-cols-4 gap-1.5 text-[11px] font-mono">
+              <button onclick="transformCase('${toolId}', 'upper')" class="py-1 bg-workspace-bg border border-workspace-border hover:border-workspace-borderLight rounded text-workspace-text">UPPER</button>
+              <button onclick="transformCase('${toolId}', 'lower')" class="py-1 bg-workspace-bg border border-workspace-border hover:border-workspace-borderLight rounded text-workspace-text">lower</button>
+              <button onclick="transformCase('${toolId}', 'title')" class="py-1 bg-workspace-bg border border-workspace-border hover:border-workspace-borderLight rounded text-workspace-text">Title</button>
+              <button onclick="transformCase('${toolId}', 'dedupe')" class="py-1 bg-workspace-bg border border-workspace-border hover:border-workspace-borderLight rounded text-workspace-text">Dedupe</button>
+            </div>
+
+            <textarea id="${toolId}_input" class="w-full h-36 bg-workspace-bg border border-workspace-border rounded-lg p-2.5 text-xs font-mono text-workspace-text placeholder-workspace-muted focus:outline-none resize-none" placeholder="Paste text to reformat..."></textarea>
+
+            <div class="flex items-center justify-between text-[11px] font-mono text-workspace-muted">
+              <div class="flex gap-2">
+                <span id="${toolId}_statsWords">0 words</span>
+                <span>•</span>
+                <span id="${toolId}_statsChars">0 chars</span>
+              </div>
+              <button onclick="copyTextTool('${toolId}')" class="px-2.5 py-0.5 bg-workspace-bg border border-workspace-border hover:border-workspace-accent text-workspace-text rounded text-xs transition-all">Copy Text</button>
+            </div>
+          </div>
+        `,
+        init: (toolId) => {
+          const input = document.getElementById(`${toolId}_input`);
+          const words = document.getElementById(`${toolId}_statsWords`);
+          const chars = document.getElementById(`${toolId}_statsChars`);
+
+          input.addEventListener('input', () => {
+            const val = input.value;
+            chars.textContent = `${val.length} chars`;
+            const wordCount = val.trim() ? val.trim().split(/\s+/).length : 0;
+            words.textContent = `${wordCount} words`;
+          });
+        }
+      }
+    };
+
+    /**
+     * WORKSPACE STATE MANAGER
+     */
+    let activePinnedTools = JSON.parse(localStorage.getItem('tabkit_pinned_tools') || '[]');
+
+    function saveWorkspaceState() {
+      localStorage.setItem('tabkit_pinned_tools', JSON.stringify(activePinnedTools));
+      renderWorkbench();
+      updateStorageIndicator();
+    }
+
+    function pinTool(toolId) {
+      if (!TOOLS_REGISTRY[toolId]) return;
+      if (!activePinnedTools.includes(toolId)) {
+        activePinnedTools.push(toolId);
+        saveWorkspaceState();
+      }
+      closeCommandPalette();
+    }
+
+    function unpinTool(toolId) {
+      activePinnedTools = activePinnedTools.filter(id => id !== toolId);
+      saveWorkspaceState();
+    }
+
+    function renderWorkbench() {
+      const grid = document.getElementById('workbenchGrid');
+      const emptyState = document.getElementById('emptyWorkspaceState');
+
+      grid.innerHTML = '';
+
+      if (activePinnedTools.length === 0) {
+        emptyState.classList.remove('hidden');
+        return;
+      }
+
+      emptyState.classList.add('hidden');
+
+      activePinnedTools.forEach(toolId => {
+        const tool = TOOLS_REGISTRY[toolId];
+        if (!tool) return;
+
+        const card = document.createElement('div');
+        card.className = 'rounded-xl border border-workspace-border bg-workspace-surface p-4 flex flex-col justify-between shadow-lg relative group';
+        card.id = `card_${toolId}`;
+
+        card.innerHTML = `
+          <div class="flex items-center justify-between pb-3 border-b border-workspace-border mb-3">
+            <div class="flex items-center gap-2">
+              <span class="w-2 h-2 rounded-full bg-workspace-accent"></span>
+              <h3 class="text-xs font-bold text-workspace-text tracking-tight uppercase font-mono">${tool.name}</h3>
+            </div>
+            <button onclick="unpinTool('${toolId}')" title="Unpin from workbench" class="text-workspace-muted hover:text-workspace-danger p-1 rounded transition-colors">
+              <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <line x1="18" y1="6" x2="6" y2="18"></line>
+                <line x1="6" y1="6" x2="18" y2="18"></line>
+              </svg>
+            </button>
+          </div>
+          <div class="flex-1">
+            ${tool.render(toolId)}
+          </div>
+        `;
+
+        grid.appendChild(card);
+        tool.init(toolId);
+      });
+    }
+
+    /**
+     * TOOL 1: SCRATCHPAD & DIFF FUNCTIONS
+     */
+    function toggleScratchMode(toolId, mode) {
+      const notesBox = document.getElementById(`${toolId}_notesContainer`);
+      const diffBox = document.getElementById(`${toolId}_diffContainer`);
+      const tabNote = document.getElementById(`${toolId}_tabNote`);
+      const tabDiff = document.getElementById(`${toolId}_tabDiff`);
+
+      if (mode === 'notes') {
+        notesBox.classList.remove('hidden');
+        diffBox.classList.add('hidden');
+        tabNote.className = 'px-2 py-0.5 rounded text-[11px] font-medium bg-workspace-surface text-workspace-accent';
+        tabDiff.className = 'px-2 py-0.5 rounded text-[11px] font-medium text-workspace-muted hover:text-workspace-text';
+      } else {
+        notesBox.classList.add('hidden');
+        diffBox.classList.remove('hidden');
+        tabDiff.className = 'px-2 py-0.5 rounded text-[11px] font-medium bg-workspace-surface text-workspace-accent';
+        tabNote.className = 'px-2 py-0.5 rounded text-[11px] font-medium text-workspace-muted hover:text-workspace-text';
+      }
+    }
+
+    function runTextDiff(toolId) {
+      const textA = (document.getElementById(`${toolId}_diffA`).value || '').split('\n');
+      const textB = (document.getElementById(`${toolId}_diffB`).value || '').split('\n');
+      const output = document.getElementById(`${toolId}_diffOutput`);
+      output.innerHTML = '';
+
+      const max = Math.max(textA.length, textB.length);
+      for (let i = 0; i < max; i++) {
+        const lineA = textA[i] || '';
+        const lineB = textB[i] || '';
+        const lineDiv = document.createElement('div');
+
+        if (lineA === lineB) {
+          lineDiv.className = 'text-workspace-muted';
+          lineDiv.textContent = `  ${lineA}`;
+        } else {
+          lineDiv.innerHTML = `
+            <div class="text-rose-400 bg-rose-950/30 px-1 rounded">- ${escapeHtml(lineA)}</div>
+            <div class="text-emerald-400 bg-emerald-950/30 px-1 rounded">+ ${escapeHtml(lineB)}</div>
+          `;
+        }
+        output.appendChild(lineDiv);
+      }
+    }
+
+    /**
+     * TOOL 2: BULK URL CLEANER FUNCTIONS
+     */
+    function cleanUrls(toolId) {
+      const input = document.getElementById(`${toolId}_input`).value;
+      const countEl = document.getElementById(`${toolId}_count`);
+      const output = document.getElementById(`${toolId}_output`);
+
+      // Regex matching URLs
+      const urlRegex = /(https?:\/\/[^\s]+)/g;
+      const matches = input.match(urlRegex) || [];
+
+      const cleaned = matches.map(rawUrl => {
+        try {
+          const parsed = new URL(rawUrl);
+          const trackingPrefixes = ['utm_', 'fbclid', 'gclid', 'ref', 'source', 'mc_cid', 'mc_eid'];
+          const keysToDelete = [];
+          parsed.searchParams.forEach((_, key) => {
+            if (trackingPrefixes.some(pref => key.toLowerCase().startsWith(pref))) {
+              keysToDelete.push(key);
+            }
+          });
+          keysToDelete.forEach(k => parsed.searchParams.delete(k));
+          return parsed.toString();
+        } catch (e) {
+          return rawUrl;
+        }
+      });
+
+      const unique = [...new Set(cleaned)];
+      output.value = unique.join('\n');
+      countEl.textContent = `${unique.length} links`;
+    }
+
+    function openAllCleanUrls(toolId) {
+      const output = document.getElementById(`${toolId}_output`).value;
+      const links = output.split('\n').map(l => l.trim()).filter(Boolean);
+      if (!links.length) return alert('No cleaned links to open.');
+      links.forEach(url => window.open(url, '_blank'));
+    }
+
+    function copyCleanUrls(toolId) {
+      const output = document.getElementById(`${toolId}_output`);
+      if (!output.value) return;
+      navigator.clipboard.writeText(output.value);
+      alert('Cleaned links copied to clipboard.');
+    }
+
+    /**
+     * TOOL 3: TEXT & CASE CLEANER FUNCTIONS
+     */
+    function transformCase(toolId, type) {
+      const input = document.getElementById(`${toolId}_input`);
+      let val = input.value;
+
+      if (type === 'upper') {
+        input.value = val.toUpperCase();
+      } else if (type === 'lower') {
+        input.value = val.toLowerCase();
+      } else if (type === 'title') {
+        input.value = val.replace(/\w\S*/g, txt => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase());
+      } else if (type === 'dedupe') {
+        const lines = val.split('\n');
+        input.value = [...new Set(lines)].join('\n');
+      }
+
+      input.dispatchEvent(new Event('input'));
+    }
+
+    function copyTextTool(toolId) {
+      const input = document.getElementById(`${toolId}_input`);
+      navigator.clipboard.writeText(input.value);
+      alert('Text copied to clipboard.');
+    }
+
+    /**
+     * STORAGE & UTILITIES
+     */
+    function updateStorageIndicator() {
+      let totalBytes = 0;
+      for (let key in localStorage) {
+        if (localStorage.hasOwnProperty(key)) {
+          totalBytes += (localStorage[key].length + key.length) * 2;
+        }
+      }
+      const kb = (totalBytes / 1024).toFixed(1);
+      document.getElementById('storageUsageBadge').textContent = `Storage: ${kb} KB used`;
+    }
+
+    function escapeHtml(str) {
+      return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    }
+
+    /**
+     * COMMAND PALETTE
+     */
+    const commandModal = document.getElementById('commandPaletteModal');
+    const commandInput = document.getElementById('commandInput');
+    const commandResults = document.getElementById('commandResultsList');
+
+    function openCommandPalette() {
+      commandModal.classList.remove('hidden');
+      commandInput.value = '';
+      commandInput.focus();
+      renderCommandList();
+    }
+
+    function closeCommandPalette() {
+      commandModal.classList.add('hidden');
+    }
+
+    function renderCommandList(query = '') {
+      commandResults.innerHTML = '';
+      const filtered = Object.values(TOOLS_REGISTRY).filter(t => 
+        t.name.toLowerCase().includes(query.toLowerCase()) || 
+        t.category.toLowerCase().includes(query.toLowerCase())
+      );
+
+      if (!filtered.length) {
+        commandResults.innerHTML = `<div class="p-3 text-center text-xs text-workspace-muted font-mono">No matching tools found.</div>`;
+        return;
+      }
+
+      filtered.forEach(tool => {
+        const isPinned = activePinnedTools.includes(tool.id);
+        const item = document.createElement('div');
+        item.className = 'p-2.5 rounded-lg hover:bg-workspace-bg flex items-center justify-between cursor-pointer border border-transparent hover:border-workspace-border';
+        item.onclick = () => isPinned ? unpinTool(tool.id) : pinTool(tool.id);
+
+        item.innerHTML = `
+          <div>
+            <div class="text-xs font-semibold text-workspace-text">${tool.name}</div>
+            <div class="text-[11px] text-workspace-muted">${tool.description}</div>
+          </div>
+          <span class="text-[10px] font-mono px-2 py-0.5 rounded ${isPinned ? 'bg-rose-950/40 text-rose-400 border border-rose-900/50' : 'bg-workspace-accent/10 text-workspace-accent border border-workspace-accent/20'}">
+            ${isPinned ? 'Unpin' : 'Pin to Board'}
+          </span>
+        `;
+        commandResults.appendChild(item);
+      });
+    }
+
+    commandInput.addEventListener('input', (e) => renderCommandList(e.target.value));
+
+    // Keyboard Shortcuts
+    window.addEventListener('keydown', (e) => {
+      if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
+        e.preventDefault();
+        openCommandPalette();
+      }
+      if (e.key === 'Escape' && !commandModal.classList.contains('hidden')) {
+        closeCommandPalette();
+      }
+    });
+
+    // Event Listeners
+    document.getElementById('btnOpenCommandPalette').addEventListener('click', openCommandPalette);
+    document.getElementById('btnOpenToolCatalog').addEventListener('click', openCommandPalette);
+    commandModal.addEventListener('click', (e) => {
+      if (e.target === commandModal) closeCommandPalette();
+    });
+
+    document.getElementById('btnLoadStarterDeck').addEventListener('click', () => {
+      activePinnedTools = ['scratchpad', 'url-cleaner', 'text-cleaner'];
+      saveWorkspaceState();
+    });
+
+    document.getElementById('btnResetWorkspace').addEventListener('click', () => {
+      if (confirm('Clear all tools from your active workbench?')) {
+        activePinnedTools = [];
+        saveWorkspaceState();
+      }
+    });
+
+    // Boot
+    renderWorkbench();
+    updateStorageIndicator();
+  </script>
+</body>
+</html>
