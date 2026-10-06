@@ -217,6 +217,7 @@
         if (!res.ok) throw new Error('cities.min.json not found');
         const raw = await res.json();
         
+        // Format A: Object containing an indexed array { tz: [...], c: [...] }
         if (raw && raw.tz && Array.isArray(raw.c)) {
           const tzList = raw.tz;
           citiesDataset = raw.c.map(item => ({
@@ -225,20 +226,24 @@
             iana: tzList[item[2]],
             tokens: `${item[0]} ${item[1] || ''} ${tzList[item[2]]}`.toLowerCase()
           }));
-        } else if (Array.isArray(raw) && raw.length && typeof raw[0] === 'object' && !Array.isArray(raw[0])) {
-          citiesDataset = raw.map(item => {
-            const city = item.name || item.city || '';
-            const country = item.country || item.country_name || '';
-            const iana = item.timezone || item.tz || item.iana || '';
-            return { city, country, iana, tokens: `${city} ${country} ${iana}`.toLowerCase() };
-          }).filter(x => x.city && x.iana);
-        } else if (Array.isArray(raw) && Array.isArray(raw[0])) {
+        } 
+        // Format B: Array of compact arrays [name, country, iana, lat, lon]
+        else if (Array.isArray(raw) && raw.length && Array.isArray(raw[0])) {
           citiesDataset = raw.map(item => ({
             city: item[0],
             country: item[1] || '',
             iana: item[2],
             tokens: `${item[0]} ${item[1] || ''} ${item[2]}`.toLowerCase()
           })).filter(x => x.city && x.iana);
+        }
+        // Format C: Standard Array of Objects [{ name: "...", country: "...", tz: "..." }]
+        else if (Array.isArray(raw) && raw.length && typeof raw[0] === 'object') {
+          citiesDataset = raw.map(item => {
+            const city = item.name || item.city || '';
+            const country = item.country || item.country_name || '';
+            const iana = item.timezone || item.tz || item.iana || '';
+            return { city, country, iana, tokens: `${city} ${country} ${iana}`.toLowerCase() };
+          }).filter(x => x.city && x.iana);
         }
 
         if (onProgress) onProgress('');
@@ -554,7 +559,7 @@
         render: (toolId) => `
           <div class="flex flex-col h-full space-y-3 font-sans">
             <div class="relative">
-              <input id="${toolId}_search" type="text" placeholder="Search any city (e.g. Osaka, Sousse, Miami) or country..." class="w-full bg-workspace-bg border border-workspace-border rounded-lg px-2.5 py-1.5 text-xs font-mono text-workspace-text placeholder-workspace-muted focus:border-workspace-accent focus:outline-none" />
+              <input id="${toolId}_search" type="text" placeholder="Search any city (e.g. Osaka, Doha, Miami) or country..." class="w-full bg-workspace-bg border border-workspace-border rounded-lg px-2.5 py-1.5 text-xs font-mono text-workspace-text placeholder-workspace-muted focus:border-workspace-accent focus:outline-none" autocomplete="off" />
               <div id="${toolId}_statusBadge" class="absolute right-2.5 top-2 text-[10px] font-mono text-workspace-muted hidden"></div>
               <div id="${toolId}_results" class="absolute left-0 right-0 top-full mt-1 bg-workspace-surface border border-workspace-border rounded-lg max-h-52 overflow-y-auto hidden z-30 shadow-2xl p-1 text-xs"></div>
             </div>
@@ -563,7 +568,7 @@
               <span id="${toolId}_selectedHour" class="text-workspace-accent font-bold text-sm">12:00 UTC</span>
             </div>
             <input id="${toolId}_slider" type="range" min="0" max="23" value="12" step="1" class="w-full accent-workspace-accent cursor-pointer bg-workspace-bg rounded-lg h-2" />
-            <div id="${toolId}_zonesContainer" class="space-y-1.5 max-h-56 overflow-y-pr-0.5 font-mono text-xs"></div>
+            <div id="${toolId}_zonesContainer" class="space-y-1.5 max-h-56 overflow-y-auto font-mono text-xs"></div>
           </div>
         `,
         init: (toolId) => {
@@ -574,6 +579,7 @@
           const search = document.getElementById(`${toolId}_search`);
           const results = document.getElementById(`${toolId}_results`);
           const badge = document.getElementById(`${toolId}_statusBadge`);
+          let searchDebounceTimer = null;
 
           const currentUtc = new Date().getUTCHours();
           slider.value = currentUtc;
@@ -641,44 +647,57 @@
             }
           });
 
-          search.oninput = async () => {
-            const q = search.value.toLowerCase().trim();
-            if (!q) {
-              results.classList.add('hidden');
-              return;
-            }
-            const data = await loadCitiesDatabase();
-            if (!data) return;
+          // Debounced, hard-capped zero-lag search loop
+          search.oninput = () => {
+            clearTimeout(searchDebounceTimer);
+            searchDebounceTimer = setTimeout(async () => {
+              const q = search.value.toLowerCase().trim();
+              if (q.length < 2) {
+                results.classList.add('hidden');
+                return;
+              }
 
-            const matches = data.filter(item => item.tokens.includes(q)).slice(0, 50);
-            if (!matches.length) {
-              results.innerHTML = `<div class="p-2 text-center text-workspace-muted text-xs font-mono">No matching cities found</div>`;
-            } else {
-              results.innerHTML = matches.map(item => `
-                <div data-pick-iana="${item.iana}" class="p-2 hover:bg-workspace-surfaceHover rounded cursor-pointer flex items-center justify-between">
-                  <div>
-                    <span class="font-bold text-workspace-text">${item.city}</span>
-                    <span class="text-workspace-muted text-[11px]"> (${item.country})</span>
+              const data = await loadCitiesDatabase();
+              if (!data) return;
+
+              const matches = [];
+              for (let i = 0; i < data.length; i++) {
+                if (data[i].tokens.includes(q)) {
+                  matches.push(data[i]);
+                  // Strict hard-cap to eliminate DOM lag
+                  if (matches.length >= 15) break;
+                }
+              }
+
+              if (!matches.length) {
+                results.innerHTML = `<div class="p-2 text-center text-workspace-muted text-xs font-mono">No matching cities found</div>`;
+              } else {
+                results.innerHTML = matches.map(item => `
+                  <div data-pick-iana="${item.iana}" class="p-2 hover:bg-workspace-surfaceHover rounded cursor-pointer flex items-center justify-between">
+                    <div>
+                      <span class="font-bold text-workspace-text">${item.city}</span>
+                      <span class="text-workspace-muted text-[11px]">${item.country ? ' (' + item.country + ')' : ''}</span>
+                    </div>
+                    <span class="text-[10px] font-mono text-workspace-accent">${item.iana}</span>
                   </div>
-                  <span class="text-[10px] font-mono text-workspace-accent">${item.iana}</span>
-                </div>
-              `).join('');
+                `).join('');
 
-              results.querySelectorAll('[data-pick-iana]').forEach(row => {
-                row.onclick = () => {
-                  const pick = row.dataset.pickIana;
-                  if (!pinned.includes(pick)) {
-                    pinned.push(pick);
-                    localStorage.setItem('tabkit_tz_pinned', JSON.stringify(pinned));
-                    renderPinnedZones();
-                    updateStorageIndicator();
-                  }
-                  search.value = '';
-                  results.classList.add('hidden');
-                };
-              });
-            }
-            results.classList.remove('hidden');
+                results.querySelectorAll('[data-pick-iana]').forEach(row => {
+                  row.onclick = () => {
+                    const pick = row.dataset.pickIana;
+                    if (!pinned.includes(pick)) {
+                      pinned.push(pick);
+                      localStorage.setItem('tabkit_tz_pinned', JSON.stringify(pinned));
+                      renderPinnedZones();
+                      updateStorageIndicator();
+                    }
+                    search.value = '';
+                    results.classList.add('hidden');
+                  };
+                });
+              }
+              results.classList.remove('hidden');
+            }, 150);
           };
 
           document.addEventListener('click', (e) => {
