@@ -273,7 +273,6 @@
         if (Array.isArray(raw)) {
           citiesDataset = raw.map(item => {
             if (Array.isArray(item)) {
-              // Convert -99 to empty string, and ensure iana is a string
               const country = item[1] === -99 ? '' : (item[1] || '');
               const iana = item[2] || '';
               return { city: item[0], country, iana, tokens: `${item[0]} ${country} ${iana}`.toLowerCase() };
@@ -282,7 +281,7 @@
             const country = item.country || '';
             const iana = item.timezone || item.tz || item.iana || '';
             return { city, country, iana, tokens: `${city} ${country} ${iana}`.toLowerCase() };
-          }).filter(x => x.city && x.iana && x.iana !== 'null'); // Filter out invalid/null timezones
+          }).filter(x => x.city && x.iana && x.iana !== 'null');
         }
 
         if (onProgress) onProgress('');
@@ -441,13 +440,15 @@
           const saved = localStorage.getItem('tabkit_scratchpad_data');
           if (saved) textarea.value = saved;
 
+          let saveTimer;
           textarea.addEventListener('input', () => {
-            localStorage.setItem('tabkit_scratchpad_data', textarea.value);
             status.textContent = 'Saving...';
-            setTimeout(() => {
+            clearTimeout(saveTimer);
+            saveTimer = setTimeout(() => {
+              localStorage.setItem('tabkit_scratchpad_data', textarea.value);
               status.textContent = 'Synced';
               updateStorageIndicator();
-            }, 250);
+            }, 500); // Debounce save to prevent typing lag
           });
         }
       },
@@ -1144,222 +1145,4 @@
       const tabPass = document.getElementById(`${toolId}_tabPass`);
       const tabPin = document.getElementById(`${toolId}_tabPin`);
       const slider = document.getElementById(`${toolId}_lenSlider`);
-      const label = document.getElementById(`${toolId}_lenLabel`);
-
-      if (mode === 'pass') {
-        tabPass.className = 'flex-1 py-1 rounded bg-workspace-surface text-workspace-accent font-medium';
-        tabPin.className = 'flex-1 py-1 rounded text-workspace-muted hover:text-workspace-text font-medium';
-        slider.min = '8'; slider.max = '32'; slider.value = '16';
-      } else {
-        tabPin.className = 'flex-1 py-1 rounded bg-workspace-surface text-workspace-accent font-medium';
-        tabPass.className = 'flex-1 py-1 rounded text-workspace-muted hover:text-workspace-text font-medium';
-        slider.min = '4'; slider.max = '8'; slider.value = '6';
-      }
-      label.textContent = slider.value;
-      generateNewPassword(toolId);
-    }
-
-    function generateNewPassword(toolId) {
-      const card = document.getElementById(`card_${toolId}`);
-      const mode = (card && card.dataset.mode) || 'pass';
-      const output = document.getElementById(`${toolId}_output`);
-      const slider = document.getElementById(`${toolId}_lenSlider`);
-      if (!output || !slider) return;
-      const len = parseInt(slider.value, 10);
-      let chars = mode === 'pass' 
-        ? 'abcdefghjkmnpqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ23456789!@#$%&*?_' 
-        : '0123456789';
-      let res = '';
-      const array = new Uint32Array(len);
-      window.crypto.getRandomValues(array);
-      for (let i = 0; i < len; i++) res += chars[array[i] % chars.length];
-      output.value = res;
-    }
-
-    function copyGeneratedPw(toolId) {
-      const output = document.getElementById(`${toolId}_output`);
-      navigator.clipboard.writeText(output.value);
-      showToast('Password copied to clipboard');
-    }
-
-    // --- WORKSPACE BACKUP & RESTORE ---
-    function exportWorkspaceBackup() {
-      const backup = {
-        version: 1,
-        exportedAt: new Date().toISOString(),
-        data: {}
-      };
-      for (let i = 0; i < localStorage.length; i++) {
-        const key = localStorage.key(i);
-        if (key && key.startsWith('tabkit_')) {
-          backup.data[key] = localStorage.getItem(key);
-        }
-      }
-      const blob = new Blob([JSON.stringify(backup, null, 2)], { type: 'application/json' });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      const d = new Date().toISOString().split('T')[0];
-      a.href = url;
-      a.download = `tabkit-backup-${d}.json`;
-      a.click();
-      URL.revokeObjectURL(url);
-      showToast('Workspace backup exported');
-    }
-
-    function triggerImport() {
-      document.getElementById('backupFileInput').click();
-    }
-
-    function handleImportFile(event) {
-      const file = event.target.files[0];
-      if (!file) return;
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        try {
-          const parsed = JSON.parse(e.target.result);
-          if (!parsed.data || typeof parsed.data !== 'object') {
-            throw new Error('Invalid format');
-          }
-
-          // Clear pre-existing tabkit keys for a pure restore
-          const toDelete = [];
-          for (let i = 0; i < localStorage.length; i++) {
-            const k = localStorage.key(i);
-            if (k && k.startsWith('tabkit_')) toDelete.push(k);
-          }
-          toDelete.forEach(k => localStorage.removeItem(k));
-
-          // Set imported keys safely
-          Object.entries(parsed.data).forEach(([k, v]) => {
-            if (k.startsWith('tabkit_')) {
-              localStorage.setItem(k, String(v));
-            }
-          });
-
-          activePinnedTools = JSON.parse(localStorage.getItem('tabkit_pinned_tools') || '[]');
-          document.getElementById('workbenchGrid').innerHTML = '';
-          renderWorkbench();
-          updateStorageIndicator();
-          showToast('Workspace restored successfully');
-        } catch (err) {
-          showToast('Failed to import: invalid backup file', 'error');
-        }
-      };
-      reader.readAsText(file);
-      event.target.value = '';
-    }
-
-    function updateStorageIndicator() {
-      let totalBytes = 0;
-      for (let i = 0; i < localStorage.length; i++) {
-        const key = localStorage.key(i);
-        if (key && key.startsWith('tabkit_')) {
-          totalBytes += (localStorage.getItem(key).length + key.length) * 2;
-        }
-      }
-      const kb = (totalBytes / 1024).toFixed(1);
-      const badge = document.getElementById('storageUsageBadge');
-      if (badge) badge.textContent = `Storage: ${kb} KB used`;
-    }
-
-    function escapeHtml(str) {
-      return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
-    }
-
-    // --- COMMAND PALETTE LOGIC ---
-    const commandModal = document.getElementById('commandPaletteModal');
-    const commandInput = document.getElementById('commandInput');
-    const commandResults = document.getElementById('commandResultsList');
-
-    function openCommandPalette() {
-      commandModal.classList.remove('hidden');
-      commandModal.classList.add('flex');
-      commandInput.value = '';
-      renderCommandList();
-      setTimeout(() => commandInput.focus(), 20);
-    }
-
-    function closeCommandPalette() {
-      commandModal.classList.add('hidden');
-      commandModal.classList.remove('flex');
-    }
-
-    function renderCommandList(query = '') {
-      commandResults.innerHTML = '';
-      const filtered = Object.values(TOOLS_REGISTRY).filter(t => 
-        t.name.toLowerCase().includes(query.toLowerCase()) || 
-        t.category.toLowerCase().includes(query.toLowerCase())
-      );
-
-      if (!filtered.length) {
-        commandResults.innerHTML = `<div class="p-3 text-center text-xs text-workspace-muted font-mono">No matching tools found.</div>`;
-        return;
-      }
-
-      filtered.forEach(tool => {
-        const isPinned = activePinnedTools.includes(tool.id);
-        const item = document.createElement('div');
-        item.className = 'p-2.5 rounded-lg hover:bg-workspace-bg flex items-center justify-between cursor-pointer border border-transparent hover:border-workspace-border gap-2';
-        item.onclick = () => isPinned ? unpinTool(tool.id) : pinTool(tool.id);
-
-        item.innerHTML = `
-          <div>
-            <div class="text-xs font-semibold text-workspace-text">${tool.name}</div>
-            <div class="text-[11px] text-workspace-muted">${tool.description}</div>
-          </div>
-          <span class="text-[10px] font-mono px-2 py-0.5 rounded shrink-0 ${isPinned ? 'bg-rose-950/40 text-rose-400 border border-rose-900/50' : 'bg-workspace-accent/10 text-workspace-accent border border-workspace-accent/20'}">
-            ${isPinned ? 'Unpin' : 'Pin to Board'}
-          </span>
-        `;
-        commandResults.appendChild(item);
-      });
-    }
-
-    commandInput.addEventListener('input', (e) => renderCommandList(e.target.value));
-
-    document.addEventListener('keydown', (e) => {
-      const isCmdOrCtrl = e.ctrlKey || e.metaKey;
-      const isKeyK = e.code === 'KeyK' || (e.key && e.key.toLowerCase() === 'k');
-      if (isCmdOrCtrl && isKeyK) {
-        e.preventDefault();
-        openCommandPalette();
-      }
-      if (e.key === 'Escape' && !commandModal.classList.contains('hidden')) {
-        e.preventDefault();
-        closeCommandPalette();
-      }
-    }, true);
-
-    document.getElementById('btnOpenCommandPalette').addEventListener('click', openCommandPalette);
-    document.getElementById('btnOpenToolCatalog').addEventListener('click', openCommandPalette);
-    commandModal.addEventListener('click', (e) => {
-      if (e.target === commandModal) closeCommandPalette();
-    });
-
-    document.getElementById('btnLoadStarterDeck').addEventListener('click', () => {
-      activePinnedTools = ['scratchpad', 'qr-generator', 'timezone-buddy'];
-      saveWorkspaceState();
-    });
-
-    document.getElementById('btnResetWorkspace').addEventListener('click', () => {
-      if (confirm('Clear all tools from your active workbench?')) {
-        activePinnedTools = [];
-        saveWorkspaceState();
-      }
-    });
-
-    // --- SERVICE WORKER REGISTRATION (OFFLINE SUPPORT) ---
-    if ('serviceWorker' in navigator) {
-      window.addEventListener('load', () => {
-        navigator.serviceWorker.register('/sw.js').catch(err => {
-          console.warn('Offline ServiceWorker registration failed:', err);
-        });
-      });
-    }
-
-    // Initial Execution
-    renderWorkbench();
-    updateStorageIndicator();
-  </script>
-</body>
-</html>
+      const label =
