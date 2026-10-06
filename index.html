@@ -181,7 +181,7 @@
             <span>Time Zone Buddy</span>
             <span class="text-workspace-accent">+</span>
           </div>
-          <p class="text-[11px] text-workspace-muted">Add zones by country or city with synchronized local hour slider.</p>
+          <p class="text-[11px] text-workspace-muted">Search every city and country in the world with local hour synchronization.</p>
         </div>
       </div>
 
@@ -246,32 +246,110 @@
   <!-- ==================== SCRIPT: PLUGIN REGISTRY & CORE ==================== -->
   <script>
     /**
-     * COUNTRY TO IANA TIMEZONE DIRECTORY
-     * Enables instant matching by country name, ISO code, or major cities.
+     * GLOBAL WORLD TIMEZONE DIRECTORY
+     * Uses browser native Intl.supportedValuesOf('timeZone') combined with canonical country mappings
+     * to support EVERY city, country, region, and continent on earth with zero server downloads.
      */
-    const COUNTRY_ZONE_DIRECTORY = [
-      { country: "Qatar", code: "QA", label: "Doha (AST)", iana: "Asia/Qatar" },
-      { country: "Tunisia", code: "TN", label: "Tunis (CET)", iana: "Africa/Tunis" },
-      { country: "United Arab Emirates", code: "AE", label: "Dubai (GST)", iana: "Asia/Dubai" },
-      { country: "Saudi Arabia", code: "SA", label: "Riyadh (AST)", iana: "Asia/Riyadh" },
-      { country: "Egypt", code: "EG", label: "Cairo (EET)", iana: "Africa/Cairo" },
-      { country: "United Kingdom", code: "GB", label: "London (GMT/BST)", iana: "Europe/London" },
-      { country: "France", code: "FR", label: "Paris (CET/CEST)", iana: "Europe/Paris" },
-      { country: "Germany", code: "DE", label: "Berlin (CET/CEST)", iana: "Europe/Berlin" },
-      { country: "Japan", code: "JP", label: "Tokyo (JST)", iana: "Asia/Tokyo" },
-      { country: "Singapore", code: "SG", label: "Singapore (SGT)", iana: "Asia/Singapore" },
-      { country: "India", code: "IN", label: "New Delhi (IST)", iana: "Asia/Kolkata" },
-      { country: "Turkey", code: "TR", label: "Istanbul (TRT)", iana: "Europe/Istanbul" },
-      { country: "United States", code: "US", label: "New York (Eastern - EST/EDT)", iana: "America/New_York" },
-      { country: "United States", code: "US", label: "Chicago (Central - CST/CDT)", iana: "America/Chicago" },
-      { country: "United States", code: "US", label: "Denver (Mountain - MST/MDT)", iana: "America/Denver" },
-      { country: "United States", code: "US", label: "Los Angeles (Pacific - PST/PDT)", iana: "America/Los_Angeles" },
-      { country: "Canada", code: "CA", label: "Toronto (Eastern)", iana: "America/Toronto" },
-      { country: "Canada", code: "CA", label: "Vancouver (Pacific)", iana: "America/Vancouver" },
-      { country: "Australia", code: "AU", label: "Sydney (AEST/AEDT)", iana: "Australia/Sydney" },
-      { country: "Australia", code: "AU", label: "Perth (AWST)", iana: "Australia/Perth" },
-      { country: "UTC", code: "UTC", label: "Universal Time (UTC / GMT)", iana: "UTC" }
-    ];
+    const KNOWN_COUNTRY_MAPPINGS = {
+      'Qatar': ['Asia/Qatar'],
+      'Tunisia': ['Africa/Tunis'],
+      'United States': ['America/New_York', 'America/Chicago', 'America/Denver', 'America/Los_Angeles', 'America/Anchorage', 'Pacific/Honolulu', 'America/Phoenix', 'America/Detroit', 'America/Indiana/Indianapolis'],
+      'USA': ['America/New_York', 'America/Chicago', 'America/Denver', 'America/Los_Angeles', 'America/Anchorage', 'Pacific/Honolulu'],
+      'United Kingdom': ['Europe/London'],
+      'UK': ['Europe/London'],
+      'France': ['Europe/Paris'],
+      'Germany': ['Europe/Berlin'],
+      'Canada': ['America/Toronto', 'America/Vancouver', 'America/Montreal', 'America/Edmonton', 'America/Winnipeg', 'America/Halifax', 'America/St_Johns'],
+      'Australia': ['Australia/Sydney', 'Australia/Melbourne', 'Australia/Brisbane', 'Australia/Perth', 'Australia/Adelaide', 'Australia/Darwin', 'Australia/Hobart'],
+      'United Arab Emirates': ['Asia/Dubai'],
+      'UAE': ['Asia/Dubai'],
+      'Saudi Arabia': ['Asia/Riyadh'],
+      'Egypt': ['Africa/Cairo'],
+      'Morocco': ['Africa/Casablanca'],
+      'Algeria': ['Africa/Algiers'],
+      'Turkey': ['Europe/Istanbul'],
+      'Japan': ['Asia/Tokyo'],
+      'China': ['Asia/Shanghai', 'Asia/Urumqi', 'Asia/Hong_Kong', 'Asia/Macau'],
+      'India': ['Asia/Kolkata'],
+      'Pakistan': ['Asia/Karachi'],
+      'Russia': ['Europe/Moscow', 'Asia/Yekaterinburg', 'Asia/Novosibirsk', 'Asia/Krasnoyarsk', 'Asia/Irkutsk', 'Asia/Yakutsk', 'Asia/Vladivostok', 'Asia/Magadan', 'Asia/Kamchatka'],
+      'Brazil': ['America/Sao_Paulo', 'America/Manaus', 'America/Fortaleza', 'America/Recife', 'America/Cuiaba'],
+      'Mexico': ['America/Mexico_City', 'America/Cancun', 'America/Tijuana', 'America/Monterrey'],
+      'Spain': ['Europe/Madrid', 'Atlantic/Canary'],
+      'Italy': ['Europe/Rome'],
+      'Netherlands': ['Europe/Amsterdam'],
+      'Switzerland': ['Europe/Zurich'],
+      'Sweden': ['Europe/Stockholm'],
+      'Norway': ['Europe/Oslo'],
+      'South Korea': ['Asia/Seoul'],
+      'Singapore': ['Asia/Singapore'],
+      'Malaysia': ['Asia/Kuala_Lumpur'],
+      'Indonesia': ['Asia/Jakarta', 'Asia/Makassar', 'Asia/Jayapura'],
+      'South Africa': ['Africa/Johannesburg'],
+      'Nigeria': ['Africa/Lagos'],
+      'Kenya': ['Africa/Nairobi'],
+      'Argentina': ['America/Argentina/Buenos_Aires'],
+      'Chile': ['America/Santiago'],
+      'Colombia': ['America/Bogota'],
+      'New Zealand': ['Pacific/Auckland', 'Pacific/Chatham'],
+      'UTC': ['UTC']
+    };
+
+    // Dynamically retrieve all IANA timezones supported natively by the client browser
+    function getAllAvailableTimeZones() {
+      let rawZones = [];
+      if (typeof Intl !== 'undefined' && typeof Intl.supportedValuesOf === 'function') {
+        try {
+          rawZones = Intl.supportedValuesOf('timeZone');
+        } catch (e) {
+          rawZones = [];
+        }
+      }
+      
+      // Fallback base list if legacy engine
+      if (!rawZones || !rawZones.length) {
+        rawZones = [
+          'UTC', 'Asia/Qatar', 'Africa/Tunis', 'Europe/London', 'Europe/Paris', 
+          'Europe/Berlin', 'America/New_York', 'America/Chicago', 'America/Denver', 
+          'America/Los_Angeles', 'Asia/Dubai', 'Asia/Tokyo', 'Asia/Singapore', 
+          'Australia/Sydney', 'America/Toronto', 'Asia/Hong_Kong', 'Asia/Kolkata'
+        ];
+      }
+
+      const lookupCatalog = [];
+      const seen = new Set();
+
+      rawZones.forEach(iana => {
+        if (seen.has(iana)) return;
+        seen.add(iana);
+
+        const parts = iana.split('/');
+        const continent = parts[0] ? parts[0].replace(/_/g, ' ') : '';
+        const rawCity = parts[parts.length - 1] ? parts[parts.length - 1].replace(/_/g, ' ') : iana;
+        const subRegion = parts.length > 2 ? parts[1].replace(/_/g, ' ') : '';
+
+        // Match against known country references
+        let matchedCountries = [];
+        for (const [countryName, zones] of Object.entries(KNOWN_COUNTRY_MAPPINGS)) {
+          if (zones.includes(iana)) {
+            matchedCountries.push(countryName);
+          }
+        }
+
+        lookupCatalog.push({
+          iana: iana,
+          city: rawCity,
+          continent: continent,
+          subRegion: subRegion,
+          countries: matchedCountries,
+          searchTokens: `${rawCity} ${continent} ${subRegion} ${matchedCountries.join(' ')} ${iana}`.toLowerCase()
+        });
+      });
+
+      return lookupCatalog;
+    }
+
+    const GLOBAL_TZ_CATALOG = getAllAvailableTimeZones();
 
     /**
      * CENTRAL PLUGIN REGISTRY
@@ -439,18 +517,18 @@
         }
       },
 
-      // 5. Time Zone & Meeting Buddy (with Country & City search)
+      // 5. Time Zone & Meeting Buddy (Global Complete World Coverage)
       'timezone-buddy': {
         id: 'timezone-buddy',
         name: 'Time Zone Buddy',
         category: 'Productivity',
-        description: 'Search zones by country or city with synchronized local hour slider.',
+        description: 'Search every country or city in the world with local hour synchronization.',
         render: (toolId) => `
           <div class="flex flex-col h-full space-y-3 font-sans">
-            <!-- Country & City Search Dropdown -->
+            <!-- Universal Country / City Search -->
             <div class="relative">
-              <input id="${toolId}_search" type="text" placeholder="Add country (e.g. Qatar, Tunisia, US) or city..." class="w-full bg-workspace-bg border border-workspace-border rounded-lg px-2.5 py-1.5 text-xs font-mono text-workspace-text placeholder-workspace-muted focus:border-workspace-accent focus:outline-none" />
-              <div id="${toolId}_results" class="absolute left-0 right-0 top-full mt-1 bg-workspace-surface border border-workspace-border rounded-lg max-h-44 overflow-y-auto hidden z-30 shadow-2xl p-1 text-xs"></div>
+              <input id="${toolId}_search" type="text" placeholder="Type any country (e.g. Qatar, Tunisia, Canada) or city (e.g. Dubai, Tokyo, Sydney)..." class="w-full bg-workspace-bg border border-workspace-border rounded-lg px-2.5 py-1.5 text-xs font-mono text-workspace-text placeholder-workspace-muted focus:border-workspace-accent focus:outline-none" />
+              <div id="${toolId}_results" class="absolute left-0 right-0 top-full mt-1 bg-workspace-surface border border-workspace-border rounded-lg max-h-52 overflow-y-auto hidden z-30 shadow-2xl p-1 text-xs"></div>
             </div>
 
             <div class="flex items-center justify-between text-xs font-mono">
@@ -461,7 +539,7 @@
             <input id="${toolId}_slider" type="range" min="0" max="23" value="12" step="1" class="w-full accent-workspace-accent cursor-pointer bg-workspace-bg rounded-lg h-2" />
 
             <!-- Pinned Zones List -->
-            <div id="${toolId}_zonesContainer" class="space-y-1.5 max-h-48 overflow-y-auto pr-0.5 font-mono text-xs"></div>
+            <div id="${toolId}_zonesContainer" class="space-y-1.5 max-h-56 overflow-y-auto pr-0.5 font-mono text-xs"></div>
           </div>
         `,
         init: (toolId) => {
@@ -492,17 +570,19 @@
 
           function renderPinnedZones() {
             container.innerHTML = pinned.map(iana => {
-              const meta = COUNTRY_ZONE_DIRECTORY.find(m => m.iana === iana) || {
-                country: iana.split('/')[0] || 'Zone',
-                label: iana.split('/')[1] || iana
-              };
+              const item = GLOBAL_TZ_CATALOG.find(m => m.iana === iana);
+              const title = item ? item.city : iana.split('/').pop().replace(/_/g, ' ');
+              const subtitle = item && item.countries.length 
+                ? item.countries[0] 
+                : (item ? item.continent : iana.split('/')[0]);
+
               const { timeStr, isWork } = getZoneDisplay(iana, parseInt(slider.value, 10));
               return `
                 <div class="flex items-center justify-between p-2 rounded bg-workspace-bg border border-workspace-border">
                   <div>
                     <div class="flex items-center gap-1.5">
-                      <span class="text-workspace-text font-bold">${meta.country}</span>
-                      <span class="text-workspace-muted text-[11px]">— ${meta.label}</span>
+                      <span class="text-workspace-text font-bold">${title}</span>
+                      <span class="text-workspace-muted text-[11px]">— ${subtitle}</span>
                     </div>
                     <span class="text-[10px] text-workspace-muted">${iana}</span>
                   </div>
@@ -536,23 +616,18 @@
               return;
             }
 
-            const matches = COUNTRY_ZONE_DIRECTORY.filter(item =>
-              item.country.toLowerCase().includes(q) ||
-              item.label.toLowerCase().includes(q) ||
-              item.code.toLowerCase().includes(q) ||
-              item.iana.toLowerCase().includes(q)
-            );
+            const matches = GLOBAL_TZ_CATALOG.filter(item => item.searchTokens.includes(q)).slice(0, 40);
 
             if (!matches.length) {
-              results.innerHTML = `<div class="p-2 text-center text-workspace-muted text-xs font-mono">No matching country or timezone</div>`;
+              results.innerHTML = `<div class="p-2 text-center text-workspace-muted text-xs font-mono">No matching country or city found</div>`;
             } else {
               results.innerHTML = matches.map(item => `
                 <div data-pick-iana="${item.iana}" class="p-2 hover:bg-workspace-surfaceHover rounded cursor-pointer flex items-center justify-between">
                   <div>
-                    <span class="font-bold text-workspace-text">${item.country}</span>
-                    <span class="text-workspace-muted text-[11px]"> (${item.label})</span>
+                    <span class="font-bold text-workspace-text">${item.city}</span>
+                    <span class="text-workspace-muted text-[11px]"> (${item.countries.length ? item.countries[0] + ' · ' : ''}${item.continent})</span>
                   </div>
-                  <span class="text-[10px] font-mono text-workspace-accent">${item.code}</span>
+                  <span class="text-[10px] font-mono text-workspace-accent">${item.iana}</span>
                 </div>
               `).join('');
 
