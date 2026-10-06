@@ -324,7 +324,6 @@
 
     /**
      * CENTRAL PLUGIN REGISTRY
-     * 7 isolated tools ready to mount on demand.
      */
     const TOOLS_REGISTRY = {
       // 1. Scratchpad & Diff Checker
@@ -443,7 +442,7 @@
         }
       },
 
-      // 4. Instant QR Code Generator & Mobile Handoff (Keypad Auto-Dialer Enabled)
+      // 4. Instant QR Code Generator & Mobile Handoff
       'qr-generator': {
         id: 'qr-generator',
         name: 'Instant QR Handoff',
@@ -451,9 +450,8 @@
         description: 'Generate QR codes for links, phone dialer numbers, or plain text.',
         render: (toolId) => `
           <div class="flex flex-col h-full space-y-3 font-sans">
-            <textarea id="${toolId}_input" rows="2" class="w-full bg-workspace-bg border border-workspace-border rounded-lg p-2.5 text-xs text-workspace-text placeholder-workspace-muted focus:border-workspace-accent focus:outline-none font-mono resize-none" placeholder="Type or paste links, phrases, or a phone number (e.g. +974 5512 3456)..."></textarea>
+            <textarea id="${toolId}_input" rows="2" class="w-full bg-workspace-bg border border-workspace-border rounded-lg p-2.5 text-xs text-workspace-text placeholder-workspace-muted focus:border-workspace-accent focus:outline-none font-mono resize-none" placeholder="Type or paste links, phrases, or a phone number..."></textarea>
             
-            <!-- Smart Mode Controls -->
             <div id="${toolId}_telBar" class="hidden flex items-center justify-between px-2.5 py-1.5 rounded-lg bg-workspace-bg border border-workspace-border text-xs font-mono">
               <div class="flex items-center gap-1.5">
                 <span class="w-1.5 h-1.5 rounded-full bg-workspace-accent"></span>
@@ -484,13 +482,10 @@
           const count = document.getElementById(`${toolId}_charCount`);
           const telBar = document.getElementById(`${toolId}_telBar`);
           const telToggle = document.getElementById(`${toolId}_telToggle`);
-          let qr = null;
 
           function isPotentialPhoneNumber(str) {
-            const trimmed = str.trim();
-            // Matches numbers like +974 5512 3456, +1-800-555-0199, or local 8-15 digit numbers
-            const cleaned = trimmed.replace(/[\s\-\(\)\.]/g, '');
-            return /^\+?[0-9]{3,15}$/.test(cleaned) && (cleaned.startsWith('+') \vert{}\vert{} /^[0-9]+$/.test(cleaned));
+            const cleaned = str.trim().replace(/[\s().-]/g, '');
+            return /^\+?[0-9]{3,15}$/.test(cleaned);
           }
 
           function generate() {
@@ -506,25 +501,26 @@
 
             let textToEncode = rawVal.length > 0 ? String(rawVal) : 'https://tabkit.tools';
 
-            // Auto-format with tel: protocol when toggled so cameras pop up dialer directly
             if (isPhone && telToggle && telToggle.checked) {
-              const sanitizedPhone = rawVal.trim().replace(/[\s\-\(\)]/g, '');
-              textToEncode = `tel:${sanitizedPhone}`;
+              const sanitizedPhone = rawVal.trim().replace(/[\s().-]/g, '');
+              textToEncode = 'tel:' + sanitizedPhone;
             }
             
             count.textContent = `${rawVal.length} character${rawVal.length === 1 ? '' : 's'}${isPhone && telToggle.checked ? ' (Dialer ready)' : ''}`;
 
-            try {
-              qr = new QRCode(container, {
-                text: textToEncode,
-                width: 140,
-                height: 140,
-                colorDark: '#0F1117',
-                colorLight: '#FFFFFF',
-                correctLevel: QRCode.CorrectLevel.M
-              });
-            } catch (err) {
-              console.error('QR Generation error:', err);
+            if (typeof QRCode !== 'undefined') {
+              try {
+                new QRCode(container, {
+                  text: textToEncode,
+                  width: 140,
+                  height: 140,
+                  colorDark: '#0F1117',
+                  colorLight: '#FFFFFF',
+                  correctLevel: 2 // 2 corresponds safely to Level M
+                });
+              } catch (err) {
+                console.error('QR Generation error:', err);
+              }
             }
           }
 
@@ -534,7 +530,7 @@
         }
       },
 
-      // 5. Time Zone & Meeting Buddy (Lazy-Loaded Universal City Directory)
+      // 5. Time Zone & Meeting Buddy
       'timezone-buddy': {
         id: 'timezone-buddy',
         name: 'Time Zone Buddy',
@@ -963,10 +959,21 @@
     }
 
     function downloadQrCode(toolId) {
-      const img = document.querySelector(`#${toolId}_canvas img`);
-      if (!img || !img.src) return alert('No QR code generated yet.');
+      const container = document.getElementById(`${toolId}_canvas`);
+      if (!container) return;
+      const img = container.querySelector('img');
+      const canvas = container.querySelector('canvas');
+
+      let url = null;
+      if (img && img.src) {
+        url = img.src;
+      } else if (canvas) {
+        url = canvas.toDataURL('image/png');
+      }
+
+      if (!url) return alert('No QR code generated yet.');
       const a = document.createElement('a');
-      a.href = img.src;
+      a.href = url;
       a.download = `tabkit-qr-${Date.now()}.png`;
       a.click();
     }
