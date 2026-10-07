@@ -146,7 +146,7 @@
   <main class="flex-1 p-3.5 sm:p-4 md:p-6 overflow-y-auto">
     <div id="workbenchGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 max-w-[1700px] mx-auto"></div>
 
-    <!-- Beautiful Empty Workspace State -->
+    <!-- Empty Workspace State -->
     <div id="emptyWorkspaceState" class="hidden max-w-5xl mx-auto my-6 sm:my-10 p-6 sm:p-8 rounded-2xl border border-workspace-border bg-workspace-surface/40 shadow-2xl bg-dot-grid text-center">
       <div class="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-workspace-bg border border-workspace-border mb-6 shadow-inner">
         <svg class="w-8 h-8 text-workspace-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -206,7 +206,7 @@
     </div>
   </div>
 
-  <!-- ==================== CORE APPLICATION SCRIPT ==================== -->
+  <!-- ==================== APPLICATION SCRIPT ==================== -->
   <script>
     // --- NON-BLOCKING TOAST MANAGER ---
     function showToast(message, type = 'info') {
@@ -227,6 +227,11 @@
         toast.classList.add('opacity-0', 'translate-y-2');
         setTimeout(() => toast.remove(), 300);
       }, 2600);
+    }
+
+    function escapeHtml(str) {
+      if (!str) return '';
+      return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
     }
 
     // --- ACCURATE LCS DIFF ALGORITHM ---
@@ -290,11 +295,9 @@
             return { city, country, iana, tokens: `${city} ${country} ${iana}`.toLowerCase() };
           }).filter(x => x.city && x.iana && x.iana !== 'null');
         }
-
         if (onProgress) onProgress('');
         return citiesDataset;
       } catch (e) {
-        console.warn('Using standard Intl fallback zones:', e.message);
         if (onProgress) onProgress('');
         return fallbackIntlZones();
       } finally {
@@ -317,213 +320,442 @@
       });
     }
 
-    // --- UNIT CONVERTER DEFINITIONS ---
-    const CONVERTER_CONFIG = {
-      digital: {
-        name: 'Digital Storage',
-        units: {
-          b: { label: 'Bytes (B)', ratio: 1 },
-          kb: { label: 'Kilobytes (KB)', ratio: 1024 },
-          mb: { label: 'Megabytes (MB)', ratio: 1024 ** 2 },
-          gb: { label: 'Gigabytes (GB)', ratio: 1024 ** 3 },
-          tb: { label: 'Terabytes (TB)', ratio: 1024 ** 4 },
-          pb: { label: 'Petabytes (PB)', ratio: 1024 ** 5 }
-        },
-        defaultA: 'gb',
-        defaultB: 'mb'
-      },
-      length: {
-        name: 'Length & Distance',
-        units: {
-          mm: { label: 'Millimeters (mm)', ratio: 0.001 },
-          cm: { label: 'Centimeters (cm)', ratio: 0.01 },
-          m: { label: 'Meters (m)', ratio: 1 },
-          km: { label: 'Kilometers (km)', ratio: 1000 },
-          in: { label: 'Inches (in)', ratio: 0.0254 },
-          ft: { label: 'Feet (ft)', ratio: 0.3048 },
-          yd: { label: 'Yards (yd)', ratio: 0.9144 },
-          mi: { label: 'Miles (mi)', ratio: 1609.344 }
-        },
-        defaultA: 'cm',
-        defaultB: 'in'
-      },
-      weight: {
-        name: 'Weight & Mass',
-        units: {
-          mg: { label: 'Milligrams (mg)', ratio: 0.000001 },
-          g: { label: 'Grams (g)', ratio: 0.001 },
-          kg: { label: 'Kilograms (kg)', ratio: 1 },
-          t: { label: 'Metric Tons (t)', ratio: 1000 },
-          oz: { label: 'Ounces (oz)', ratio: 0.028349523125 },
-          lbs: { label: 'Pounds (lbs)', ratio: 0.45359237 },
-          st: { label: 'Stone (st)', ratio: 6.35029318 }
-        },
-        defaultA: 'kg',
-        defaultB: 'lbs'
-      },
-      temp: {
-        name: 'Temperature',
-        units: {
-          c: { label: 'Celsius (°C)' },
-          f: { label: 'Fahrenheit (°F)' },
-          k: { label: 'Kelvin (K)' }
-        },
-        defaultA: 'c',
-        defaultB: 'f'
-      },
-      speed: {
-        name: 'Speed',
-        units: {
-          mps: { label: 'Meters / sec (m/s)', ratio: 1 },
-          kmh: { label: 'Kilometers / hr (km/h)', ratio: 0.2777777778 },
-          mph: { label: 'Miles / hr (mph)', ratio: 0.44704 },
-          kn: { label: 'Knots (kn)', ratio: 0.5144444444 },
-          mach: { label: 'Mach (std atm)', ratio: 340.29 }
-        },
-        defaultA: 'kmh',
-        defaultB: 'mph'
-      },
-      volume: {
-        name: 'Volume & Capacity',
-        units: {
-          ml: { label: 'Milliliters (ml)', ratio: 0.001 },
-          l: { label: 'Liters (L)', ratio: 1 },
-          m3: { label: 'Cubic Meters (m³)', ratio: 1000 },
-          floz: { label: 'US Fluid Ounces (fl oz)', ratio: 0.0295735 },
-          cup: { label: 'US Cups', ratio: 0.236588 },
-          pt: { label: 'US Pints (pt)', ratio: 0.473176 },
-          gal: { label: 'US Gallons (gal)', ratio: 3.78541 }
-        },
-        defaultA: 'l',
-        defaultB: 'gal'
-      },
-      time: {
-        name: 'Time Duration',
-        units: {
-          ms: { label: 'Milliseconds (ms)', ratio: 0.001 },
-          s: { label: 'Seconds (s)', ratio: 1 },
-          min: { label: 'Minutes (min)', ratio: 60 },
-          h: { label: 'Hours (h)', ratio: 3600 },
-          d: { label: 'Days (d)', ratio: 86400 },
-          wk: { label: 'Weeks (wk)', ratio: 604800 }
-        },
-        defaultA: 'min',
-        defaultB: 's'
-      }
-    };
+    // ==========================================
+    // ALL GLOBAL TOOL HANDLERS (UNCOMPRESSED)
+    // ==========================================
 
-    // --- GLOBAL FUNCTIONS FOR NEW TOOLS ---
+    // 1. Text Diff & Notepad
+    function toggleScratchMode(toolId, mode) {
+      const isNotes = mode === 'notes';
+      const notesEl = document.getElementById(`${toolId}_notesContainer`);
+      const diffEl = document.getElementById(`${toolId}_diffContainer`);
+      const tabNote = document.getElementById(`${toolId}_tabNote`);
+      const tabDiff = document.getElementById(`${toolId}_tabDiff`);
+
+      if (notesEl && diffEl) {
+        notesEl.classList.toggle('hidden', !isNotes);
+        diffEl.classList.toggle('hidden', isNotes);
+      }
+
+      if (tabNote && tabDiff) {
+        tabNote.className = isNotes 
+          ? "px-2 py-0.5 rounded text-[11px] font-medium bg-workspace-surface text-workspace-accent"
+          : "px-2 py-0.5 rounded text-[11px] font-medium text-workspace-muted hover:text-workspace-text";
+        tabDiff.className = !isNotes 
+          ? "px-2 py-0.5 rounded text-[11px] font-medium bg-workspace-surface text-workspace-accent"
+          : "px-2 py-0.5 rounded text-[11px] font-medium text-workspace-muted hover:text-workspace-text";
+      }
+    }
+
+    function runTextDiff(toolId) {
+      const inputA = document.getElementById(`${toolId}_diffA`);
+      const inputB = document.getElementById(`${toolId}_diffB`);
+      const output = document.getElementById(`${toolId}_diffOutput`);
+
+      if (!inputA || !inputB || !output) return;
+      if (!inputA.value && !inputB.value) {
+        showToast('Please paste text in both fields to compare.', 'error');
+        return;
+      }
+
+      const linesA = inputA.value.split('\n');
+      const linesB = inputB.value.split('\n');
+      const diffs = computeLCSDiff(linesA, linesB);
+
+      output.innerHTML = diffs.map((line, idx) => {
+        const num = String(idx + 1).padStart(3, '0');
+        let colorClass = 'text-workspace-text';
+        let prefix = ' ';
+        let bgClass = 'bg-transparent';
+
+        if (line.type === 'add') {
+          colorClass = 'text-green-400';
+          prefix = '+';
+          bgClass = 'bg-green-400/10';
+        } else if (line.type === 'del') {
+          colorClass = 'text-red-400';
+          prefix = '-';
+          bgClass = 'bg-red-400/10';
+        }
+
+        const safeText = escapeHtml(line.text);
+        return `<div class="flex gap-2 px-1 rounded ${bgClass}">
+          <span class="text-workspace-muted select-none w-6 text-right border-r border-workspace-borderLight pr-1">${num}</span>
+          <span class="select-none font-bold ${colorClass}">${prefix}</span>
+          <span class="${colorClass} whitespace-pre-wrap break-all">${safeText || ' '}</span>
+        </div>`;
+      }).join('');
+      
+      showToast('Difference computed!');
+    }
+
+    // 2. URL Cleaner
+    function cleanUrls(toolId) {
+      const input = document.getElementById(`${toolId}_input`);
+      const output = document.getElementById(`${toolId}_output`);
+      const count = document.getElementById(`${toolId}_count`);
+
+      if (!input || !input.value.trim()) {
+        showToast('Please paste links or text first.', 'error');
+        return;
+      }
+
+      const urlRegex = /(https?:\/\/[^\s"',]+)/g;
+      let match;
+      const cleanSet = new Set();
+      let totalFound = 0;
+
+      while ((match = urlRegex.exec(input.value)) !== null) {
+        totalFound++;
+        try {
+          const u = new URL(match[0]);
+          const paramsToDelete = [];
+          for (const key of u.searchParams.keys()) {
+            if (key.startsWith('utm_') || ['fbclid', 'gclid', 'gclsrc', 'mc_eid', 'igshid', '_bta_tid', '_bta_c'].includes(key)) {
+              paramsToDelete.push(key);
+            }
+          }
+          paramsToDelete.forEach(k => u.searchParams.delete(k));
+          cleanSet.add(u.toString());
+        } catch (e) {}
+      }
+
+      const outArray = Array.from(cleanSet);
+      if (output) output.value = outArray.join('\n');
+      if (count) count.textContent = `${outArray.length} link${outArray.length === 1 ? '' : 's'}`;
+
+      if (totalFound > 0) {
+        showToast(`Sanitized ${outArray.length} link(s)!`);
+      } else {
+        showToast('No valid HTTP/HTTPS URLs found.', 'error');
+      }
+    }
+
+    function openAllCleanUrls(toolId) {
+      const output = document.getElementById(`${toolId}_output`);
+      if (!output || !output.value.trim()) {
+        showToast('No clean links to open.', 'error');
+        return;
+      }
+      const links = output.value.split('\n').filter(l => l.trim().startsWith('http'));
+      if (links.length > 8 && !confirm(`Open ${links.length} tabs simultaneously?`)) {
+        return;
+      }
+      links.forEach(link => window.open(link, '_blank'));
+    }
+
+    function copyCleanUrls(toolId) {
+      const output = document.getElementById(`${toolId}_output`);
+      if (output && output.value.trim()) {
+        navigator.clipboard.writeText(output.value);
+        showToast('Copied clean links to clipboard!');
+      } else {
+        showToast('Nothing to copy.', 'error');
+      }
+    }
+
+    // 3. Case Converter
+    function transformCase(toolId, type) {
+      const input = document.getElementById(`${toolId}_input`);
+      if (!input || !input.value.trim()) {
+        showToast('Please enter text first.', 'error');
+        return;
+      }
+
+      let val = input.value;
+      if (type === 'upper') {
+        val = val.toUpperCase();
+        showToast('Converted to UPPERCASE');
+      } else if (type === 'lower') {
+        val = val.toLowerCase();
+        showToast('Converted to lowercase');
+      } else if (type === 'title') {
+        val = val.replace(/\w\S*/g, (txt) => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase());
+        showToast('Converted to Title Case');
+      } else if (type === 'dedupe') {
+        const lines = val.split('\n');
+        const unique = Array.from(new Set(lines));
+        val = unique.join('\n');
+        showToast(`Removed ${lines.length - unique.length} duplicate line(s)`);
+      }
+
+      input.value = val;
+      input.dispatchEvent(new Event('input'));
+    }
+
+    function copyTextTool(toolId) {
+      const input = document.getElementById(`${toolId}_input`);
+      if (input && input.value) {
+        navigator.clipboard.writeText(input.value);
+        showToast('Text copied to clipboard!');
+      } else {
+        showToast('Nothing to copy.', 'error');
+      }
+    }
+
+    // 4. QR Code Generator
+    function downloadQrCode(toolId) {
+      const container = document.getElementById(`${toolId}_canvas`);
+      if (!container) return;
+      const img = container.querySelector('img');
+      const canvas = container.querySelector('canvas');
+
+      if (img && img.src) {
+        const a = document.createElement('a');
+        a.href = img.src;
+        a.download = 'qrcode.png';
+        a.click();
+        showToast('QR Image downloaded!');
+      } else if (canvas) {
+        const a = document.createElement('a');
+        a.href = canvas.toDataURL('image/png');
+        a.download = 'qrcode.png';
+        a.click();
+        showToast('QR Image downloaded!');
+      } else {
+        showToast('No QR code generated yet.', 'error');
+      }
+    }
+
+    function copyQrSource(toolId) {
+      const input = document.getElementById(`${toolId}_input`);
+      if (input && input.value) {
+        navigator.clipboard.writeText(input.value);
+        showToast('Copied QR code text!');
+      }
+    }
+
+    // 5. Password Generator
+    function setPwType(toolId, type) {
+      const card = document.getElementById(`card_${toolId}`);
+      if (!card) return;
+      card.dataset.mode = type;
+
+      const tabPass = document.getElementById(`${toolId}_tabPass`);
+      const tabPin = document.getElementById(`${toolId}_tabPin`);
+      const slider = document.getElementById(`${toolId}_lenSlider`);
+      const label = document.getElementById(`${toolId}_lenLabel`);
+
+      if (type === 'pass') {
+        if (tabPass) tabPass.className = "flex-1 py-1 rounded bg-workspace-surface text-workspace-accent font-medium";
+        if (tabPin) tabPin.className = "flex-1 py-1 rounded text-workspace-muted hover:text-workspace-text font-medium";
+        if (slider && parseInt(slider.value, 10) < 8) slider.value = 16;
+      } else {
+        if (tabPin) tabPin.className = "flex-1 py-1 rounded bg-workspace-surface text-workspace-accent font-medium";
+        if (tabPass) tabPass.className = "flex-1 py-1 rounded text-workspace-muted hover:text-workspace-text font-medium";
+        if (slider && parseInt(slider.value, 10) > 12) slider.value = 6;
+      }
+
+      if (slider && label) label.textContent = slider.value;
+      generateNewPassword(toolId);
+    }
+
+    function generateNewPassword(toolId) {
+      const slider = document.getElementById(`${toolId}_lenSlider`);
+      const output = document.getElementById(`${toolId}_output`);
+      const card = document.getElementById(`card_${toolId}`);
+
+      if (!slider || !output || !card) return;
+
+      const length = parseInt(slider.value, 10);
+      const mode = card.dataset.mode || 'pass';
+      const chars = mode === 'pin' 
+        ? '0123456789' 
+        : 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+~|}{[]:;?><,./-=';
+
+      const randomValues = new Uint32Array(length);
+      window.crypto.getRandomValues(randomValues);
+
+      let result = '';
+      for (let i = 0; i < length; i++) {
+        result += chars[randomValues[i] % chars.length];
+      }
+      output.value = result;
+    }
+
+    function copyGeneratedPw(toolId) {
+      const output = document.getElementById(`${toolId}_output`);
+      if (output && output.value) {
+        navigator.clipboard.writeText(output.value);
+        showToast('Password copied to clipboard!');
+      }
+    }
+
+    // 6. Percentage Math
     function calcPct1(toolId) {
       const a = parseFloat(document.getElementById(`${toolId}_p1A`).value) || 0;
       const b = parseFloat(document.getElementById(`${toolId}_p1B`).value) || 0;
-      document.getElementById(`${toolId}_p1R`).textContent = ((a / 100) * b).toFixed(2).replace(/\.00$/, '');
+      const res = (a / 100) * b;
+      document.getElementById(`${toolId}_p1R`).textContent = Number.isInteger(res) ? res : res.toFixed(2);
     }
+
     function calcPct2(toolId) {
       const a = parseFloat(document.getElementById(`${toolId}_p2A`).value) || 0;
       const b = parseFloat(document.getElementById(`${toolId}_p2B`).value) || 0;
-      document.getElementById(`${toolId}_p2R`).textContent = b === 0 ? '0' : ((a / b) * 100).toFixed(2).replace(/\.00$/, '');
+      if (b === 0) {
+        document.getElementById(`${toolId}_p2R`).textContent = '0';
+        return;
+      }
+      const res = (a / b) * 100;
+      document.getElementById(`${toolId}_p2R`).textContent = Number.isInteger(res) ? res : res.toFixed(2);
     }
+
     function calcPct3(toolId) {
       const a = parseFloat(document.getElementById(`${toolId}_p3A`).value) || 0;
       const b = parseFloat(document.getElementById(`${toolId}_p3B`).value) || 0;
-      document.getElementById(`${toolId}_p3R`).textContent = (a + (a * (b / 100))).toFixed(2).replace(/\.00$/, '');
+      const res = a + (a * (b / 100));
+      document.getElementById(`${toolId}_p3R`).textContent = Number.isInteger(res) ? res : res.toFixed(2);
     }
 
+    // 7. Date Calculations
     function calcDateDiff(toolId) {
       const a = document.getElementById(`${toolId}_d1A`).value;
       const b = document.getElementById(`${toolId}_d1B`).value;
-      if(a && b) {
-        const diffTime = Math.abs(new Date(b) - new Date(a));
-        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-        document.getElementById(`${toolId}_d1R`).textContent = diffDays + ' days';
-      }
-    }
-    function calcDateAdd(toolId) {
-      const a = document.getElementById(`${toolId}_d2A`).value;
-      const days = parseInt(document.getElementById(`${toolId}_d2B`).value) || 0;
-      if(a) {
-        const d = new Date(a);
-        d.setDate(d.getDate() + days);
-        document.getElementById(`${toolId}_d2R`).textContent = d.toDateString();
+      if (a && b) {
+        const da = new Date(a);
+        const db = new Date(b);
+        const diffTime = Math.abs(db - da);
+        const diffDays = Math.round(diffTime / (1000 * 60 * 60 * 24));
+        document.getElementById(`${toolId}_d1R`).textContent = `${diffDays} day${diffDays === 1 ? '' : 's'}`;
       }
     }
 
+    function calcDateAdd(toolId) {
+      const a = document.getElementById(`${toolId}_d2A`).value;
+      const days = parseInt(document.getElementById(`${toolId}_d2B`).value, 10) || 0;
+      if (a) {
+        const parts = a.split('-');
+        const d = new Date(parts[0], parts[1] - 1, parts[2]);
+        d.setDate(d.getDate() + days);
+        document.getElementById(`${toolId}_d2R`).textContent = d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+      }
+    }
+
+    // 8. Randomizer
     function rollNumber(toolId) {
-      const min = parseInt(document.getElementById(`${toolId}_min`).value) || 0;
-      const max = parseInt(document.getElementById(`${toolId}_max`).value) || 0;
+      const min = parseInt(document.getElementById(`${toolId}_min`).value, 10) || 0;
+      const max = parseInt(document.getElementById(`${toolId}_max`).value, 10) || 0;
+      if (min > max) {
+        document.getElementById(`${toolId}_numRes`).textContent = 'Err';
+        return;
+      }
       const res = Math.floor(Math.random() * (max - min + 1)) + min;
       document.getElementById(`${toolId}_numRes`).textContent = res;
     }
+
     function pickRandom(toolId) {
-      const list = document.getElementById(`${toolId}_list`).value.split('\n').filter(x => x.trim());
-      if (!list.length) return;
-      const res = list[Math.floor(Math.random() * list.length)];
-      document.getElementById(`${toolId}_listRes`).textContent = res;
+      const listEl = document.getElementById(`${toolId}_list`);
+      const resEl = document.getElementById(`${toolId}_listRes`);
+      if (!listEl || !resEl) return;
+
+      const items = listEl.value.split('\n').filter(x => x.trim().length > 0);
+      if (!items.length) {
+        resEl.textContent = 'List is empty';
+        return;
+      }
+      resEl.textContent = items[Math.floor(Math.random() * items.length)];
     }
 
+    // 9. JSON Formatter
     function formatJsonTool(toolId, minify = false) {
       const input = document.getElementById(`${toolId}_input`);
+      if (!input || !input.value.trim()) {
+        showToast('Please paste JSON first.', 'error');
+        return;
+      }
       try {
         const obj = JSON.parse(input.value);
         input.value = minify ? JSON.stringify(obj) : JSON.stringify(obj, null, 2);
-        showToast(minify ? 'JSON Minified' : 'JSON Formatted');
+        showToast(minify ? 'JSON Minified!' : 'JSON Formatted!');
       } catch (e) {
         showToast('Invalid JSON: ' + e.message, 'error');
       }
     }
 
+    // 10. Base64
     function convertBase64(toolId, action) {
       const input = document.getElementById(`${toolId}_input`);
+      if (!input || !input.value.trim()) {
+        showToast('Please enter text first.', 'error');
+        return;
+      }
       try {
-        if (action === 'encode') input.value = btoa(input.value);
-        else input.value = atob(input.value);
+        if (action === 'encode') {
+          input.value = btoa(unescape(encodeURIComponent(input.value)));
+          showToast('Encoded to Base64');
+        } else {
+          input.value = decodeURIComponent(escape(atob(input.value)));
+          showToast('Decoded from Base64');
+        }
       } catch (e) {
         showToast('Invalid Base64 string', 'error');
       }
     }
 
+    // 11. Hash Generator
     async function generateHashes(toolId) {
       const text = document.getElementById(`${toolId}_input`).value;
+      const o256 = document.getElementById(`${toolId}_sha256`);
+      const o384 = document.getElementById(`${toolId}_sha384`);
+      const o512 = document.getElementById(`${toolId}_sha512`);
+
       if (!text) {
-        document.getElementById(`${toolId}_sha256`).value = '';
-        document.getElementById(`${toolId}_sha384`).value = '';
-        document.getElementById(`${toolId}_sha512`).value = '';
+        if (o256) o256.value = '';
+        if (o384) o384.value = '';
+        if (o512) o512.value = '';
         return;
       }
+
       const msgBuffer = new TextEncoder().encode(text);
-      
-      const hash256 = await crypto.subtle.digest('SHA-256', msgBuffer);
-      document.getElementById(`${toolId}_sha256`).value = Array.from(new Uint8Array(hash256)).map(b => b.toString(16).padStart(2, '0')).join('');
-      
-      const hash384 = await crypto.subtle.digest('SHA-384', msgBuffer);
-      document.getElementById(`${toolId}_sha384`).value = Array.from(new Uint8Array(hash384)).map(b => b.toString(16).padStart(2, '0')).join('');
-      
-      const hash512 = await crypto.subtle.digest('SHA-512', msgBuffer);
-      document.getElementById(`${toolId}_sha512`).value = Array.from(new Uint8Array(hash512)).map(b => b.toString(16).padStart(2, '0')).join('');
+      try {
+        const hash256 = await crypto.subtle.digest('SHA-256', msgBuffer);
+        if (o256) o256.value = Array.from(new Uint8Array(hash256)).map(b => b.toString(16).padStart(2, '0')).join('');
+
+        const hash384 = await crypto.subtle.digest('SHA-384', msgBuffer);
+        if (o384) o384.value = Array.from(new Uint8Array(hash384)).map(b => b.toString(16).padStart(2, '0')).join('');
+
+        const hash512 = await crypto.subtle.digest('SHA-512', msgBuffer);
+        if (o512) o512.value = Array.from(new Uint8Array(hash512)).map(b => b.toString(16).padStart(2, '0')).join('');
+      } catch (e) {}
     }
 
+    function copyHash(toolId, hashKey) {
+      const el = document.getElementById(`${toolId}_${hashKey}`);
+      if (el && el.value) {
+        navigator.clipboard.writeText(el.value);
+        showToast('Hash copied to clipboard!');
+      }
+    }
+
+    // 12. Color Converter
     function updateColorConverter(toolId, source) {
       const hexInput = document.getElementById(`${toolId}_hex`);
       const rgbInput = document.getElementById(`${toolId}_rgb`);
       const hslInput = document.getElementById(`${toolId}_hsl`);
       const picker = document.getElementById(`${toolId}_picker`);
-      
+
+      if (!hexInput || !rgbInput || !hslInput || !picker) return;
+
       let hex = source === 'picker' ? picker.value : hexInput.value;
       if (!hex.startsWith('#')) hex = '#' + hex;
-      
+
       if (/^#[0-9A-F]{6}$/i.test(hex)) {
-        if (source !== 'hex') hexInput.value = hex;
+        if (source !== 'hex') hexInput.value = hex.toUpperCase();
         if (source !== 'picker') picker.value = hex;
-        
-        let r = parseInt(hex.slice(1, 3), 16), g = parseInt(hex.slice(3, 5), 16), b = parseInt(hex.slice(5, 7), 16);
+
+        let r = parseInt(hex.slice(1, 3), 16);
+        let g = parseInt(hex.slice(3, 5), 16);
+        let b = parseInt(hex.slice(5, 7), 16);
         rgbInput.value = `rgb(${r}, ${g}, ${b})`;
-        
+
         r /= 255; g /= 255; b /= 255;
-        let max = Math.max(r, g, b), min = Math.min(r, g, b);
-        let h, s, l = (max + min) / 2;
-        if (max === min) { h = s = 0; } 
-        else {
-          let d = max - min;
+        const max = Math.max(r, g, b);
+        const min = Math.min(r, g, b);
+        let h = 0, s = 0;
+        const l = (max + min) / 2;
+
+        if (max !== min) {
+          const d = max - min;
           s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
           switch (max) {
             case r: h = (g - b) / d + (g < b ? 6 : 0); break;
@@ -536,16 +768,21 @@
       }
     }
 
+    // 13. Pomodoro Timer
     const timers = {};
+
     function toggleTimer(toolId) {
       const t = timers[toolId];
+      if (!t) return;
+      const btn = document.getElementById(`${toolId}_btnToggle`);
+
       if (t.isRunning) {
         clearInterval(t.interval);
         t.isRunning = false;
-        document.getElementById(`${toolId}_btnToggle`).textContent = 'Start';
+        if (btn) btn.textContent = 'Start';
       } else {
         t.isRunning = true;
-        document.getElementById(`${toolId}_btnToggle`).textContent = 'Pause';
+        if (btn) btn.textContent = 'Pause';
         t.interval = setInterval(() => {
           if (t.timeLeft > 0) {
             t.timeLeft--;
@@ -553,33 +790,42 @@
           } else {
             clearInterval(t.interval);
             t.isRunning = false;
-            document.getElementById(`${toolId}_btnToggle`).textContent = 'Start';
-            showToast('Time is up!', 'info');
+            if (btn) btn.textContent = 'Start';
+            showToast('Time is up!');
           }
         }, 1000);
       }
     }
+
     function setTimer(toolId, minutes) {
       const t = timers[toolId];
+      if (!t) return;
       clearInterval(t.interval);
       t.isRunning = false;
       t.timeLeft = minutes * 60;
-      document.getElementById(`${toolId}_btnToggle`).textContent = 'Start';
+      const btn = document.getElementById(`${toolId}_btnToggle`);
+      if (btn) btn.textContent = 'Start';
       updateTimerDisplay(toolId);
     }
+
     function updateTimerDisplay(toolId) {
       const t = timers[toolId];
+      if (!t) return;
       const m = Math.floor(t.timeLeft / 60).toString().padStart(2, '0');
       const s = (t.timeLeft % 60).toString().padStart(2, '0');
-      document.getElementById(`${toolId}_display`).textContent = `${m}:${s}`;
+      const el = document.getElementById(`${toolId}_display`);
+      if (el) el.textContent = `${m}:${s}`;
     }
 
-    // --- REGISTRY OF TOOLS ---
+    // ==========================================
+    // COMPLETE TOOLS REGISTRY (UNCOMPRESSED)
+    // ==========================================
     const TOOLS_REGISTRY = {
       'text-diff-checker': {
         id: 'text-diff-checker',
         name: 'Text Diff Checker & Notepad',
         category: 'Workspace',
+        standaloneUrl: '/text-diff-checker.html',
         description: 'Auto-saving local notes and true line-by-line diff comparison.',
         render: (toolId) => `
           <div class="flex flex-col h-full space-y-3 font-sans">
@@ -607,18 +853,20 @@
           const textarea = document.getElementById(`${toolId}_textarea`);
           const status = document.getElementById(`${toolId}_saveStatus`);
           const saved = localStorage.getItem('tabkit_scratchpad_data');
-          if (saved) textarea.value = saved;
+          if (saved && textarea) textarea.value = saved;
 
           let saveTimer;
-          textarea.addEventListener('input', () => {
-            status.textContent = 'Saving...';
-            clearTimeout(saveTimer);
-            saveTimer = setTimeout(() => {
-              localStorage.setItem('tabkit_scratchpad_data', textarea.value);
-              status.textContent = 'Synced';
-              updateStorageIndicator();
-            }, 500);
-          });
+          if (textarea) {
+            textarea.addEventListener('input', () => {
+              if (status) status.textContent = 'Saving...';
+              clearTimeout(saveTimer);
+              saveTimer = setTimeout(() => {
+                localStorage.setItem('tabkit_scratchpad_data', textarea.value);
+                if (status) status.textContent = 'Synced';
+                updateStorageIndicator();
+              }, 500);
+            });
+          }
         }
       },
 
@@ -626,6 +874,7 @@
         id: 'url-link-cleaner',
         name: 'URL Tracking Link Cleaner',
         category: 'Links',
+        standaloneUrl: '/url-link-cleaner.html',
         description: 'Extract URLs, strip tracking tags (UTM, fbclid, gclid), and copy clean links.',
         render: (toolId) => `
           <div class="flex flex-col h-full space-y-2.5 font-sans">
@@ -651,6 +900,7 @@
         id: 'case-converter',
         name: 'Case Converter & Word Counter',
         category: 'Text',
+        standaloneUrl: '/case-converter.html',
         description: 'Deduplicate lines, toggle cases, and count words and characters without uploads.',
         render: (toolId) => `
           <div class="flex flex-col h-full space-y-2.5 font-sans">
@@ -675,12 +925,14 @@
           const input = document.getElementById(`${toolId}_input`);
           const words = document.getElementById(`${toolId}_statsWords`);
           const chars = document.getElementById(`${toolId}_statsChars`);
-          input.addEventListener('input', () => {
-            const val = input.value;
-            chars.textContent = `${val.length} chars`;
-            const wordCount = val.trim() ? val.trim().split(/\s+/).length : 0;
-            words.textContent = `${wordCount} words`;
-          });
+          if (input) {
+            input.addEventListener('input', () => {
+              const val = input.value;
+              if (chars) chars.textContent = `${val.length} chars`;
+              const wordCount = val.trim() ? val.trim().split(/\s+/).length : 0;
+              if (words) words.textContent = `${wordCount} words`;
+            });
+          }
         }
       },
 
@@ -688,6 +940,7 @@
         id: 'qr-code-generator',
         name: 'Free QR Code Generator',
         category: 'Utilities',
+        standaloneUrl: '/qr-code-generator.html',
         description: 'Generate high-contrast QR codes for links, phone dialer numbers, or plain text.',
         render: (toolId) => `
           <div class="flex flex-col h-full space-y-3 font-sans">
@@ -722,23 +975,28 @@
           const telToggle = document.getElementById(`${toolId}_telToggle`);
 
           function isPhoneNumber(str) {
-            const cleaned = str.trim().replace(/[\s().-]/g, '');
-            return /^\+?[0-9]{3,15}$/.test(cleaned);
+            return /^\+?[0-9]{3,15}$/.test(str.trim().replace(/[\s().-]/g, ''));
           }
 
           function renderCode() {
+            if (!container || !input) return;
             container.innerHTML = '';
             const rawVal = input.value;
             const isPhone = isPhoneNumber(rawVal);
-            if (isPhone) telBar.classList.remove('hidden');
-            else telBar.classList.add('hidden');
+
+            if (telBar) {
+              if (isPhone) telBar.classList.remove('hidden');
+              else telBar.classList.add('hidden');
+            }
 
             let textToEncode = rawVal.length > 0 ? String(rawVal) : 'https://tabkit.tools';
             if (isPhone && telToggle && telToggle.checked) {
               textToEncode = 'tel:' + rawVal.trim().replace(/[\s().-]/g, '');
             }
-            
-            count.textContent = `${rawVal.length} character${rawVal.length === 1 ? '' : 's'}${isPhone && telToggle.checked ? ' (Dialer ready)' : ''}`;
+
+            if (count) {
+              count.textContent = `${rawVal.length} character${rawVal.length === 1 ? '' : 's'}${isPhone && telToggle && telToggle.checked ? ' (Dialer ready)' : ''}`;
+            }
 
             if (typeof QRCode !== 'undefined') {
               try {
@@ -750,13 +1008,11 @@
                   colorLight: '#FFFFFF',
                   correctLevel: 2
                 });
-              } catch (e) {
-                console.error(e);
-              }
+              } catch (e) {}
             }
           }
 
-          input.addEventListener('input', renderCode);
+          if (input) input.addEventListener('input', renderCode);
           if (telToggle) telToggle.addEventListener('change', renderCode);
           renderCode();
         }
@@ -766,6 +1022,7 @@
         id: 'time-zone-converter',
         name: 'World Time Zone Converter',
         category: 'Productivity',
+        standaloneUrl: '/time-zone-converter.html',
         description: 'Interactive world clock with 25,000+ searchable cities and synchronized hour slider.',
         render: (toolId) => `
           <div class="flex flex-col h-full space-y-3 font-sans">
@@ -793,8 +1050,8 @@
           let searchTimer = null;
 
           const currentUtc = new Date().getUTCHours();
-          slider.value = currentUtc;
-          label.textContent = `${String(currentUtc).padStart(2, '0')}:00 UTC`;
+          if (slider) slider.value = currentUtc;
+          if (label) label.textContent = `${String(currentUtc).padStart(2, '0')}:00 UTC`;
 
           function getZoneDisplay(iana, utcHour) {
             try {
@@ -810,6 +1067,7 @@
           }
 
           function renderPinnedZones() {
+            if (!container) return;
             container.innerHTML = pinned.map(iana => {
               const parts = iana.split('/');
               const title = parts[parts.length - 1].replace(/_/g, ' ');
@@ -843,78 +1101,82 @@
             });
           }
 
-          slider.oninput = () => {
-            label.textContent = `${String(slider.value).padStart(2, '0')}:00 UTC`;
-            renderPinnedZones();
-          };
+          if (slider) {
+            slider.oninput = () => {
+              if (label) label.textContent = `${String(slider.value).padStart(2, '0')}:00 UTC`;
+              renderPinnedZones();
+            };
+          }
 
-          search.addEventListener('focus', async () => {
-            if (!citiesDataset) {
-              badge.classList.remove('hidden');
-              await loadCitiesDatabase((msg) => {
-                badge.textContent = msg;
-                if (!msg) badge.classList.add('hidden');
-              });
-            }
-          });
-
-          search.oninput = () => {
-            clearTimeout(searchTimer);
-            searchTimer = setTimeout(async () => {
-              const q = search.value.toLowerCase().trim();
-              if (!q) {
-                results.classList.add('hidden');
-                return;
-              }
-              const data = await loadCitiesDatabase();
-              if (!data) return;
-
-              const matches = [];
-              for (let i = 0; i < data.length; i++) {
-                if (data[i].tokens.includes(q)) {
-                  matches.push(data[i]);
-                  if (matches.length >= 15) break;
-                }
-              }
-
-              if (!matches.length) {
-                results.innerHTML = `<div class="p-2 text-center text-workspace-muted text-xs font-mono">No matching cities found</div>`;
-              } else {
-                results.innerHTML = matches.map(item => `
-                  <div data-pick-iana="${item.iana}" class="p-2 hover:bg-workspace-surfaceHover rounded cursor-pointer flex items-center justify-between">
-                    <div>
-                      <span class="font-bold text-workspace-text">${item.city}</span>
-                      <span class="text-workspace-muted text-[11px]"> (${item.country})</span>
-                    </div>
-                    <span class="text-[10px] font-mono text-workspace-accent">${item.iana}</span>
-                  </div>
-                `).join('');
-
-                results.querySelectorAll('[data-pick-iana]').forEach(row => {
-                  row.onclick = () => {
-                    const pick = row.dataset.pickIana;
-                    if (!pinned.includes(pick)) {
-                      pinned.push(pick);
-                      localStorage.setItem('tabkit_tz_pinned', JSON.stringify(pinned));
-                      renderPinnedZones();
-                      updateStorageIndicator();
-                    }
-                    search.value = '';
-                    results.classList.add('hidden');
-                  };
+          if (search) {
+            search.addEventListener('focus', async () => {
+              if (!citiesDataset) {
+                if (badge) badge.classList.remove('hidden');
+                await loadCitiesDatabase((msg) => {
+                  if (badge) {
+                    badge.textContent = msg;
+                    if (!msg) badge.classList.add('hidden');
+                  }
                 });
               }
-              results.classList.remove('hidden');
-            }, 120);
-          };
+            });
 
-          // Tool-scoped listener cleanup
-          const closeResults = (e) => {
-            if (!search.contains(e.target) && !results.contains(e.target)) {
+            search.oninput = () => {
+              clearTimeout(searchTimer);
+              searchTimer = setTimeout(async () => {
+                const q = search.value.toLowerCase().trim();
+                if (!q) {
+                  if (results) results.classList.add('hidden');
+                  return;
+                }
+                const data = await loadCitiesDatabase();
+                if (!data || !results) return;
+
+                const matches = [];
+                for (let i = 0; i < data.length; i++) {
+                  if (data[i].tokens.includes(q)) {
+                    matches.push(data[i]);
+                    if (matches.length >= 15) break;
+                  }
+                }
+
+                if (!matches.length) {
+                  results.innerHTML = `<div class="p-2 text-center text-workspace-muted text-xs font-mono">No matching cities found</div>`;
+                } else {
+                  results.innerHTML = matches.map(item => `
+                    <div data-pick-iana="${item.iana}" class="p-2 hover:bg-workspace-surfaceHover rounded cursor-pointer flex items-center justify-between">
+                      <div>
+                        <span class="font-bold text-workspace-text">${item.city}</span>
+                        <span class="text-workspace-muted text-[11px]"> (${item.country})</span>
+                      </div>
+                      <span class="text-[10px] font-mono text-workspace-accent">${item.iana}</span>
+                    </div>
+                  `).join('');
+
+                  results.querySelectorAll('[data-pick-iana]').forEach(row => {
+                    row.onclick = () => {
+                      const pick = row.dataset.pickIana;
+                      if (!pinned.includes(pick)) {
+                        pinned.push(pick);
+                        localStorage.setItem('tabkit_tz_pinned', JSON.stringify(pinned));
+                        renderPinnedZones();
+                        updateStorageIndicator();
+                      }
+                      search.value = '';
+                      results.classList.add('hidden');
+                    };
+                  });
+                }
+                results.classList.remove('hidden');
+              }, 120);
+            };
+          }
+
+          window.addEventListener('click', (e) => {
+            if (search && results && !search.contains(e.target) && !results.contains(e.target)) {
               results.classList.add('hidden');
             }
-          };
-          window.addEventListener('click', closeResults);
+          });
 
           renderPinnedZones();
         }
@@ -924,6 +1186,7 @@
         id: 'secure-password-generator',
         name: 'Secure Password Generator',
         category: 'Security',
+        standaloneUrl: '/random-password-generator.html',
         description: 'Generate cryptographically secure passwords or numeric PIN codes.',
         render: (toolId) => `
           <div class="flex flex-col h-full space-y-3 font-sans">
@@ -946,13 +1209,15 @@
         `,
         init: (toolId) => {
           const card = document.getElementById(`card_${toolId}`);
-          card.dataset.mode = 'pass';
+          if (card) card.dataset.mode = 'pass';
           const slider = document.getElementById(`${toolId}_lenSlider`);
           const label = document.getElementById(`${toolId}_lenLabel`);
-          slider.addEventListener('input', (e) => {
-            label.textContent = e.target.value;
-            generateNewPassword(toolId);
-          });
+          if (slider) {
+            slider.addEventListener('input', (e) => {
+              if (label) label.textContent = e.target.value;
+              generateNewPassword(toolId);
+            });
+          }
           generateNewPassword(toolId);
         }
       },
@@ -961,6 +1226,7 @@
         id: 'unit-converter',
         name: 'Universal Unit Converter',
         category: 'Utilities',
+        standaloneUrl: '/unit-converter.html',
         description: 'Multi-category converter for data, length, mass, temperature, speed, volume, and time.',
         render: (toolId) => `
           <div class="flex flex-col h-full space-y-3 font-sans">
@@ -1021,7 +1287,6 @@
           function convertValue(val, fromKey, toKey, catKey) {
             if (isNaN(val) || val === '') return '';
             val = parseFloat(val);
-
             if (catKey === 'temp') {
               let celsius = val;
               if (fromKey === 'f') celsius = (val - 32) * (5 / 9);
@@ -1031,7 +1296,6 @@
               if (toKey === 'k') return celsius + 273.15;
               return celsius;
             }
-
             const config = CONVERTER_CONFIG[catKey];
             const fromRatio = config.units[fromKey].ratio;
             const toRatio = config.units[toKey].ratio;
@@ -1097,6 +1361,7 @@
         id: 'percentage-calculator',
         name: 'Online Percentage Calculator',
         category: 'Utilities',
+        standaloneUrl: '/percentage-calculator.html',
         description: 'Everyday percentage calculator for discounts, tips, and fractions.',
         render: (toolId) => `
           <div class="flex flex-col h-full space-y-3 font-sans text-xs">
@@ -1149,6 +1414,7 @@
         id: 'date-calculator',
         name: 'Days Between Dates Calculator',
         category: 'Utilities',
+        standaloneUrl: '/date-calculator.html',
         description: 'Calculate days between dates or add/subtract days from a date.',
         render: (toolId) => `
           <div class="flex flex-col h-full space-y-3 font-sans text-xs">
@@ -1187,6 +1453,7 @@
         id: 'random-name-picker',
         name: 'Random Name Picker & Wheel',
         category: 'Utilities',
+        standaloneUrl: '/random-name-picker.html',
         description: 'Pick a random name from a list or generate a random number.',
         render: (toolId) => `
           <div class="flex flex-col h-full space-y-3 font-sans text-xs">
@@ -1205,13 +1472,14 @@
             </div>
           </div>
         `,
-        init: (toolId) => {}
+        init: () => {}
       },
 
       'json-formatter': {
         id: 'json-formatter',
         name: 'JSON Formatter & Validator',
         category: 'Developer',
+        standaloneUrl: '/json-formatter.html',
         description: 'Format, validate, and minify JSON strings instantly.',
         render: (toolId) => `
           <div class="flex flex-col h-full space-y-2.5 font-sans">
@@ -1230,6 +1498,7 @@
         id: 'base64-encoder-decoder',
         name: 'Base64 Encoder / Decoder',
         category: 'Developer',
+        standaloneUrl: '/base64-encoder-decoder.html',
         description: 'Encode or decode text to Base64 format locally.',
         render: (toolId) => `
           <div class="flex flex-col h-full space-y-2.5 font-sans">
@@ -1247,6 +1516,7 @@
         id: 'sha256-hash-generator',
         name: 'SHA-256 Hash Generator',
         category: 'Security',
+        standaloneUrl: '/sha256-hash-generator.html',
         description: 'Generate SHA-256, SHA-384, and SHA-512 hashes instantly.',
         render: (toolId) => `
           <div class="flex flex-col h-full space-y-3 font-sans">
@@ -1254,15 +1524,24 @@
             <div class="space-y-2 flex-1">
               <div>
                 <div class="text-[10px] font-mono text-workspace-muted mb-0.5">SHA-256</div>
-                <input id="${toolId}_sha256" readonly class="w-full bg-workspace-bg border border-workspace-border rounded p-1.5 text-[10px] font-mono text-workspace-accent focus:outline-none select-all" />
+                <div class="relative">
+                  <input id="${toolId}_sha256" readonly class="w-full bg-workspace-bg border border-workspace-border rounded p-1.5 pr-10 text-[10px] font-mono text-workspace-accent focus:outline-none select-all" />
+                  <button onclick="copyHash('${toolId}', 'sha256')" class="absolute right-1 top-1 px-2 py-0.5 bg-workspace-surface border border-workspace-border text-[9px] text-workspace-text rounded hover:bg-workspace-borderLight">Copy</button>
+                </div>
               </div>
               <div>
                 <div class="text-[10px] font-mono text-workspace-muted mb-0.5">SHA-384</div>
-                <input id="${toolId}_sha384" readonly class="w-full bg-workspace-bg border border-workspace-border rounded p-1.5 text-[10px] font-mono text-workspace-accent focus:outline-none select-all" />
+                <div class="relative">
+                  <input id="${toolId}_sha384" readonly class="w-full bg-workspace-bg border border-workspace-border rounded p-1.5 pr-10 text-[10px] font-mono text-workspace-accent focus:outline-none select-all" />
+                  <button onclick="copyHash('${toolId}', 'sha384')" class="absolute right-1 top-1 px-2 py-0.5 bg-workspace-surface border border-workspace-border text-[9px] text-workspace-text rounded hover:bg-workspace-borderLight">Copy</button>
+                </div>
               </div>
               <div>
                 <div class="text-[10px] font-mono text-workspace-muted mb-0.5">SHA-512</div>
-                <input id="${toolId}_sha512" readonly class="w-full bg-workspace-bg border border-workspace-border rounded p-1.5 text-[10px] font-mono text-workspace-accent focus:outline-none select-all" />
+                <div class="relative">
+                  <input id="${toolId}_sha512" readonly class="w-full bg-workspace-bg border border-workspace-border rounded p-1.5 pr-10 text-[10px] font-mono text-workspace-accent focus:outline-none select-all" />
+                  <button onclick="copyHash('${toolId}', 'sha512')" class="absolute right-1 top-1 px-2 py-0.5 bg-workspace-surface border border-workspace-border text-[9px] text-workspace-text rounded hover:bg-workspace-borderLight">Copy</button>
+                </div>
               </div>
             </div>
           </div>
@@ -1274,6 +1553,7 @@
         id: 'hex-color-converter',
         name: 'HEX to RGB Color Converter',
         category: 'Developer',
+        standaloneUrl: '/hex-color-converter.html',
         description: 'Convert colors between HEX, RGB, and HSL formats.',
         render: (toolId) => `
           <div class="flex flex-col h-full space-y-3 font-sans">
@@ -1303,6 +1583,7 @@
         id: 'pomodoro-timer',
         name: 'Pomodoro Timer Online',
         category: 'Productivity',
+        standaloneUrl: '/pomodoro-timer.html',
         description: 'A simple Pomodoro countdown timer for focused work sessions.',
         render: (toolId) => `
           <div class="flex flex-col h-full space-y-4 font-sans items-center justify-center py-2">
@@ -1329,7 +1610,7 @@
         standaloneUrl: '/excel-formula-builder.html',
         description: 'Massive offline registry of Excel/Sheets formulas with a fill-in-the-blanks builder.',
         render: (toolId) => `
-          <div class="flex flex-col h-full font-sans relative overflow-hidden">
+          <div class="flex flex-col h-[480px] font-sans relative overflow-hidden">
             <!-- List View -->
             <div id="${toolId}_view_list" class="flex flex-col h-full space-y-3 transition-transform duration-300">
               <input id="${toolId}_search" type="text" placeholder="Search 90+ formulas (e.g. VLOOKUP, PMT)..." class="w-full bg-workspace-bg border border-workspace-border rounded-lg px-2.5 py-1.5 text-base sm:text-xs font-mono text-workspace-text placeholder-workspace-muted focus:border-workspace-accent focus:outline-none" />
@@ -1375,123 +1656,57 @@
           let activeCat = 'All';
           let activeFormula = null;
 
-          // HUGE Formula Registry
           const EXCEL_FORMULAS = [
-            { id: 'xlookup', name: 'XLOOKUP', cat: 'Lookups', desc: 'Modern search. Find a value and return a match from another array.', inputs: [{ id: 'val', label: 'Lookup Value', pl: 'A2' }, { id: 'arr1', label: 'Lookup Array (Where to search)', pl: 'Sheet2!A:A' }, { id: 'arr2', label: 'Return Array (Column with answer)', pl: 'Sheet2!C:C' }, { id: 'err', label: 'If not found (opt)', pl: '"Not Found"' }], gen: (v) => `=XLOOKUP(${v.val||'A2'}, ${v.arr1||'Sheet2!A:A'}, ${v.arr2||'Sheet2!C:C'}, ${v.err||'""'})` },
-            { id: 'vlookup', name: 'VLOOKUP', cat: 'Lookups', desc: 'Classic vertical lookup.', inputs: [{ id: 'val', label: 'Lookup Value', pl: 'A2' }, { id: 'arr', label: 'Table Array', pl: 'Sheet2!A:D' }, { id: 'col', label: 'Column Index Number', pl: '2' }, { id: 'exact', label: 'Exact Match? (FALSE/0=Exact)', pl: 'FALSE' }], gen: (v) => `=VLOOKUP(${v.val||'A2'}, ${v.arr||'Sheet2!A:D'}, ${v.col||'2'}, ${v.exact||'FALSE'})` },
-            { id: 'hlookup', name: 'HLOOKUP', cat: 'Lookups', desc: 'Classic horizontal lookup.', inputs: [{ id: 'val', label: 'Lookup Value', pl: 'A2' }, { id: 'arr', label: 'Table Array', pl: 'Sheet2!A1:Z5' }, { id: 'row', label: 'Row Index Number', pl: '2' }, { id: 'exact', label: 'Exact Match?', pl: 'FALSE' }], gen: (v) => `=HLOOKUP(${v.val||'A2'}, ${v.arr||'Sheet2!A1:Z5'}, ${v.row||'2'}, ${v.exact||'FALSE'})` },
-            { id: 'index', name: 'INDEX', cat: 'Lookups', desc: 'Returns the value in a specific row/col.', inputs: [{ id: 'arr', label: 'Array / Range', pl: 'A1:C10' }, { id: 'row', label: 'Row Number', pl: '2' }, { id: 'col', label: 'Column Number (opt)', pl: '3' }], gen: (v) => `=INDEX(${v.arr||'A1:C10'}, ${v.row||'2'}${v.col ? `, ${v.col}` : ''})` },
-            { id: 'match', name: 'MATCH', cat: 'Lookups', desc: 'Returns the position of an item in a range.', inputs: [{ id: 'val', label: 'Lookup Value', pl: 'A2' }, { id: 'arr', label: 'Lookup Array', pl: 'B:B' }, { id: 'type', label: 'Match Type (0=Exact)', pl: '0' }], gen: (v) => `=MATCH(${v.val||'A2'}, ${v.arr||'B:B'}, ${v.type||'0'})` },
-            { id: 'indirect', name: 'INDIRECT', cat: 'Lookups', desc: 'Converts a text string into a valid cell reference.', inputs: [{ id: 'text', label: 'Text String / Cell ref', pl: '"A1"' }], gen: (v) => `=INDIRECT(${v.text||'"A1"'})` },
-            { id: 'offset', name: 'OFFSET', cat: 'Lookups', desc: 'Returns a reference offset from a starting cell.', inputs: [{ id: 'ref', label: 'Starting Reference', pl: 'A1' }, { id: 'rows', label: 'Rows to offset', pl: '1' }, { id: 'cols', label: 'Cols to offset', pl: '1' }], gen: (v) => `=OFFSET(${v.ref||'A1'}, ${v.rows||'1'}, ${v.cols||'1'})` },
-            { id: 'row', name: 'ROW', cat: 'Lookups', desc: 'Returns the row number of a reference.', inputs: [{ id: 'ref', label: 'Reference (opt)', pl: 'A1' }], gen: (v) => `=ROW(${v.ref||''})` },
-            { id: 'column', name: 'COLUMN', cat: 'Lookups', desc: 'Returns the column number of a reference.', inputs: [{ id: 'ref', label: 'Reference (opt)', pl: 'A1' }], gen: (v) => `=COLUMN(${v.ref||''})` },
-            { id: 'choose', name: 'CHOOSE', cat: 'Lookups', desc: 'Choose a value from a list based on an index number.', inputs: [{ id: 'idx', label: 'Index Num', pl: '2' }, { id: 'v1', label: 'Value 1', pl: '"Red"' }, { id: 'v2', label: 'Value 2', pl: '"Blue"' }], gen: (v) => `=CHOOSE(${v.idx||'2'}, ${v.v1||'"Red"'}, ${v.v2||'"Blue"'})` },
-            
-            { id: 'filter', name: 'FILTER', cat: 'Arrays', desc: 'Filters a range of data based on criteria.', inputs: [{ id: 'arr', label: 'Array to filter', pl: 'A2:C10' }, { id: 'inc', label: 'Include condition', pl: 'B2:B10="Yes"' }, { id: 'emp', label: 'If Empty (opt)', pl: '"None"' }], gen: (v) => `=FILTER(${v.arr||'A2:C10'}, ${v.inc||'B2:B10="Yes"'}, ${v.emp||'""'})` },
-            { id: 'sort', name: 'SORT', cat: 'Arrays', desc: 'Sorts the contents of a range or array.', inputs: [{ id: 'arr', label: 'Array', pl: 'A2:C10' }, { id: 'idx', label: 'Sort Index (col number)', pl: '1' }, { id: 'ord', label: 'Order (1=Asc, -1=Desc)', pl: '1' }], gen: (v) => `=SORT(${v.arr||'A2:C10'}, ${v.idx||'1'}, ${v.ord||'1'})` },
-            { id: 'sortby', name: 'SORTBY', cat: 'Arrays', desc: 'Sorts a range based on another array.', inputs: [{ id: 'arr', label: 'Array to sort', pl: 'A2:A10' }, { id: 'by', label: 'By Array', pl: 'B2:B10' }, { id: 'ord', label: 'Order (1=Asc, -1=Desc)', pl: '1' }], gen: (v) => `=SORTBY(${v.arr||'A2:A10'}, ${v.by||'B2:B10'}, ${v.ord||'1'})` },
-            { id: 'unique', name: 'UNIQUE', cat: 'Arrays', desc: 'Returns a list of unique values in a list.', inputs: [{ id: 'arr', label: 'Array', pl: 'A2:A20' }], gen: (v) => `=UNIQUE(${v.arr||'A2:A20'})` },
-            { id: 'transpose', name: 'TRANSPOSE', cat: 'Arrays', desc: 'Flips rows to columns or columns to rows.', inputs: [{ id: 'arr', label: 'Array / Range', pl: 'A1:B5' }], gen: (v) => `=TRANSPOSE(${v.arr||'A1:B5'})` },
-
-            { id: 'sum', name: 'SUM', cat: 'Math', desc: 'Adds all numbers in a range.', inputs: [{ id: 'r1', label: 'Range 1', pl: 'A1:A10' }, { id: 'r2', label: 'Range 2 (opt)', pl: 'B1:B10' }], gen: (v) => `=SUM(${v.r1||'A1:A10'}${v.r2 ? `, ${v.r2}` : ''})` },
-            { id: 'sumif', name: 'SUMIF', cat: 'Math', desc: 'Sums numbers based on one condition.', inputs: [{ id: 'range', label: 'Range to check', pl: 'A:A' }, { id: 'crit', label: 'Condition', pl: '">100"' }, { id: 'sumr', label: 'Sum Range (opt)', pl: 'B:B' }], gen: (v) => `=SUMIF(${v.range||'A:A'}, ${v.crit||'">100"'}${v.sumr ? `, ${v.sumr}` : ''})` },
-            { id: 'sumifs', name: 'SUMIFS', cat: 'Math', desc: 'Sums numbers based on multiple conditions.', inputs: [{ id: 'sumr', label: 'Range to Sum', pl: 'C:C' }, { id: 'cr1', label: 'Criteria Range 1', pl: 'A:A' }, { id: 'c1', label: 'Condition 1', pl: '"Done"' }], gen: (v) => `=SUMIFS(${v.sumr||'C:C'}, ${v.cr1||'A:A'}, ${v.c1||'"Done"'})` },
-            { id: 'sumproduct', name: 'SUMPRODUCT', cat: 'Math', desc: 'Multiplies corresponding components in arrays, and returns sum.', inputs: [{ id: 'a1', label: 'Array 1', pl: 'A2:A10' }, { id: 'a2', label: 'Array 2', pl: 'B2:B10' }], gen: (v) => `=SUMPRODUCT(${v.a1||'A2:A10'}, ${v.a2||'B2:B10'})` },
-            { id: 'abs', name: 'ABS', cat: 'Math', desc: 'Returns the absolute (positive) value of a number.', inputs: [{ id: 'n', label: 'Number', pl: '-5' }], gen: (v) => `=ABS(${v.n||'-5'})` },
-            { id: 'ceiling', name: 'CEILING', cat: 'Math', desc: 'Rounds a number up to the nearest multiple of significance.', inputs: [{ id: 'n', label: 'Number', pl: '2.5' }, { id: 's', label: 'Significance', pl: '1' }], gen: (v) => `=CEILING(${v.n||'2.5'}, ${v.s||'1'})` },
-            { id: 'floor', name: 'FLOOR', cat: 'Math', desc: 'Rounds a number down to the nearest multiple.', inputs: [{ id: 'n', label: 'Number', pl: '2.5' }, { id: 's', label: 'Significance', pl: '1' }], gen: (v) => `=FLOOR(${v.n||'2.5'}, ${v.s||'1'})` },
-            { id: 'mod', name: 'MOD', cat: 'Math', desc: 'Returns the remainder after number is divided by divisor.', inputs: [{ id: 'n', label: 'Number', pl: '5' }, { id: 'd', label: 'Divisor', pl: '2' }], gen: (v) => `=MOD(${v.n||'5'}, ${v.d||'2'})` },
-            { id: 'power', name: 'POWER', cat: 'Math', desc: 'Returns the result of a number raised to a power.', inputs: [{ id: 'n', label: 'Number', pl: '5' }, { id: 'p', label: 'Power', pl: '2' }], gen: (v) => `=POWER(${v.n||'5'}, ${v.p||'2'})` },
-            { id: 'sqrt', name: 'SQRT', cat: 'Math', desc: 'Returns a positive square root.', inputs: [{ id: 'n', label: 'Number', pl: '25' }], gen: (v) => `=SQRT(${v.n||'25'})` },
-            { id: 'rand', name: 'RAND', cat: 'Math', desc: 'Returns a random number between 0 and 1.', inputs: [], gen: () => `=RAND()` },
-            { id: 'randbetween', name: 'RANDBETWEEN', cat: 'Math', desc: 'Returns a random number between the numbers you specify.', inputs: [{ id: 'b', label: 'Bottom', pl: '1' }, { id: 't', label: 'Top', pl: '100' }], gen: (v) => `=RANDBETWEEN(${v.b||'1'}, ${v.t||'100'})` },
-            { id: 'pi', name: 'PI', cat: 'Math', desc: 'Returns the value of Pi.', inputs: [], gen: () => `=PI()` },
-
-            { id: 'count', name: 'COUNT', cat: 'Stats', desc: 'Counts how many cells contain numbers.', inputs: [{ id: 'r', label: 'Range', pl: 'A:A' }], gen: (v) => `=COUNT(${v.r||'A:A'})` },
-            { id: 'counta', name: 'COUNTA', cat: 'Stats', desc: 'Counts how many cells are not empty.', inputs: [{ id: 'r', label: 'Range', pl: 'A:A' }], gen: (v) => `=COUNTA(${v.r||'A:A'})` },
-            { id: 'countif', name: 'COUNTIF', cat: 'Stats', desc: 'Counts cells based on one condition.', inputs: [{ id: 'r', label: 'Range', pl: 'A:A' }, { id: 'c', label: 'Condition', pl: '"*Urgent*"' }], gen: (v) => `=COUNTIF(${v.r||'A:A'}, ${v.c||'"*Urgent*"'})` },
-            { id: 'countifs', name: 'COUNTIFS', cat: 'Stats', desc: 'Counts cells based on multiple conditions.', inputs: [{ id: 'r1', label: 'Criteria Range 1', pl: 'A:A' }, { id: 'c1', label: 'Condition 1', pl: '"Done"' }], gen: (v) => `=COUNTIFS(${v.r1||'A:A'}, ${v.c1||'"Done"'})` },
-            { id: 'average', name: 'AVERAGE', cat: 'Stats', desc: 'Calculates the average of numbers.', inputs: [{ id: 'r', label: 'Range', pl: 'B:B' }], gen: (v) => `=AVERAGE(${v.r||'B:B'})` },
-            { id: 'averageif', name: 'AVERAGEIF', cat: 'Stats', desc: 'Average based on a condition.', inputs: [{ id: 'r', label: 'Range to check', pl: 'A:A' }, { id: 'c', label: 'Condition', pl: '"Done"' }, { id: 'ar', label: 'Average Range (opt)', pl: 'B:B' }], gen: (v) => `=AVERAGEIF(${v.r||'A:A'}, ${v.c||'"Done"'}${v.ar ? `, ${v.ar}` : ''})` },
-            { id: 'median', name: 'MEDIAN', cat: 'Stats', desc: 'Returns the median of the given numbers.', inputs: [{ id: 'r', label: 'Range', pl: 'A1:A100' }], gen: (v) => `=MEDIAN(${v.r||'A1:A100'})` },
-            { id: 'mode', name: 'MODE.SNGL', cat: 'Stats', desc: 'Returns the most frequently occurring number.', inputs: [{ id: 'r', label: 'Range', pl: 'A1:A100' }], gen: (v) => `=MODE.SNGL(${v.r||'A1:A100'})` },
-            { id: 'stdevp', name: 'STDEV.P', cat: 'Stats', desc: 'Calculates standard deviation based on the entire population.', inputs: [{ id: 'r', label: 'Range', pl: 'A1:A100' }], gen: (v) => `=STDEV.P(${v.r||'A1:A100'})` },
-            { id: 'large', name: 'LARGE', cat: 'Stats', desc: 'Returns the k-th largest value in a data set.', inputs: [{ id: 'r', label: 'Array/Range', pl: 'A1:A100' }, { id: 'k', label: 'k (e.g. 1=largest)', pl: '1' }], gen: (v) => `=LARGE(${v.r||'A1:A100'}, ${v.k||'1'})` },
-            { id: 'small', name: 'SMALL', cat: 'Stats', desc: 'Returns the k-th smallest value in a data set.', inputs: [{ id: 'r', label: 'Array/Range', pl: 'A1:A100' }, { id: 'k', label: 'k (e.g. 1=smallest)', pl: '1' }], gen: (v) => `=SMALL(${v.r||'A1:A100'}, ${v.k||'1'})` },
-
-            { id: 'pmt', name: 'PMT', cat: 'Finance', desc: 'Calculates the payment for a loan based on constant payments and rate.', inputs: [{ id: 'r', label: 'Rate (e.g. 5%/12)', pl: '0.05/12' }, { id: 'n', label: 'Nper (Total periods)', pl: '60' }, { id: 'p', label: 'Pv (Present Value/Loan amt)', pl: '20000' }], gen: (v) => `=PMT(${v.r||'0.05/12'}, ${v.n||'60'}, ${v.p||'20000'})` },
-            { id: 'fv', name: 'FV', cat: 'Finance', desc: 'Returns the future value of an investment.', inputs: [{ id: 'r', label: 'Rate', pl: '0.05/12' }, { id: 'n', label: 'Nper', pl: '60' }, { id: 'p', label: 'Pmt', pl: '-100' }, { id: 'pv', label: 'Pv (opt)', pl: '-1000' }], gen: (v) => `=FV(${v.r||'0.05/12'}, ${v.n||'60'}, ${v.p||'-100'}${v.pv ? `, ${v.pv}` : ''})` },
-            { id: 'pv', name: 'PV', cat: 'Finance', desc: 'Returns the present value of an investment.', inputs: [{ id: 'r', label: 'Rate', pl: '0.05/12' }, { id: 'n', label: 'Nper', pl: '60' }, { id: 'p', label: 'Pmt', pl: '100' }], gen: (v) => `=PV(${v.r||'0.05/12'}, ${v.n||'60'}, ${v.p||'100'})` },
-            { id: 'rate', name: 'RATE', cat: 'Finance', desc: 'Returns the interest rate per period of an annuity.', inputs: [{ id: 'n', label: 'Nper', pl: '60' }, { id: 'p', label: 'Pmt', pl: '-100' }, { id: 'pv', label: 'Pv', pl: '5000' }], gen: (v) => `=RATE(${v.n||'60'}, ${v.p||'-100'}, ${v.pv||'5000'})` },
-            { id: 'npv', name: 'NPV', cat: 'Finance', desc: 'Returns the net present value of an investment.', inputs: [{ id: 'r', label: 'Rate', pl: '0.1' }, { id: 'v1', label: 'Value 1 (Range)', pl: 'A2:A5' }], gen: (v) => `=NPV(${v.r||'0.1'}, ${v.v1||'A2:A5'})` },
-
-            { id: 'textjoin', name: 'TEXTJOIN', cat: 'Text', desc: 'Combines text from multiple ranges with a delimiter.', inputs: [{ id: 'del', label: 'Delimiter', pl: '", "' }, { id: 'ign', label: 'Ignore Empty?', pl: 'TRUE' }, { id: 'r', label: 'Text/Range', pl: 'A1:A5' }], gen: (v) => `=TEXTJOIN(${v.del||'", "'}, ${v.ign||'TRUE'}, ${v.r||'A1:A5'})` },
-            { id: 'concat', name: 'CONCAT', cat: 'Text', desc: 'Joins several text items into one (newer than CONCATENATE).', inputs: [{ id: 't1', label: 'Text 1', pl: 'A2' }, { id: 't2', label: 'Text 2', pl: 'B2' }], gen: (v) => `=CONCAT(${v.t1||'A2'}, ${v.t2||'B2'})` },
-            { id: 'left', name: 'LEFT', cat: 'Text', desc: 'Extracts chars from the left side.', inputs: [{ id: 't', label: 'Text/Cell', pl: 'A2' }, { id: 'n', label: 'Number of chars', pl: '5' }], gen: (v) => `=LEFT(${v.t||'A2'}, ${v.n||'5'})` },
-            { id: 'right', name: 'RIGHT', cat: 'Text', desc: 'Extracts chars from the right side.', inputs: [{ id: 't', label: 'Text/Cell', pl: 'A2' }, { id: 'n', label: 'Number of chars', pl: '3' }], gen: (v) => `=RIGHT(${v.t||'A2'}, ${v.n||'3'})` },
-            { id: 'mid', name: 'MID', cat: 'Text', desc: 'Extracts chars from the middle.', inputs: [{ id: 't', label: 'Text/Cell', pl: 'A2' }, { id: 's', label: 'Start position', pl: '2' }, { id: 'n', label: 'Number of chars', pl: '4' }], gen: (v) => `=MID(${v.t||'A2'}, ${v.s||'2'}, ${v.n||'4'})` },
-            { id: 'trim', name: 'TRIM', cat: 'Text', desc: 'Removes extra spaces from text.', inputs: [{ id: 't', label: 'Text/Cell', pl: 'A2' }], gen: (v) => `=TRIM(${v.t||'A2'})` },
-            { id: 'clean', name: 'CLEAN', cat: 'Text', desc: 'Removes all nonprintable characters from text.', inputs: [{ id: 't', label: 'Text/Cell', pl: 'A2' }], gen: (v) => `=CLEAN(${v.t||'A2'})` },
-            { id: 'substitute', name: 'SUBSTITUTE', cat: 'Text', desc: 'Replaces specific text with new text.', inputs: [{ id: 't', label: 'Text', pl: 'A2' }, { id: 'o', label: 'Old', pl: '"USD"' }, { id: 'n', label: 'New', pl: '"EUR"' }], gen: (v) => `=SUBSTITUTE(${v.t||'A2'}, ${v.o||'"USD"'}, ${v.n||'"EUR"'})` },
-            { id: 'replace', name: 'REPLACE', cat: 'Text', desc: 'Replaces part of a text string based on position.', inputs: [{ id: 'ot', label: 'Old Text', pl: 'A2' }, { id: 's', label: 'Start Num', pl: '1' }, { id: 'n', label: 'Num Chars', pl: '3' }, { id: 'nt', label: 'New Text', pl: '"123"' }], gen: (v) => `=REPLACE(${v.ot||'A2'}, ${v.s||'1'}, ${v.n||'3'}, ${v.nt||'"123"'})` },
-            { id: 'find', name: 'FIND', cat: 'Text', desc: 'Returns position of text (Case-sensitive).', inputs: [{ id: 'f', label: 'Find Text', pl: '"@"' }, { id: 'w', label: 'Within Text', pl: 'A2' }], gen: (v) => `=FIND(${v.f||'"@"'}, ${v.w||'A2'})` },
-            { id: 'search', name: 'SEARCH', cat: 'Text', desc: 'Returns position of text (Not case-sensitive).', inputs: [{ id: 'f', label: 'Find Text', pl: '"@"' }, { id: 'w', label: 'Within Text', pl: 'A2' }], gen: (v) => `=SEARCH(${v.f||'"@"'}, ${v.w||'A2'})` },
-            { id: 'len', name: 'LEN', cat: 'Text', desc: 'Returns number of chars.', inputs: [{ id: 't', label: 'Text/Cell', pl: 'A2' }], gen: (v) => `=LEN(${v.t||'A2'})` },
-            { id: 'exact', name: 'EXACT', cat: 'Text', desc: 'Checks if two strings are exactly the same.', inputs: [{ id: 't1', label: 'Text 1', pl: 'A2' }, { id: 't2', label: 'Text 2', pl: 'B2' }], gen: (v) => `=EXACT(${v.t1||'A2'}, ${v.t2||'B2'})` },
-            { id: 'upper', name: 'UPPER', cat: 'Text', desc: 'To uppercase.', inputs: [{ id: 't', label: 'Text', pl: 'A2' }], gen: (v) => `=UPPER(${v.t||'A2'})` },
-            { id: 'lower', name: 'LOWER', cat: 'Text', desc: 'To lowercase.', inputs: [{ id: 't', label: 'Text', pl: 'A2' }], gen: (v) => `=LOWER(${v.t||'A2'})` },
-            { id: 'proper', name: 'PROPER', cat: 'Text', desc: 'Capitalizes first letters.', inputs: [{ id: 't', label: 'Text', pl: 'A2' }], gen: (v) => `=PROPER(${v.t||'A2'})` },
-            { id: 'text', name: 'TEXT', cat: 'Text', desc: 'Formats a number and converts it to text.', inputs: [{ id: 'v', label: 'Value', pl: 'A2' }, { id: 'f', label: 'Format code', pl: '"$0.00"' }], gen: (v) => `=TEXT(${v.v||'A2'}, ${v.f||'"$0.00"'})` },
-
-            { id: 'if', name: 'IF', cat: 'Logic', desc: 'Checks a condition, returns one value if true, another if false.', inputs: [{ id: 'l', label: 'Logical Test', pl: 'A2>100' }, { id: 't', label: 'If True', pl: '"High"' }, { id: 'f', label: 'If False', pl: '"Low"' }], gen: (v) => `=IF(${v.l||'A2>100'}, ${v.t||'"High"'}, ${v.f||'"Low"'})` },
-            { id: 'ifs', name: 'IFS', cat: 'Logic', desc: 'Checks multiple conditions in order.', inputs: [{ id: 'l1', label: 'Test 1', pl: 'A2>90' }, { id: 'r1', label: 'Result 1', pl: '"A"' }, { id: 'l2', label: 'Test 2', pl: 'A2>80' }, { id: 'r2', label: 'Result 2', pl: '"B"' }], gen: (v) => `=IFS(${v.l1||'A2>90'}, ${v.r1||'"A"'}, ${v.l2||'A2>80'}, ${v.r2||'"B"'})` },
-            { id: 'iferror', name: 'IFERROR', cat: 'Logic', desc: 'Returns fallback if a formula throws an error.', inputs: [{ id: 'v', label: 'Value / Formula', pl: 'A2/B2' }, { id: 'e', label: 'If Error', pl: '0' }], gen: (v) => `=IFERROR(${v.v||'A2/B2'}, ${v.e||'0'})` },
-            { id: 'ifna', name: 'IFNA', cat: 'Logic', desc: 'Returns fallback specifically for #N/A errors.', inputs: [{ id: 'v', label: 'Value / Formula', pl: 'VLOOKUP(...)' }, { id: 'e', label: 'If N/A', pl: '"Not Found"' }], gen: (v) => `=IFNA(${v.v||'VLOOKUP(...)'}, ${v.e||'"Not Found"'})` },
-            { id: 'and', name: 'AND', cat: 'Logic', desc: 'TRUE if all arguments are true.', inputs: [{ id: 'l1', label: 'Logical 1', pl: 'A2>10' }, { id: 'l2', label: 'Logical 2', pl: 'B2<50' }], gen: (v) => `=AND(${v.l1||'A2>10'}, ${v.l2||'B2<50'})` },
-            { id: 'or', name: 'OR', cat: 'Logic', desc: 'TRUE if any argument is true.', inputs: [{ id: 'l1', label: 'Logical 1', pl: 'A2="Y"' }, { id: 'l2', label: 'Logical 2', pl: 'B2="Y"' }], gen: (v) => `=OR(${v.l1||'A2="Y"'}, ${v.l2||'B2="Y"'})` },
-            { id: 'not', name: 'NOT', cat: 'Logic', desc: 'Changes FALSE to TRUE, or TRUE to FALSE.', inputs: [{ id: 'l', label: 'Logical', pl: 'A2="Red"' }], gen: (v) => `=NOT(${v.l||'A2="Red"'})` },
-
-            { id: 'today', name: 'TODAY', cat: 'Date/Time', desc: 'Returns the current date.', inputs: [], gen: () => `=TODAY()` },
-            { id: 'now', name: 'NOW', cat: 'Date/Time', desc: 'Returns the current date and time.', inputs: [], gen: () => `=NOW()` },
-            { id: 'date', name: 'DATE', cat: 'Date/Time', desc: 'Creates a valid date from year, month, day.', inputs: [{ id: 'y', label: 'Year', pl: '2026' }, { id: 'm', label: 'Month', pl: '10' }, { id: 'd', label: 'Day', pl: '6' }], gen: (v) => `=DATE(${v.y||'2026'}, ${v.m||'10'}, ${v.d||'6'})` },
-            { id: 'time', name: 'TIME', cat: 'Date/Time', desc: 'Creates a valid time from hour, min, sec.', inputs: [{ id: 'h', label: 'Hour', pl: '12' }, { id: 'm', label: 'Minute', pl: '30' }, { id: 's', label: 'Second', pl: '0' }], gen: (v) => `=TIME(${v.h||'12'}, ${v.m||'30'}, ${v.s||'0'})` },
-            { id: 'year', name: 'YEAR', cat: 'Date/Time', desc: 'Extracts the year from a date.', inputs: [{ id: 'd', label: 'Date/Cell', pl: 'A2' }], gen: (v) => `=YEAR(${v.d||'A2'})` },
-            { id: 'month', name: 'MONTH', cat: 'Date/Time', desc: 'Extracts the month from a date (1-12).', inputs: [{ id: 'd', label: 'Date/Cell', pl: 'A2' }], gen: (v) => `=MONTH(${v.d||'A2'})` },
-            { id: 'day', name: 'DAY', cat: 'Date/Time', desc: 'Extracts the day from a date (1-31).', inputs: [{ id: 'd', label: 'Date/Cell', pl: 'A2' }], gen: (v) => `=DAY(${v.d||'A2'})` },
-            { id: 'weekday', name: 'WEEKDAY', cat: 'Date/Time', desc: 'Returns the day of the week as a number.', inputs: [{ id: 'd', label: 'Date/Cell', pl: 'A2' }, { id: 't', label: 'Return Type (opt, 2=Mon-Sun)', pl: '2' }], gen: (v) => `=WEEKDAY(${v.d||'A2'}${v.t ? `, ${v.t}` : ''})` },
-            { id: 'weeknum', name: 'WEEKNUM', cat: 'Date/Time', desc: 'Returns the week number of the year.', inputs: [{ id: 'd', label: 'Date/Cell', pl: 'A2' }], gen: (v) => `=WEEKNUM(${v.d||'A2'})` },
-            { id: 'datedif', name: 'DATEDIF', cat: 'Date/Time', desc: 'Days, months, or years between two dates.', inputs: [{ id: 's', label: 'Start Date', pl: 'A2' }, { id: 'e', label: 'End Date', pl: 'B2' }, { id: 'u', label: 'Unit ("Y", "M", "D")', pl: '"D"' }], gen: (v) => `=DATEDIF(${v.s||'A2'}, ${v.e||'B2'}, ${v.u||'"D"'})` },
-            { id: 'networkdays', name: 'NETWORKDAYS', cat: 'Date/Time', desc: 'Number of whole working days between dates.', inputs: [{ id: 's', label: 'Start Date', pl: 'A2' }, { id: 'e', label: 'End Date', pl: 'B2' }, { id: 'h', label: 'Holidays (opt)', pl: 'H1:H10' }], gen: (v) => `=NETWORKDAYS(${v.s||'A2'}, ${v.e||'B2'}${v.h ? `, ${v.h}` : ''})` },
-            { id: 'workday', name: 'WORKDAY', cat: 'Date/Time', desc: 'Returns a date X working days in the future.', inputs: [{ id: 's', label: 'Start Date', pl: 'A2' }, { id: 'd', label: 'Days to Add', pl: '15' }], gen: (v) => `=WORKDAY(${v.s||'A2'}, ${v.d||'15'})` },
-            { id: 'eomonth', name: 'EOMONTH', cat: 'Date/Time', desc: 'Returns the last day of a month.', inputs: [{ id: 's', label: 'Start Date', pl: 'A2' }, { id: 'm', label: 'Months to add/sub (0=current)', pl: '0' }], gen: (v) => `=EOMONTH(${v.s||'A2'}, ${v.m||'0'})` },
-            { id: 'edate', name: 'EDATE', cat: 'Date/Time', desc: 'Returns the exact date X months before/after start.', inputs: [{ id: 's', label: 'Start Date', pl: 'A2' }, { id: 'm', label: 'Months', pl: '6' }], gen: (v) => `=EDATE(${v.s||'A2'}, ${v.m||'6'})` },
-
-            { id: 'isnumber', name: 'ISNUMBER', cat: 'Info', desc: 'Returns TRUE if the value is a number.', inputs: [{ id: 'v', label: 'Value/Cell', pl: 'A2' }], gen: (v) => `=ISNUMBER(${v.v||'A2'})` },
-            { id: 'istext', name: 'ISTEXT', cat: 'Info', desc: 'Returns TRUE if the value is text.', inputs: [{ id: 'v', label: 'Value/Cell', pl: 'A2' }], gen: (v) => `=ISTEXT(${v.v||'A2'})` },
-            { id: 'isblank', name: 'ISBLANK', cat: 'Info', desc: 'Returns TRUE if the cell is completely empty.', inputs: [{ id: 'v', label: 'Cell', pl: 'A2' }], gen: (v) => `=ISBLANK(${v.v||'A2'})` },
-            { id: 'iserror', name: 'ISERROR', cat: 'Info', desc: 'Returns TRUE if the value is any error.', inputs: [{ id: 'v', label: 'Value/Formula', pl: 'A2' }], gen: (v) => `=ISERROR(${v.v||'A2'})` },
-            { id: 'isna', name: 'ISNA', cat: 'Info', desc: 'Returns TRUE if the value is specifically the #N/A error.', inputs: [{ id: 'v', label: 'Value/Formula', pl: 'A2' }], gen: (v) => `=ISNA(${v.v||'A2'})` },
-            { id: 'type', name: 'TYPE', cat: 'Info', desc: 'Returns a number indicating the data type of a value.', inputs: [{ id: 'v', label: 'Value', pl: 'A2' }], gen: (v) => `=TYPE(${v.v||'A2'})` }
+            { id: 'xlookup', name: 'XLOOKUP', cat: 'Lookups', desc: 'Modern search. Find a value and return a match from another array.', inputs: [{ id: 'val', label: 'Lookup Value', pl: 'A2' }, { id: 'arr1', label: 'Lookup Array', pl: 'Sheet2!A:A' }, { id: 'arr2', label: 'Return Array', pl: 'Sheet2!C:C' }, { id: 'err', label: 'If not found (opt)', pl: '"Not Found"' }], gen: (v) => `=XLOOKUP(${v.val || 'A2'}, ${v.arr1 || 'Sheet2!A:A'}, ${v.arr2 || 'Sheet2!C:C'}, ${v.err || '""'})` },
+            { id: 'vlookup', name: 'VLOOKUP', cat: 'Lookups', desc: 'Classic vertical lookup.', inputs: [{ id: 'val', label: 'Lookup Value', pl: 'A2' }, { id: 'arr', label: 'Table Array', pl: 'Sheet2!A:D' }, { id: 'col', label: 'Column Index Number', pl: '2' }, { id: 'exact', label: 'Exact Match?', pl: 'FALSE' }], gen: (v) => `=VLOOKUP(${v.val || 'A2'}, ${v.arr || 'Sheet2!A:D'}, ${v.col || '2'}, ${v.exact || 'FALSE'})` },
+            { id: 'hlookup', name: 'HLOOKUP', cat: 'Lookups', desc: 'Classic horizontal lookup.', inputs: [{ id: 'val', label: 'Lookup Value', pl: 'A2' }, { id: 'arr', label: 'Table Array', pl: 'Sheet2!A1:Z5' }, { id: 'row', label: 'Row Index Number', pl: '2' }, { id: 'exact', label: 'Exact Match?', pl: 'FALSE' }], gen: (v) => `=HLOOKUP(${v.val || 'A2'}, ${v.arr || 'Sheet2!A1:Z5'}, ${v.row || '2'}, ${v.exact || 'FALSE'})` },
+            { id: 'index', name: 'INDEX', cat: 'Lookups', desc: 'Returns the value in a specific row/col.', inputs: [{ id: 'arr', label: 'Array / Range', pl: 'A1:C10' }, { id: 'row', label: 'Row Number', pl: '2' }, { id: 'col', label: 'Column Number (opt)', pl: '3' }], gen: (v) => `=INDEX(${v.arr || 'A1:C10'}, ${v.row || '2'}${v.col ? `, ${v.col}` : ''})` },
+            { id: 'match', name: 'MATCH', cat: 'Lookups', desc: 'Returns the position of an item in a range.', inputs: [{ id: 'val', label: 'Lookup Value', pl: 'A2' }, { id: 'arr', label: 'Lookup Array', pl: 'B:B' }, { id: 'type', label: 'Match Type (0=Exact)', pl: '0' }], gen: (v) => `=MATCH(${v.val || 'A2'}, ${v.arr || 'B:B'}, ${v.type || '0'})` },
+            { id: 'indirect', name: 'INDIRECT', cat: 'Lookups', desc: 'Converts a text string into a valid cell reference.', inputs: [{ id: 'text', label: 'Text String / Cell ref', pl: '"A1"' }], gen: (v) => `=INDIRECT(${v.text || '"A1"'})` },
+            { id: 'offset', name: 'OFFSET', cat: 'Lookups', desc: 'Returns a reference offset from a starting cell.', inputs: [{ id: 'ref', label: 'Starting Reference', pl: 'A1' }, { id: 'rows', label: 'Rows to offset', pl: '1' }, { id: 'cols', label: 'Cols to offset', pl: '1' }], gen: (v) => `=OFFSET(${v.ref || 'A1'}, ${v.rows || '1'}, ${v.cols || '1'})` },
+            { id: 'filter', name: 'FILTER', cat: 'Arrays', desc: 'Filters a range of data based on criteria.', inputs: [{ id: 'arr', label: 'Array to filter', pl: 'A2:C10' }, { id: 'inc', label: 'Include condition', pl: 'B2:B10="Yes"' }, { id: 'emp', label: 'If Empty (opt)', pl: '"None"' }], gen: (v) => `=FILTER(${v.arr || 'A2:C10'}, ${v.inc || 'B2:B10="Yes"'}, ${v.emp || '""'})` },
+            { id: 'sort', name: 'SORT', cat: 'Arrays', desc: 'Sorts the contents of a range or array.', inputs: [{ id: 'arr', label: 'Array', pl: 'A2:C10' }, { id: 'idx', label: 'Sort Index (col number)', pl: '1' }, { id: 'ord', label: 'Order (1=Asc, -1=Desc)', pl: '1' }], gen: (v) => `=SORT(${v.arr || 'A2:C10'}, ${v.idx || '1'}, ${v.ord || '1'})` },
+            { id: 'unique', name: 'UNIQUE', cat: 'Arrays', desc: 'Returns a list of unique values in a list.', inputs: [{ id: 'arr', label: 'Array', pl: 'A2:A20' }], gen: (v) => `=UNIQUE(${v.arr || 'A2:A20'})` },
+            { id: 'sum', name: 'SUM', cat: 'Math', desc: 'Adds all numbers in a range.', inputs: [{ id: 'r1', label: 'Range 1', pl: 'A1:A10' }, { id: 'r2', label: 'Range 2 (opt)', pl: 'B1:B10' }], gen: (v) => `=SUM(${v.r1 || 'A1:A10'}${v.r2 ? `, ${v.r2}` : ''})` },
+            { id: 'sumif', name: 'SUMIF', cat: 'Math', desc: 'Sums numbers based on one condition.', inputs: [{ id: 'range', label: 'Range to check', pl: 'A:A' }, { id: 'crit', label: 'Condition', pl: '">100"' }, { id: 'sumr', label: 'Sum Range (opt)', pl: 'B:B' }], gen: (v) => `=SUMIF(${v.range || 'A:A'}, ${v.crit || '">100"'}${v.sumr ? `, ${v.sumr}` : ''})` },
+            { id: 'sumifs', name: 'SUMIFS', cat: 'Math', desc: 'Sums numbers based on multiple conditions.', inputs: [{ id: 'sumr', label: 'Range to Sum', pl: 'C:C' }, { id: 'cr1', label: 'Criteria Range 1', pl: 'A:A' }, { id: 'c1', label: 'Condition 1', pl: '"Done"' }], gen: (v) => `=SUMIFS(${v.sumr || 'C:C'}, ${v.cr1 || 'A:A'}, ${v.c1 || '"Done"'})` },
+            { id: 'count', name: 'COUNT', cat: 'Stats', desc: 'Counts how many cells contain numbers.', inputs: [{ id: 'r', label: 'Range', pl: 'A:A' }], gen: (v) => `=COUNT(${v.r || 'A:A'})` },
+            { id: 'counta', name: 'COUNTA', cat: 'Stats', desc: 'Counts how many cells are not empty.', inputs: [{ id: 'r', label: 'Range', pl: 'A:A' }], gen: (v) => `=COUNTA(${v.r || 'A:A'})` },
+            { id: 'countif', name: 'COUNTIF', cat: 'Stats', desc: 'Counts cells based on one condition.', inputs: [{ id: 'r', label: 'Range', pl: 'A:A' }, { id: 'c', label: 'Condition', pl: '"*Urgent*"' }], gen: (v) => `=COUNTIF(${v.r || 'A:A'}, ${v.c || '"*Urgent*"'})` },
+            { id: 'countifs', name: 'COUNTIFS', cat: 'Stats', desc: 'Counts cells based on multiple conditions.', inputs: [{ id: 'r1', label: 'Criteria Range 1', pl: 'A:A' }, { id: 'c1', label: 'Condition 1', pl: '"Done"' }], gen: (v) => `=COUNTIFS(${v.r1 || 'A:A'}, ${v.c1 || '"Done"'})` },
+            { id: 'average', name: 'AVERAGE', cat: 'Stats', desc: 'Calculates the average of numbers.', inputs: [{ id: 'r', label: 'Range', pl: 'B:B' }], gen: (v) => `=AVERAGE(${v.r || 'B:B'})` },
+            { id: 'averageif', name: 'AVERAGEIF', cat: 'Stats', desc: 'Average based on a condition.', inputs: [{ id: 'r', label: 'Range to check', pl: 'A:A' }, { id: 'c', label: 'Condition', pl: '"Done"' }, { id: 'ar', label: 'Average Range (opt)', pl: 'B:B' }], gen: (v) => `=AVERAGEIF(${v.r || 'A:A'}, ${v.c || '"Done"'}${v.ar ? `, ${v.ar}` : ''})` },
+            { id: 'textjoin', name: 'TEXTJOIN', cat: 'Text', desc: 'Combines text from multiple ranges with a delimiter.', inputs: [{ id: 'del', label: 'Delimiter', pl: '", "' }, { id: 'ign', label: 'Ignore Empty?', pl: 'TRUE' }, { id: 'r', label: 'Text/Range', pl: 'A1:A5' }], gen: (v) => `=TEXTJOIN(${v.del || '", "'}, ${v.ign || 'TRUE'}, ${v.r || 'A1:A5'})` },
+            { id: 'concat', name: 'CONCAT', cat: 'Text', desc: 'Joins several text items into one.', inputs: [{ id: 't1', label: 'Text 1', pl: 'A2' }, { id: 't2', label: 'Text 2', pl: 'B2' }], gen: (v) => `=CONCAT(${v.t1 || 'A2'}, ${v.t2 || 'B2'})` },
+            { id: 'left', name: 'LEFT', cat: 'Text', desc: 'Extracts chars from the left side.', inputs: [{ id: 't', label: 'Text/Cell', pl: 'A2' }, { id: 'n', label: 'Number of chars', pl: '5' }], gen: (v) => `=LEFT(${v.t || 'A2'}, ${v.n || '5'})` },
+            { id: 'right', name: 'RIGHT', cat: 'Text', desc: 'Extracts chars from the right side.', inputs: [{ id: 't', label: 'Text/Cell', pl: 'A2' }, { id: 'n', label: 'Number of chars', pl: '3' }], gen: (v) => `=RIGHT(${v.t || 'A2'}, ${v.n || '3'})` },
+            { id: 'mid', name: 'MID', cat: 'Text', desc: 'Extracts chars from the middle.', inputs: [{ id: 't', label: 'Text/Cell', pl: 'A2' }, { id: 's', label: 'Start position', pl: '2' }, { id: 'n', label: 'Number of chars', pl: '4' }], gen: (v) => `=MID(${v.t || 'A2'}, ${v.s || '2'}, ${v.n || '4'})` },
+            { id: 'trim', name: 'TRIM', cat: 'Text', desc: 'Removes extra spaces from text.', inputs: [{ id: 't', label: 'Text/Cell', pl: 'A2' }], gen: (v) => `=TRIM(${v.t || 'A2'})` },
+            { id: 'if', name: 'IF', cat: 'Logic', desc: 'Checks a condition, returns one value if true, another if false.', inputs: [{ id: 'l', label: 'Logical Test', pl: 'A2>100' }, { id: 't', label: 'If True', pl: '"High"' }, { id: 'f', label: 'If False', pl: '"Low"' }], gen: (v) => `=IF(${v.l || 'A2>100'}, ${v.t || '"High"'}, ${v.f || '"Low"'})` },
+            { id: 'iferror', name: 'IFERROR', cat: 'Logic', desc: 'Returns fallback if a formula throws an error.', inputs: [{ id: 'v', label: 'Value / Formula', pl: 'A2/B2' }, { id: 'e', label: 'If Error', pl: '0' }], gen: (v) => `=IFERROR(${v.v || 'A2/B2'}, ${v.e || '0'})` },
+            { id: 'datedif', name: 'DATEDIF', cat: 'Date', desc: 'Days, months, or years between two dates.', inputs: [{ id: 's', label: 'Start Date', pl: 'A2' }, { id: 'e', label: 'End Date', pl: 'B2' }, { id: 'u', label: 'Unit ("Y", "M", "D")', pl: '"D"' }], gen: (v) => `=DATEDIF(${v.s || 'A2'}, ${v.e || 'B2'}, ${v.u || '"D"'})` },
+            { id: 'networkdays', name: 'NETWORKDAYS', cat: 'Date', desc: 'Number of whole working days between dates.', inputs: [{ id: 's', label: 'Start Date', pl: 'A2' }, { id: 'e', label: 'End Date', pl: 'B2' }, { id: 'h', label: 'Holidays (opt)', pl: 'H1:H10' }], gen: (v) => `=NETWORKDAYS(${v.s || 'A2'}, ${v.e || 'B2'}${v.h ? `, ${v.h}` : ''})` }
           ];
 
-          // Setup Categories
           const categories = ['All', ...new Set(EXCEL_FORMULAS.map(f => f.cat))];
-          catsContainer.innerHTML = categories.map(c => 
-            `<button data-cat="${c}" class="px-2 py-0.5 rounded text-[10px] font-mono border ${c === 'All' ? 'bg-workspace-surface border-workspace-border text-workspace-accent' : 'bg-workspace-bg border-transparent text-workspace-muted hover:text-workspace-text'} transition-colors">${c}</button>`
-          ).join('');
+          if (catsContainer) {
+            catsContainer.innerHTML = categories.map(c => 
+              `<button data-cat="${c}" class="px-2 py-0.5 rounded text-[10px] font-mono border ${c === 'All' ? 'bg-workspace-surface border-workspace-border text-workspace-accent' : 'bg-workspace-bg border-transparent text-workspace-muted hover:text-workspace-text'} transition-colors">${c}</button>`
+            ).join('');
 
-          catsContainer.querySelectorAll('button').forEach(btn => {
-            btn.onclick = () => {
-              catsContainer.querySelectorAll('button').forEach(b => {
-                b.className = `px-2 py-0.5 rounded text-[10px] font-mono border ${b.dataset.cat === btn.dataset.cat ? 'bg-workspace-surface border-workspace-border text-workspace-accent' : 'bg-workspace-bg border-transparent text-workspace-muted hover:text-workspace-text'} transition-colors`;
-              });
-              activeCat = btn.dataset.cat;
-              renderList();
-            };
-          });
+            catsContainer.querySelectorAll('button').forEach(btn => {
+              btn.onclick = () => {
+                catsContainer.querySelectorAll('button').forEach(b => {
+                  b.className = `px-2 py-0.5 rounded text-[10px] font-mono border ${b.dataset.cat === btn.dataset.cat ? 'bg-workspace-surface border-workspace-border text-workspace-accent' : 'bg-workspace-bg border-transparent text-workspace-muted hover:text-workspace-text'} transition-colors`;
+                });
+                activeCat = btn.dataset.cat;
+                renderList();
+              };
+            });
+          }
 
           function renderList() {
+            if (!searchInput || !listContainer) return;
             const q = searchInput.value.toLowerCase().trim();
             const filtered = EXCEL_FORMULAS.filter(f => {
               const matchCat = activeCat === 'All' || f.cat === activeCat;
@@ -1521,58 +1736,69 @@
 
           function openBuilder(fid) {
             activeFormula = EXCEL_FORMULAS.find(f => f.id === fid);
-            bldTitle.textContent = activeFormula.name;
-            bldDesc.textContent = activeFormula.desc;
-            
-            if (activeFormula.inputs.length === 0) {
-              bldInputs.innerHTML = `<div class="text-[10px] text-workspace-muted font-mono italic p-2">No arguments required for this formula.</div>`;
-            } else {
-              bldInputs.innerHTML = activeFormula.inputs.map(inp => `
-                <div>
-                  <label class="block text-[10px] font-mono text-workspace-muted mb-0.5">${inp.label}</label>
-                  <input id="${toolId}_inp_${inp.id}" type="text" placeholder="e.g. ${inp.pl}" class="w-full bg-workspace-bg border border-workspace-border rounded p-1.5 text-workspace-text focus:border-workspace-accent focus:outline-none font-mono" />
-                </div>
-              `).join('');
-              
-              activeFormula.inputs.forEach(inp => {
-                document.getElementById(`${toolId}_inp_${inp.id}`).addEventListener('input', updateOutput);
-              });
+            if (!activeFormula) return;
+            if (bldTitle) bldTitle.textContent = activeFormula.name;
+            if (bldDesc) bldDesc.textContent = activeFormula.desc;
+
+            if (bldInputs) {
+              if (activeFormula.inputs.length === 0) {
+                bldInputs.innerHTML = `<div class="text-[10px] text-workspace-muted font-mono italic p-2">No arguments required for this formula.</div>`;
+              } else {
+                bldInputs.innerHTML = activeFormula.inputs.map(inp => `
+                  <div>
+                    <label class="block text-[10px] font-mono text-workspace-muted mb-0.5">${inp.label}</label>
+                    <input id="${toolId}_inp_${inp.id}" type="text" placeholder="e.g. ${inp.pl}" class="w-full bg-workspace-bg border border-workspace-border rounded p-1.5 text-workspace-text focus:border-workspace-accent focus:outline-none font-mono" />
+                  </div>
+                `).join('');
+
+                activeFormula.inputs.forEach(inp => {
+                  const inputEl = document.getElementById(`${toolId}_inp_${inp.id}`);
+                  if (inputEl) inputEl.addEventListener('input', updateOutput);
+                });
+              }
             }
 
             updateOutput();
-            viewList.classList.add('-translate-x-full');
-            viewBld.classList.remove('translate-x-full');
+            if (viewList) viewList.classList.add('-translate-x-full');
+            if (viewBld) viewBld.classList.remove('translate-x-full');
           }
 
           function updateOutput() {
-            if (!activeFormula) return;
+            if (!activeFormula || !bldOutput) return;
             const vals = {};
             activeFormula.inputs.forEach(inp => {
-              vals[inp.id] = document.getElementById(`${toolId}_inp_${inp.id}`).value.trim();
+              const el = document.getElementById(`${toolId}_inp_${inp.id}`);
+              vals[inp.id] = el ? el.value.trim() : '';
             });
             bldOutput.value = activeFormula.gen(vals);
           }
 
-          btnBack.onclick = () => {
-            viewList.classList.remove('-translate-x-full');
-            viewBld.classList.add('translate-x-full');
-            activeFormula = null;
-          };
+          if (btnBack) {
+            btnBack.onclick = () => {
+              if (viewList) viewList.classList.remove('-translate-x-full');
+              if (viewBld) viewBld.classList.add('translate-x-full');
+              activeFormula = null;
+            };
+          }
 
-          btnCopy.onclick = () => {
-            if (bldOutput.value) {
-              navigator.clipboard.writeText(bldOutput.value);
-              showToast('Formula copied!');
-            }
-          };
+          if (btnCopy) {
+            btnCopy.onclick = () => {
+              if (bldOutput && bldOutput.value) {
+                navigator.clipboard.writeText(bldOutput.value);
+                showToast('Formula copied to clipboard!');
+              }
+            };
+          }
 
-          searchInput.addEventListener('input', renderList);
+          if (searchInput) searchInput.addEventListener('input', renderList);
           renderList();
         }
       }
     };
 
-    // --- NON-DESTRUCTIVE WORKBENCH RENDERING ENGINE ---
+    // ==========================================
+    // WORKBENCH RENDERER & PERSISTENCE
+    // ==========================================
     let activePinnedTools = JSON.parse(localStorage.getItem('tabkit_pinned_tools') || '[]');
 
     function saveWorkspaceState() {
@@ -1594,7 +1820,7 @@
     function unpinTool(toolId) {
       activePinnedTools = activePinnedTools.filter(id => id !== toolId);
       saveWorkspaceState();
-      showToast(`Removed from board`);
+      showToast('Removed from board');
     }
 
     function renderWorkbench() {
@@ -1602,11 +1828,12 @@
       const emptyState = document.getElementById('emptyWorkspaceState');
       const catalogContainer = document.getElementById('emptyStateCatalog');
 
+      if (!grid || !emptyState || !catalogContainer) return;
+
       if (activePinnedTools.length === 0) {
         grid.innerHTML = '';
         emptyState.classList.remove('hidden');
-        
-        // Render Categorized Catalog on Empty State
+
         catalogContainer.innerHTML = '';
         const categories = {};
         Object.values(TOOLS_REGISTRY).forEach(t => {
@@ -1617,15 +1844,13 @@
         Object.keys(categories).sort().forEach(cat => {
           const catDiv = document.createElement('div');
           catDiv.className = 'space-y-3';
-          
-          // Category Header
           catDiv.innerHTML = `
             <div class="flex items-center gap-2 mb-3">
               <div class="w-2 h-2 rounded-full bg-workspace-accent/50"></div>
               <h3 class="text-xs font-bold text-workspace-muted uppercase tracking-wider">${cat}</h3>
             </div>
           `;
-          
+
           const toolsGrid = document.createElement('div');
           toolsGrid.className = 'grid grid-cols-1 gap-2';
 
@@ -1642,17 +1867,17 @@
             `;
             toolsGrid.appendChild(btn);
           });
-          
+
           catDiv.appendChild(toolsGrid);
           catalogContainer.appendChild(catDiv);
         });
 
         return;
       }
-      
+
       emptyState.classList.add('hidden');
 
-      // 1. Remove unpinned cards without re-rendering existing ones
+      // Remove unpinned cards
       Array.from(grid.children).forEach(card => {
         const id = card.id.replace('card_', '');
         if (!activePinnedTools.includes(id)) {
@@ -1660,7 +1885,7 @@
         }
       });
 
-      // 2. Append newly added cards preserving existing input state
+      // Append pinned cards
       activePinnedTools.forEach(toolId => {
         const tool = TOOLS_REGISTRY[toolId];
         if (!tool) return;
@@ -1672,7 +1897,7 @@
           card.id = `card_${toolId}`;
 
           const expandLink = tool.standaloneUrl ? `
-            <a href="${tool.standaloneUrl}" title="Expand to dedicated page" class="flex items-center gap-1 text-[11px] font-mono px-2 py-0.5 rounded bg-workspace-bg border border-workspace-border hover:border-workspace-accent text-workspace-muted hover:text-workspace-accent transition-colors">
+            <a href="${tool.standaloneUrl}" title="Open dedicated page" class="flex items-center gap-1 text-[11px] font-mono px-2 py-0.5 rounded bg-workspace-bg border border-workspace-border hover:border-workspace-accent text-workspace-muted hover:text-workspace-accent transition-colors">
               <span>Expand</span>
               <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
@@ -1706,7 +1931,7 @@
       });
     }
 
-    // --- WORKSPACE BACKUP & RESTORE ---
+    // --- WORKSPACE EXPORT & IMPORT ---
     function exportWorkspaceBackup() {
       const backup = {
         version: 1,
@@ -1731,7 +1956,8 @@
     }
 
     function triggerImport() {
-      document.getElementById('backupFileInput').click();
+      const input = document.getElementById('backupFileInput');
+      if (input) input.click();
     }
 
     function handleImportFile(event) {
@@ -1745,7 +1971,6 @@
             throw new Error('Invalid format');
           }
 
-          // Clear pre-existing tabkit keys for a pure restore
           const toDelete = [];
           for (let i = 0; i < localStorage.length; i++) {
             const k = localStorage.key(i);
@@ -1753,7 +1978,6 @@
           }
           toDelete.forEach(k => localStorage.removeItem(k));
 
-          // Set imported keys safely
           Object.entries(parsed.data).forEach(([k, v]) => {
             if (k.startsWith('tabkit_')) {
               localStorage.setItem(k, String(v));
@@ -1761,7 +1985,8 @@
           });
 
           activePinnedTools = JSON.parse(localStorage.getItem('tabkit_pinned_tools') || '[]');
-          document.getElementById('workbenchGrid').innerHTML = '';
+          const grid = document.getElementById('workbenchGrid');
+          if (grid) grid.innerHTML = '';
           renderWorkbench();
           updateStorageIndicator();
           showToast('Workspace restored successfully');
@@ -1773,7 +1998,6 @@
       event.target.value = '';
     }
 
-    // --- OPTIMIZED STORAGE CALCULATOR ---
     let storageCalcTimer;
     function updateStorageIndicator() {
       clearTimeout(storageCalcTimer);
@@ -1792,16 +2016,13 @@
       }, 300);
     }
 
-    function escapeHtml(str) {
-      return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
-    }
-
     // --- COMMAND PALETTE LOGIC ---
     const commandModal = document.getElementById('commandPaletteModal');
     const commandInput = document.getElementById('commandInput');
     const commandResults = document.getElementById('commandResultsList');
 
     function openCommandPalette() {
+      if (!commandModal || !commandInput) return;
       commandModal.classList.remove('hidden');
       commandModal.classList.add('flex');
       commandInput.value = '';
@@ -1810,11 +2031,13 @@
     }
 
     function closeCommandPalette() {
+      if (!commandModal) return;
       commandModal.classList.add('hidden');
       commandModal.classList.remove('flex');
     }
 
     function renderCommandList(query = '') {
+      if (!commandResults) return;
       commandResults.innerHTML = '';
       const filtered = Object.values(TOOLS_REGISTRY).filter(t => 
         t.name.toLowerCase().includes(query.toLowerCase()) || 
@@ -1845,7 +2068,9 @@
       });
     }
 
-    commandInput.addEventListener('input', (e) => renderCommandList(e.target.value));
+    if (commandInput) {
+      commandInput.addEventListener('input', (e) => renderCommandList(e.target.value));
+    }
 
     document.addEventListener('keydown', (e) => {
       const isCmdOrCtrl = e.ctrlKey || e.metaKey;
@@ -1854,34 +2079,51 @@
         e.preventDefault();
         openCommandPalette();
       }
-      if (e.key === 'Escape' && !commandModal.classList.contains('hidden')) {
+      if (e.key === 'Escape' && commandModal && !commandModal.classList.contains('hidden')) {
         e.preventDefault();
         closeCommandPalette();
       }
     }, true);
 
-    document.getElementById('btnOpenCommandPalette').addEventListener('click', openCommandPalette);
-    document.getElementById('btnOpenToolCatalog').addEventListener('click', openCommandPalette);
-    commandModal.addEventListener('click', (e) => {
-      if (e.target === commandModal) closeCommandPalette();
-    });
+    const btnOpenCmd = document.getElementById('btnOpenCommandPalette');
+    if (btnOpenCmd) btnOpenCmd.addEventListener('click', openCommandPalette);
 
-    document.getElementById('btnLoadStarterDeck').addEventListener('click', () => {
-      activePinnedTools = ['json-formatter', 'sha256-hash-generator', 'base64-encoder-decoder', 'text-diff-checker'];
-      saveWorkspaceState();
-    });
+    const btnOpenCatalog = document.getElementById('btnOpenToolCatalog');
+    if (btnOpenCatalog) btnOpenCatalog.addEventListener('click', openCommandPalette);
 
-    document.getElementById('btnLoadEverydayDeck').addEventListener('click', () => {
-      activePinnedTools = ['pomodoro-timer', 'unit-converter', 'percentage-calculator', 'time-zone-converter'];
-      saveWorkspaceState();
-    });
+    const btnReset = document.getElementById('btnResetWorkspace');
+    if (btnReset) {
+      btnReset.addEventListener('click', () => {
+        activePinnedTools = [];
+        saveWorkspaceState();
+      });
+    }
 
-    // --- SERVICE WORKER REGISTRATION (OFFLINE SUPPORT) ---
+    if (commandModal) {
+      commandModal.addEventListener('click', (e) => {
+        if (e.target === commandModal) closeCommandPalette();
+      });
+    }
+
+    const btnStarter = document.getElementById('btnLoadStarterDeck');
+    if (btnStarter) {
+      btnStarter.addEventListener('click', () => {
+        activePinnedTools = ['json-formatter', 'sha256-hash-generator', 'base64-encoder-decoder', 'text-diff-checker'];
+        saveWorkspaceState();
+      });
+    }
+
+    const btnEveryday = document.getElementById('btnLoadEverydayDeck');
+    if (btnEveryday) {
+      btnEveryday.addEventListener('click', () => {
+        activePinnedTools = ['pomodoro-timer', 'unit-converter', 'percentage-calculator', 'time-zone-converter'];
+        saveWorkspaceState();
+      });
+    }
+
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
-        navigator.serviceWorker.register('/sw.js').catch(err => {
-          console.warn('Offline ServiceWorker registration failed:', err);
-        });
+        navigator.serviceWorker.register('/sw.js').catch(() => {});
       });
     }
 

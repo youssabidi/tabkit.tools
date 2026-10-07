@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SHA-256 Hash Generator | TabKit Tools</title>
+  <link rel="manifest" href="/manifest.json" />
+  
+  <meta name="description" content="Generate SHA-256, SHA-384, and SHA-512 hashes instantly from any text string. 100% local, offline, and secure." />
+  <meta name="keywords" content="sha256 hash generator, sha 256 generator, sha 512 generator, generate hash online, secure hashing tool, offline hash generator" />
+  <link rel="canonical" href="https://tabkit.tools/sha256-hash-generator.html" />
+
+  <meta property="og:title" content="SHA-256 Hash Generator | TabKit Tools" />
+  <meta property="og:description" content="Instantly compute secure cryptographic hashes (SHA-256, SHA-512) directly in your browser without uploading data." />
+  <meta property="og:url" content="https://tabkit.tools/sha256-hash-generator.html" />
+  <meta property="og:type" content="website" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace']
+          },
+          colors: {
+            workspace: {
+              bg: '#0F1117',
+              surface: '#1A1D24',
+              surfaceHover: '#222630',
+              border: '#262A34',
+              borderLight: '#353B49',
+              text: '#E6EDF3',
+              muted: '#8B949E',
+              accent: '#10B981',
+              accentHover: '#059669',
+              danger: '#EF4444'
+            }
+          }
+        }
+      }
+    };
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Secure Hash Generator",
+    "url": "https://tabkit.tools/sha256-hash-generator.html",
+    "applicationCategory": "DeveloperApplication",
+    "operatingSystem": "Any",
+    "description": "Generate SHA-256, SHA-384, and SHA-512 hashes instantly completely offline."
+  }
+  </script>
+</head>
+
+<body class="bg-workspace-bg text-workspace-text font-sans antialiased min-h-screen flex flex-col selection:bg-workspace-accent selection:text-black">
+
+  <header class="h-12 border-b border-workspace-border bg-workspace-surface/80 backdrop-blur-md px-4 flex items-center justify-between sticky top-0 z-40">
+    <div class="flex items-center gap-3">
+      <a href="/" class="flex items-center gap-2 group">
+        <svg class="w-5 h-5 text-workspace-accent transition-transform group-hover:scale-105" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+          <line x1="3" y1="9" x2="21" y2="9"></line>
+          <line x1="9" y1="21" x2="9" y2="9"></line>
+        </svg>
+        <span class="font-bold tracking-tight text-workspace-text text-sm">tabkit<span class="text-workspace-accent font-mono font-medium">.tools</span></span>
+      </a>
+      <span class="text-workspace-muted text-xs hidden sm:inline">/</span>
+      <span class="text-xs font-mono text-workspace-muted hidden sm:inline">sha256-hash-generator</span>
+    </div>
+    <div class="flex items-center gap-3 font-mono text-xs">
+      <a href="/" class="px-3 py-1 rounded-lg bg-workspace-accent/10 border border-workspace-accent/30 text-workspace-accent hover:bg-workspace-accent/20 transition-all font-semibold flex items-center gap-1.5">
+        <span>← Open Full Workbench</span>
+      </a>
+    </div>
+  </header>
+
+  <main class="flex-1 max-w-4xl w-full mx-auto px-4 py-8 md:py-12">
+    <div class="mb-8 text-center max-w-2xl mx-auto">
+      <div class="inline-flex items-center gap-2 px-2.5 py-1 rounded-full bg-workspace-accent/10 border border-workspace-accent/30 text-workspace-accent text-xs font-mono mb-3">
+        <span class="w-2 h-2 rounded-full bg-workspace-accent animate-pulse"></span>
+        Zero Server Calls • Local Web Crypto API
+      </div>
+      <h1 class="text-3xl md:text-4xl font-extrabold tracking-tight text-white mb-3">SHA-256 Hash Generator</h1>
+      <p class="text-sm text-workspace-muted leading-relaxed">
+        Type or paste a string to generate SHA-256, SHA-384, and SHA-512 cryptographic hashes in real-time.
+      </p>
+    </div>
+
+    <!-- The Tool -->
+    <div class="rounded-2xl border border-workspace-border bg-workspace-surface shadow-2xl p-4 sm:p-6 mb-16 space-y-6 max-w-3xl mx-auto">
+      
+      <!-- Input -->
+      <div>
+        <label class="block text-xs font-mono text-workspace-muted mb-2 ml-1 uppercase tracking-wider">Input Text</label>
+        <textarea id="hash_input" oninput="generateHashes()" class="w-full h-24 bg-workspace-bg border border-workspace-border rounded-xl p-4 text-sm font-sans text-workspace-text placeholder-workspace-muted focus:border-workspace-accent focus:outline-none resize-y" placeholder="Type your text or secret key here..."></textarea>
+      </div>
+
+      <!-- Outputs -->
+      <div class="space-y-4">
+        <div>
+          <div class="flex justify-between items-center mb-1.5 ml-1">
+            <span class="text-xs font-mono text-workspace-muted uppercase tracking-wider">SHA-256</span>
+          </div>
+          <div class="relative">
+            <input id="hash_sha256" readonly class="w-full bg-workspace-bg border border-workspace-border rounded-lg p-3 pr-16 text-[11px] sm:text-xs font-mono text-workspace-accent focus:outline-none select-all shadow-inner" placeholder="e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855" />
+            <button onclick="copyHash('hash_sha256')" class="absolute right-1.5 top-1.5 bottom-1.5 px-3 bg-workspace-surface hover:bg-workspace-borderLight border border-workspace-border text-[10px] font-mono text-workspace-text rounded transition-all">Copy</button>
+          </div>
+        </div>
+
+        <div>
+          <div class="flex justify-between items-center mb-1.5 ml-1">
+            <span class="text-xs font-mono text-workspace-muted uppercase tracking-wider">SHA-384</span>
+          </div>
+          <div class="relative">
+            <input id="hash_sha384" readonly class="w-full bg-workspace-bg border border-workspace-border rounded-lg p-3 pr-16 text-[11px] sm:text-xs font-mono text-workspace-accent focus:outline-none select-all shadow-inner" placeholder="38b060a751ac96384cd9327eb1b1e36a21fdb71114be07434c0cc7bf63f6e1da274edebfe76f65fbd51ad2f14898b95b" />
+            <button onclick="copyHash('hash_sha384')" class="absolute right-1.5 top-1.5 bottom-1.5 px-3 bg-workspace-surface hover:bg-workspace-borderLight border border-workspace-border text-[10px] font-mono text-workspace-text rounded transition-all">Copy</button>
+          </div>
+        </div>
+
+        <div>
+          <div class="flex justify-between items-center mb-1.5 ml-1">
+            <span class="text-xs font-mono text-workspace-muted uppercase tracking-wider">SHA-512</span>
+          </div>
+          <div class="relative">
+            <textarea id="hash_sha512" readonly class="w-full h-16 bg-workspace-bg border border-workspace-border rounded-lg p-3 pr-16 text-[11px] sm:text-xs font-mono text-workspace-accent focus:outline-none resize-none shadow-inner" placeholder="cf83e1357eefb8bdf1542850d66d8007d620e4050b5715dc83f4a921d36ce9ce47d0d13c5d85f2b0ff8318d2877eec2f63b931bd47417a81a538327af927da3e"></textarea>
+            <button onclick="copyHash('hash_sha512')" class="absolute right-1.5 top-1.5 h-8 px-3 bg-workspace-surface hover:bg-workspace-borderLight border border-workspace-border text-[10px] font-mono text-workspace-text rounded transition-all">Copy</button>
+          </div>
+        </div>
+      </div>
+      
+    </div>
+
+    <!-- SEO Content -->
+    <article class="prose prose-invert max-w-none border-t border-workspace-border pt-12 space-y-6 text-sm text-workspace-muted leading-relaxed">
+      <div>
+        <h2 class="text-xl font-bold text-white mb-2">Why compute Hashes in the Browser?</h2>
+        <p>
+          Cryptographic hash functions like SHA-256 are one-way algorithms that transform an input string of any length into a fixed-size signature. Developers use this for verifying data integrity, storing passwords securely, and signing API requests.
+        </p>
+        <p class="mt-2">
+          Because you may need to hash an API Secret Key or a confidential database password, typing that string into a standard, backend-hosted web tool is extremely dangerous. This tool utilizes the browser-native <code class="text-workspace-accent">window.crypto.subtle.digest()</code> function. This guarantees that the string you type is never transmitted over the internet, providing absolute zero-knowledge security.
+        </p>
+      </div>
+    </article>
+  </main>
+
+  <footer class="h-12 border-t border-workspace-border bg-workspace-surface/90 px-4 flex items-center justify-between text-xs font-mono text-workspace-muted">
+    <div>&copy; TabKit Tools • Local-first privacy workbench.</div>
+    <div class="flex items-center gap-3">
+      <a href="/" class="hover:text-workspace-accent transition-colors">Workbench Dashboard</a>
+      <span>•</span>
+      <a href="/about.html" class="hover:text-workspace-accent transition-colors">About</a>
+    </div>
+  </footer>
+
+  <div id="toastContainer" class="fixed bottom-6 right-4 z-50 flex flex-col gap-2 pointer-events-none"></div>
+
+  <script>
+    function showToast(message) {
+      const container = document.getElementById('toastContainer');
+      const toast = document.createElement('div');
+      toast.className = 'pointer-events-auto px-4 py-2 rounded-lg bg-workspace-surface border border-workspace-border shadow-xl text-xs font-mono flex items-center gap-2 text-workspace-text transition-all duration-300 opacity-0 translate-y-2';
+      toast.innerHTML = `<span class="text-workspace-accent">●</span><span>${message}</span>`;
+      container.appendChild(toast);
+      requestAnimationFrame(() => toast.classList.remove('opacity-0', 'translate-y-2'));
+      setTimeout(() => {
+        toast.classList.add('opacity-0', 'translate-y-2');
+        setTimeout(() => toast.remove(), 300);
+      }, 2400);
+    }
+
+    async function generateHashes() {
+      const text = document.getElementById('hash_input').value;
+      const o256 = document.getElementById('hash_sha256');
+      const o384 = document.getElementById('hash_sha384');
+      const o512 = document.getElementById('hash_sha512');
+
+      if (!text) {
+        o256.value = '';
+        o384.value = '';
+        o512.value = '';
+        return;
+      }
+      
+      const msgBuffer = new TextEncoder().encode(text);
+      
+      try {
+        const hash256 = await crypto.subtle.digest('SHA-256', msgBuffer);
+        o256.value = Array.from(new Uint8Array(hash256)).map(b => b.toString(16).padStart(2, '0')).join('');
+        
+        const hash384 = await crypto.subtle.digest('SHA-384', msgBuffer);
+        o384.value = Array.from(new Uint8Array(hash384)).map(b => b.toString(16).padStart(2, '0')).join('');
+        
+        const hash512 = await crypto.subtle.digest('SHA-512', msgBuffer);
+        o512.value = Array.from(new Uint8Array(hash512)).map(b => b.toString(16).padStart(2, '0')).join('');
+      } catch(e) {
+        showToast("Error generating hashes", "error");
+      }
+    }
+
+    function copyHash(targetId) {
+      const val = document.getElementById(targetId).value;
+      if (val) {
+        navigator.clipboard.writeText(val);
+        showToast('Hash copied to clipboard!');
+      }
+    }
+
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => { navigator.serviceWorker.register('/sw.js').catch(()=>{}); });
+    }
+  </script>
+</body>
+</html>

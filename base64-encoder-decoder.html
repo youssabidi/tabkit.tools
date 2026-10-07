@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Base64 Encoder / Decoder | TabKit Tools</title>
+  <link rel="manifest" href="/manifest.json" />
+  
+  <meta name="description" content="Encode text to Base64 or decode Base64 strings back to plain text securely in your browser. 100% offline, zero server uploads." />
+  <meta name="keywords" content="base64 encoder, base64 decoder, base64 to text, text to base64, offline base64 tool, secure base64 converter" />
+  <link rel="canonical" href="https://tabkit.tools/base64-encoder-decoder.html" />
+
+  <meta property="og:title" content="Base64 Encoder / Decoder | TabKit Tools" />
+  <meta property="og:description" content="Securely convert text to Base64 and vice-versa offline in your browser." />
+  <meta property="og:url" content="https://tabkit.tools/base64-encoder-decoder.html" />
+  <meta property="og:type" content="website" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace']
+          },
+          colors: {
+            workspace: {
+              bg: '#0F1117',
+              surface: '#1A1D24',
+              surfaceHover: '#222630',
+              border: '#262A34',
+              borderLight: '#353B49',
+              text: '#E6EDF3',
+              muted: '#8B949E',
+              accent: '#10B981',
+              accentHover: '#059669',
+              danger: '#EF4444'
+            }
+          }
+        }
+      }
+    };
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Base64 Encoder & Decoder",
+    "url": "https://tabkit.tools/base64-encoder-decoder.html",
+    "applicationCategory": "DeveloperApplication",
+    "operatingSystem": "Any",
+    "description": "Convert plain text to Base64 encoding or decode Base64 strings completely offline."
+  }
+  </script>
+</head>
+
+<body class="bg-workspace-bg text-workspace-text font-sans antialiased min-h-screen flex flex-col selection:bg-workspace-accent selection:text-black">
+
+  <header class="h-12 border-b border-workspace-border bg-workspace-surface/80 backdrop-blur-md px-4 flex items-center justify-between sticky top-0 z-40">
+    <div class="flex items-center gap-3">
+      <a href="/" class="flex items-center gap-2 group">
+        <svg class="w-5 h-5 text-workspace-accent transition-transform group-hover:scale-105" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+          <line x1="3" y1="9" x2="21" y2="9"></line>
+          <line x1="9" y1="21" x2="9" y2="9"></line>
+        </svg>
+        <span class="font-bold tracking-tight text-workspace-text text-sm">tabkit<span class="text-workspace-accent font-mono font-medium">.tools</span></span>
+      </a>
+      <span class="text-workspace-muted text-xs hidden sm:inline">/</span>
+      <span class="text-xs font-mono text-workspace-muted hidden sm:inline">base64-encoder-decoder</span>
+    </div>
+    <div class="flex items-center gap-3 font-mono text-xs">
+      <a href="/" class="px-3 py-1 rounded-lg bg-workspace-accent/10 border border-workspace-accent/30 text-workspace-accent hover:bg-workspace-accent/20 transition-all font-semibold flex items-center gap-1.5">
+        <span>← Open Full Workbench</span>
+      </a>
+    </div>
+  </header>
+
+  <main class="flex-1 max-w-5xl w-full mx-auto px-4 py-8 md:py-12">
+    <div class="mb-8 text-center max-w-2xl mx-auto">
+      <div class="inline-flex items-center gap-2 px-2.5 py-1 rounded-full bg-workspace-accent/10 border border-workspace-accent/30 text-workspace-accent text-xs font-mono mb-3">
+        <span class="w-2 h-2 rounded-full bg-workspace-accent animate-pulse"></span>
+        100% Client-Side • Secure
+      </div>
+      <h1 class="text-3xl md:text-4xl font-extrabold tracking-tight text-white mb-3">Base64 Encoder / Decoder</h1>
+      <p class="text-sm text-workspace-muted leading-relaxed">
+        Safely encode sensitive strings or decode Base64 API responses entirely in your browser memory.
+      </p>
+    </div>
+
+    <!-- The Tool -->
+    <div class="rounded-2xl border border-workspace-border bg-workspace-surface shadow-2xl p-4 sm:p-6 mb-16 flex flex-col space-y-4">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <!-- Input Area -->
+        <div class="flex flex-col h-full space-y-2">
+          <label class="text-xs font-mono text-workspace-muted ml-1 uppercase tracking-wider">Input</label>
+          <textarea id="base64_input" class="w-full h-64 bg-workspace-bg border border-workspace-border rounded-xl p-4 text-sm font-mono text-workspace-text placeholder-workspace-muted focus:border-workspace-accent focus:outline-none resize-none" placeholder="Paste plain text or a Base64 string here..."></textarea>
+        </div>
+
+        <!-- Output Area -->
+        <div class="flex flex-col h-full space-y-2">
+          <div class="flex items-center justify-between">
+            <label class="text-xs font-mono text-workspace-muted ml-1 uppercase tracking-wider">Output</label>
+            <button onclick="copyOutput()" class="text-[10px] font-mono bg-workspace-bg border border-workspace-border hover:border-workspace-borderLight px-2 py-1 rounded text-workspace-text transition-colors">Copy Output</button>
+          </div>
+          <textarea id="base64_output" readonly class="w-full h-64 bg-workspace-bg/50 border border-workspace-border rounded-xl p-4 text-sm font-mono text-workspace-accent focus:outline-none resize-none" placeholder="Result will appear here..."></textarea>
+        </div>
+      </div>
+      
+      <!-- Action Buttons -->
+      <div class="flex flex-wrap items-center gap-3 pt-2">
+        <button onclick="convertBase64('encode')" class="flex-1 py-3 bg-workspace-accent text-black font-bold border border-workspace-accent hover:bg-workspace-accentHover rounded-xl text-sm transition-all shadow-[0_0_10px_rgba(16,185,129,0.2)]">Encode to Base64</button>
+        <button onclick="convertBase64('decode')" class="flex-1 py-3 bg-workspace-bg border border-workspace-border hover:border-workspace-borderLight text-workspace-text rounded-xl text-sm font-bold transition-all">Decode from Base64</button>
+      </div>
+    </div>
+
+    <!-- SEO Content -->
+    <article class="prose prose-invert max-w-none border-t border-workspace-border pt-12 space-y-8 text-sm text-workspace-muted leading-relaxed">
+      <div>
+        <h2 class="text-xl font-bold text-white mb-3">Why encode Base64 locally?</h2>
+        <p>
+          Base64 is a common format used to encode binary data or complex strings (like JSON Web Tokens, API Keys, or email attachments) into safe, printable ASCII text.
+        </p>
+        <p class="mt-2">
+          Because developers frequently deal with API secrets or sensitive user data that happens to be Base64-encoded, pasting those strings into a remote, cloud-hosted decoder is a massive security risk. This utility uses native browser functions (<code class="text-workspace-accent">btoa()</code> and <code class="text-workspace-accent">atob()</code>) to guarantee your data never leaves your current tab.
+        </p>
+      </div>
+    </article>
+  </main>
+
+  <footer class="h-12 border-t border-workspace-border bg-workspace-surface/90 px-4 flex items-center justify-between text-xs font-mono text-workspace-muted">
+    <div>&copy; TabKit Tools • Local-first privacy workbench.</div>
+    <div class="flex items-center gap-3">
+      <a href="/" class="hover:text-workspace-accent transition-colors">Workbench Dashboard</a>
+      <span>•</span>
+      <a href="/about.html" class="hover:text-workspace-accent transition-colors">About</a>
+    </div>
+  </footer>
+
+  <div id="toastContainer" class="fixed bottom-6 right-4 z-50 flex flex-col gap-2 pointer-events-none"></div>
+
+  <script>
+    function showToast(message, type = 'info') {
+      const container = document.getElementById('toastContainer');
+      const toast = document.createElement('div');
+      toast.className = 'pointer-events-auto px-4 py-2 rounded-lg bg-workspace-surface border border-workspace-border shadow-xl text-xs font-mono flex items-center gap-2 text-workspace-text transition-all duration-300 opacity-0 translate-y-2';
+      const color = type === 'error' ? 'text-workspace-danger' : 'text-workspace-accent';
+      toast.innerHTML = `<span class="${color}">●</span><span>${message}</span>`;
+      container.appendChild(toast);
+      requestAnimationFrame(() => toast.classList.remove('opacity-0', 'translate-y-2'));
+      setTimeout(() => {
+        toast.classList.add('opacity-0', 'translate-y-2');
+        setTimeout(() => toast.remove(), 300);
+      }, 2400);
+    }
+
+    function convertBase64(action) {
+      const input = document.getElementById('base64_input').value;
+      const output = document.getElementById('base64_output');
+      
+      if (!input) {
+        showToast('Please enter text to process.', 'error');
+        return;
+      }
+
+      try {
+        if (action === 'encode') {
+          // Supports UTF-8 encoding properly
+          output.value = btoa(unescape(encodeURIComponent(input)));
+          showToast('Encoded to Base64');
+        } else {
+          output.value = decodeURIComponent(escape(atob(input)));
+          showToast('Decoded successfully');
+        }
+      } catch (e) {
+        showToast('Invalid input string format.', 'error');
+        output.value = '';
+      }
+    }
+
+    function copyOutput() {
+      const out = document.getElementById('base64_output');
+      if (out.value) {
+        navigator.clipboard.writeText(out.value);
+        showToast('Output copied to clipboard!');
+      } else {
+        showToast('Nothing to copy', 'error');
+      }
+    }
+
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => { navigator.serviceWorker.register('/sw.js').catch(()=>{}); });
+    }
+  </script>
+</body>
+</html>

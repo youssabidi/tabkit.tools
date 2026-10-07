@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>World Time Zone Converter | TabKit Tools</title>
+  <link rel="manifest" href="/manifest.json" />
+  
+  <meta name="description" content="Interactive world clock and time zone converter. Search 25,000+ cities and coordinate international meetings offline." />
+  <meta name="keywords" content="time zone converter, world clock, meeting planner, utc time converter, pst to est, offline timezones" />
+  <link rel="canonical" href="https://tabkit.tools/time-zone-converter.html" />
+
+  <meta property="og:title" content="World Time Zone Converter | TabKit Tools" />
+  <meta property="og:description" content="Drag the slider to instantly find intersecting working hours across 25,000+ global cities." />
+  <meta property="og:url" content="https://tabkit.tools/time-zone-converter.html" />
+  <meta property="og:type" content="website" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace']
+          },
+          colors: {
+            workspace: {
+              bg: '#0F1117',
+              surface: '#1A1D24',
+              surfaceHover: '#222630',
+              border: '#262A34',
+              borderLight: '#353B49',
+              text: '#E6EDF3',
+              muted: '#8B949E',
+              accent: '#10B981',
+              accentHover: '#059669',
+              danger: '#EF4444'
+            }
+          }
+        }
+      }
+    };
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "World Time Zone Converter",
+    "url": "https://tabkit.tools/time-zone-converter.html",
+    "applicationCategory": "ProductivityApplication",
+    "operatingSystem": "Any",
+    "description": "Interactive time zone converter and global meeting planner."
+  }
+  </script>
+</head>
+
+<body class="bg-workspace-bg text-workspace-text font-sans antialiased min-h-screen flex flex-col selection:bg-workspace-accent selection:text-black">
+
+  <header class="h-12 border-b border-workspace-border bg-workspace-surface/80 backdrop-blur-md px-4 flex items-center justify-between sticky top-0 z-40">
+    <div class="flex items-center gap-3">
+      <a href="/" class="flex items-center gap-2 group">
+        <svg class="w-5 h-5 text-workspace-accent transition-transform group-hover:scale-105" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+          <line x1="3" y1="9" x2="21" y2="9"></line>
+          <line x1="9" y1="21" x2="9" y2="9"></line>
+        </svg>
+        <span class="font-bold tracking-tight text-workspace-text text-sm">tabkit<span class="text-workspace-accent font-mono font-medium">.tools</span></span>
+      </a>
+      <span class="text-workspace-muted text-xs hidden sm:inline">/</span>
+      <span class="text-xs font-mono text-workspace-muted hidden sm:inline">time-zone-converter</span>
+    </div>
+    <div class="flex items-center gap-3 font-mono text-xs">
+      <a href="/" class="px-3 py-1 rounded-lg bg-workspace-accent/10 border border-workspace-accent/30 text-workspace-accent hover:bg-workspace-accent/20 transition-all font-semibold flex items-center gap-1.5">
+        <span>← Open Full Workbench</span>
+      </a>
+    </div>
+  </header>
+
+  <main class="flex-1 max-w-4xl w-full mx-auto px-4 py-8 md:py-12">
+    <div class="mb-8 text-center max-w-2xl mx-auto">
+      <div class="inline-flex items-center gap-2 px-2.5 py-1 rounded-full bg-workspace-accent/10 border border-workspace-accent/30 text-workspace-accent text-xs font-mono mb-3">
+        <span class="w-2 h-2 rounded-full bg-workspace-accent animate-pulse"></span>
+        Global Meeting Planner
+      </div>
+      <h1 class="text-3xl md:text-4xl font-extrabold tracking-tight text-white mb-3">World Time Zone Converter</h1>
+      <p class="text-sm text-workspace-muted leading-relaxed">
+        Search any city and drag the timeline slider to find overlapping working hours instantly. Pinned zones save automatically.
+      </p>
+    </div>
+
+    <!-- The Tool -->
+    <div class="rounded-2xl border border-workspace-border bg-workspace-surface shadow-2xl p-6 sm:p-8 mb-16 max-w-3xl mx-auto">
+      
+      <div class="relative z-20 mb-8">
+        <input id="tz_search" type="text" placeholder="Search a city (e.g. Tokyo, Miami, London) or country..." class="w-full bg-workspace-bg border border-workspace-border rounded-xl px-4 py-3 text-sm font-mono text-workspace-text placeholder-workspace-muted focus:border-workspace-accent focus:outline-none shadow-inner" autocomplete="off" />
+        <div id="tz_statusBadge" class="absolute right-4 top-3.5 text-xs font-mono text-workspace-muted hidden">Loading...</div>
+        <div id="tz_results" class="absolute left-0 right-0 top-full mt-2 bg-workspace-surface border border-workspace-border rounded-xl max-h-64 overflow-y-auto hidden z-30 shadow-2xl p-1.5 text-sm"></div>
+      </div>
+
+      <div class="bg-workspace-bg p-5 rounded-xl border border-workspace-border space-y-4 shadow-inner mb-6">
+        <div class="flex items-center justify-between font-mono">
+          <span class="text-workspace-muted text-sm uppercase tracking-wider">Drag UTC Timeline</span>
+          <span id="tz_selectedHour" class="text-workspace-accent font-bold text-xl bg-workspace-surface px-3 py-1 rounded-lg border border-workspace-borderLight">12:00 UTC</span>
+        </div>
+        <input id="tz_slider" type="range" min="0" max="23" value="12" step="1" class="w-full accent-workspace-accent cursor-pointer h-2 bg-workspace-surface rounded-lg appearance-none" />
+        <div class="flex justify-between text-[10px] font-mono text-workspace-muted px-1">
+          <span>00:00</span>
+          <span>06:00</span>
+          <span>12:00</span>
+          <span>18:00</span>
+          <span>23:00</span>
+        </div>
+      </div>
+
+      <div class="flex items-center justify-between mb-3 border-b border-workspace-border pb-2">
+        <span class="text-xs font-mono text-workspace-muted uppercase tracking-wider">Pinned Locations</span>
+      </div>
+      <div id="tz_zonesContainer" class="grid grid-cols-1 sm:grid-cols-2 gap-3 max-h-96 overflow-y-auto pr-1"></div>
+      
+    </div>
+
+    <!-- SEO Content -->
+    <article class="prose prose-invert max-w-none border-t border-workspace-border pt-12 space-y-6 text-sm text-workspace-muted leading-relaxed">
+      <div>
+        <h2 class="text-xl font-bold text-white mb-2">How to schedule international meetings painlessly</h2>
+        <p>
+          Instead of doing mental math for Daylight Saving Time across four different countries, use the timeline slider above. 
+        </p>
+        <p class="mt-2">
+          When the text turns <strong class="text-workspace-accent">Green</strong>, it means that specific location is within standard working hours (9:00 AM to 6:00 PM). If you are scheduling a meeting between Sydney, London, and New York, just drag the slider until you find a time where the majority of the pinned cities light up green.
+        </p>
+      </div>
+    </article>
+  </main>
+
+  <footer class="h-12 border-t border-workspace-border bg-workspace-surface/90 px-4 flex items-center justify-between text-xs font-mono text-workspace-muted">
+    <div>&copy; TabKit Tools • Local-first privacy workbench.</div>
+    <div class="flex items-center gap-3">
+      <a href="/" class="hover:text-workspace-accent transition-colors">Workbench Dashboard</a>
+      <span>•</span>
+      <a href="/about.html" class="hover:text-workspace-accent transition-colors">About</a>
+    </div>
+  </footer>
+
+  <div id="toastContainer" class="fixed bottom-6 right-4 z-50 flex flex-col gap-2 pointer-events-none"></div>
+
+  <script>
+    function showToast(message) {
+      const container = document.getElementById('toastContainer');
+      const toast = document.createElement('div');
+      toast.className = 'pointer-events-auto px-4 py-2 rounded-lg bg-workspace-surface border border-workspace-border shadow-xl text-xs font-mono flex items-center gap-2 text-workspace-text transition-all duration-300 opacity-0 translate-y-2';
+      toast.innerHTML = `<span class="text-workspace-accent">●</span><span>${message}</span>`;
+      container.appendChild(toast);
+      requestAnimationFrame(() => toast.classList.remove('opacity-0', 'translate-y-2'));
+      setTimeout(() => {
+        toast.classList.add('opacity-0', 'translate-y-2');
+        setTimeout(() => toast.remove(), 300);
+      }, 2400);
+    }
+
+    let citiesDataset = null;
+    let isFetchingCities = false;
+
+    async function loadCitiesDatabase(onProgress) {
+      if (citiesDataset) return citiesDataset;
+      if (isFetchingCities) return null;
+      isFetchingCities = true;
+
+      try {
+        if (onProgress) onProgress('Loading...');
+        const res = await fetch('/cities.min.json');
+        if (!res.ok) throw new Error('Network error');
+        const raw = await res.json();
+        
+        if (Array.isArray(raw)) {
+          citiesDataset = raw.map(item => {
+            if (Array.isArray(item)) {
+              const country = item[1] === -99 ? '' : (item[1] || '');
+              const iana = item[2] || '';
+              return { city: item[0], country, iana, tokens: `${item[0]} ${country} ${iana}`.toLowerCase() };
+            }
+            return { city: item.name || '', country: item.country || '', iana: item.iana || '', tokens: `${item.name} ${item.country} ${item.iana}`.toLowerCase() };
+          }).filter(x => x.city && x.iana && x.iana !== 'null');
+        }
+
+        if (onProgress) onProgress('');
+        return citiesDataset;
+      } catch (e) {
+        if (onProgress) onProgress('');
+        return fallbackIntlZones();
+      } finally {
+        isFetchingCities = false;
+      }
+    }
+
+    function fallbackIntlZones() {
+      let raw = [];
+      if (typeof Intl !== 'undefined' && typeof Intl.supportedValuesOf === 'function') {
+        try { raw = Intl.supportedValuesOf('timeZone'); } catch(e){}
+      }
+      if (!raw || !raw.length) {
+        raw = ['UTC', 'Asia/Tokyo', 'America/New_York', 'America/Los_Angeles', 'Europe/London', 'Europe/Paris'];
+      }
+      return raw.map(iana => {
+        const parts = iana.split('/');
+        const city = parts[parts.length - 1].replace(/_/g, ' ');
+        return { city, country: parts[0], iana, tokens: `${city} ${parts[0]} ${iana}`.toLowerCase() };
+      });
+    }
+
+    // Logic Init
+    let pinned = JSON.parse(localStorage.getItem('tabkit_tz_pinned') || '["Asia/Qatar", "Africa/Tunis", "UTC", "America/New_York"]');
+    const slider = document.getElementById('tz_slider');
+    const label = document.getElementById('tz_selectedHour');
+    const container = document.getElementById('tz_zonesContainer');
+    const search = document.getElementById('tz_search');
+    const results = document.getElementById('tz_results');
+    const badge = document.getElementById('tz_statusBadge');
+    let searchTimer = null;
+
+    const currentUtc = new Date().getUTCHours();
+    slider.value = currentUtc;
+    label.textContent = `${String(currentUtc).padStart(2, '0')}:00 UTC`;
+
+    function getZoneDisplay(iana, utcHour) {
+      try {
+        const now = new Date();
+        const date = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate(), utcHour, 0, 0));
+        const timeStr = date.toLocaleTimeString('en-US', { timeZone: iana, hour: '2-digit', minute: '2-digit', hour12: false });
+        const hour = parseInt(timeStr.split(':')[0], 10);
+        const isWork = hour >= 9 && hour <= 18;
+        return { timeStr, isWork };
+      } catch (e) {
+        return { timeStr: '--:--', isWork: false };
+      }
+    }
+
+    function renderPinnedZones() {
+      container.innerHTML = pinned.map(iana => {
+        const parts = iana.split('/');
+        const title = parts[parts.length - 1].replace(/_/g, ' ');
+        const subtitle = parts[0] || 'Zone';
+        const { timeStr, isWork } = getZoneDisplay(iana, parseInt(slider.value, 10));
+
+        return `
+          <div class="flex items-center justify-between p-3 rounded-xl bg-workspace-bg border border-workspace-border hover:border-workspace-borderLight transition-colors">
+            <div>
+              <div class="flex items-center gap-2 mb-0.5">
+                <span class="text-workspace-text font-bold text-sm leading-none">${title}</span>
+                <span class="text-workspace-muted text-xs leading-none">— ${subtitle}</span>
+              </div>
+              <span class="text-[10px] text-workspace-muted font-mono leading-none">${iana}</span>
+            </div>
+            <div class="flex items-center gap-3">
+              <span class="font-bold text-xl font-mono ${isWork ? 'text-workspace-accent' : 'text-workspace-muted'}">${timeStr}</span>
+              <button data-remove-iana="${iana}" title="Remove zone" class="text-workspace-muted hover:bg-workspace-surface hover:text-workspace-danger p-1 rounded transition-colors">
+                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+              </button>
+            </div>
+          </div>
+        `;
+      }).join('');
+
+      container.querySelectorAll('[data-remove-iana]').forEach(btn => {
+        btn.onclick = () => {
+          pinned = pinned.filter(z => z !== btn.dataset.removeIana);
+          localStorage.setItem('tabkit_tz_pinned', JSON.stringify(pinned));
+          renderPinnedZones();
+        };
+      });
+    }
+
+    slider.oninput = () => {
+      label.textContent = `${String(slider.value).padStart(2, '0')}:00 UTC`;
+      renderPinnedZones();
+    };
+
+    search.addEventListener('focus', async () => {
+      if (!citiesDataset) {
+        badge.classList.remove('hidden');
+        await loadCitiesDatabase((msg) => {
+          badge.textContent = msg;
+          if (!msg) badge.classList.add('hidden');
+        });
+      }
+    });
+
+    search.oninput = () => {
+      clearTimeout(searchTimer);
+      searchTimer = setTimeout(async () => {
+        const q = search.value.toLowerCase().trim();
+        if (!q) {
+          results.classList.add('hidden');
+          return;
+        }
+        const data = await loadCitiesDatabase();
+        if (!data) return;
+
+        const matches = [];
+        for (let i = 0; i < data.length; i++) {
+          if (data[i].tokens.includes(q)) {
+            matches.push(data[i]);
+            if (matches.length >= 20) break;
+          }
+        }
+
+        if (!matches.length) {
+          results.innerHTML = `<div class="p-4 text-center text-workspace-muted text-sm font-mono">No matching cities found</div>`;
+        } else {
+          results.innerHTML = matches.map(item => `
+            <div data-pick-iana="${item.iana}" class="p-3 hover:bg-workspace-surfaceHover rounded-lg cursor-pointer flex items-center justify-between border border-transparent hover:border-workspace-border transition-colors">
+              <div>
+                <span class="font-bold text-workspace-text">${item.city}</span>
+                <span class="text-workspace-muted text-xs"> (${item.country})</span>
+              </div>
+              <span class="text-[10px] font-mono text-workspace-accent bg-workspace-bg px-2 py-0.5 rounded border border-workspace-border">${item.iana}</span>
+            </div>
+          `).join('');
+
+          results.querySelectorAll('[data-pick-iana]').forEach(row => {
+            row.onclick = () => {
+              const pick = row.dataset.pickIana;
+              if (!pinned.includes(pick)) {
+                pinned.push(pick);
+                localStorage.setItem('tabkit_tz_pinned', JSON.stringify(pinned));
+                renderPinnedZones();
+              } else {
+                showToast("City is already pinned!");
+              }
+              search.value = '';
+              results.classList.add('hidden');
+            };
+          });
+        }
+        results.classList.remove('hidden');
+      }, 150);
+    };
+
+    window.addEventListener('click', (e) => {
+      if (!search.contains(e.target) && !results.contains(e.target)) {
+        results.classList.add('hidden');
+      }
+    });
+
+    renderPinnedZones();
+
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => { navigator.serviceWorker.register('/sw.js').catch(()=>{}); });
+    }
+  </script>
+</body>
+</html>

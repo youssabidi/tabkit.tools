@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Random Name Picker &amp; Wheel | TabKit Tools</title>
+  <link rel="manifest" href="/manifest.json" />
+  
+  <meta name="description" content="Randomly pick a name from a list or generate a random number within a range. Clean, free, and works offline." />
+  <meta name="keywords" content="random name picker, randomizer, offline random picker, random number generator, choice generator" />
+  <link rel="canonical" href="https://tabkit.tools/random-name-picker.html" />
+
+  <meta property="og:title" content="Random Name Picker &amp; Wheel | TabKit Tools" />
+  <meta property="og:description" content="Pick a random item from a list or generate a secure random number." />
+  <meta property="og:url" content="https://tabkit.tools/random-name-picker.html" />
+  <meta property="og:type" content="website" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace']
+          },
+          colors: {
+            workspace: {
+              bg: '#0F1117',
+              surface: '#1A1D24',
+              surfaceHover: '#222630',
+              border: '#262A34',
+              borderLight: '#353B49',
+              text: '#E6EDF3',
+              muted: '#8B949E',
+              accent: '#10B981',
+              accentHover: '#059669',
+              danger: '#EF4444'
+            }
+          }
+        }
+      }
+    };
+  </script>
+</head>
+
+<body class="bg-workspace-bg text-workspace-text font-sans antialiased min-h-screen flex flex-col selection:bg-workspace-accent selection:text-black">
+
+  <header class="h-12 border-b border-workspace-border bg-workspace-surface/80 backdrop-blur-md px-4 flex items-center justify-between sticky top-0 z-40">
+    <div class="flex items-center gap-3">
+      <a href="/" class="flex items-center gap-2 group">
+        <svg class="w-5 h-5 text-workspace-accent transition-transform group-hover:scale-105" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+          <line x1="3" y1="9" x2="21" y2="9"></line>
+          <line x1="9" y1="21" x2="9" y2="9"></line>
+        </svg>
+        <span class="font-bold tracking-tight text-workspace-text text-sm">tabkit<span class="text-workspace-accent font-mono font-medium">.tools</span></span>
+      </a>
+      <span class="text-workspace-muted text-xs hidden sm:inline">/</span>
+      <span class="text-xs font-mono text-workspace-muted hidden sm:inline">random-name-picker</span>
+    </div>
+    <div class="flex items-center gap-3 font-mono text-xs">
+      <a href="/" class="px-3 py-1 rounded-lg bg-workspace-accent/10 border border-workspace-accent/30 text-workspace-accent hover:bg-workspace-accent/20 transition-all font-semibold flex items-center gap-1.5">
+        <span>← Open Full Workbench</span>
+      </a>
+    </div>
+  </header>
+
+  <main class="flex-1 max-w-4xl w-full mx-auto px-4 py-8 md:py-12">
+    <div class="mb-8 text-center max-w-2xl mx-auto">
+      <div class="inline-flex items-center gap-2 px-2.5 py-1 rounded-full bg-workspace-accent/10 border border-workspace-accent/30 text-workspace-accent text-xs font-mono mb-3">
+        <span class="w-2 h-2 rounded-full bg-workspace-accent animate-pulse"></span>
+        Fair &amp; Private Randomization
+      </div>
+      <h1 class="text-3xl md:text-4xl font-extrabold tracking-tight text-white mb-3">Random Name Picker</h1>
+      <p class="text-sm text-workspace-muted leading-relaxed">
+        Choose a random winner from a list of names, or roll a random number between a range.
+      </p>
+    </div>
+
+    <!-- The Tool -->
+    <div class="rounded-2xl border border-workspace-border bg-workspace-surface shadow-2xl p-6 sm:p-8 mb-16 max-w-2xl mx-auto space-y-8">
+      
+      <!-- Name Picker -->
+      <div>
+        <h3 class="text-sm font-bold text-workspace-text mb-3 uppercase tracking-wider font-mono flex items-center gap-2">
+          <span class="w-4 h-px bg-workspace-accent"></span> List Picker
+        </h3>
+        <div class="flex flex-col space-y-4 p-5 bg-workspace-bg border border-workspace-border rounded-xl">
+          <textarea id="rnd_list" class="w-full h-40 bg-workspace-surface border border-workspace-border rounded-xl p-4 text-sm text-workspace-text focus:border-workspace-accent focus:outline-none resize-y leading-relaxed" placeholder="Paste your list here (one item per line)..."></textarea>
+          
+          <button onclick="pickRandom()" class="w-full py-3.5 bg-workspace-accent text-black font-extrabold text-sm uppercase tracking-wider rounded-xl hover:bg-workspace-accentHover transition-all shadow-[0_0_15px_rgba(16,185,129,0.2)]">
+            Pick Random Winner
+          </button>
+          
+          <div class="bg-workspace-surface/50 border border-workspace-border rounded-xl p-4 text-center min-h-[4rem] flex flex-col items-center justify-center">
+            <span class="text-xs text-workspace-muted mb-1 uppercase font-mono">Result</span>
+            <div id="rnd_listRes" class="text-xl sm:text-2xl font-bold text-workspace-accent truncate w-full px-2">--</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Number Generator -->
+      <div>
+        <h3 class="text-sm font-bold text-workspace-text mb-3 uppercase tracking-wider font-mono flex items-center gap-2">
+          <span class="w-4 h-px bg-workspace-accent"></span> Number Generator
+        </h3>
+        <div class="p-5 bg-workspace-bg border border-workspace-border rounded-xl flex flex-col sm:flex-row items-center justify-between gap-4">
+          <div class="flex items-center gap-3 w-full sm:w-auto text-sm">
+            <span class="text-workspace-muted font-mono">Min</span>
+            <input id="rnd_min" type="number" value="1" class="w-20 bg-workspace-surface border border-workspace-border rounded-lg px-3 py-2 text-workspace-text focus:border-workspace-accent focus:outline-none font-mono text-center">
+            <span class="text-workspace-muted font-mono">Max</span>
+            <input id="rnd_max" type="number" value="100" class="w-24 bg-workspace-surface border border-workspace-border rounded-lg px-3 py-2 text-workspace-text focus:border-workspace-accent focus:outline-none font-mono text-center">
+          </div>
+          
+          <button onclick="rollNumber()" class="w-full sm:w-auto px-6 py-2.5 bg-workspace-surface border border-workspace-border hover:border-workspace-accent hover:text-workspace-accent text-workspace-text font-bold rounded-lg transition-colors">
+            Roll
+          </button>
+          
+          <div class="bg-workspace-surface border border-workspace-border px-6 py-2 rounded-lg min-w-[80px] text-center">
+            <span id="rnd_numRes" class="font-bold text-workspace-accent text-xl font-mono">--</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <footer class="h-12 border-t border-workspace-border bg-workspace-surface/90 px-4 flex items-center justify-between text-xs font-mono text-workspace-muted">
+    <div>&copy; TabKit Tools • Local-first privacy workbench.</div>
+    <div class="flex items-center gap-3">
+      <a href="/" class="hover:text-workspace-accent transition-colors">Workbench Dashboard</a>
+      <span>•</span>
+      <a href="/about.html" class="hover:text-workspace-accent transition-colors">About</a>
+    </div>
+  </footer>
+
+  <script>
+    function rollNumber() {
+      const min = parseInt(document.getElementById('rnd_min').value) || 0;
+      const max = parseInt(document.getElementById('rnd_max').value) || 0;
+      
+      if (min > max) {
+        document.getElementById('rnd_numRes').textContent = 'Err';
+        return;
+      }
+      
+      const res = Math.floor(Math.random() * (max - min + 1)) + min;
+      
+      // Fun little animation
+      const el = document.getElementById('rnd_numRes');
+      el.classList.add('scale-110', 'text-white');
+      el.textContent = res;
+      setTimeout(() => el.classList.remove('scale-110', 'text-white'), 150);
+    }
+
+    function pickRandom() {
+      const listVal = document.getElementById('rnd_list').value;
+      const list = listVal.split('\n').filter(x => x.trim() !== '');
+      const el = document.getElementById('rnd_listRes');
+      
+      if (!list.length) {
+        el.textContent = 'List is empty!';
+        el.classList.replace('text-workspace-accent', 'text-workspace-danger');
+        return;
+      }
+      
+      el.classList.replace('text-workspace-danger', 'text-workspace-accent');
+      const res = list[Math.floor(Math.random() * list.length)];
+      
+      el.classList.add('scale-105', 'text-white');
+      el.textContent = res;
+      setTimeout(() => el.classList.remove('scale-105', 'text-white'), 150);
+    }
+
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => { navigator.serviceWorker.register('/sw.js').catch(()=>{}); });
+    }
+  </script>
+</body>
+</html>

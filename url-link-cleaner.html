@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>URL Tracking Link Cleaner | TabKit Tools</title>
+  <link rel="manifest" href="/manifest.json" />
+  
+  <meta name="description" content="Bulk remove tracking parameters (UTM, fbclid, gclid) from URLs instantly. Protect your privacy and share clean links." />
+  <meta name="keywords" content="url cleaner, remove utm tags, bulk link cleaner, strip url parameters, clean links online" />
+  <link rel="canonical" href="https://tabkit.tools/url-link-cleaner.html" />
+
+  <meta property="og:title" content="URL Tracking Link Cleaner | TabKit Tools" />
+  <meta property="og:description" content="Extract links from messy text and instantly strip tracking codes offline." />
+  <meta property="og:url" content="https://tabkit.tools/url-link-cleaner.html" />
+  <meta property="og:type" content="website" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace']
+          },
+          colors: {
+            workspace: {
+              bg: '#0F1117',
+              surface: '#1A1D24',
+              surfaceHover: '#222630',
+              border: '#262A34',
+              borderLight: '#353B49',
+              text: '#E6EDF3',
+              muted: '#8B949E',
+              accent: '#10B981',
+              accentHover: '#059669',
+              danger: '#EF4444'
+            }
+          }
+        }
+      }
+    };
+  </script>
+</head>
+
+<body class="bg-workspace-bg text-workspace-text font-sans antialiased min-h-screen flex flex-col selection:bg-workspace-accent selection:text-black">
+
+  <header class="h-12 border-b border-workspace-border bg-workspace-surface/80 backdrop-blur-md px-4 flex items-center justify-between sticky top-0 z-40">
+    <div class="flex items-center gap-3">
+      <a href="/" class="flex items-center gap-2 group">
+        <svg class="w-5 h-5 text-workspace-accent transition-transform group-hover:scale-105" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+          <line x1="3" y1="9" x2="21" y2="9"></line>
+          <line x1="9" y1="21" x2="9" y2="9"></line>
+        </svg>
+        <span class="font-bold tracking-tight text-workspace-text text-sm">tabkit<span class="text-workspace-accent font-mono font-medium">.tools</span></span>
+      </a>
+      <span class="text-workspace-muted text-xs hidden sm:inline">/</span>
+      <span class="text-xs font-mono text-workspace-muted hidden sm:inline">url-link-cleaner</span>
+    </div>
+    <div class="flex items-center gap-3 font-mono text-xs">
+      <a href="/" class="px-3 py-1 rounded-lg bg-workspace-accent/10 border border-workspace-accent/30 text-workspace-accent hover:bg-workspace-accent/20 transition-all font-semibold flex items-center gap-1.5">
+        <span>← Open Full Workbench</span>
+      </a>
+    </div>
+  </header>
+
+  <main class="flex-1 max-w-4xl w-full mx-auto px-4 py-8 md:py-12">
+    <div class="mb-8 text-center max-w-2xl mx-auto">
+      <div class="inline-flex items-center gap-2 px-2.5 py-1 rounded-full bg-workspace-accent/10 border border-workspace-accent/30 text-workspace-accent text-xs font-mono mb-3">
+        <span class="w-2 h-2 rounded-full bg-workspace-accent animate-pulse"></span>
+        Zero Tracking • Link Extractor
+      </div>
+      <h1 class="text-3xl md:text-4xl font-extrabold tracking-tight text-white mb-3">URL Tracking Link Cleaner</h1>
+      <p class="text-sm text-workspace-muted leading-relaxed">
+        Paste a messy block of text or a giant tracking link. We will extract the URLs and strip out all the marketing spy tags instantly.
+      </p>
+    </div>
+
+    <!-- The Tool -->
+    <div class="rounded-2xl border border-workspace-border bg-workspace-surface shadow-2xl p-6 mb-16 max-w-3xl mx-auto">
+      <div class="flex flex-col space-y-4 font-sans">
+        
+        <div>
+          <label class="block text-xs font-mono text-workspace-muted mb-2">Input URLs or Messy Text</label>
+          <textarea id="url_input" class="w-full h-32 bg-workspace-bg border border-workspace-border rounded-xl p-4 text-sm font-mono text-workspace-text placeholder-workspace-muted focus:border-workspace-accent focus:outline-none resize-y" placeholder="e.g. Check out this link: https://example.com/shoes?utm_source=facebook&fbclid=12345 ..."></textarea>
+        </div>
+
+        <div class="flex flex-wrap items-center gap-3 py-2 border-y border-workspace-border">
+          <button onclick="cleanUrls()" class="flex-1 py-3 bg-workspace-accent text-black font-bold border border-workspace-accent hover:bg-workspace-accentHover rounded-lg text-sm transition-all shadow-[0_0_10px_rgba(16,185,129,0.2)]">Sanitize &amp; Extract</button>
+          <button onclick="openAllCleanUrls()" class="px-5 py-3 bg-workspace-bg border border-workspace-border hover:border-workspace-borderLight text-workspace-text rounded-lg text-sm font-medium transition-all">Open Links</button>
+          <button onclick="copyCleanUrls()" class="px-5 py-3 bg-workspace-bg border border-workspace-border hover:border-workspace-borderLight text-workspace-text rounded-lg text-sm font-medium transition-all">Copy</button>
+        </div>
+
+        <div>
+          <div class="flex justify-between items-center mb-2">
+            <label class="block text-xs font-mono text-workspace-muted">Cleaned Output</label>
+            <span id="url_count" class="text-xs font-mono font-bold text-workspace-accent bg-workspace-bg px-2 py-0.5 rounded border border-workspace-border">0 links extracted</span>
+          </div>
+          <textarea id="url_output" readonly class="w-full h-40 bg-workspace-bg/50 border border-workspace-border rounded-xl p-4 text-sm font-mono text-workspace-accent focus:outline-none resize-y" placeholder="Cleaned URLs will appear here..."></textarea>
+        </div>
+      </div>
+    </div>
+
+    <!-- SEO Content -->
+    <article class="prose prose-invert max-w-none border-t border-workspace-border pt-12 space-y-6 text-sm text-workspace-muted leading-relaxed">
+      <div>
+        <h2 class="text-xl font-bold text-white mb-2">What does this tool remove?</h2>
+        <p>
+          Marketers attach strings of text to the end of URLs (called query parameters) to track where you came from. If you copy a link from a Facebook ad or an email newsletter and paste it to a friend, you are dragging that tracking code along with it.
+        </p>
+        <p class="mt-2">
+          This URL Cleaner uses native URL parsing to safely strip out:
+        </p>
+        <ul class="list-disc pl-5 mt-2 space-y-1">
+          <li><strong>UTM parameters:</strong> <code class="text-workspace-accent">utm_source</code>, <code class="text-workspace-accent">utm_medium</code>, <code class="text-workspace-accent">utm_campaign</code></li>
+          <li><strong>Facebook IDs:</strong> <code class="text-workspace-accent">fbclid</code></li>
+          <li><strong>Google IDs:</strong> <code class="text-workspace-accent">gclid</code>, <code class="text-workspace-accent">gclsrc</code></li>
+          <li><strong>Mailchimp IDs:</strong> <code class="text-workspace-accent">mc_eid</code></li>
+          <li><strong>Instagram IDs:</strong> <code class="text-workspace-accent">igshid</code></li>
+        </ul>
+      </div>
+    </article>
+  </main>
+
+  <footer class="h-12 border-t border-workspace-border bg-workspace-surface/90 px-4 flex items-center justify-between text-xs font-mono text-workspace-muted">
+    <div>&copy; TabKit Tools • Local-first privacy workbench.</div>
+    <div class="flex items-center gap-3">
+      <a href="/" class="hover:text-workspace-accent transition-colors">Workbench Dashboard</a>
+      <span>•</span>
+      <a href="/about.html" class="hover:text-workspace-accent transition-colors">About</a>
+    </div>
+  </footer>
+
+  <div id="toastContainer" class="fixed bottom-6 right-4 z-50 flex flex-col gap-2 pointer-events-none"></div>
+
+  <script>
+    function showToast(message, type = 'info') {
+      const container = document.getElementById('toastContainer');
+      const toast = document.createElement('div');
+      toast.className = 'pointer-events-auto px-4 py-2 rounded-lg bg-workspace-surface border border-workspace-border shadow-xl text-xs font-mono flex items-center gap-2 text-workspace-text transition-all duration-300 opacity-0 translate-y-2';
+      const color = type === 'error' ? 'text-workspace-danger' : 'text-workspace-accent';
+      toast.innerHTML = `<span class="${color}">●</span><span>${message}</span>`;
+      container.appendChild(toast);
+      requestAnimationFrame(() => toast.classList.remove('opacity-0', 'translate-y-2'));
+      setTimeout(() => {
+        toast.classList.add('opacity-0', 'translate-y-2');
+        setTimeout(() => toast.remove(), 300);
+      }, 2400);
+    }
+
+    function cleanUrls() {
+      const val = document.getElementById('url_input').value;
+      if (!val.trim()) {
+        showToast('Please paste some text or links first.', 'error');
+        return;
+      }
+      
+      const urlRegex = /(https?:\/\/[^\s"',]+)/g;
+      let match;
+      const cleanSet = new Set();
+      let extracted = 0;
+
+      while ((match = urlRegex.exec(val)) !== null) {
+        extracted++;
+        try {
+          const u = new URL(match[0]);
+          const paramsToDelete = [];
+          
+          for (const key of u.searchParams.keys()) {
+            if (key.startsWith('utm_') || ['fbclid', 'gclid', 'gclsrc', 'mc_eid', 'igshid', '_bta_tid', '_bta_c'].includes(key)) {
+              paramsToDelete.push(key);
+            }
+          }
+          
+          paramsToDelete.forEach(k => u.searchParams.delete(k));
+          cleanSet.add(u.toString());
+        } catch(e) {
+          // If URL parsing fails, ignore it
+        }
+      }
+      
+      const outArray = Array.from(cleanSet);
+      document.getElementById('url_output').value = outArray.join('\n');
+      document.getElementById('url_count').textContent = `${outArray.length} link${outArray.length === 1 ? '' : 's'} extracted`;
+
+      if (extracted > 0) {
+        showToast(`Sanitized ${outArray.length} links!`);
+      } else {
+        showToast('No valid http/https URLs found.', 'error');
+      }
+    }
+
+    function openAllCleanUrls() {
+      const out = document.getElementById('url_output').value;
+      if (!out) return showToast('No clean links to open', 'error');
+      
+      const links = out.split('\n').filter(l => l.trim().startsWith('http'));
+      if (links.length > 10) {
+        if (!confirm(`Are you sure you want to open ${links.length} tabs at once?`)) return;
+      }
+      
+      links.forEach(link => {
+        window.open(link, '_blank');
+      });
+      showToast(`Opening ${links.length} tabs...`);
+    }
+
+    function copyCleanUrls() {
+      const out = document.getElementById('url_output').value;
+      if (out) {
+        navigator.clipboard.writeText(out);
+        showToast('Clean links copied to clipboard!');
+      } else {
+        showToast('Nothing to copy', 'error');
+      }
+    }
+
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => { navigator.serviceWorker.register('/sw.js').catch(()=>{}); });
+    }
+  </script>
+</body>
+</html>

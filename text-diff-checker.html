@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Text Diff Checker &amp; Notepad | TabKit Tools</title>
+  <link rel="manifest" href="/manifest.json" />
+  
+  <meta name="description" content="Compare two text snippets side-by-side or write notes. 100% offline text difference checker and auto-saving browser scratchpad." />
+  <meta name="keywords" content="text diff checker, compare text online, offline diff tool, local notepad, browser scratchpad, text difference comparison" />
+  <link rel="canonical" href="https://tabkit.tools/text-diff-checker.html" />
+
+  <meta property="og:title" content="Text Diff Checker &amp; Notepad | TabKit Tools" />
+  <meta property="og:description" content="Compare code or text files instantly in your browser. Totally offline and private." />
+  <meta property="og:url" content="https://tabkit.tools/text-diff-checker.html" />
+  <meta property="og:type" content="website" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace']
+          },
+          colors: {
+            workspace: {
+              bg: '#0F1117',
+              surface: '#1A1D24',
+              surfaceHover: '#222630',
+              border: '#262A34',
+              borderLight: '#353B49',
+              text: '#E6EDF3',
+              muted: '#8B949E',
+              accent: '#10B981',
+              accentHover: '#059669',
+              danger: '#EF4444'
+            }
+          }
+        }
+      }
+    };
+  </script>
+</head>
+
+<body class="bg-workspace-bg text-workspace-text font-sans antialiased min-h-screen flex flex-col selection:bg-workspace-accent selection:text-black">
+
+  <header class="h-12 border-b border-workspace-border bg-workspace-surface/80 backdrop-blur-md px-4 flex items-center justify-between sticky top-0 z-40">
+    <div class="flex items-center gap-3">
+      <a href="/" class="flex items-center gap-2 group">
+        <svg class="w-5 h-5 text-workspace-accent transition-transform group-hover:scale-105" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+          <line x1="3" y1="9" x2="21" y2="9"></line>
+          <line x1="9" y1="21" x2="9" y2="9"></line>
+        </svg>
+        <span class="font-bold tracking-tight text-workspace-text text-sm">tabkit<span class="text-workspace-accent font-mono font-medium">.tools</span></span>
+      </a>
+      <span class="text-workspace-muted text-xs hidden sm:inline">/</span>
+      <span class="text-xs font-mono text-workspace-muted hidden sm:inline">text-diff-checker</span>
+    </div>
+    <div class="flex items-center gap-3 font-mono text-xs">
+      <a href="/" class="px-3 py-1 rounded-lg bg-workspace-accent/10 border border-workspace-accent/30 text-workspace-accent hover:bg-workspace-accent/20 transition-all font-semibold flex items-center gap-1.5">
+        <span>← Open Full Workbench</span>
+      </a>
+    </div>
+  </header>
+
+  <main class="flex-1 max-w-5xl w-full mx-auto px-4 py-8 md:py-12">
+    <div class="mb-8 text-center max-w-2xl mx-auto">
+      <div class="inline-flex items-center gap-2 px-2.5 py-1 rounded-full bg-workspace-accent/10 border border-workspace-accent/30 text-workspace-accent text-xs font-mono mb-3">
+        <span class="w-2 h-2 rounded-full bg-workspace-accent animate-pulse"></span>
+        100% Client-Side • Auto-saving LocalStorage
+      </div>
+      <h1 class="text-3xl md:text-4xl font-extrabold tracking-tight text-white mb-3">Text Diff Checker &amp; Notepad</h1>
+      <p class="text-sm text-workspace-muted leading-relaxed">
+        Jot down secure notes or find exact line-by-line differences between two text strings without server tracking.
+      </p>
+    </div>
+
+    <!-- The Tool -->
+    <div class="rounded-2xl border border-workspace-border bg-workspace-surface shadow-2xl p-4 sm:p-6 mb-16 flex flex-col space-y-4">
+      <div class="flex items-center justify-between border-b border-workspace-border pb-4">
+        <div class="flex gap-2 bg-workspace-bg p-1 rounded-xl border border-workspace-border">
+          <button id="tabNote" onclick="toggleScratchMode('notes')" class="px-6 py-2 rounded-lg text-sm font-bold bg-workspace-surface text-workspace-accent shadow transition-all">Notes</button>
+          <button id="tabDiff" onclick="toggleScratchMode('diff')" class="px-6 py-2 rounded-lg text-sm font-bold text-workspace-muted hover:text-workspace-text transition-all">Diff Checker</button>
+        </div>
+        <span id="saveStatus" class="text-xs text-workspace-muted font-mono bg-workspace-bg px-3 py-1.5 rounded-lg border border-workspace-border hidden sm:block">Notes Synced</span>
+      </div>
+
+      <div id="notesContainer" class="flex flex-col flex-1 h-[400px]">
+        <textarea id="noteTextarea" class="w-full h-full bg-workspace-bg border border-workspace-border rounded-xl p-4 text-sm font-mono text-workspace-text placeholder-workspace-muted focus:border-workspace-accent focus:outline-none resize-none leading-relaxed" placeholder="Type or paste quick notes here. Everything is auto-saved locally to your browser..."></textarea>
+      </div>
+
+      <div id="diffContainer" class="hidden flex-col flex-1 space-y-4 h-auto min-h-[400px]">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 h-64">
+          <div class="flex flex-col">
+            <label class="text-xs font-mono text-workspace-muted mb-2">Original Text</label>
+            <textarea id="diffA" class="w-full h-full bg-workspace-bg border border-workspace-border rounded-xl p-4 text-xs font-mono text-workspace-text placeholder-workspace-muted focus:border-workspace-accent focus:outline-none resize-none" placeholder="Paste original text here..."></textarea>
+          </div>
+          <div class="flex flex-col">
+            <label class="text-xs font-mono text-workspace-muted mb-2">Modified Text</label>
+            <textarea id="diffB" class="w-full h-full bg-workspace-bg border border-workspace-border rounded-xl p-4 text-xs font-mono text-workspace-text placeholder-workspace-muted focus:border-workspace-accent focus:outline-none resize-none" placeholder="Paste modified text here..."></textarea>
+          </div>
+        </div>
+        <button onclick="runTextDiff()" class="w-full py-3 bg-workspace-accent text-black font-bold text-sm uppercase tracking-wider rounded-xl hover:bg-workspace-accentHover transition-all shadow-[0_0_15px_rgba(16,185,129,0.2)]">
+          Compare Text
+        </button>
+        <div class="flex flex-col">
+          <label class="text-xs font-mono text-workspace-muted mb-2">Difference Output</label>
+          <div id="diffOutput" class="h-64 overflow-y-auto p-4 bg-workspace-bg border border-workspace-border rounded-xl text-xs font-mono space-y-1"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SEO Content -->
+    <article class="prose prose-invert max-w-none border-t border-workspace-border pt-12 space-y-8 text-sm text-workspace-muted leading-relaxed">
+      <div>
+        <h2 class="text-xl font-bold text-white mb-3">Why use an offline Diff Checker?</h2>
+        <p>
+          Developers and writers frequently need to compare code files, legal documents, or configuration files. If you paste proprietary software code or sensitive internal memos into a cloud-based diff checker, those strings can be intercepted, cached, or logged by third parties.
+        </p>
+        <p class="mt-2">
+          This diff checker implements the <strong>Longest Common Subsequence (LCS) algorithm</strong> entirely in JavaScript within your browser. 
+        </p>
+      </div>
+    </article>
+  </main>
+
+  <footer class="h-12 border-t border-workspace-border bg-workspace-surface/90 px-4 flex items-center justify-between text-xs font-mono text-workspace-muted">
+    <div>&copy; TabKit Tools • Local-first privacy workbench.</div>
+    <div class="flex items-center gap-3">
+      <a href="/" class="hover:text-workspace-accent transition-colors">Workbench Dashboard</a>
+      <span>•</span>
+      <a href="/about.html" class="hover:text-workspace-accent transition-colors">About</a>
+    </div>
+  </footer>
+
+  <div id="toastContainer" class="fixed bottom-6 right-4 z-50 flex flex-col gap-2 pointer-events-none"></div>
+
+  <script>
+    function showToast(message) {
+      const container = document.getElementById('toastContainer');
+      const toast = document.createElement('div');
+      toast.className = 'pointer-events-auto px-4 py-2 rounded-lg bg-workspace-surface border border-workspace-border shadow-xl text-xs font-mono flex items-center gap-2 text-workspace-text transition-all duration-300 opacity-0 translate-y-2';
+      toast.innerHTML = `<span class="text-workspace-accent">●</span><span>${message}</span>`;
+      container.appendChild(toast);
+      requestAnimationFrame(() => toast.classList.remove('opacity-0', 'translate-y-2'));
+      setTimeout(() => {
+        toast.classList.add('opacity-0', 'translate-y-2');
+        setTimeout(() => toast.remove(), 300);
+      }, 2400);
+    }
+
+    // --- Notepad Logic ---
+    const textarea = document.getElementById('noteTextarea');
+    const status = document.getElementById('saveStatus');
+    const saved = localStorage.getItem('tabkit_scratchpad_data');
+    if (saved) textarea.value = saved;
+
+    let saveTimer;
+    textarea.addEventListener('input', () => {
+      status.textContent = 'Saving...';
+      clearTimeout(saveTimer);
+      saveTimer = setTimeout(() => {
+        localStorage.setItem('tabkit_scratchpad_data', textarea.value);
+        status.textContent = 'Notes Synced';
+      }, 500);
+    });
+
+    // --- UI Toggle ---
+    function toggleScratchMode(mode) {
+      const isNotes = mode === 'notes';
+      document.getElementById('notesContainer').classList.toggle('hidden', !isNotes);
+      document.getElementById('notesContainer').classList.toggle('flex', isNotes);
+      
+      document.getElementById('diffContainer').classList.toggle('hidden', isNotes);
+      document.getElementById('diffContainer').classList.toggle('flex', !isNotes);
+      
+      document.getElementById('tabNote').className = isNotes 
+        ? "px-6 py-2 rounded-lg text-sm font-bold bg-workspace-surface text-workspace-accent shadow transition-all"
+        : "px-6 py-2 rounded-lg text-sm font-bold text-workspace-muted hover:text-workspace-text transition-all";
+        
+      document.getElementById('tabDiff').className = !isNotes 
+        ? "px-6 py-2 rounded-lg text-sm font-bold bg-workspace-surface text-workspace-accent shadow transition-all"
+        : "px-6 py-2 rounded-lg text-sm font-bold text-workspace-muted hover:text-workspace-text transition-all";
+    }
+
+    // --- LCS Diff Algorithm ---
+    function computeLCSDiff(linesA, linesB) {
+      const m = linesA.length;
+      const n = linesB.length;
+      const dp = Array.from({ length: m + 1 }, () => new Uint16Array(n + 1));
+
+      for (let i = 0; i < m; i++) {
+        for (let j = 0; j < n; j++) {
+          if (linesA[i] === linesB[j]) {
+            dp[i + 1][j + 1] = dp[i][j] + 1;
+          } else {
+            dp[i + 1][j + 1] = Math.max(dp[i + 1][j], dp[i][j + 1]);
+          }
+        }
+      }
+
+      let i = m, j = n;
+      const result = [];
+      while (i > 0 || j > 0) {
+        if (i > 0 && j > 0 && linesA[i - 1] === linesB[j - 1]) {
+          result.unshift({ type: 'same', text: linesA[i - 1] });
+          i--; j--;
+        } else if (j > 0 && (i === 0 || dp[i][j - 1] >= dp[i - 1][j])) {
+          result.unshift({ type: 'add', text: linesB[j - 1] });
+          j--;
+        } else if (i > 0 && (j === 0 || dp[i][j - 1] < dp[i - 1][j])) {
+          result.unshift({ type: 'del', text: linesA[i - 1] });
+          i--;
+        }
+      }
+      return result;
+    }
+
+    function runTextDiff() {
+      const a = document.getElementById('diffA').value;
+      const b = document.getElementById('diffB').value;
+      
+      if (!a && !b) {
+        showToast('Please enter text to compare.');
+        return;
+      }
+
+      const linesA = a.split('\n');
+      const linesB = b.split('\n');
+      const diffs = computeLCSDiff(linesA, linesB);
+      
+      const out = document.getElementById('diffOutput');
+      out.innerHTML = diffs.map((line, idx) => {
+        const num = String(idx + 1).padStart(3, '0');
+        let colorClass = 'text-workspace-text';
+        let prefix = ' ';
+        let bg = 'bg-transparent';
+        
+        if (line.type === 'add') {
+          colorClass = 'text-green-400';
+          prefix = '+';
+          bg = 'bg-green-400/10';
+        } else if (line.type === 'del') {
+          colorClass = 'text-red-400';
+          prefix = '-';
+          bg = 'bg-red-400/10';
+        }
+        
+        // Escape HTML
+        const safeText = line.text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+        
+        return `<div class="flex gap-3 px-2 ${bg}">
+          <span class="text-workspace-muted select-none w-8 border-r border-workspace-borderLight pr-2 text-right">${num}</span>
+          <span class="select-none font-bold ${colorClass}">${prefix}</span>
+          <span class="${colorClass} whitespace-pre-wrap break-all">${safeText || ' '}</span>
+        </div>`;
+      }).join('');
+      
+      showToast('Diff calculated!');
+    }
+
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => { navigator.serviceWorker.register('/sw.js').catch(()=>{}); });
+    }
+  </script>
+</body>
+</html>
