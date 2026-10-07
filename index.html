@@ -1326,6 +1326,7 @@
         id: 'excel-formula-builder',
         name: 'Excel Formula Builder Cheat Sheet',
         category: 'Data',
+        standaloneUrl: '/excel-formula-builder.html',
         description: 'Massive offline registry of Excel/Sheets formulas with a fill-in-the-blanks builder.',
         render: (toolId) => `
           <div class="flex flex-col h-full font-sans relative overflow-hidden">
@@ -1670,18 +1671,30 @@
           card.className = 'rounded-xl border border-workspace-border bg-workspace-surface p-4 flex flex-col justify-between shadow-lg relative group';
           card.id = `card_${toolId}`;
 
+          const expandLink = tool.standaloneUrl ? `
+            <a href="${tool.standaloneUrl}" title="Expand to dedicated page" class="flex items-center gap-1 text-[11px] font-mono px-2 py-0.5 rounded bg-workspace-bg border border-workspace-border hover:border-workspace-accent text-workspace-muted hover:text-workspace-accent transition-colors">
+              <span>Expand</span>
+              <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+              </svg>
+            </a>
+          ` : '';
+
           card.innerHTML = `
             <div class="flex items-center justify-between pb-3 border-b border-workspace-border mb-3">
               <div class="flex items-center gap-2">
                 <span class="w-2 h-2 rounded-full bg-workspace-accent"></span>
                 <h3 class="text-xs font-bold text-workspace-text tracking-tight uppercase font-mono">${tool.name}</h3>
               </div>
-              <button onclick="unpinTool('${toolId}')" title="Unpin from workbench" class="text-workspace-muted hover:text-workspace-danger p-1 rounded transition-colors">
-                <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <line x1="18" y1="6" x2="6" y2="18"></line>
-                  <line x1="6" y1="6" x2="18" y2="18"></line>
-                </svg>
-              </button>
+              <div class="flex items-center gap-1.5">
+                ${expandLink}
+                <button onclick="unpinTool('${toolId}')" title="Unpin from workbench" class="text-workspace-muted hover:text-workspace-danger p-1 rounded transition-colors">
+                  <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                  </svg>
+                </button>
+              </div>
             </div>
             <div class="flex-1">
               ${tool.render(toolId)}
