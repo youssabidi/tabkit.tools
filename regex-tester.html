@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Regular Expression (Regex) Live Tester | TabKit Tools</title>
+  <link rel="manifest" href="/manifest.json" />
+  <meta name="description" content="Test, debug, and highlight regular expressions against sample text with live capture badges and cheatsheets. 100% offline and private. Zero server uploads." />
+  <meta name="keywords" content="regex tester online, javascript regex tester, regular expression sandbox, offline regex debugger, regex match highlighter" />
+  <link rel="canonical" href="https://tabkit.tools/regex-tester.html" />
+
+  <meta property="og:title" content="Regular Expression (Regex) Live Tester | TabKit Tools" />
+  <meta property="og:description" content="Test, debug, and highlight regular expressions against sample text with live capture badges and cheatsheets. Fast, client-side, zero tracking." />
+  <meta property="og:url" content="https://tabkit.tools/regex-tester.html" />
+  <meta property="og:type" content="website" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+
+  <!-- Schema.org JSON-LD -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebApplication",
+        "name": "Regular Expression (Regex) Live Tester",
+        "url": "https://tabkit.tools/regex-tester.html",
+        "applicationCategory": "DeveloperApplication",
+        "operatingSystem": "All modern browsers",
+        "description": "Test, debug, and highlight regular expressions against sample text with live capture badges and cheatsheets."
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Can I test sensitive log files or credentials with this Regex tool?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Absolutely. Most online regex testers send your sample text to backend servers for analysis. TabKit executes the JavaScript RegExp engine locally in your browser sandbox with zero telemetry."
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+
+  <script src="utils.js"></script>
+  <script src="components.js"></script>
+  <script src="registry.js"></script>
+</head>
+<body class="bg-workspace-bg text-workspace-text font-sans antialiased min-h-screen flex flex-col selection:bg-workspace-accent selection:text-black">
+  <tool-header tool-name="regex-tester"></tool-header>
+
+  <main class="flex-1 max-w-4xl w-full mx-auto px-4 py-8 md:py-12">
+    <div class="mb-8 text-center max-w-2xl mx-auto">
+      <div class="inline-flex items-center gap-2 px-2.5 py-1 rounded-full bg-workspace-accent/10 border border-workspace-accent/30 text-workspace-accent text-xs font-mono mb-3">
+        <span class="w-2 h-2 rounded-full bg-workspace-accent animate-pulse"></span>
+        100% Client-Side • Zero Server Logs
+      </div>
+      <h1 class="text-3xl md:text-4xl font-extrabold tracking-tight text-white mb-3">Regular Expression (Regex) Live Tester</h1>
+      <p class="text-sm text-workspace-muted leading-relaxed">Test, debug, and highlight regular expressions against sample text with live capture badges and cheatsheets.</p>
+    </div>
+
+    <!-- The Tool Card -->
+    <div class="rounded-2xl border border-workspace-border bg-workspace-surface shadow-2xl p-6 mb-16 max-w-3xl mx-auto min-h-[420px] flex flex-col">
+      <div id="tool-container" class="flex-1 w-full relative"></div>
+    </div>
+
+    <!-- SEO Educational Content -->
+    <article class="prose prose-invert max-w-none border-t border-workspace-border pt-12 space-y-6 text-sm text-workspace-muted leading-relaxed">
+      <div>
+        <h2 class="text-xl font-bold text-white mb-2">Can I test sensitive log files or credentials with this Regex tool?</h2>
+        <p>Absolutely. Most online regex testers send your sample text to backend servers for analysis. TabKit executes the JavaScript RegExp engine locally in your browser sandbox with zero telemetry.</p>
+      </div>
+      <div>
+        <h3 class="text-base font-bold text-white mb-2">Privacy & Local-First Philosophy</h3>
+        <p>TabKit Tools executes every transformation strictly in client memory. By executing on your device, you get zero latency, complete protection against data breaches, and full offline availability.</p>
+      </div>
+    </article>
+  </main>
+
+  <tabkit-footer></tabkit-footer>
+  <div id="toastContainer" class="fixed bottom-6 right-4 z-50 flex flex-col gap-2 pointer-events-none"></div>
+
+  <script>
+    window.addEventListener('DOMContentLoaded', async () => {
+      try {
+        const tool = await loadTool('regex-tester');
+        const container = document.getElementById('tool-container');
+        container.innerHTML = tool.render('regex-tester');
+        tool.init('regex-tester');
+      } catch (e) {
+        console.error('Error loading tool:', e);
+      }
+    });
+  </script>
+</body>
+</html>

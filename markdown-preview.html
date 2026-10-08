@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Markdown Live Editor & HTML Preview | TabKit Tools</title>
+  <link rel="manifest" href="/manifest.json" />
+  <meta name="description" content="Write, preview, and convert GitHub-flavored Markdown into clean HTML with live dual-view rendering. 100% offline and private. Zero server uploads." />
+  <meta name="keywords" content="markdown preview online, markdown to html converter, live markdown editor, offline markdown previewer, github flavored markdown" />
+  <link rel="canonical" href="https://tabkit.tools/markdown-preview.html" />
+
+  <meta property="og:title" content="Markdown Live Editor & HTML Preview | TabKit Tools" />
+  <meta property="og:description" content="Write, preview, and convert GitHub-flavored Markdown into clean HTML with live dual-view rendering. Fast, client-side, zero tracking." />
+  <meta property="og:url" content="https://tabkit.tools/markdown-preview.html" />
+  <meta property="og:type" content="website" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+
+  <!-- Schema.org JSON-LD -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebApplication",
+        "name": "Markdown Live Editor & HTML Preview",
+        "url": "https://tabkit.tools/markdown-preview.html",
+        "applicationCategory": "DeveloperApplication",
+        "operatingSystem": "All modern browsers",
+        "description": "Write, preview, and convert GitHub-flavored Markdown into clean HTML with live dual-view rendering."
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "How does the offline Markdown live preview work?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "TabKit parses Markdown entirely inside your browser's JavaScript engine using regex and DOM parsing. No notes or documents are ever uploaded to an external server or cloud database."
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+
+  <script src="utils.js"></script>
+  <script src="components.js"></script>
+  <script src="registry.js"></script>
+</head>
+<body class="bg-workspace-bg text-workspace-text font-sans antialiased min-h-screen flex flex-col selection:bg-workspace-accent selection:text-black">
+  <tool-header tool-name="markdown-preview"></tool-header>
+
+  <main class="flex-1 max-w-4xl w-full mx-auto px-4 py-8 md:py-12">
+    <div class="mb-8 text-center max-w-2xl mx-auto">
+      <div class="inline-flex items-center gap-2 px-2.5 py-1 rounded-full bg-workspace-accent/10 border border-workspace-accent/30 text-workspace-accent text-xs font-mono mb-3">
+        <span class="w-2 h-2 rounded-full bg-workspace-accent animate-pulse"></span>
+        100% Client-Side • Zero Server Logs
+      </div>
+      <h1 class="text-3xl md:text-4xl font-extrabold tracking-tight text-white mb-3">Markdown Live Editor & HTML Preview</h1>
+      <p class="text-sm text-workspace-muted leading-relaxed">Write, preview, and convert GitHub-flavored Markdown into clean HTML with live dual-view rendering.</p>
+    </div>
+
+    <!-- The Tool Card -->
+    <div class="rounded-2xl border border-workspace-border bg-workspace-surface shadow-2xl p-6 mb-16 max-w-3xl mx-auto min-h-[420px] flex flex-col">
+      <div id="tool-container" class="flex-1 w-full relative"></div>
+    </div>
+
+    <!-- SEO Educational Content -->
+    <article class="prose prose-invert max-w-none border-t border-workspace-border pt-12 space-y-6 text-sm text-workspace-muted leading-relaxed">
+      <div>
+        <h2 class="text-xl font-bold text-white mb-2">How does the offline Markdown live preview work?</h2>
+        <p>TabKit parses Markdown entirely inside your browser's JavaScript engine using regex and DOM parsing. No notes or documents are ever uploaded to an external server or cloud database.</p>
+      </div>
+      <div>
+        <h3 class="text-base font-bold text-white mb-2">Privacy & Local-First Philosophy</h3>
+        <p>TabKit Tools executes every transformation strictly in client memory. By executing on your device, you get zero latency, complete protection against data breaches, and full offline availability.</p>
+      </div>
+    </article>
+  </main>
+
+  <tabkit-footer></tabkit-footer>
+  <div id="toastContainer" class="fixed bottom-6 right-4 z-50 flex flex-col gap-2 pointer-events-none"></div>
+
+  <script>
+    window.addEventListener('DOMContentLoaded', async () => {
+      try {
+        const tool = await loadTool('markdown-preview');
+        const container = document.getElementById('tool-container');
+        container.innerHTML = tool.render('markdown-preview');
+        tool.init('markdown-preview');
+      } catch (e) {
+        console.error('Error loading tool:', e);
+      }
+    });
+  </script>
+</body>
+</html>

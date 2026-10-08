@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>JSON Web Token (JWT) Decoder | TabKit Tools</title>
+  <link rel="manifest" href="/manifest.json" />
+  <meta name="description" content="Decode and inspect JWT header and payload claims securely in your browser with expiration validation. 100% offline and private. Zero server uploads." />
+  <meta name="keywords" content="jwt decoder online, decode jwt token private, jwt expiration checker, offline jwt inspector, safe jwt debugger" />
+  <link rel="canonical" href="https://tabkit.tools/jwt-decoder.html" />
+
+  <meta property="og:title" content="JSON Web Token (JWT) Decoder | TabKit Tools" />
+  <meta property="og:description" content="Decode and inspect JWT header and payload claims securely in your browser with expiration validation. Fast, client-side, zero tracking." />
+  <meta property="og:url" content="https://tabkit.tools/jwt-decoder.html" />
+  <meta property="og:type" content="website" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+
+  <!-- Schema.org JSON-LD -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebApplication",
+        "name": "JSON Web Token (JWT) Decoder",
+        "url": "https://tabkit.tools/jwt-decoder.html",
+        "applicationCategory": "DeveloperApplication",
+        "operatingSystem": "All modern browsers",
+        "description": "Decode and inspect JWT header and payload claims securely in your browser with expiration validation."
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Why should you never paste production JWTs into typical websites?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Production JWT tokens often carry confidential user IDs, scopes, email addresses, and session permissions. Third-party decoders can intercept or log these tokens. TabKit decodes Base64URL strictly in client memory without external requests."
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+
+  <script src="utils.js"></script>
+  <script src="components.js"></script>
+  <script src="registry.js"></script>
+</head>
+<body class="bg-workspace-bg text-workspace-text font-sans antialiased min-h-screen flex flex-col selection:bg-workspace-accent selection:text-black">
+  <tool-header tool-name="jwt-decoder"></tool-header>
+
+  <main class="flex-1 max-w-4xl w-full mx-auto px-4 py-8 md:py-12">
+    <div class="mb-8 text-center max-w-2xl mx-auto">
+      <div class="inline-flex items-center gap-2 px-2.5 py-1 rounded-full bg-workspace-accent/10 border border-workspace-accent/30 text-workspace-accent text-xs font-mono mb-3">
+        <span class="w-2 h-2 rounded-full bg-workspace-accent animate-pulse"></span>
+        100% Client-Side • Zero Server Logs
+      </div>
+      <h1 class="text-3xl md:text-4xl font-extrabold tracking-tight text-white mb-3">JSON Web Token (JWT) Decoder</h1>
+      <p class="text-sm text-workspace-muted leading-relaxed">Decode and inspect JWT header and payload claims securely in your browser with expiration validation.</p>
+    </div>
+
+    <!-- The Tool Card -->
+    <div class="rounded-2xl border border-workspace-border bg-workspace-surface shadow-2xl p-6 mb-16 max-w-3xl mx-auto min-h-[420px] flex flex-col">
+      <div id="tool-container" class="flex-1 w-full relative"></div>
+    </div>
+
+    <!-- SEO Educational Content -->
+    <article class="prose prose-invert max-w-none border-t border-workspace-border pt-12 space-y-6 text-sm text-workspace-muted leading-relaxed">
+      <div>
+        <h2 class="text-xl font-bold text-white mb-2">Why should you never paste production JWTs into typical websites?</h2>
+        <p>Production JWT tokens often carry confidential user IDs, scopes, email addresses, and session permissions. Third-party decoders can intercept or log these tokens. TabKit decodes Base64URL strictly in client memory without external requests.</p>
+      </div>
+      <div>
+        <h3 class="text-base font-bold text-white mb-2">Privacy & Local-First Philosophy</h3>
+        <p>TabKit Tools executes every transformation strictly in client memory. By executing on your device, you get zero latency, complete protection against data breaches, and full offline availability.</p>
+      </div>
+    </article>
+  </main>
+
+  <tabkit-footer></tabkit-footer>
+  <div id="toastContainer" class="fixed bottom-6 right-4 z-50 flex flex-col gap-2 pointer-events-none"></div>
+
+  <script>
+    window.addEventListener('DOMContentLoaded', async () => {
+      try {
+        const tool = await loadTool('jwt-decoder');
+        const container = document.getElementById('tool-container');
+        container.innerHTML = tool.render('jwt-decoder');
+        tool.init('jwt-decoder');
+      } catch (e) {
+        console.error('Error loading tool:', e);
+      }
+    });
+  </script>
+</body>
+</html>

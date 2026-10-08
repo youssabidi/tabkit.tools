@@ -155,3 +155,153 @@ function fallbackIntlZones() {
 }
 
 // ==========================================
+// PWA INSTALL LOGIC
+// ==========================================
+let deferredInstallPrompt = null;
+if (typeof window !== 'undefined') {
+  window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault();
+    deferredInstallPrompt = e;
+    const btn = document.getElementById('btnInstallApp');
+    if (btn) {
+      btn.classList.remove('hidden');
+      btn.classList.add('flex');
+    }
+  });
+
+  window.addEventListener('appinstalled', () => {
+    const btn = document.getElementById('btnInstallApp');
+    if (btn) btn.classList.add('hidden');
+    if (typeof showToast !== 'undefined') showToast('TabKit Tools installed successfully!');
+  });
+}
+
+function installPwaApp() {
+  if (!deferredInstallPrompt) {
+    if (typeof showToast !== 'undefined') {
+      showToast('To install, tap Share -> Add to Home Screen (Mobile) or the install icon in your address bar (Desktop).', 'info');
+    }
+    return;
+  }
+  deferredInstallPrompt.prompt();
+  deferredInstallPrompt.userChoice.then((choiceResult) => {
+    if (choiceResult.outcome === 'accepted') {
+      if (typeof showToast !== 'undefined') showToast('TabKit Tools installed!');
+      const btn = document.getElementById('btnInstallApp');
+      if (btn) btn.classList.add('hidden');
+    }
+    deferredInstallPrompt = null;
+  });
+}
+
+// ==========================================
+// TOOL CHAINING & DATA HANDOFF ("Send To...")
+// ==========================================
+function sendToTool(targetToolId, payload) {
+  if (typeof payload !== 'string') {
+    payload = JSON.stringify(payload, null, 2);
+  }
+  
+  // If we are on index.html with active workbench
+  if (typeof activePinnedTools !== 'undefined' && typeof pinTool === 'function') {
+    if (!activePinnedTools.includes(targetToolId)) {
+      pinTool(targetToolId);
+    }
+    setTimeout(() => {
+      // Find the primary input in the tool card
+      const card = document.getElementById(`card_${targetToolId}`);
+      if (card) {
+        card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        card.classList.add('ring-2', 'ring-workspace-accent');
+        setTimeout(() => card.classList.remove('ring-2', 'ring-workspace-accent'), 1500);
+
+        const inputEl = card.querySelector('textarea, input[type="text"]');
+        if (inputEl) {
+          inputEl.value = payload;
+          inputEl.dispatchEvent(new Event('input', { bubbles: true }));
+          inputEl.dispatchEvent(new Event('change', { bubbles: true }));
+          if (typeof showToast !== 'undefined') showToast(`Sent data to ${targetToolId}!`);
+        }
+      }
+    }, 250);
+  } else {
+    // Navigate to workbench and handoff data via localStorage
+    localStorage.setItem('tabkit_handoff_data', JSON.stringify({ toolId: targetToolId, payload }));
+    window.location.href = '/index.html';
+  }
+}
+
+// Check for pending handoff data on workbench load
+if (typeof window !== 'undefined') {
+  window.addEventListener('DOMContentLoaded', () => {
+    const rawHandoff = localStorage.getItem('tabkit_handoff_data');
+    if (rawHandoff) {
+      try {
+        const { toolId, payload } = JSON.parse(rawHandoff);
+        localStorage.removeItem('tabkit_handoff_data');
+        setTimeout(() => sendToTool(toolId, payload), 500);
+      } catch (e) {}
+    }
+  });
+}
+
+// ==========================================
+// SYNTAX HIGHLIGHTING (Zero-dependency JSON)
+// ==========================================
+function syntaxHighlightJson(json) {
+  if (typeof json !== 'string') {
+    json = JSON.stringify(json, null, 2);
+  }
+  json = escapeHtml(json);
+  return json.replace(/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g, function (match) {
+    let cls = 'text-amber-500 font-mono'; // number
+    if (/^"/.test(match)) {
+      if (/:$/.test(match)) {
+        cls = 'text-sky-400 font-bold font-mono'; // key
+      } else {
+        cls = 'text-emerald-400 font-mono'; // string
+      }
+    } else if (/true|false/.test(match)) {
+      cls = 'text-purple-400 font-bold font-mono'; // boolean
+    } else if (/null/.test(match)) {
+      cls = 'text-rose-400 font-bold font-mono'; // null
+    }
+    return '<span class="' + cls + '">' + match + '</span>';
+  });
+}
+
+// ==========================================
+// WEB AUDIO CHIME (Gentle notification bell)
+// ==========================================
+function playAudioChime() {
+  try {
+    const AudioContext = window.AudioContext || window.webkitAudioContext;
+    if (!AudioContext) return;
+    const ctx = new AudioContext();
+    
+    const now = ctx.currentTime;
+    const osc1 = ctx.createOscillator();
+    const osc2 = ctx.createOscillator();
+    const gain = ctx.createGain();
+
+    osc1.type = 'sine';
+    osc1.frequency.setValueAtTime(587.33, now); // D5
+    osc1.frequency.exponentialRampToValueAtTime(880, now + 0.15); // A5
+
+    osc2.type = 'triangle';
+    osc2.frequency.setValueAtTime(880, now);
+    osc2.frequency.exponentialRampToValueAtTime(1174.66, now + 0.15); // D6
+
+    gain.gain.setValueAtTime(0.2, now);
+    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.8);
+
+    osc1.connect(gain);
+    osc2.connect(gain);
+    gain.connect(ctx.destination);
+
+    osc1.start(now);
+    osc2.start(now);
+    osc1.stop(now + 0.8);
+    osc2.stop(now + 0.8);
+  } catch (e) {}
+}

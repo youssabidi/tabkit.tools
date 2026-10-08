@@ -1,10 +1,11 @@
-// Tool: pdf-splitter
+// Tool: pdf-splitter (Visual Page Selector & PDF Splitter)
 window.TOOLS_REGISTRY = window.TOOLS_REGISTRY || {};
 window.TOOLS_REGISTRY['pdf-splitter'] = Object.assign(window.TOOLS_REGISTRY['pdf-splitter'] || {}, {
   id: 'pdf-splitter',
   name: 'Client-Side PDF Splitter & Page Remover',
   category: 'Privacy',
-  description: 'Extract specific pages or split multi-page PDF documents locally in your browser with zero server uploads.',
+  standaloneUrl: '/pdf-splitter.html',
+  description: 'Extract specific pages or split multi-page PDF documents locally with visual page chips and zero server uploads.',
   render: (toolId) => `
     <div class="flex flex-col h-full justify-between space-y-2 font-sans text-xs">
       <div id="${toolId}_dropzone" class="border-2 border-dashed border-workspace-border hover:border-workspace-accent/60 rounded-xl p-3 text-center cursor-pointer bg-workspace-bg transition-colors flex flex-col items-center justify-center space-y-1">
@@ -17,9 +18,16 @@ window.TOOLS_REGISTRY['pdf-splitter'] = Object.assign(window.TOOLS_REGISTRY['pdf
       <div class="space-y-1.5 bg-workspace-bg/60 p-2.5 rounded-xl border border-workspace-border">
         <div class="flex justify-between items-center text-[10px] font-mono">
           <span class="text-workspace-muted">Pages to Keep / Extract:</span>
-          <span class="text-workspace-accent font-bold" id="${toolId}_rangeHelp">e.g. 1-3, 5</span>
+          <div class="flex items-center gap-2">
+            <button id="${toolId}_btnSelectAll" disabled class="text-workspace-accent hover:underline">All</button>
+            <span class="text-workspace-borderLight">|</span>
+            <button id="${toolId}_btnInvert" disabled class="text-workspace-muted hover:text-workspace-text">Invert</button>
+          </div>
         </div>
         <input id="${toolId}_pageRange" type="text" placeholder="1-3, 5" disabled class="w-full bg-workspace-bg border border-workspace-border rounded-lg px-2.5 py-1.5 font-mono text-xs text-workspace-text focus:border-workspace-accent focus:outline-none disabled:opacity-50" />
+        
+        <!-- Visual Page Chips Grid -->
+        <div id="${toolId}_chipsContainer" class="hidden flex flex-wrap gap-1 max-h-16 overflow-y-auto pt-1"></div>
       </div>
 
       <div class="flex items-center justify-between pt-1 border-t border-workspace-border text-[11px] font-mono">
@@ -36,12 +44,15 @@ window.TOOLS_REGISTRY['pdf-splitter'] = Object.assign(window.TOOLS_REGISTRY['pdf
     const pageRange = document.getElementById(`${toolId}_pageRange`);
     const status = document.getElementById(`${toolId}_status`);
     const btnExtract = document.getElementById(`${toolId}_btnExtract`);
+    const chipsContainer = document.getElementById(`${toolId}_chipsContainer`);
+    const btnSelectAll = document.getElementById(`${toolId}_btnSelectAll`);
+    const btnInvert = document.getElementById(`${toolId}_btnInvert`);
 
     let pdfBytes = null;
     let totalPages = 0;
     let originalName = 'document';
+    let selectedPagesSet = new Set();
 
-    // Lazy load PDFLib if needed
     function ensurePdfLib() {
       return new Promise((resolve, reject) => {
         if (window.PDFLib) return resolve(window.PDFLib);
@@ -49,7 +60,7 @@ window.TOOLS_REGISTRY['pdf-splitter'] = Object.assign(window.TOOLS_REGISTRY['pdf
         script.src = 'pdf-lib.min.js';
         script.onload = () => resolve(window.PDFLib);
         script.onerror = () => {
-          document.getElementById(`${toolId}_status`).textContent = 'Error: Failed to load PDF engine';
+          if (status) status.textContent = 'Error: Failed to load PDF engine';
           reject(new Error('Failed to load PDF engine'));
         };
         document.head.appendChild(script);
@@ -80,6 +91,63 @@ window.TOOLS_REGISTRY['pdf-splitter'] = Object.assign(window.TOOLS_REGISTRY['pdf
       return Array.from(pages).sort((a, b) => a - b);
     }
 
+    function updateChipsUI() {
+      if (!chipsContainer || totalPages === 0) return;
+      chipsContainer.innerHTML = '';
+      for (let i = 1; i <= totalPages; i++) {
+        const isSelected = selectedPagesSet.has(i);
+        const chip = document.createElement('button');
+        chip.type = 'button';
+        chip.className = `px-2 py-0.5 rounded text-[10px] font-mono border transition-all ${
+          isSelected 
+            ? 'bg-workspace-accent/20 border-workspace-accent text-workspace-accent font-bold' 
+            : 'bg-workspace-surface border-workspace-border text-workspace-muted hover:text-workspace-text opacity-60 line-through'
+        }`;
+        chip.textContent = `P${i}`;
+        chip.title = isSelected ? `Click to exclude page ${i}` : `Click to include page ${i}`;
+        chip.onclick = () => {
+          if (selectedPagesSet.has(i)) {
+            selectedPagesSet.delete(i);
+          } else {
+            selectedPagesSet.add(i);
+          }
+          syncInputFromSet();
+        };
+        chipsContainer.appendChild(chip);
+      }
+      status.textContent = `${selectedPagesSet.size} of ${totalPages} pages selected`;
+    }
+
+    function syncInputFromSet() {
+      const sorted = Array.from(selectedPagesSet).sort((a, b) => a - b);
+      if (sorted.length === 0) {
+        pageRange.value = '';
+      } else {
+        // Build ranges
+        const ranges = [];
+        let start = sorted[0];
+        let end = sorted[0];
+        for (let i = 1; i < sorted.length; i++) {
+          if (sorted[i] === end + 1) {
+            end = sorted[i];
+          } else {
+            ranges.push(start === end ? `${start}` : `${start}-${end}`);
+            start = sorted[i];
+            end = sorted[i];
+          }
+        }
+        ranges.push(start === end ? `${start}` : `${start}-${end}`);
+        pageRange.value = ranges.join(', ');
+      }
+      updateChipsUI();
+    }
+
+    function syncSetFromInput() {
+      const pages = parsePageRange(pageRange.value, totalPages);
+      selectedPagesSet = new Set(pages);
+      updateChipsUI();
+    }
+
     async function handleFile(file) {
       if (!file || file.type !== 'application/pdf') return;
       fileName.textContent = file.name;
@@ -96,9 +164,15 @@ window.TOOLS_REGISTRY['pdf-splitter'] = Object.assign(window.TOOLS_REGISTRY['pdf
 
         pageCount.textContent = `Found ${totalPages} page${totalPages === 1 ? '' : 's'}`;
         pageRange.disabled = false;
-        pageRange.value = `1-${Math.min(totalPages, 3)}`;
         btnExtract.disabled = false;
-        status.textContent = 'Ready to extract';
+        btnSelectAll.disabled = false;
+        btnInvert.disabled = false;
+
+        // Default: select all
+        selectedPagesSet = new Set(Array.from({ length: totalPages }, (_, i) => i + 1));
+        syncInputFromSet();
+
+        chipsContainer.classList.remove('hidden');
       } catch (err) {
         status.textContent = 'Error loading PDF';
         console.error(err);
@@ -118,45 +192,58 @@ window.TOOLS_REGISTRY['pdf-splitter'] = Object.assign(window.TOOLS_REGISTRY['pdf
       };
     }
 
-    if (btnExtract) {
-      btnExtract.onclick = async () => {
-        if (!pdfBytes) return;
-        const selected = parsePageRange(pageRange.value, totalPages);
-        if (selected.length === 0) {
-          if (typeof showToast !== 'undefined') showToast('Please enter valid page numbers', 'error');
-          return;
-        }
+    pageRange.oninput = () => syncSetFromInput();
 
-        status.textContent = 'Extracting pages...';
-        btnExtract.disabled = true;
+    btnSelectAll.onclick = () => {
+      selectedPagesSet = new Set(Array.from({ length: totalPages }, (_, i) => i + 1));
+      syncInputFromSet();
+    };
 
-        try {
-          const lib = await ensurePdfLib();
-          const srcDoc = await lib.PDFDocument.load(pdfBytes);
-          const newDoc = await lib.PDFDocument.create();
+    btnInvert.onclick = () => {
+      const inverted = new Set();
+      for (let i = 1; i <= totalPages; i++) {
+        if (!selectedPagesSet.has(i)) inverted.add(i);
+      }
+      selectedPagesSet = inverted;
+      syncInputFromSet();
+    };
 
-          // 0-indexed page indices
-          const indices = selected.map(p => p - 1);
-          const copiedPages = await newDoc.copyPages(srcDoc, indices);
-          copiedPages.forEach(p => newDoc.addPage(p));
+    btnExtract.onclick = async () => {
+      if (!pdfBytes) return;
+      const selected = Array.from(selectedPagesSet).sort((a, b) => a - b);
+      if (selected.length === 0) {
+        if (typeof showToast !== 'undefined') showToast('Select at least one page to extract', 'error');
+        return;
+      }
 
-          const savedBytes = await newDoc.save();
-          const blob = new Blob([savedBytes], { type: 'application/pdf' });
-          const a = document.createElement('a');
-          a.href = URL.createObjectURL(blob);
-          a.download = `${originalName}-extracted.pdf`;
-          a.click();
-          URL.revokeObjectURL(a.href);
+      status.textContent = 'Extracting pages...';
+      btnExtract.disabled = true;
 
-          status.textContent = `Saved ${selected.length} pages`;
-          btnExtract.disabled = false;
-          if (typeof showToast !== 'undefined') showToast(`Extracted ${selected.length} pages!`);
-        } catch (err) {
-          status.textContent = 'Extraction failed';
-          btnExtract.disabled = false;
-          console.error(err);
-        }
-      };
-    }
+      try {
+        const lib = await ensurePdfLib();
+        const srcDoc = await lib.PDFDocument.load(pdfBytes);
+        const newDoc = await lib.PDFDocument.create();
+
+        const indices = selected.map(p => p - 1);
+        const copiedPages = await newDoc.copyPages(srcDoc, indices);
+        copiedPages.forEach(p => newDoc.addPage(p));
+
+        const savedBytes = await newDoc.save();
+        const blob = new Blob([savedBytes], { type: 'application/pdf' });
+        const a = document.createElement('a');
+        a.href = URL.createObjectURL(blob);
+        a.download = `${originalName}-extracted.pdf`;
+        a.click();
+        URL.revokeObjectURL(a.href);
+
+        status.textContent = `Extracted ${selected.length} pages`;
+        btnExtract.disabled = false;
+        if (typeof showToast !== 'undefined') showToast(`Extracted ${selected.length} pages!`);
+      } catch (err) {
+        status.textContent = 'Extraction failed';
+        btnExtract.disabled = false;
+        console.error(err);
+      }
+    };
   }
 });

@@ -174,6 +174,55 @@ window.TOOLS_REGISTRY = {
     "category": "Links",
     "standaloneUrl": "/url-link-cleaner.html",
     "description": "Extract URLs, strip tracking tags (UTM, fbclid, gclid), and copy clean links."
+  },
+  "markdown-preview": {
+    "id": "markdown-preview",
+    "name": "Markdown Live Editor & HTML Preview",
+    "category": "Text",
+    "standaloneUrl": "/markdown-preview.html",
+    "description": "Write, preview, and convert GitHub-flavored Markdown into clean HTML with live dual-view rendering."
+  },
+  "csv-json-converter": {
+    "id": "csv-json-converter",
+    "name": "CSV ↔ JSON Converter",
+    "category": "Data",
+    "standaloneUrl": "/csv-json-converter.html",
+    "description": "Convert CSV spreadsheets to JSON arrays or transform JSON objects back into CSV tables locally."
+  },
+  "regex-tester": {
+    "id": "regex-tester",
+    "name": "Regular Expression (Regex) Live Tester",
+    "category": "Developer",
+    "standaloneUrl": "/regex-tester.html",
+    "description": "Test, debug, and highlight regular expressions against sample text with live capture badges and cheatsheets."
+  },
+  "jwt-decoder": {
+    "id": "jwt-decoder",
+    "name": "JSON Web Token (JWT) Decoder",
+    "category": "Security",
+    "standaloneUrl": "/jwt-decoder.html",
+    "description": "Decode and inspect JWT header and payload claims securely in your browser with expiration validation."
+  },
+  "image-to-base64": {
+    "id": "image-to-base64",
+    "name": "Image to Base64 (Data URI) Generator",
+    "category": "Media",
+    "standaloneUrl": "/image-to-base64.html",
+    "description": "Convert PNG, JPG, or SVG images into copy-pasteable Base64 Data URIs, HTML tags, and CSS snippets."
+  },
+  "uuid-generator": {
+    "id": "uuid-generator",
+    "name": "Bulk UUID / GUID v4 Generator",
+    "category": "Developer",
+    "standaloneUrl": "/uuid-generator.html",
+    "description": "Generate bulk cryptographically secure UUID v4 identifiers locally with custom formatting and uppercase toggles."
+  },
+  "sql-formatter": {
+    "id": "sql-formatter",
+    "name": "SQL Query Beautifier & Formatter",
+    "category": "Developer",
+    "standaloneUrl": "/sql-formatter.html",
+    "description": "Format, beautify, and capitalize SQL queries offline with clean clause indentation and minification."
   }
 };
 

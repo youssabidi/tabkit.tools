@@ -81,6 +81,11 @@
         About
       </a>
 
+      
+      <button id="btnInstallApp" onclick="installPwaApp()" type="button" class="hidden items-center gap-1.5 px-3 py-1.5 rounded-lg bg-workspace-accent/15 border border-workspace-accent/40 text-workspace-accent hover:bg-workspace-accent hover:text-black text-xs font-bold transition-all shadow-[0_0_12px_rgba(16,185,129,0.2)]">
+        <svg class="w-3.5 h-3.5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" /></svg>
+        <span>Install App</span>
+      </button>
       <button id="btnOpenToolCatalog" type="button" class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-workspace-accent text-black hover:bg-workspace-accentHover hover:scale-105 text-xs font-bold transition-all shadow-[0_0_15px_rgba(16,185,129,0.3)]">
         <svg class="w-3.5 h-3.5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
         <span class="hidden sm:inline">Add Tool</span>
@@ -91,6 +96,17 @@
   <!-- ==================== MAIN WORKBENCH VIEWPORT ==================== -->
   <main class="flex-1 relative z-10 p-4 md:p-8 overflow-y-auto">
     <!-- Active Grid -->
+    
+    <!-- Workspace Tabs & Multi-Decks -->
+    <div id="workspaceTabsBar" class="flex items-center justify-between gap-3 max-w-[1700px] mx-auto mb-6 pb-2 border-b border-workspace-border">
+      <div id="workspaceTabsList" class="flex items-center gap-2 overflow-x-auto no-scrollbar py-0.5"></div>
+      <div class="flex items-center gap-2 shrink-0">
+        <button onclick="createNewWorkspacePrompt()" class="px-2.5 py-1 text-xs font-mono rounded-lg border border-workspace-border hover:border-workspace-accent hover:text-workspace-accent text-workspace-muted bg-workspace-surface transition-all flex items-center gap-1">
+          <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+          <span class="hidden sm:inline">New Tab</span>
+        </button>
+      </div>
+    </div>
     <div id="workbenchGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-[1700px] mx-auto"></div>
 
     <!-- Empty Workspace State (Now visible by default if no tools are pinned to prevent blank screens) -->
@@ -166,19 +182,113 @@
 
   <!-- WORKBENCH APP LOGIC -->
   <script>
-    // To make it lively, if the user has no history, pre-populate 4 popular tools automatically.
-    const defaultToolsArray = '["text-diff-checker", "qr-code-generator", "pomodoro-timer", "unit-converter"]';
-    let activePinnedTools = JSON.parse(localStorage.getItem('tabkit_pinned_tools') || defaultToolsArray);
+    // ==========================================
+    // WORKSPACE MULTI-DECKS & TABS
+    // ==========================================
+    const DEFAULT_WORKSPACES = {
+      activeId: 'main',
+      list: [
+        { id: 'main', name: '★ Main Deck', tools: ['json-formatter', 'base64-encoder-decoder', 'text-diff-checker', 'secure-password-generator'] },
+        { id: 'dev', name: '🛠 Dev Suite', tools: ['json-formatter', 'curl-converter', 'json-to-typescript', 'chmod-calculator', 'unix-timestamp-converter'] },
+        { id: 'media', name: '🖼 Media & Privacy', tools: ['image-compressor', 'pdf-splitter', 'exif-metadata-stripper', 'svg-optimizer'] },
+        { id: 'daily', name: '⚡ Daily Admin', tools: ['percentage-calculator', 'unit-converter', 'qr-code-generator', 'time-zone-converter'] }
+      ]
+    };
+
+    function getWorkspacesData() {
+      try {
+        const stored = localStorage.getItem('tabkit_workspaces');
+        if (stored) return JSON.parse(stored);
+      } catch (e) {}
+      const legacy = localStorage.getItem('tabkit_pinned_tools');
+      if (legacy) {
+        try {
+          const parsed = JSON.parse(legacy);
+          if (Array.isArray(parsed) && parsed.length > 0) {
+            const initial = JSON.parse(JSON.stringify(DEFAULT_WORKSPACES));
+            initial.list[0].tools = parsed;
+            return initial;
+          }
+        } catch (e) {}
+      }
+      return JSON.parse(JSON.stringify(DEFAULT_WORKSPACES));
+    }
+
+    let workspacesData = getWorkspacesData();
+    let activeWorkspace = workspacesData.list.find(w => w.id === workspacesData.activeId) || workspacesData.list[0];
+    let activePinnedTools = activeWorkspace.tools;
+    let cardWidths = JSON.parse(localStorage.getItem('tabkit_card_widths') || '{}');
 
     function saveWorkspaceState() {
+      activeWorkspace.tools = activePinnedTools;
+      localStorage.setItem('tabkit_workspaces', JSON.stringify(workspacesData));
       localStorage.setItem('tabkit_pinned_tools', JSON.stringify(activePinnedTools));
+      localStorage.setItem('tabkit_card_widths', JSON.stringify(cardWidths));
+      renderWorkspaceTabs();
       renderWorkbench();
       updateStorageIndicator();
     }
 
+    function switchWorkspace(workspaceId) {
+      const target = workspacesData.list.find(w => w.id === workspaceId);
+      if (!target) return;
+      workspacesData.activeId = target.id;
+      activeWorkspace = target;
+      activePinnedTools = target.tools;
+      saveWorkspaceState();
+      if (typeof showToast !== 'undefined') showToast(`Switched to ${target.name}`);
+    }
+
+    function createNewWorkspacePrompt() {
+      const name = prompt('Enter a name for your new deck:', 'Custom Deck');
+      if (!name || !name.trim()) return;
+      const newId = 'deck_' + Date.now();
+      workspacesData.list.push({ id: newId, name: name.trim(), tools: [] });
+      switchWorkspace(newId);
+    }
+
+    function deleteWorkspace(workspaceId, e) {
+      if (e) e.stopPropagation();
+      if (workspacesData.list.length <= 1) {
+        if (typeof showToast !== 'undefined') showToast('Cannot delete the only deck', 'error');
+        return;
+      }
+      const toDelete = workspacesData.list.find(w => w.id === workspaceId);
+      if (!confirm(`Delete deck "${toDelete.name}"?`)) return;
+      workspacesData.list = workspacesData.list.filter(w => w.id !== workspaceId);
+      if (workspacesData.activeId === workspaceId) {
+        workspacesData.activeId = workspacesData.list[0].id;
+      }
+      activeWorkspace = workspacesData.list.find(w => w.id === workspacesData.activeId);
+      activePinnedTools = activeWorkspace.tools;
+      saveWorkspaceState();
+    }
+
+    function renderWorkspaceTabs() {
+      const container = document.getElementById('workspaceTabsList');
+      if (!container) return;
+      container.innerHTML = workspacesData.list.map(w => {
+        const isActive = w.id === workspacesData.activeId;
+        const isCustom = !['main', 'dev', 'media', 'daily'].includes(w.id);
+        return `
+          <div onclick="switchWorkspace('${w.id}')" class="group cursor-pointer px-3 py-1 rounded-lg text-xs font-mono flex items-center gap-2 border transition-all shrink-0 ${
+            isActive 
+              ? 'bg-workspace-accent/15 border-workspace-accent text-workspace-accent font-semibold shadow-[0_0_10px_rgba(16,185,129,0.15)]' 
+              : 'bg-workspace-surface border-workspace-border hover:border-workspace-borderLight text-workspace-muted hover:text-workspace-text'
+          }">
+            <span>${escapeHtml(w.name)}</span>
+            <span class="text-[10px] px-1.5 py-0.2 rounded-full ${isActive ? 'bg-workspace-accent text-black font-bold' : 'bg-workspace-bg text-workspace-muted'}">${w.tools.length}</span>
+            ${isCustom ? `<button onclick="deleteWorkspace('${w.id}', event)" class="opacity-0 group-hover:opacity-100 hover:text-workspace-danger ml-1 text-xs" title="Delete deck">&times;</button>` : ''}
+          </div>
+        `;
+      }).join('');
+    }
+
+    // ==========================================
+    // PINNING & TOOL RENDERING
+    // ==========================================
     async function pinTool(toolId) {
-      if (typeof TOOLS_REGISTRY === 'undefined') return;
-      if (!TOOLS_REGISTRY[toolId]) return;
+      if (typeof TOOLS_REGISTRY === 'undefined' || !TOOLS_REGISTRY[toolId]) return;
       
       if (!activePinnedTools.includes(toolId)) {
         if (typeof loadTool === 'function') {
@@ -187,14 +297,68 @@
         activePinnedTools.push(toolId);
         saveWorkspaceState();
         if (typeof showToast !== 'undefined') showToast(`Pinned ${TOOLS_REGISTRY[toolId].name}`);
+      } else {
+        if (typeof showToast !== 'undefined') showToast(`${TOOLS_REGISTRY[toolId].name} is already pinned.`);
       }
-      closeCommandPalette();
     }
 
     function unpinTool(toolId) {
       activePinnedTools = activePinnedTools.filter(id => id !== toolId);
       saveWorkspaceState();
-      if (typeof showToast !== 'undefined') showToast('Removed from board');
+      if (typeof showToast !== 'undefined') showToast('Tool unpinned from workbench');
+    }
+
+    function toggleCardWidth(toolId) {
+      cardWidths[toolId] = (cardWidths[toolId] === 2) ? 1 : 2;
+      localStorage.setItem('tabkit_card_widths', JSON.stringify(cardWidths));
+      const card = document.getElementById(`card_${toolId}`);
+      if (card) {
+        if (cardWidths[toolId] === 2) {
+          card.classList.remove('col-span-1');
+          card.classList.add('md:col-span-2');
+        } else {
+          card.classList.remove('md:col-span-2');
+          card.classList.add('col-span-1');
+        }
+      }
+      if (typeof showToast !== 'undefined') {
+        showToast(cardWidths[toolId] === 2 ? 'Card expanded to 2 columns' : 'Card set to standard width');
+      }
+    }
+
+    // Drag-and-drop reordering
+    let draggedToolId = null;
+    function handleDragStart(toolId, cardEl, e) {
+      draggedToolId = toolId;
+      e.dataTransfer.setData('text/plain', toolId);
+      e.dataTransfer.effectAllowed = 'move';
+      cardEl.classList.add('opacity-40');
+    }
+    function handleDragEnd(cardEl) {
+      cardEl.classList.remove('opacity-40');
+      document.querySelectorAll('#workbenchGrid > div').forEach(c => c.classList.remove('ring-2', 'ring-workspace-accent/70'));
+    }
+    function handleDragOver(cardEl, e) {
+      e.preventDefault();
+      e.dataTransfer.dropEffect = 'move';
+      cardEl.classList.add('ring-2', 'ring-workspace-accent/70');
+    }
+    function handleDragLeave(cardEl) {
+      cardEl.classList.remove('ring-2', 'ring-workspace-accent/70');
+    }
+    function handleDrop(targetToolId, cardEl, e) {
+      e.preventDefault();
+      cardEl.classList.remove('ring-2', 'ring-workspace-accent/70');
+      const sourceToolId = e.dataTransfer.getData('text/plain') || draggedToolId;
+      if (!sourceToolId || sourceToolId === targetToolId) return;
+
+      const srcIdx = activePinnedTools.indexOf(sourceToolId);
+      const tgtIdx = activePinnedTools.indexOf(targetToolId);
+      if (srcIdx > -1 && tgtIdx > -1) {
+        activePinnedTools.splice(srcIdx, 1);
+        activePinnedTools.splice(tgtIdx, 0, sourceToolId);
+        saveWorkspaceState();
+      }
     }
 
     async function renderWorkbench() {
@@ -204,14 +368,13 @@
 
       if (!grid || !emptyState || !catalogContainer) return;
       
-      // Fallback if tools.js doesn't load
       if (typeof TOOLS_REGISTRY === 'undefined') {
-        catalogContainer.innerHTML = '<p class="text-workspace-danger text-sm p-4 border border-workspace-danger/30 bg-workspace-danger/10 rounded">Error: <b>tools.js</b> failed to load. Ensure tools.js is properly linked in the directory.</p>';
+        catalogContainer.innerHTML = '<p class="text-workspace-danger text-sm p-4 border border-workspace-danger/30 bg-workspace-danger/10 rounded">Error: Registry failed to load.</p>';
         emptyState.classList.remove('hidden');
         return;
       }
 
-      // If user has zero pinned tools, show the "Welcome" dashboard and load the catalog
+      // If user has zero pinned tools, show catalog
       if (activePinnedTools.length === 0) {
         grid.innerHTML = '';
         emptyState.classList.remove('hidden');
@@ -257,10 +420,9 @@
         return;
       }
 
-      // Hide empty state if tools are pinned
       emptyState.classList.add('hidden');
 
-      // Clear out cards that were unpinned
+      // Clear unpinned
       Array.from(grid.children).forEach(card => {
         const id = card.id.replace('card_', '');
         if (!activePinnedTools.includes(id)) {
@@ -268,22 +430,31 @@
         }
       });
 
-      // Load scripts for active pinned tools
+      // Load scripts
       if (typeof loadTool === 'function') {
         await Promise.all(activePinnedTools.map(id => loadTool(id).catch(e => console.error('Failed to load tool:', id, e))));
       }
 
-      // Render the active pinned tools
+      // Render cards in order
       activePinnedTools.forEach(toolId => {
         const tool = TOOLS_REGISTRY[toolId];
         if (!tool || !tool.render) return;
 
         let card = document.getElementById(`card_${toolId}`);
+        const isWide = cardWidths[toolId] === 2;
+
         if (!card) {
           card = document.createElement('div');
-          // Add glassmorphism and hover effects to the tool cards
-          card.className = 'rounded-2xl border border-workspace-border glass-card p-5 flex flex-col justify-between shadow-[0_4px_20px_rgba(0,0,0,0.3)] relative group min-h-[360px] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_8px_30px_rgba(16,185,129,0.08)] hover:border-workspace-borderLight z-10';
           card.id = `card_${toolId}`;
+          card.className = `rounded-2xl border border-workspace-border glass-card p-5 flex flex-col justify-between shadow-[0_4px_20px_rgba(0,0,0,0.3)] relative group min-h-[360px] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_8px_30px_rgba(16,185,129,0.08)] hover:border-workspace-borderLight z-10 ${isWide ? 'md:col-span-2' : 'col-span-1'}`;
+
+          // Drag and drop events
+          card.setAttribute('draggable', 'true');
+          card.ondragstart = (e) => handleDragStart(toolId, card, e);
+          card.ondragend = () => handleDragEnd(card);
+          card.ondragover = (e) => handleDragOver(card, e);
+          card.ondragleave = () => handleDragLeave(card);
+          card.ondrop = (e) => handleDrop(toolId, card, e);
 
           const expandLink = tool.standaloneUrl ? `
             <a href="${tool.standaloneUrl}" title="Open dedicated page" class="flex items-center gap-1 text-[10px] font-mono px-2 py-1 rounded bg-workspace-bg border border-workspace-border hover:border-workspace-accent text-workspace-muted hover:text-workspace-accent transition-colors">
@@ -295,14 +466,17 @@
           ` : '';
 
           card.innerHTML = `
-            <div class="flex items-center justify-between pb-3 border-b border-workspace-border mb-4 h-10 shrink-0">
+            <div class="flex items-center justify-between pb-3 border-b border-workspace-border mb-4 h-10 shrink-0 cursor-grab active:cursor-grabbing" title="Drag card to reorder">
               <div class="flex items-center gap-2.5 overflow-hidden mr-2">
                 <span class="w-2.5 h-2.5 rounded-full bg-workspace-accent shrink-0 shadow-[0_0_8px_rgba(16,185,129,0.6)]"></span>
-                <h3 class="text-sm font-bold text-workspace-text tracking-tight uppercase font-mono truncate">${tool.name}</h3>
+                <h3 class="text-sm font-bold text-workspace-text tracking-tight uppercase font-mono truncate select-none">${tool.name}</h3>
               </div>
               <div class="flex items-center gap-1.5 shrink-0 opacity-80 group-hover:opacity-100 transition-opacity">
                 ${expandLink}
-                <button onclick="unpinTool('${toolId}')" title="Unpin from workbench" class="text-workspace-muted hover:bg-workspace-surfaceHover hover:text-workspace-danger p-1 rounded transition-colors border border-transparent hover:border-workspace-danger/30">
+                <button onclick="toggleCardWidth('${toolId}')" title="Toggle 1-col or 2-col card width" class="text-workspace-muted hover:bg-workspace-surfaceHover hover:text-workspace-accent p-1 rounded transition-colors">
+                  <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8h16M4 16h16" /></svg>
+                </button>
+                <button onclick="unpinTool('${toolId}')" title="Unpin from deck" class="text-workspace-muted hover:bg-workspace-surfaceHover hover:text-workspace-danger p-1 rounded transition-colors border border-transparent hover:border-workspace-danger/30">
                   <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <line x1="18" y1="6" x2="6" y2="18"></line>
                     <line x1="6" y1="6" x2="18" y2="18"></line>
@@ -316,31 +490,37 @@
           `;
           grid.appendChild(card);
           tool.init(toolId);
+        } else {
+          // Re-order DOM element to match activePinnedTools index
+          grid.appendChild(card);
         }
       });
     }
 
+    // ==========================================
+    // BACKUP & RESTORE
+    // ==========================================
     function exportWorkspaceBackup() {
       const backup = {
-        version: 1,
+        version: 2,
         exportedAt: new Date().toISOString(),
+        workspaces: workspacesData,
         data: {}
       };
       for (let i = 0; i < localStorage.length; i++) {
-        const key = localStorage.key(i);
-        if (key && key.startsWith('tabkit_')) {
-          backup.data[key] = localStorage.getItem(key);
+        const k = localStorage.key(i);
+        if (k && k.startsWith('tabkit_')) {
+          backup.data[k] = localStorage.getItem(k);
         }
       }
       const blob = new Blob([JSON.stringify(backup, null, 2)], { type: 'application/json' });
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
-      const d = new Date().toISOString().split('T')[0];
       a.href = url;
-      a.download = `tabkit-backup-${d}.json`;
+      a.download = `tabkit-backup-${new Date().toISOString().slice(0, 10)}.json`;
       a.click();
       URL.revokeObjectURL(url);
-      if (typeof showToast !== 'undefined') showToast('Workspace backup exported');
+      if (typeof showToast !== 'undefined') showToast('Workspace backup downloaded');
     }
 
     function triggerImport() {
@@ -355,31 +535,23 @@
       reader.onload = (e) => {
         try {
           const parsed = JSON.parse(e.target.result);
-          if (!parsed.data || typeof parsed.data !== 'object') {
-            throw new Error('Invalid format');
+          if (parsed.workspaces) {
+            workspacesData = parsed.workspaces;
+            localStorage.setItem('tabkit_workspaces', JSON.stringify(workspacesData));
           }
-
-          const toDelete = [];
-          for (let i = 0; i < localStorage.length; i++) {
-            const k = localStorage.key(i);
-            if (k && k.startsWith('tabkit_')) toDelete.push(k);
+          if (parsed.data) {
+            Object.entries(parsed.data).forEach(([k, v]) => {
+              if (k.startsWith('tabkit_')) localStorage.setItem(k, String(v));
+            });
           }
-          toDelete.forEach(k => localStorage.removeItem(k));
-
-          Object.entries(parsed.data).forEach(([k, v]) => {
-            if (k.startsWith('tabkit_')) {
-              localStorage.setItem(k, String(v));
-            }
-          });
-
-          activePinnedTools = JSON.parse(localStorage.getItem('tabkit_pinned_tools') || '[]');
-          const grid = document.getElementById('workbenchGrid');
-          if (grid) grid.innerHTML = '';
+          activeWorkspace = workspacesData.list.find(w => w.id === workspacesData.activeId) || workspacesData.list[0];
+          activePinnedTools = activeWorkspace.tools;
+          renderWorkspaceTabs();
           renderWorkbench();
           updateStorageIndicator();
-          if (typeof showToast !== 'undefined') showToast('Workspace restored successfully');
+          if (typeof showToast !== 'undefined') showToast('Workspace restored successfully!');
         } catch (err) {
-          if (typeof showToast !== 'undefined') showToast('Failed to import: invalid backup file', 'error');
+          if (typeof showToast !== 'undefined') showToast('Failed to import backup', 'error');
         }
       };
       reader.readAsText(file);
@@ -404,10 +576,14 @@
       }, 300);
     }
 
-    // Command Palette Logic
+    // ==========================================
+    // COMMAND PALETTE WITH KEYBOARD NAV
+    // ==========================================
     const commandModal = document.getElementById('commandPaletteModal');
     const commandInput = document.getElementById('commandInput');
     const commandResults = document.getElementById('commandResultsList');
+    let commandFilteredTools = [];
+    let selectedCommandIndex = 0;
 
     function openCommandPalette() {
       if (!commandModal || !commandInput) return;
@@ -426,70 +602,94 @@
 
     function renderCommandList(query = '') {
       if (!commandResults || typeof TOOLS_REGISTRY === 'undefined') return;
-      
       const q = query.toLowerCase().trim();
-      const tools = Object.values(TOOLS_REGISTRY).filter(t => 
-        t.name.toLowerCase().includes(q) || t.description.toLowerCase().includes(q)
+      commandFilteredTools = Object.values(TOOLS_REGISTRY).filter(t => 
+        t.name.toLowerCase().includes(q) || t.description.toLowerCase().includes(q) || (t.category && t.category.toLowerCase().includes(q))
       );
 
-      if (tools.length === 0) {
+      selectedCommandIndex = 0;
+      if (commandFilteredTools.length === 0) {
         commandResults.innerHTML = '<div class="p-6 text-center text-sm text-workspace-muted font-mono bg-workspace-bg rounded-lg mt-2">No tools found matching your query.</div>';
         return;
       }
 
-      commandResults.innerHTML = tools.map(t => {
+      updateCommandListHtml();
+    }
+
+    function updateCommandListHtml() {
+      commandResults.innerHTML = commandFilteredTools.map((t, idx) => {
         const isPinned = activePinnedTools.includes(t.id);
+        const isSelected = idx === selectedCommandIndex;
         return `
-          <button onclick="pinTool('${t.id}')" class="w-full text-left p-3.5 rounded-xl hover:bg-workspace-surfaceHover flex items-center justify-between group transition-colors border border-transparent hover:border-workspace-borderLight mb-1">
+          <button onclick="pinTool('${t.id}'); closeCommandPalette();" id="cmd_item_${idx}" class="w-full text-left p-3.5 rounded-xl flex items-center justify-between group transition-all border ${
+            isSelected ? 'bg-workspace-accent/15 border-workspace-accent' : 'border-transparent hover:bg-workspace-surfaceHover hover:border-workspace-borderLight'
+          } mb-1">
             <div>
-              <div class="font-bold text-workspace-text group-hover:text-workspace-accent transition-colors text-sm">${t.name}</div>
-              <div class="text-xs text-workspace-muted truncate max-w-[280px] sm:max-w-xs mt-0.5">${t.description}</div>
+              <div class="flex items-center gap-2">
+                <span class="font-bold text-workspace-text group-hover:text-workspace-accent transition-colors text-sm">${escapeHtml(t.name)}</span>
+                <span class="text-[9px] uppercase font-mono px-1.5 py-0.5 rounded bg-workspace-bg text-workspace-muted border border-workspace-border">${escapeHtml(t.category || 'Tool')}</span>
+              </div>
+              <div class="text-xs text-workspace-muted truncate max-w-[280px] sm:max-w-xs mt-0.5">${escapeHtml(t.description)}</div>
             </div>
-            ${isPinned ? '<span class="text-[10px] bg-workspace-bg border border-workspace-border px-2.5 py-1 rounded text-workspace-muted font-mono">Pinned</span>' : '<span class="text-xs font-bold text-workspace-muted group-hover:text-workspace-accent font-mono opacity-0 group-hover:opacity-100 transition-opacity bg-workspace-bg/50 px-2 py-1 rounded">Add +</span>'}
+            ${isPinned ? '<span class="text-[10px] bg-workspace-bg border border-workspace-border px-2.5 py-1 rounded text-workspace-muted font-mono">Pinned</span>' : '<span class="text-xs font-bold text-workspace-accent font-mono bg-workspace-bg/50 px-2 py-1 rounded">Add +</span>'}
           </button>
         `;
       }).join('');
+
+      const activeEl = document.getElementById(`cmd_item_${selectedCommandIndex}`);
+      if (activeEl) activeEl.scrollIntoView({ block: 'nearest' });
     }
 
     if (commandInput) {
       commandInput.addEventListener('input', (e) => renderCommandList(e.target.value));
+      commandInput.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowDown') {
+          e.preventDefault();
+          if (commandFilteredTools.length > 0) {
+            selectedCommandIndex = (selectedCommandIndex + 1) % commandFilteredTools.length;
+            updateCommandListHtml();
+          }
+        } else if (e.key === 'ArrowUp') {
+          e.preventDefault();
+          if (commandFilteredTools.length > 0) {
+            selectedCommandIndex = (selectedCommandIndex - 1 + commandFilteredTools.length) % commandFilteredTools.length;
+            updateCommandListHtml();
+          }
+        } else if (e.key === 'Enter') {
+          e.preventDefault();
+          if (commandFilteredTools[selectedCommandIndex]) {
+            pinTool(commandFilteredTools[selectedCommandIndex].id);
+            closeCommandPalette();
+          }
+        }
+      });
     }
 
-    // Keyboard shortcuts
     window.addEventListener('keydown', (e) => {
-      // Ctrl+K for command palette
       if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
         e.preventDefault();
         openCommandPalette();
       }
-      // ESC to close palette
       if (e.key === 'Escape') {
         closeCommandPalette();
       }
     });
 
-    // Preset loading
+    // Preset buttons on empty dashboard
     const btnLoadStarter = document.getElementById('btnLoadStarterDeck');
     const btnLoadEveryday = document.getElementById('btnLoadEverydayDeck');
     const btnOpenPalette = document.getElementById('btnOpenCommandPalette');
     const btnAddTool = document.getElementById('btnOpenToolCatalog');
 
     if (btnLoadStarter) {
-      btnLoadStarter.onclick = async () => {
+      btnLoadStarter.onclick = () => {
         activePinnedTools = ['json-formatter', 'base64-encoder-decoder', 'text-diff-checker', 'secure-password-generator'];
-        if (typeof loadTool === 'function') {
-          await Promise.all(activePinnedTools.map(id => loadTool(id)));
-        }
         saveWorkspaceState();
       };
     }
-
     if (btnLoadEveryday) {
-      btnLoadEveryday.onclick = async () => {
+      btnLoadEveryday.onclick = () => {
         activePinnedTools = ['percentage-calculator', 'unit-converter', 'qr-code-generator', 'time-zone-converter'];
-        if (typeof loadTool === 'function') {
-          await Promise.all(activePinnedTools.map(id => loadTool(id)));
-        }
         saveWorkspaceState();
       };
     }
@@ -497,27 +697,23 @@
     if (btnOpenPalette) btnOpenPalette.onclick = openCommandPalette;
     if (btnAddTool) btnAddTool.onclick = openCommandPalette;
 
-    // Check for offline support
+    // Service worker
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
         navigator.serviceWorker.register('/sw.js').catch(() => {});
       });
-      if (!navigator.onLine) {
+      const updateNetStatus = () => {
         const ind = document.getElementById('offlineIndicatorLabel');
-        if (ind) ind.textContent = 'Working Offline';
-      }
-      window.addEventListener('offline', () => {
-        const ind = document.getElementById('offlineIndicatorLabel');
-        if (ind) ind.textContent = 'Working Offline';
-      });
-      window.addEventListener('online', () => {
-        const ind = document.getElementById('offlineIndicatorLabel');
-        if (ind) ind.textContent = 'Local & Offline Ready';
-      });
+        if (ind) ind.textContent = navigator.onLine ? 'Local & Offline Ready' : 'Working Offline';
+      };
+      window.addEventListener('offline', updateNetStatus);
+      window.addEventListener('online', updateNetStatus);
+      updateNetStatus();
     }
 
-    // Initial render
-    document.addEventListener("DOMContentLoaded", () => {
+    // Initialize workbench
+    document.addEventListener('DOMContentLoaded', () => {
+      renderWorkspaceTabs();
       renderWorkbench();
       updateStorageIndicator();
     });
