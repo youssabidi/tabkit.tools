@@ -1,4 +1,4 @@
-const CACHE_NAME = 'tabkit-v2';
+const CACHE_NAME = 'tabkit-v3';
 const ASSETS_TO_CACHE = [
   '/',
   '/index.html',
