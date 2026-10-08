@@ -29,6 +29,7 @@
   }
 }
 
+/* Base Scrollbars & Background Effects */
 ::-webkit-scrollbar { width: 6px; height: 6px; }
 ::-webkit-scrollbar-track { background: var(--color-workspace-bg); }
 ::-webkit-scrollbar-thumb { background: var(--color-workspace-border); border-radius: 3px; }
@@ -44,19 +45,86 @@
   -webkit-backdrop-filter: blur(12px);
 }
 
-@layer base {
-  html.theme-light {
-    --color-workspace-bg: #F3F4F6;
-    --color-workspace-surface: #FFFFFF;
-    --color-workspace-surfaceHover: #F9FAFB;
-    --color-workspace-border: #E5E7EB;
-    --color-workspace-borderLight: #D1D5DB;
-    --color-workspace-text: #111827;
-    --color-workspace-muted: #6B7280;
-    /* accent remains the same green */
-  }
-  html.theme-light .glass-card {
-    background: rgba(255, 255, 255, 0.85);
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
-  }
+/* ========================================================
+   LIGHT THEME OVERRIDES (High-Contrast, Modern, Clean)
+   ======================================================== */
+html.theme-light {
+  --color-workspace-bg: #F8FAFC;
+  --color-workspace-surface: #FFFFFF;
+  --color-workspace-surfaceHover: #F1F5F9;
+  --color-workspace-border: #E2E8F0;
+  --color-workspace-borderLight: #CBD5E1;
+  --color-workspace-text: #0F172A;
+  --color-workspace-muted: #64748B;
+  --color-workspace-accent: #059669;
+  --color-workspace-accentHover: #047857;
+}
+
+html.theme-light body {
+  background-color: #F8FAFC !important;
+  color: #0F172A !important;
+}
+
+/* Cards & Surfaces */
+html.theme-light .glass-card {
+  background: rgba(255, 255, 255, 0.95) !important;
+  border-color: #E2E8F0 !important;
+  box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.06), 0 2px 6px -1px rgba(15, 23, 42, 0.04) !important;
+}
+
+html.theme-light .bg-workspace-surface {
+  background-color: #FFFFFF !important;
+}
+
+html.theme-light .bg-workspace-bg {
+  background-color: #F8FAFC !important;
+}
+
+html.theme-light .border-workspace-border {
+  border-color: #E2E8F0 !important;
+}
+
+/* Make all headings and white text high-contrast dark charcoal in light mode */
+html.theme-light .text-white {
+  color: #0F172A !important;
+}
+
+html.theme-light h1,
+html.theme-light h2,
+html.theme-light h3,
+html.theme-light h4 {
+  color: #0F172A;
+}
+
+/* Inputs, Textareas, Selects */
+html.theme-light input:not([type="checkbox"]):not([type="radio"]),
+html.theme-light textarea,
+html.theme-light select {
+  background-color: #FFFFFF !important;
+  color: #0F172A !important;
+  border-color: #CBD5E1 !important;
+}
+
+html.theme-light input::placeholder,
+html.theme-light textarea::placeholder {
+  color: #94A3B8 !important;
+}
+
+/* Dot Grid & Ambient Blobs in Light Mode */
+html.theme-light .bg-dot-grid {
+  background-image: radial-gradient(#CBD5E1 1px, transparent 1px) !important;
+}
+
+html.theme-light .animate-blob,
+html.theme-light .animate-blob-reverse {
+  opacity: 0.25 !important;
+  mix-blend-mode: multiply !important;
+}
+
+/* Badges, Code & Kbd */
+html.theme-light kbd,
+html.theme-light code {
+  background-color: #F1F5F9 !important;
+  color: #0F172A !important;
+  border-color: #E2E8F0 !important;
 }

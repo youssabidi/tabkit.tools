@@ -34,7 +34,7 @@ class ToolHeader extends HTMLElement {
         <div class="flex items-center gap-3 font-mono text-xs">
 
           <button onclick="toggleTheme()" class="px-2 py-1 rounded-lg hover:bg-workspace-accent/10 text-workspace-muted hover:text-workspace-accent transition-all" title="Toggle Theme">
-            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <svg class="w-4 h-4 theme-toggle-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
               <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
             </svg>
           </button>
@@ -44,6 +44,9 @@ class ToolHeader extends HTMLElement {
         </div>
       </header>
     `;
+    if (typeof updateThemeUI === 'function') {
+      updateThemeUI();
+    }
   }
 }
 
