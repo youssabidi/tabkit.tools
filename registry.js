@@ -18,14 +18,14 @@ window.TOOLS_REGISTRY = {
     "id": "chmod-calculator",
     "name": "Visual chmod Permissions Calculator",
     "category": "Developer",
-    "standaloneUrl": null,
+    "standaloneUrl": "/chmod-calculator.html",
     "description": "Interactive visual permission calculator for Linux/Unix file permissions with octal and symbolic modes."
   },
   "curl-converter": {
     "id": "curl-converter",
     "name": "cURL to Fetch / Axios / Python Converter",
     "category": "Developer",
-    "standaloneUrl": null,
+    "standaloneUrl": "/curl-converter.html",
     "description": "Convert cURL requests into copy-pasteable JavaScript fetch, Node.js axios, and Python requests code."
   },
   "date-calculator": {
@@ -46,7 +46,7 @@ window.TOOLS_REGISTRY = {
     "id": "exif-metadata-stripper",
     "name": "Photo EXIF & GPS Metadata Stripper",
     "category": "Privacy",
-    "standaloneUrl": null,
+    "standaloneUrl": "/exif-metadata-stripper.html",
     "description": "Strip hidden GPS coordinates, camera serial numbers, and device metadata from photos before sharing."
   },
   "hex-color-converter": {
@@ -60,7 +60,7 @@ window.TOOLS_REGISTRY = {
     "id": "image-compressor",
     "name": "Client-Side Image Compressor & WebP",
     "category": "Media",
-    "standaloneUrl": null,
+    "standaloneUrl": "/image-compressor.html",
     "description": "Compress PNG, JPEG, and WebP images locally inside your browser with zero server uploads."
   },
   "json-formatter": {
@@ -74,14 +74,14 @@ window.TOOLS_REGISTRY = {
     "id": "json-to-typescript",
     "name": "JSON to TypeScript & Zod Schema",
     "category": "Developer",
-    "standaloneUrl": null,
+    "standaloneUrl": "/json-to-typescript.html",
     "description": "Convert JSON payloads into clean TypeScript interfaces, types, and Zod validation schemas."
   },
   "pdf-splitter": {
     "id": "pdf-splitter",
     "name": "Client-Side PDF Splitter & Page Remover",
     "category": "Privacy",
-    "standaloneUrl": null,
+    "standaloneUrl": "/pdf-splitter.html",
     "description": "Extract specific pages or split multi-page PDF documents locally in your browser with zero server uploads."
   },
   "percentage-calculator": {
@@ -130,14 +130,14 @@ window.TOOLS_REGISTRY = {
     "id": "social-seo-previewer",
     "name": "Social Media & Google SERP Previewer",
     "category": "Marketing",
-    "standaloneUrl": null,
+    "standaloneUrl": "/social-seo-previewer.html",
     "description": "Simulate how your meta tags, title, and description will look on Google Search and X (Twitter)."
   },
   "svg-optimizer": {
     "id": "svg-optimizer",
     "name": "SVG Optimizer & React / CSS Exporter",
     "category": "Design",
-    "standaloneUrl": null,
+    "standaloneUrl": "/svg-optimizer.html",
     "description": "Clean and minify SVG markup, convert to CSS Data URIs, and export to React JSX components."
   },
   "text-diff-checker": {
@@ -165,7 +165,7 @@ window.TOOLS_REGISTRY = {
     "id": "unix-timestamp-converter",
     "name": "Unix Timestamp & Epoch Converter",
     "category": "Developer",
-    "standaloneUrl": null,
+    "standaloneUrl": "/unix-timestamp-converter.html",
     "description": "Convert between Unix timestamps (seconds & milliseconds), UTC dates, local timezones, and relative time."
   },
   "url-link-cleaner": {

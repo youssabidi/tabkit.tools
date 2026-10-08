@@ -46,9 +46,12 @@ window.TOOLS_REGISTRY['pdf-splitter'] = Object.assign(window.TOOLS_REGISTRY['pdf
       return new Promise((resolve, reject) => {
         if (window.PDFLib) return resolve(window.PDFLib);
         const script = document.createElement('script');
-        script.src = 'https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.9/pdf-lib.min.js';
+        script.src = 'pdf-lib.min.js';
         script.onload = () => resolve(window.PDFLib);
-        script.onerror = () => reject(new Error('Failed to load PDF engine'));
+        script.onerror = () => {
+          document.getElementById(`${toolId}_status`).textContent = 'Error: Failed to load PDF engine';
+          reject(new Error('Failed to load PDF engine'));
+        };
         document.head.appendChild(script);
       });
     }
