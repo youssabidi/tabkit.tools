@@ -1,41 +1,39 @@
-# TabKit Tools - Development Roadmap
+# TabKit Tools - Master Roadmap
 
-## 1. Dashboard UX & Customization (The "Pro" Feel)
-- [ ] **Drag-and-Drop Reordering:** Allow users to click and drag tools on the grid to rearrange their layout.
-- [ ] **Collapsible / Resizable Cards:** Add a "minimize" button to tool cards, or allow cards to span 2 columns (useful for the Text Diff Checker).
-- [ ] **Light / Dark / System Theme:** Add a theme toggle that saves to `localStorage`.
-- [ ] **Keyboard Navigation (a11y):** Enhance the `Ctrl+K` command palette so users can navigate results with the `Up/Down` arrow keys and hit `Enter` to pin a tool.
+## Phase 1: Polish & App Experience (The "Premium" Feel)
+*Goal: Make the existing 25 tools feel like a professional, expensive desktop app.*
+- [ ] **Light / Dark Theme Toggle:** Add a slick switch that remembers the user's preference using `localStorage`.
+- [ ] **"Install App" Button (PWA):** Expose a button so users can install TabKit to their Windows Desktop or Phone home screen for instant offline access.
+- [ ] **Instant Search & Keyboard Navigation:** Upgrade the tool drawer so users can type to instantly filter the 25 tools, and navigate with their arrow keys.
+- [ ] **Syntax Highlighting:** Add colorful text rendering to the JSON Formatter so code is actually readable.
 
-## 2. Powerful New Developer & Utility Tools
-- [ ] **JWT Decoder:** Decode JSON Web Tokens (JWT) locally to read the payload without pasting secure tokens into random websites.
-- [ ] **Regex Tester:** A local sandbox to write and test Regular Expressions against dummy text, with live highlighting.
-- [ ] **Markdown Preview & Editor:** A dual-pane editor where typing Markdown on the left renders formatted HTML on the right.
-- [ ] **CRON Job Translator:** Translate `0 12 * * 1-5` into human-readable text ("At 12:00 PM, Monday through Friday").
-- [ ] **CSS Format/Minify:** Similar to the JSON tool, but for CSS.
+## Phase 2: Workspace Customization (User Control)
+*Goal: Allow users to make the dashboard truly their own, which keeps them coming back.*
+- [ ] **Drag-and-Drop Reordering:** Let users click, hold, and drag tool cards to reorganize their grid.
+- [ ] **Resizable Cards:** Allow certain tools (like the Text Diff Checker or PDF Splitter) to be dragged wider to span two columns for better visibility.
+- [ ] **Multiple Workspaces (Tabs):** Let users create separate dashboards (e.g., a "Dev Tools" tab, a "Daily Admin" tab) instead of cramping everything into one grid.
 
-## 3. Enhancements to Existing Tools
-- [ ] **JSON Formatter:** Add **Syntax Highlighting** (coloring keys blue, strings green, etc.).
-- [ ] **Pomodoro Timer:** Add browser notifications (via the Notification API) when a sprint finishes.
-- [ ] **World Time Zone:** Add the ability to rename a pinned time zone (e.g., rename "America/Los_Angeles" to "Dev Team HQ").
+## Phase 3: "Supercharging" Existing Tools
+*Goal: Take the best tools and make them vastly superior to standard online converters.*
+- [ ] **Visual PDF Splitter:** Instead of typing page numbers, show actual image thumbnails of the PDF pages so the user can click to delete them.
+- [ ] **Batch Image Compression:** Allow users to drop multiple images at once into the compressor, and add width/height resizing sliders.
+- [ ] **Browser Notifications:** Connect the Pomodoro Timer to the browser's native notification system so it pings the user even if they are in another tab.
+- [ ] **Tool Chaining ("Send To..."):** Add a button that lets a user send data directly from one tool to another (e.g., format JSON, then click "Send to TypeScript Converter").
 
-## 4. Codebase Architecture (DRY)
-- [x] **Web Components:** Extract the `<header>` and `<footer>` into native HTML Web Components so navigation updates only need to be made in one file.
-- [x] **Dynamic Script Loading:** Split `tools.js` into smaller modules. Load tool logic only when a user pins that specific tool (e.g., `tools/qr-code-generator.js`).
+## Phase 4: High-Value New Tools (Expanding the Arsenal)
+*Goal: Build highly-requested developer/data tools to attract specific niches.*
+- [ ] **Markdown Preview Editor:** A dual-pane text editor that renders HTML live as you type.
+- [ ] **CSV ↔ JSON Converter:** For data analysts wanting instant offline data conversion.
+- [ ] **Regex Tester:** A sandbox for developers to test code patterns safely.
+- [ ] **JWT Decoder:** Decode JSON Web Tokens locally to read payloads securely.
+- [ ] **Image to Base64 (Data URI):** Quickly drop an image to get its CSS-ready string.
+- [ ] **Bulk UUID / GUID Generator:** Generate thousands of unique identifiers offline.
+- [ ] **SQL Formatter:** Beautify and format messy, single-line SQL queries.
 
-## 5. Progressive Web App (PWA) Upgrades
-- [ ] **"Install App" Button:** Add a button in the header that triggers the native browser prompt to "Install as App" (Desktop/Mobile).
-- [ ] **Update Notification:** Modify the Service Worker to detect new code publications and show a "Refresh to update" toast.
-## 6. New Data & Developer Tools
-CSV ↔ JSON Converter: Instantly convert CSV data from Excel into JSON arrays, or vice versa, completely locally.
-URL & HTML Entity Encoder/Decoder: A quick tool to encode/decode URL strings (%20, %3F) and HTML entities (&amp;, &lt;).
-Bulk UUID / GUID Generator: Generate thousands of unique identifiers (v4) instantly using the crypto.randomUUID() API.
-Image to Base64 (Data URI) Generator: Allow users to drop a small image file (PNG/SVG) into the browser and instantly get the Base64 string for CSS/HTML embedding using the FileReader API.
-SQL Formatter: Beautify and format messy, single-line SQL queries into readable, indented code.
-## 7. Advanced Workspace Features
-Multiple Workspaces (Tabs): Instead of just one grid, allow users to create multiple dashboards (e.g., "Development", "Writing", "Daily Admin") and switch between them.
-Local History & Logs: For tools like the Hash Generator, Base64, or Password Generator, keep a short "Last 5 Results" history log stored securely in local memory.
-Collapsible Sidebar: As the tool catalog grows to 50+, a sidebar for navigating categories (Text, Math, Dev, Media) might be faster than the command palette for discovery.
-Local Usage Stats (Gamification): A strictly offline dashboard showing stats like "Time spent in Pomodoro," "URLs Cleaned," or "Passwords Generated."
-## 8. Enhanced Data Portability
-Encrypted Cloud Sync (Opt-in): While the app is zero-server, you could add a feature where users can connect their own Google Drive or Dropbox to sync their tabkit_pinned_tools and settings across devices using OAuth.
-Auto-Backup: Automatically trigger a JSON download of the user's workspace config every Friday.
+---
+
+## ✅ Completed Milestones
+- [x] **Web Components Architecture:** Extract `<header>` and `<footer>` for DRY navigation.
+- [x] **Dynamic Script Loading:** Split monolithic `tools.js` into modular files (`tools/*.js`) that load only when pinned.
+- [x] **Offline Privacy Suite:** Built 9 new offline tools (PDF Splitter, Image Compressor, EXIF Stripper, curl converter, etc.).
+- [x] **CSS Compilation:** Migrated from Tailwind CDN to a local compiled `styles.css` using Tailwind v4.

@@ -30,15 +30,33 @@
 }
 
 ::-webkit-scrollbar { width: 6px; height: 6px; }
-::-webkit-scrollbar-track { background: #0F1117; }
-::-webkit-scrollbar-thumb { background: #262A34; border-radius: 3px; }
-::-webkit-scrollbar-thumb:hover { background: #353B49; }
+::-webkit-scrollbar-track { background: var(--color-workspace-bg); }
+::-webkit-scrollbar-thumb { background: var(--color-workspace-border); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--color-workspace-borderLight); }
+
 .bg-dot-grid {
-  background-image: radial-gradient(#262A34 1px, transparent 1px);
+  background-image: radial-gradient(var(--color-workspace-border) 1px, transparent 1px);
   background-size: 20px 20px;
 }
 .glass-card {
   background: rgba(26, 29, 36, 0.7);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
+}
+
+@layer base {
+  html.theme-light {
+    --color-workspace-bg: #F3F4F6;
+    --color-workspace-surface: #FFFFFF;
+    --color-workspace-surfaceHover: #F9FAFB;
+    --color-workspace-border: #E5E7EB;
+    --color-workspace-borderLight: #D1D5DB;
+    --color-workspace-text: #111827;
+    --color-workspace-muted: #6B7280;
+    /* accent remains the same green */
+  }
+  html.theme-light .glass-card {
+    background: rgba(255, 255, 255, 0.85);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  }
 }

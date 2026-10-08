@@ -1,3 +1,18 @@
+// Theme Initialization (Run immediately to prevent FOUC)
+(function() {
+  const savedTheme = localStorage.getItem('tabkit_theme') || 'dark';
+  if (savedTheme === 'light') {
+    document.documentElement.classList.add('theme-light');
+  } else {
+    document.documentElement.classList.remove('theme-light');
+  }
+})();
+
+function toggleTheme() {
+  const isLight = document.documentElement.classList.toggle('theme-light');
+  localStorage.setItem('tabkit_theme', isLight ? 'light' : 'dark');
+}
+
 // ==========================================
 // SHARED UTILITY HELPERS
 // ==========================================
