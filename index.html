@@ -14,66 +14,11 @@
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
 
   <!-- Tailwind CSS CDN -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          fontFamily: {
-            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
-            mono: ['"JetBrains Mono"', 'monospace']
-          },
-          colors: {
-            workspace: {
-              bg: '#0F1117',
-              surface: '#1A1D24',
-              surfaceHover: '#222630',
-              border: '#262A34',
-              borderLight: '#353B49',
-              text: '#E6EDF3',
-              muted: '#8B949E',
-              accent: '#10B981',
-              accentHover: '#059669',
-              danger: '#EF4444'
-            }
-          },
-          animation: {
-            'blob': 'blob 10s infinite alternate',
-            'blob-reverse': 'blob-reverse 12s infinite alternate',
-          },
-          keyframes: {
-            blob: {
-              '0%': { transform: 'translate(0px, 0px) scale(1)' },
-              '100%': { transform: 'translate(30px, -50px) scale(1.1)' },
-            },
-            'blob-reverse': {
-              '0%': { transform: 'translate(0px, 0px) scale(1)' },
-              '100%': { transform: 'translate(-30px, 50px) scale(1.1)' },
-            }
-          }
-        }
-      }
-    };
-  </script>
-
+  <link rel="stylesheet" href="styles.css" />
   <!-- Client-Side QR Code Engine -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 
-  <style>
-    ::-webkit-scrollbar { width: 6px; height: 6px; }
-    ::-webkit-scrollbar-track { background: #0F1117; }
-    ::-webkit-scrollbar-thumb { background: #262A34; border-radius: 3px; }
-    ::-webkit-scrollbar-thumb:hover { background: #353B49; }
-    .bg-dot-grid {
-      background-image: radial-gradient(#262A34 1px, transparent 1px);
-      background-size: 20px 20px;
-    }
-    .glass-card {
-      background: rgba(26, 29, 36, 0.7);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-    }
-  </style>
+  
 </head>
 
 <body class="bg-workspace-bg text-workspace-text font-sans antialiased min-h-screen flex flex-col selection:bg-workspace-accent selection:text-black relative overflow-x-hidden">

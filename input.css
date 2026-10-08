@@ -1,0 +1,44 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Plus Jakarta Sans", sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
+  
+  --color-workspace-bg: #0F1117;
+  --color-workspace-surface: #1A1D24;
+  --color-workspace-surfaceHover: #222630;
+  --color-workspace-border: #262A34;
+  --color-workspace-borderLight: #353B49;
+  --color-workspace-text: #E6EDF3;
+  --color-workspace-muted: #8B949E;
+  --color-workspace-accent: #10B981;
+  --color-workspace-accentHover: #059669;
+  --color-workspace-danger: #EF4444;
+
+  --animate-blob: blob 10s infinite alternate;
+  --animate-blob-reverse: blob-reverse 12s infinite alternate;
+
+  @keyframes blob {
+    0% { transform: translate(0px, 0px) scale(1); }
+    100% { transform: translate(30px, -50px) scale(1.1); }
+  }
+
+  @keyframes blob-reverse {
+    0% { transform: translate(0px, 0px) scale(1); }
+    100% { transform: translate(-30px, 50px) scale(1.1); }
+  }
+}
+
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: #0F1117; }
+::-webkit-scrollbar-thumb { background: #262A34; border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #353B49; }
+.bg-dot-grid {
+  background-image: radial-gradient(#262A34 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+.glass-card {
+  background: rgba(26, 29, 36, 0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
