@@ -29,7 +29,7 @@ window.TOOLS_REGISTRY = window.TOOLS_REGISTRY || {};
 window.TOOLS_REGISTRY['percentage-calculator'] = Object.assign(window.TOOLS_REGISTRY['percentage-calculator'] || {}, {
     id: 'percentage-calculator',
     name: 'Online Percentage Calculator',
-    category: 'Utilities',
+    category: 'Productivity & Math',
     standaloneUrl: '/percentage-calculator.html',
     description: 'Everyday percentage calculator for discounts, tips, and fractions.',
     render: (toolId) => `

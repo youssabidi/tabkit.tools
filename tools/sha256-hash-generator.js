@@ -38,7 +38,7 @@ window.TOOLS_REGISTRY = window.TOOLS_REGISTRY || {};
 window.TOOLS_REGISTRY['sha256-hash-generator'] = Object.assign(window.TOOLS_REGISTRY['sha256-hash-generator'] || {}, {
     id: 'sha256-hash-generator',
     name: 'SHA-256 Hash Generator',
-    category: 'Security',
+    category: 'Privacy & Security',
     standaloneUrl: '/sha256-hash-generator.html',
     description: 'Generate SHA-256, SHA-384, and SHA-512 hashes instantly.',
     render: (toolId) => `

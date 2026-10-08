@@ -48,7 +48,7 @@ window.TOOLS_REGISTRY = window.TOOLS_REGISTRY || {};
 window.TOOLS_REGISTRY['regex-tester'] = Object.assign(window.TOOLS_REGISTRY['regex-tester'] || {}, {
   id: 'regex-tester',
   name: 'Regular Expression (Regex) Live Tester',
-  category: 'Developer',
+  category: 'Developer & Code',
   standaloneUrl: '/regex-tester.html',
   description: 'Test, debug, and highlight regular expressions against sample text with live capture badges and cheatsheets.',
   render: (toolId) => `

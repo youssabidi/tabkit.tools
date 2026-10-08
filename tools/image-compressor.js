@@ -3,7 +3,7 @@ window.TOOLS_REGISTRY = window.TOOLS_REGISTRY || {};
 window.TOOLS_REGISTRY['image-compressor'] = Object.assign(window.TOOLS_REGISTRY['image-compressor'] || {}, {
   id: 'image-compressor',
   name: 'Client-Side Image Compressor & WebP',
-  category: 'Media',
+  category: 'Media & Design',
   standaloneUrl: '/image-compressor.html',
   description: 'Batch compress PNG, JPEG, and WebP images locally with dimension scaling and zero server uploads.',
   render: (toolId) => `

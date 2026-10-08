@@ -3,7 +3,7 @@ window.TOOLS_REGISTRY = window.TOOLS_REGISTRY || {};
 window.TOOLS_REGISTRY['time-zone-converter'] = Object.assign(window.TOOLS_REGISTRY['time-zone-converter'] || {}, {
     id: 'time-zone-converter',
     name: 'World Time Zone Converter',
-    category: 'Productivity',
+    category: 'Productivity & Math',
     standaloneUrl: '/time-zone-converter.html',
     description: 'Interactive world clock with 25,000+ searchable cities and synchronized hour slider.',
     render: (toolId) => `

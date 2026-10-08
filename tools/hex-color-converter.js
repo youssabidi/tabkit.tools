@@ -44,7 +44,7 @@ window.TOOLS_REGISTRY = window.TOOLS_REGISTRY || {};
 window.TOOLS_REGISTRY['hex-color-converter'] = Object.assign(window.TOOLS_REGISTRY['hex-color-converter'] || {}, {
     id: 'hex-color-converter',
     name: 'HEX to RGB Color Converter',
-    category: 'Developer',
+    category: 'Media & Design',
     standaloneUrl: '/hex-color-converter.html',
     description: 'Convert colors between HEX, RGB, and HSL formats.',
     render: (toolId) => `

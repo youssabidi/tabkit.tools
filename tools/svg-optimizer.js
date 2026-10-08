@@ -3,7 +3,7 @@ window.TOOLS_REGISTRY = window.TOOLS_REGISTRY || {};
 window.TOOLS_REGISTRY['svg-optimizer'] = Object.assign(window.TOOLS_REGISTRY['svg-optimizer'] || {}, {
   id: 'svg-optimizer',
   name: 'SVG Optimizer & React / CSS Exporter',
-  category: 'Design',
+  category: 'Media & Design',
   description: 'Clean and minify SVG markup, convert to CSS Data URIs, and export to React JSX components.',
   render: (toolId) => `
     <div class="flex flex-col h-full justify-between space-y-2 font-sans text-xs">

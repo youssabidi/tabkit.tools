@@ -28,7 +28,7 @@ window.TOOLS_REGISTRY = window.TOOLS_REGISTRY || {};
 window.TOOLS_REGISTRY['random-name-picker'] = Object.assign(window.TOOLS_REGISTRY['random-name-picker'] || {}, {
     id: 'random-name-picker',
     name: 'Random Name Picker & Wheel',
-    category: 'Utilities',
+    category: 'Productivity & Math',
     standaloneUrl: '/random-name-picker.html',
     description: 'Pick a random name from a list or generate a random number.',
     render: (toolId) => `

@@ -42,7 +42,7 @@ window.TOOLS_REGISTRY = window.TOOLS_REGISTRY || {};
 window.TOOLS_REGISTRY['case-converter'] = Object.assign(window.TOOLS_REGISTRY['case-converter'] || {}, {
     id: 'case-converter',
     name: 'Case Converter & Word Counter',
-    category: 'Text',
+    category: 'Text & Data',
     standaloneUrl: '/case-converter.html',
     description: 'Deduplicate lines, toggle cases, and count words and characters without uploads.',
     render: (toolId) => `

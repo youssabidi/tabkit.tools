@@ -3,7 +3,7 @@ window.TOOLS_REGISTRY = window.TOOLS_REGISTRY || {};
 window.TOOLS_REGISTRY['image-to-base64'] = Object.assign(window.TOOLS_REGISTRY['image-to-base64'] || {}, {
   id: 'image-to-base64',
   name: 'Image to Base64 (Data URI) Generator',
-  category: 'Media',
+  category: 'Media & Design',
   standaloneUrl: '/image-to-base64.html',
   description: 'Convert PNG, JPG, or SVG images into copy-pasteable Base64 Data URIs, HTML tags, and CSS snippets.',
   render: (toolId) => `

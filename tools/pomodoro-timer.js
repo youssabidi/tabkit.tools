@@ -110,7 +110,7 @@ window.TOOLS_REGISTRY = window.TOOLS_REGISTRY || {};
 window.TOOLS_REGISTRY['pomodoro-timer'] = Object.assign(window.TOOLS_REGISTRY['pomodoro-timer'] || {}, {
   id: 'pomodoro-timer',
   name: 'Pomodoro Timer Online',
-  category: 'Productivity',
+  category: 'Productivity & Math',
   standaloneUrl: '/pomodoro-timer.html',
   description: 'Countdown timer with sound chimes and native background notifications for focused work sprints.',
   render: (toolId) => `

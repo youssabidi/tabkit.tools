@@ -3,7 +3,7 @@ window.TOOLS_REGISTRY = window.TOOLS_REGISTRY || {};
 window.TOOLS_REGISTRY['pdf-splitter'] = Object.assign(window.TOOLS_REGISTRY['pdf-splitter'] || {}, {
   id: 'pdf-splitter',
   name: 'Client-Side PDF Splitter & Page Remover',
-  category: 'Privacy',
+  category: 'Privacy & Security',
   standaloneUrl: '/pdf-splitter.html',
   description: 'Extract specific pages or split multi-page PDF documents locally with visual page chips and zero server uploads.',
   render: (toolId) => `

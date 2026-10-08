@@ -68,7 +68,7 @@ window.TOOLS_REGISTRY = window.TOOLS_REGISTRY || {};
 window.TOOLS_REGISTRY['text-diff-checker'] = Object.assign(window.TOOLS_REGISTRY['text-diff-checker'] || {}, {
     id: 'text-diff-checker',
     name: 'Text Diff Checker & Notepad',
-    category: 'Workspace',
+    category: 'Text & Data',
     standaloneUrl: '/text-diff-checker.html',
     description: 'Auto-saving local notes and true line-by-line diff comparison.',
     render: (toolId) => `

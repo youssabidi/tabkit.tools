@@ -3,7 +3,7 @@ window.TOOLS_REGISTRY = window.TOOLS_REGISTRY || {};
 window.TOOLS_REGISTRY['social-seo-previewer'] = Object.assign(window.TOOLS_REGISTRY['social-seo-previewer'] || {}, {
   id: 'social-seo-previewer',
   name: 'Social Media & Google SERP Previewer',
-  category: 'Marketing',
+  category: 'Media & Design',
   description: 'Simulate how your meta tags, title, and description will look on Google Search, X (Twitter), and LinkedIn.',
   render: (toolId) => `
     <div class="flex flex-col h-full justify-between space-y-2 font-sans text-xs">

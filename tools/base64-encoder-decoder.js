@@ -23,7 +23,7 @@ window.TOOLS_REGISTRY = window.TOOLS_REGISTRY || {};
 window.TOOLS_REGISTRY['base64-encoder-decoder'] = Object.assign(window.TOOLS_REGISTRY['base64-encoder-decoder'] || {}, {
     id: 'base64-encoder-decoder',
     name: 'Base64 Encoder / Decoder',
-    category: 'Developer',
+    category: 'Privacy & Security',
     standaloneUrl: '/base64-encoder-decoder.html',
     description: 'Encode or decode text to Base64 format locally.',
     render: (toolId) => `

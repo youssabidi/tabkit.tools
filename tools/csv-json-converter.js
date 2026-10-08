@@ -66,7 +66,7 @@ window.TOOLS_REGISTRY = window.TOOLS_REGISTRY || {};
 window.TOOLS_REGISTRY['csv-json-converter'] = Object.assign(window.TOOLS_REGISTRY['csv-json-converter'] || {}, {
   id: 'csv-json-converter',
   name: 'CSV ↔ JSON Converter',
-  category: 'Data',
+  category: 'Text & Data',
   standaloneUrl: '/csv-json-converter.html',
   description: 'Convert CSV spreadsheets to JSON arrays or transform JSON objects back into CSV tables locally.',
   render: (toolId) => `

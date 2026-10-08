@@ -55,7 +55,7 @@ window.TOOLS_REGISTRY = window.TOOLS_REGISTRY || {};
 window.TOOLS_REGISTRY['markdown-preview'] = Object.assign(window.TOOLS_REGISTRY['markdown-preview'] || {}, {
   id: 'markdown-preview',
   name: 'Markdown Live Editor & HTML Preview',
-  category: 'Text',
+  category: 'Text & Data',
   standaloneUrl: '/markdown-preview.html',
   description: 'Write, preview, and convert GitHub-flavored Markdown into clean HTML with live dual-view rendering.',
   render: (toolId) => `

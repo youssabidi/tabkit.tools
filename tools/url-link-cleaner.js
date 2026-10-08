@@ -68,7 +68,7 @@ window.TOOLS_REGISTRY = window.TOOLS_REGISTRY || {};
 window.TOOLS_REGISTRY['url-link-cleaner'] = Object.assign(window.TOOLS_REGISTRY['url-link-cleaner'] || {}, {
     id: 'url-link-cleaner',
     name: 'URL Tracking Link Cleaner',
-    category: 'Links',
+    category: 'Privacy & Security',
     standaloneUrl: '/url-link-cleaner.html',
     description: 'Extract URLs, strip tracking tags (UTM, fbclid, gclid), and copy clean links.',
     render: (toolId) => `

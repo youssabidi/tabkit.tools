@@ -29,7 +29,7 @@ window.TOOLS_REGISTRY = window.TOOLS_REGISTRY || {};
 window.TOOLS_REGISTRY['uuid-generator'] = Object.assign(window.TOOLS_REGISTRY['uuid-generator'] || {}, {
   id: 'uuid-generator',
   name: 'Bulk UUID / GUID v4 Generator',
-  category: 'Developer',
+  category: 'Productivity & Math',
   standaloneUrl: '/uuid-generator.html',
   description: 'Generate bulk cryptographically secure UUID v4 identifiers locally with custom formatting and uppercase toggles.',
   render: (toolId) => `

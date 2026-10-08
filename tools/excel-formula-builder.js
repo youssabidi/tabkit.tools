@@ -3,7 +3,7 @@ window.TOOLS_REGISTRY = window.TOOLS_REGISTRY || {};
 window.TOOLS_REGISTRY['excel-formula-builder'] = Object.assign(window.TOOLS_REGISTRY['excel-formula-builder'] || {}, {
     id: 'excel-formula-builder',
     name: 'Excel Formula Builder Cheat Sheet',
-    category: 'Data',
+    category: 'Text & Data',
     standaloneUrl: '/excel-formula-builder.html',
     description: 'Massive offline registry of Excel/Sheets formulas with a fill-in-the-blanks builder.',
     render: (toolId) => `

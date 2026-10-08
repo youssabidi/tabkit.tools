@@ -59,7 +59,7 @@ window.TOOLS_REGISTRY = window.TOOLS_REGISTRY || {};
 window.TOOLS_REGISTRY['secure-password-generator'] = Object.assign(window.TOOLS_REGISTRY['secure-password-generator'] || {}, {
     id: 'secure-password-generator',
     name: 'Secure Password Generator',
-    category: 'Security',
+    category: 'Privacy & Security',
     standaloneUrl: '/random-password-generator.html',
     description: 'Generate cryptographically secure passwords or numeric PIN codes.',
     render: (toolId) => `

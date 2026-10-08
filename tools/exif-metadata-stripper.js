@@ -3,7 +3,7 @@ window.TOOLS_REGISTRY = window.TOOLS_REGISTRY || {};
 window.TOOLS_REGISTRY['exif-metadata-stripper'] = Object.assign(window.TOOLS_REGISTRY['exif-metadata-stripper'] || {}, {
   id: 'exif-metadata-stripper',
   name: 'Photo EXIF & Privacy Metadata Stripper',
-  category: 'Privacy',
+  category: 'Privacy & Security',
   description: 'Strip hidden GPS coordinates, camera serial numbers, and device metadata from photos before sharing.',
   render: (toolId) => `
     <div class="flex flex-col h-full justify-between space-y-2 font-sans text-xs">

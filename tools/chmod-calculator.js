@@ -3,7 +3,7 @@ window.TOOLS_REGISTRY = window.TOOLS_REGISTRY || {};
 window.TOOLS_REGISTRY['chmod-calculator'] = Object.assign(window.TOOLS_REGISTRY['chmod-calculator'] || {}, {
   id: 'chmod-calculator',
   name: 'Visual chmod Permissions Calculator',
-  category: 'Developer',
+  category: 'Developer & Code',
   description: 'Interactive visual permission calculator for Linux/Unix file permissions with octal and symbolic modes.',
   render: (toolId) => `
     <div class="flex flex-col h-full justify-between space-y-3 font-sans text-xs">

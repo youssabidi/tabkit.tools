@@ -60,7 +60,7 @@ window.TOOLS_REGISTRY = window.TOOLS_REGISTRY || {};
 window.TOOLS_REGISTRY['jwt-decoder'] = Object.assign(window.TOOLS_REGISTRY['jwt-decoder'] || {}, {
   id: 'jwt-decoder',
   name: 'JSON Web Token (JWT) Decoder',
-  category: 'Security',
+  category: 'Developer & Code',
   standaloneUrl: '/jwt-decoder.html',
   description: 'Decode and inspect JWT header and payload claims securely in your browser with expiration validation.',
   render: (toolId) => `

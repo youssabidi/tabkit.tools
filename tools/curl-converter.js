@@ -3,7 +3,7 @@ window.TOOLS_REGISTRY = window.TOOLS_REGISTRY || {};
 window.TOOLS_REGISTRY['curl-converter'] = Object.assign(window.TOOLS_REGISTRY['curl-converter'] || {}, {
   id: 'curl-converter',
   name: 'cURL to Fetch / Axios / Python Converter',
-  category: 'Developer',
+  category: 'Developer & Code',
   description: 'Convert cURL requests into copy-pasteable JavaScript fetch, Node.js axios, and Python requests code.',
   render: (toolId) => `
     <div class="flex flex-col h-full justify-between space-y-2 font-sans text-xs">

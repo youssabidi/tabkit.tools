@@ -138,12 +138,25 @@
       </div>
 
       <div class="text-left relative z-10">
-        <h2 class="text-xs font-bold text-workspace-text uppercase tracking-widest mb-6 flex items-center gap-3">
-          <span class="w-12 h-px bg-workspace-borderLight"></span>
-          Tool Directory
-          <span class="flex-1 h-px bg-workspace-borderLight"></span>
-        </h2>
-        <div id="emptyStateCatalog" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-8"></div>
+        <!-- Directory Header & Live Search -->
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-4 pb-2 border-b border-workspace-border">
+          <div class="flex items-center gap-2">
+            <div class="w-2 h-2 rounded-full bg-workspace-accent animate-pulse shadow-[0_0_8px_rgba(16,185,129,0.7)]"></div>
+            <h2 class="text-xs font-bold text-workspace-text uppercase tracking-widest font-mono">
+              Tool Directory (<span id="catalogCountLabel" class="text-workspace-accent">32</span>)
+            </h2>
+          </div>
+          <div class="relative w-full sm:w-72">
+            <input id="catalogSearchInput" type="text" placeholder="Filter 32 offline tools..." class="w-full bg-workspace-bg border border-workspace-border rounded-xl pl-9 pr-3 py-1.5 text-xs font-mono text-workspace-text placeholder-workspace-muted focus:border-workspace-accent focus:outline-none transition-colors" />
+            <svg class="w-4 h-4 text-workspace-muted absolute left-3 top-1/2 -translate-y-1/2" fill="none" viewBox="0 0 24 24" stroke="currentColor"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+          </div>
+        </div>
+
+        <!-- Balanced Category Filter Pills -->
+        <div id="catalogCategoryPills" class="flex items-center gap-1.5 overflow-x-auto no-scrollbar pb-3 mb-6"></div>
+
+        <!-- Balanced Uniform Grid -->
+        <div id="emptyStateCatalog" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"></div>
       </div>
     </div>
   </main>
@@ -374,49 +387,11 @@
         return;
       }
 
-      // If user has zero pinned tools, show catalog
+      // If user has zero pinned tools, render the balanced directory catalog
       if (activePinnedTools.length === 0) {
         grid.innerHTML = '';
         emptyState.classList.remove('hidden');
-
-        catalogContainer.innerHTML = '';
-        const categories = {};
-        Object.values(TOOLS_REGISTRY).forEach(t => {
-          if (!categories[t.category]) categories[t.category] = [];
-          categories[t.category].push(t);
-        });
-
-        Object.keys(categories).sort().forEach(cat => {
-          const catDiv = document.createElement('div');
-          catDiv.className = 'space-y-3';
-          catDiv.innerHTML = `
-            <div class="flex items-center gap-2 mb-3">
-              <div class="w-1.5 h-1.5 rounded-full bg-workspace-accent/70 shadow-[0_0_5px_rgba(16,185,129,0.5)]"></div>
-              <h3 class="text-[11px] font-bold text-workspace-muted uppercase tracking-widest">${cat}</h3>
-            </div>
-          `;
-
-          const toolsGrid = document.createElement('div');
-          toolsGrid.className = 'grid grid-cols-1 gap-3';
-
-          categories[cat].forEach(tool => {
-            const btn = document.createElement('button');
-            btn.className = 'w-full text-left p-4 rounded-xl bg-workspace-bg border border-workspace-border hover:border-workspace-accent/50 hover:bg-workspace-surfaceHover transition-all duration-300 group flex flex-col gap-1.5 hover:shadow-lg hover:-translate-y-0.5';
-            btn.onclick = () => pinTool(tool.id);
-            btn.innerHTML = `
-              <div class="flex items-center justify-between">
-                <span class="text-sm font-bold text-workspace-text group-hover:text-workspace-accent transition-colors">${tool.name}</span>
-                <svg class="w-4 h-4 text-workspace-muted group-hover:text-workspace-accent opacity-0 group-hover:opacity-100 transition-all transform translate-x-2 group-hover:translate-x-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/></svg>
-              </div>
-              <div class="text-[11px] text-workspace-muted leading-relaxed">${tool.description}</div>
-            `;
-            toolsGrid.appendChild(btn);
-          });
-
-          catDiv.appendChild(toolsGrid);
-          catalogContainer.appendChild(catDiv);
-        });
-
+        renderCatalogDirectory();
         return;
       }
 
@@ -577,6 +552,103 @@
     }
 
     // ==========================================
+    
+    // ==========================================
+    // BALANCED TOOL DIRECTORY & FILTER PILLS
+    // ==========================================
+    let selectedCatalogCategory = 'All';
+    let catalogSearchQuery = '';
+
+    const CORE_CATEGORIES = [
+      'All',
+      'Developer & Code',
+      'Text & Data',
+      'Privacy & Security',
+      'Media & Design',
+      'Productivity & Math'
+    ];
+
+    function renderCatalogDirectory() {
+      const catalogContainer = document.getElementById('emptyStateCatalog');
+      const pillsContainer = document.getElementById('catalogCategoryPills');
+      const countLabel = document.getElementById('catalogCountLabel');
+      const searchInput = document.getElementById('catalogSearchInput');
+
+      if (!catalogContainer || typeof TOOLS_REGISTRY === 'undefined') return;
+
+      const allTools = Object.values(TOOLS_REGISTRY);
+
+      // Render category filter pills
+      if (pillsContainer) {
+        pillsContainer.innerHTML = CORE_CATEGORIES.map(cat => {
+          const isActive = selectedCatalogCategory === cat;
+          const count = cat === 'All' ? allTools.length : allTools.filter(t => t.category === cat).length;
+          return `
+            <button onclick="setCatalogCategory('${cat}')" class="px-3 py-1.5 rounded-lg text-xs font-mono shrink-0 transition-all border flex items-center gap-1.5 ${
+              isActive 
+                ? 'bg-workspace-accent text-black font-bold border-workspace-accent shadow-[0_0_12px_rgba(16,185,129,0.3)]' 
+                : 'bg-workspace-bg border-workspace-border hover:border-workspace-borderLight text-workspace-muted hover:text-workspace-text'
+            }">
+              <span>${cat}</span>
+              <span class="text-[10px] px-1.5 py-0.2 rounded-full ${isActive ? 'bg-black/20 text-black' : 'bg-workspace-surface text-workspace-muted'}">${count}</span>
+            </button>
+          `;
+        }).join('');
+      }
+
+      // Filter tools by category and search
+      const q = catalogSearchQuery.toLowerCase().trim();
+      const filtered = allTools.filter(t => {
+        const matchesCategory = selectedCatalogCategory === 'All' || t.category === selectedCatalogCategory;
+        const matchesSearch = !q || t.name.toLowerCase().includes(q) || t.description.toLowerCase().includes(q) || (t.category && t.category.toLowerCase().includes(q));
+        return matchesCategory && matchesSearch;
+      });
+
+      if (countLabel) countLabel.textContent = filtered.length;
+
+      if (filtered.length === 0) {
+        catalogContainer.innerHTML = `
+          <div class="col-span-full p-8 text-center bg-workspace-bg border border-workspace-border rounded-2xl text-workspace-muted font-mono text-xs">
+            No tools found matching "${escapeHtml(catalogSearchQuery)}". Try clearing your search or switching categories.
+          </div>
+        `;
+        return;
+      }
+
+      // Render balanced, uniform cards
+      catalogContainer.innerHTML = filtered.map(t => `
+        <button onclick="pinTool('${t.id}')" class="w-full text-left p-4 rounded-xl bg-workspace-bg border border-workspace-border hover:border-workspace-accent/60 hover:bg-workspace-surfaceHover transition-all duration-200 group flex flex-col justify-between min-h-[115px] hover:shadow-lg hover:-translate-y-0.5">
+          <div>
+            <div class="flex items-center justify-between gap-2 mb-1.5">
+              <span class="text-sm font-bold text-workspace-text group-hover:text-workspace-accent transition-colors truncate">${escapeHtml(t.name)}</span>
+              <span class="text-[9px] uppercase font-mono px-1.5 py-0.5 rounded bg-workspace-surface border border-workspace-border text-workspace-muted shrink-0">${escapeHtml(t.category || 'Tool')}</span>
+            </div>
+            <p class="text-[11px] text-workspace-muted leading-relaxed line-clamp-2">${escapeHtml(t.description)}</p>
+          </div>
+          <div class="flex items-center justify-between pt-2 border-t border-workspace-border/50 text-[10px] font-mono mt-2">
+            <span class="text-workspace-muted group-hover:text-workspace-accent transition-colors">100% Offline</span>
+            <span class="text-workspace-accent font-bold opacity-0 group-hover:opacity-100 transition-opacity flex items-center gap-1">
+              <span>+ Pin to Deck</span>
+            </span>
+          </div>
+        </button>
+      `).join('');
+
+      // Wire up search listener if not wired
+      if (searchInput && !searchInput.dataset.wired) {
+        searchInput.dataset.wired = 'true';
+        searchInput.addEventListener('input', (e) => {
+          catalogSearchQuery = e.target.value;
+          renderCatalogDirectory();
+        });
+      }
+    }
+
+    function setCatalogCategory(cat) {
+      selectedCatalogCategory = cat;
+      renderCatalogDirectory();
+    }
+
     // COMMAND PALETTE WITH KEYBOARD NAV
     // ==========================================
     const commandModal = document.getElementById('commandPaletteModal');

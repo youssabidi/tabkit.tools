@@ -27,7 +27,7 @@ window.TOOLS_REGISTRY = window.TOOLS_REGISTRY || {};
 window.TOOLS_REGISTRY['date-calculator'] = Object.assign(window.TOOLS_REGISTRY['date-calculator'] || {}, {
     id: 'date-calculator',
     name: 'Days Between Dates Calculator',
-    category: 'Utilities',
+    category: 'Productivity & Math',
     standaloneUrl: '/date-calculator.html',
     description: 'Calculate days between dates or add/subtract days from a date.',
     render: (toolId) => `

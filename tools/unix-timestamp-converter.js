@@ -3,7 +3,7 @@ window.TOOLS_REGISTRY = window.TOOLS_REGISTRY || {};
 window.TOOLS_REGISTRY['unix-timestamp-converter'] = Object.assign(window.TOOLS_REGISTRY['unix-timestamp-converter'] || {}, {
   id: 'unix-timestamp-converter',
   name: 'Unix Timestamp & Epoch Converter',
-  category: 'Developer',
+  category: 'Developer & Code',
   description: 'Convert between Unix timestamps (seconds & milliseconds), UTC dates, local timezones, and relative time.',
   render: (toolId) => `
     <div class="flex flex-col h-full justify-between space-y-2.5 font-sans text-xs">

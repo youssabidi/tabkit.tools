@@ -3,7 +3,7 @@ window.TOOLS_REGISTRY = window.TOOLS_REGISTRY || {};
 window.TOOLS_REGISTRY['json-to-typescript'] = Object.assign(window.TOOLS_REGISTRY['json-to-typescript'] || {}, {
   id: 'json-to-typescript',
   name: 'JSON to TypeScript & Zod Schema',
-  category: 'Developer',
+  category: 'Developer & Code',
   description: 'Convert JSON payloads into clean TypeScript interfaces, types, and Zod validation schemas.',
   render: (toolId) => `
     <div class="flex flex-col h-full justify-between space-y-2 font-sans text-xs">

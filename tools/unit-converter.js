@@ -18,7 +18,7 @@ window.TOOLS_REGISTRY = window.TOOLS_REGISTRY || {};
 window.TOOLS_REGISTRY['unit-converter'] = Object.assign(window.TOOLS_REGISTRY['unit-converter'] || {}, {
     id: 'unit-converter',
     name: 'Universal Unit Converter',
-    category: 'Utilities',
+    category: 'Productivity & Math',
     standaloneUrl: '/unit-converter.html',
     description: 'Multi-category converter for data, length, mass, temperature, speed, volume, and time.',
     render: (toolId) => `

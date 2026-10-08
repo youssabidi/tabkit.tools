@@ -51,7 +51,7 @@ window.TOOLS_REGISTRY = window.TOOLS_REGISTRY || {};
 window.TOOLS_REGISTRY['sql-formatter'] = Object.assign(window.TOOLS_REGISTRY['sql-formatter'] || {}, {
   id: 'sql-formatter',
   name: 'SQL Query Beautifier & Formatter',
-  category: 'Developer',
+  category: 'Developer & Code',
   standaloneUrl: '/sql-formatter.html',
   description: 'Format, beautify, and capitalize SQL queries offline with clean clause indentation and minification.',
   render: (toolId) => `

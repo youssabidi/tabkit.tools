@@ -74,7 +74,7 @@ window.TOOLS_REGISTRY = window.TOOLS_REGISTRY || {};
 window.TOOLS_REGISTRY['json-formatter'] = Object.assign(window.TOOLS_REGISTRY['json-formatter'] || {}, {
   id: 'json-formatter',
   name: 'JSON Formatter & Validator',
-  category: 'Developer',
+  category: 'Text & Data',
   standaloneUrl: '/json-formatter.html',
   description: 'Format, validate, syntax-highlight, and minify JSON strings instantly.',
   render: (toolId) => `
