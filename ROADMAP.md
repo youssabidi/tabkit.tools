@@ -19,8 +19,8 @@
 - [ ] **World Time Zone:** Add the ability to rename a pinned time zone (e.g., rename "America/Los_Angeles" to "Dev Team HQ").
 
 ## 4. Codebase Architecture (DRY)
-- [ ] **Web Components:** Extract the `<header>` and `<footer>` into native HTML Web Components so navigation updates only need to be made in one file.
-- [ ] **Dynamic Script Loading:** Split `tools.js` into smaller modules. Load tool logic only when a user pins that specific tool (e.g., `import('./tools/qr-generator.js')`).
+- [x] **Web Components:** Extract the `<header>` and `<footer>` into native HTML Web Components so navigation updates only need to be made in one file.
+- [x] **Dynamic Script Loading:** Split `tools.js` into smaller modules. Load tool logic only when a user pins that specific tool (e.g., `tools/qr-code-generator.js`).
 
 ## 5. Progressive Web App (PWA) Upgrades
 - [ ] **"Install App" Button:** Add a button in the header that triggers the native browser prompt to "Install as App" (Desktop/Mobile).

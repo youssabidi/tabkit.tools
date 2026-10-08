@@ -153,7 +153,9 @@
   </div>
 
   <!-- LOAD THE CENTRAL TOOLS FILE -->
-  <script src="tools.js"></script>
+  <!-- LOAD UTILITIES & REGISTRY -->
+  <script src="utils.js"></script>
+  <script src="registry.js"></script>
 
   <!-- WORKBENCH APP LOGIC -->
   <script>
@@ -167,11 +169,14 @@
       updateStorageIndicator();
     }
 
-    function pinTool(toolId) {
+    async function pinTool(toolId) {
       if (typeof TOOLS_REGISTRY === 'undefined') return;
       if (!TOOLS_REGISTRY[toolId]) return;
       
       if (!activePinnedTools.includes(toolId)) {
+        if (typeof loadTool === 'function') {
+          await loadTool(toolId);
+        }
         activePinnedTools.push(toolId);
         saveWorkspaceState();
         if (typeof showToast !== 'undefined') showToast(`Pinned ${TOOLS_REGISTRY[toolId].name}`);
@@ -185,7 +190,7 @@
       if (typeof showToast !== 'undefined') showToast('Removed from board');
     }
 
-    function renderWorkbench() {
+    async function renderWorkbench() {
       const grid = document.getElementById('workbenchGrid');
       const emptyState = document.getElementById('emptyWorkspaceState');
       const catalogContainer = document.getElementById('emptyStateCatalog');
@@ -256,10 +261,15 @@
         }
       });
 
+      // Load scripts for active pinned tools
+      if (typeof loadTool === 'function') {
+        await Promise.all(activePinnedTools.map(id => loadTool(id).catch(e => console.error('Failed to load tool:', id, e))));
+      }
+
       // Render the active pinned tools
       activePinnedTools.forEach(toolId => {
         const tool = TOOLS_REGISTRY[toolId];
-        if (!tool) return;
+        if (!tool || !tool.render) return;
 
         let card = document.getElementById(`card_${toolId}`);
         if (!card) {
@@ -458,15 +468,21 @@
     const btnAddTool = document.getElementById('btnOpenToolCatalog');
 
     if (btnLoadStarter) {
-      btnLoadStarter.onclick = () => {
+      btnLoadStarter.onclick = async () => {
         activePinnedTools = ['json-formatter', 'base64-encoder-decoder', 'text-diff-checker', 'secure-password-generator'];
+        if (typeof loadTool === 'function') {
+          await Promise.all(activePinnedTools.map(id => loadTool(id)));
+        }
         saveWorkspaceState();
       };
     }
 
     if (btnLoadEveryday) {
-      btnLoadEveryday.onclick = () => {
+      btnLoadEveryday.onclick = async () => {
         activePinnedTools = ['percentage-calculator', 'unit-converter', 'qr-code-generator', 'time-zone-converter'];
+        if (typeof loadTool === 'function') {
+          await Promise.all(activePinnedTools.map(id => loadTool(id)));
+        }
         saveWorkspaceState();
       };
     }

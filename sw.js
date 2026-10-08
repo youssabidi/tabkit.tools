@@ -1,10 +1,13 @@
-const CACHE_NAME = 'tabkit-v1';
+const CACHE_NAME = 'tabkit-v2';
 const ASSETS_TO_CACHE = [
   '/',
   '/index.html',
   '/about.html',
+  '/styles.css',
+  '/components.js',
+  '/utils.js',
+  '/registry.js',
   '/cities.min.json',
-  'https://cdn.tailwindcss.com',
   'https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js',
   'https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap'
 ];
