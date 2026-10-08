@@ -275,7 +275,7 @@
         if (!card) {
           card = document.createElement('div');
           // Add glassmorphism and hover effects to the tool cards
-          card.className = 'rounded-2xl border border-workspace-border glass-card p-5 flex flex-col justify-between shadow-[0_4px_20px_rgba(0,0,0,0.3)] relative group h-[360px] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_8px_30px_rgba(16,185,129,0.08)] hover:border-workspace-borderLight z-10';
+          card.className = 'rounded-2xl border border-workspace-border glass-card p-5 flex flex-col justify-between shadow-[0_4px_20px_rgba(0,0,0,0.3)] relative group min-h-[360px] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_8px_30px_rgba(16,185,129,0.08)] hover:border-workspace-borderLight z-10';
           card.id = `card_${toolId}`;
 
           const expandLink = tool.standaloneUrl ? `
@@ -303,7 +303,7 @@
                 </button>
               </div>
             </div>
-            <div class="flex-1 overflow-hidden flex flex-col relative z-20">
+            <div class="flex-1 overflow-y-auto flex flex-col relative z-20">
               ${tool.render(toolId)}
             </div>
           `;
