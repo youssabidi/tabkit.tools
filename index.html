@@ -201,31 +201,57 @@
     const DEFAULT_WORKSPACES = {
       activeId: 'main',
       list: [
-        { id: 'main', name: '★ Main Deck', tools: ['json-formatter', 'base64-encoder-decoder', 'text-diff-checker', 'secure-password-generator'] },
+        { id: 'main', name: '★ Main Deck', tools: ['json-formatter', 'pdf-merger', 'base64-encoder-decoder', 'text-diff-checker', 'secure-password-generator'] },
+        { id: 'pdf', name: '📄 PDF & Docs', tools: ['pdf-merger', 'pdf-splitter', 'pdf-rotator', 'images-to-pdf', 'pdf-watermarker', 'pdf-metadata-editor', 'pdf-page-numberer'] },
         { id: 'dev', name: '🛠 Dev Suite', tools: ['json-formatter', 'curl-converter', 'json-to-typescript', 'chmod-calculator', 'unix-timestamp-converter'] },
-        { id: 'pdf', name: '📄 PDF & Docs', tools: ['pdf-merger', 'pdf-splitter', 'pdf-rotator', 'images-to-pdf', 'pdf-watermarker', 'pdf-metadata-editor'] },
         { id: 'media', name: '🖼 Media & Privacy', tools: ['image-compressor', 'pdf-splitter', 'exif-metadata-stripper', 'svg-optimizer'] },
         { id: 'daily', name: '⚡ Daily Admin', tools: ['percentage-calculator', 'unit-converter', 'qr-code-generator', 'time-zone-converter'] }
       ]
     };
 
     function getWorkspacesData() {
+      let data = null;
       try {
         const stored = localStorage.getItem('tabkit_workspaces');
-        if (stored) return JSON.parse(stored);
+        if (stored) data = JSON.parse(stored);
       } catch (e) {}
-      const legacy = localStorage.getItem('tabkit_pinned_tools');
-      if (legacy) {
-        try {
-          const parsed = JSON.parse(legacy);
-          if (Array.isArray(parsed) && parsed.length > 0) {
-            const initial = JSON.parse(JSON.stringify(DEFAULT_WORKSPACES));
-            initial.list[0].tools = parsed;
-            return initial;
-          }
-        } catch (e) {}
+
+      if (!data) {
+        const legacy = localStorage.getItem('tabkit_pinned_tools');
+        if (legacy) {
+          try {
+            const parsed = JSON.parse(legacy);
+            if (Array.isArray(parsed) && parsed.length > 0) {
+              data = JSON.parse(JSON.stringify(DEFAULT_WORKSPACES));
+              data.list[0].tools = parsed;
+            }
+          } catch (e) {}
+        }
       }
-      return JSON.parse(JSON.stringify(DEFAULT_WORKSPACES));
+
+      if (!data) {
+        data = JSON.parse(JSON.stringify(DEFAULT_WORKSPACES));
+      }
+
+      // Auto-Migration for Returning Visitors: ensure new default decks exist (e.g. PDF deck)
+      if (data && Array.isArray(data.list)) {
+        DEFAULT_WORKSPACES.list.forEach(defDeck => {
+          const existing = data.list.find(d => d.id === defDeck.id);
+          if (!existing) {
+            data.list.push(JSON.parse(JSON.stringify(defDeck)));
+          }
+        });
+        // Ensure Main Deck has pdf-merger so returning users immediately see it
+        const mainDeck = data.list.find(d => d.id === 'main');
+        if (mainDeck && Array.isArray(mainDeck.tools) && !mainDeck.tools.includes('pdf-merger')) {
+          mainDeck.tools.splice(1, 0, 'pdf-merger');
+        }
+      }
+
+      try {
+        localStorage.setItem('tabkit_workspaces', JSON.stringify(data));
+      } catch (e) {}
+      return data;
     }
 
     let workspacesData = getWorkspacesData();
@@ -774,7 +800,9 @@
     // Service worker
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
-        navigator.serviceWorker.register('/sw.js').catch(() => {});
+        navigator.serviceWorker.register('/sw.js').then((reg) => {
+          reg.update().catch(() => {});
+        }).catch(() => {});
       });
       const updateNetStatus = () => {
         const ind = document.getElementById('offlineIndicatorLabel');
