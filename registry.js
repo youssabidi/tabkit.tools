@@ -80,7 +80,7 @@ window.TOOLS_REGISTRY = {
   "pdf-splitter": {
     "id": "pdf-splitter",
     "name": "Client-Side PDF Splitter & Page Remover",
-    "category": "Privacy & Security",
+    "category": "Documents & PDF",
     "standaloneUrl": "/pdf-splitter.html",
     "description": "Extract specific pages or split multi-page PDF documents locally in your browser with zero server uploads."
   },
@@ -223,6 +223,48 @@ window.TOOLS_REGISTRY = {
     "category": "Developer & Code",
     "standaloneUrl": "/sql-formatter.html",
     "description": "Format, beautify, and capitalize SQL queries offline with clean clause indentation and minification."
+  },
+  "pdf-merger": {
+    "id": "pdf-merger",
+    "name": "Client-Side PDF Merger & Combiner",
+    "category": "Documents & PDF",
+    "standaloneUrl": "/pdf-merger.html",
+    "description": "Combine multiple PDF documents into a single file locally in your browser with zero server uploads."
+  },
+  "pdf-rotator": {
+    "id": "pdf-rotator",
+    "name": "Client-Side PDF Page Rotator",
+    "category": "Documents & PDF",
+    "standaloneUrl": "/pdf-rotator.html",
+    "description": "Rotate upside-down or sideways PDF pages by 90°, 180°, or 270° locally in your browser."
+  },
+  "images-to-pdf": {
+    "id": "images-to-pdf",
+    "name": "Client-Side Images to PDF Converter",
+    "category": "Documents & PDF",
+    "standaloneUrl": "/images-to-pdf.html",
+    "description": "Convert JPG, PNG, and WebP photos or scans into a clean multi-page PDF document with zero uploads."
+  },
+  "pdf-watermarker": {
+    "id": "pdf-watermarker",
+    "name": "Client-Side PDF Watermark & Stamp",
+    "category": "Documents & PDF",
+    "standaloneUrl": "/pdf-watermarker.html",
+    "description": "Stamp custom text or diagonal watermark overlays onto every page of a PDF document with zero uploads."
+  },
+  "pdf-metadata-editor": {
+    "id": "pdf-metadata-editor",
+    "name": "PDF Metadata Inspector & Stripper",
+    "category": "Documents & PDF",
+    "standaloneUrl": "/pdf-metadata-editor.html",
+    "description": "View, edit, or completely wipe author, producer, and title metadata from PDF files locally for total privacy."
+  },
+  "pdf-page-numberer": {
+    "id": "pdf-page-numberer",
+    "name": "Client-Side PDF Page Numberer",
+    "category": "Documents & PDF",
+    "standaloneUrl": "/pdf-page-numberer.html",
+    "description": "Add page numbers, pagination headers, or footers to PDF documents locally in your browser with zero server uploads."
   }
 };
 

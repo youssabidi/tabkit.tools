@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Client-Side PDF Page Numberer &amp; Pagination | TabKit Tools</title>
+  <link rel="manifest" href="/manifest.json" />
+  <meta name="description" content="Add page numbers and footer pagination to PDF documents locally in your browser. 100% private with zero cloud uploads." />
+  <link rel="canonical" href="https://tabkit.tools/pdf-page-numberer.html" />
+  <link rel="stylesheet" href="styles.css" />
+  <script src="components.js"></script>
+  <script src="utils.js"></script>
+  <script src="registry.js"></script>
+</head>
+<body class="bg-workspace-bg text-workspace-text font-sans antialiased min-h-screen flex flex-col selection:bg-workspace-accent selection:text-black">
+  <tool-header tool-name="pdf-page-numberer"></tool-header>
+
+  <main class="flex-1 max-w-4xl w-full mx-auto px-4 py-8 md:py-12">
+    <div class="mb-8 text-center max-w-2xl mx-auto">
+      <div class="inline-flex items-center gap-2 px-2.5 py-1 rounded-full bg-workspace-accent/10 border border-workspace-accent/30 text-workspace-accent text-xs font-mono mb-3">
+        <span class="w-2 h-2 rounded-full bg-workspace-accent animate-pulse"></span>
+        100% Client-Side • Document Pagination
+      </div>
+      <h1 class="text-3xl md:text-4xl font-extrabold tracking-tight text-white mb-3">PDF Page Numberer</h1>
+      <p class="text-sm text-workspace-muted leading-relaxed">
+        Quickly number legal documents, research manuscripts, theses, or contracts with customizable page positions and formats.
+      </p>
+    </div>
+
+    <div class="rounded-2xl border border-workspace-border bg-workspace-surface shadow-2xl p-6 mb-16 max-w-2xl mx-auto min-h-[460px] flex flex-col">
+      <div id="tool-container" class="flex-1 w-full relative"></div>
+    </div>
+
+    <!-- SEO & Explainer Content -->
+    <article class="prose prose-invert max-w-2xl mx-auto border-t border-workspace-border pt-12 space-y-6 text-sm text-workspace-muted leading-relaxed">
+      <h2 class="text-xl font-bold text-white">Consistent Page Numbering for PDF Files</h2>
+      <p>
+        When assembling separate PDF chapters, contracts, or court filings, original page numbers are frequently missing or discontinuous. Adding clean, sequential page numbering provides credibility and ease of reference during review or courtroom presentation.
+      </p>
+      <p>
+        <strong>TabKit Tools PDF Page Numberer</strong> stamps vector-rendered numbers (such as <code class="text-workspace-accent">Page 1 of 15</code> or <code class="text-workspace-accent">1 / 15</code>) onto each page without altering original layout geometries.
+      </p>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-4">
+        <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface">
+          <h3 class="text-sm font-bold text-white mb-1">Cover Page Skip</h3>
+          <p class="text-xs text-workspace-muted">Optionally exclude the first title/cover page from pagination so numbering starts on page 2.</p>
+        </div>
+        <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface">
+          <h3 class="text-sm font-bold text-white mb-1">Standard Positions</h3>
+          <p class="text-xs text-workspace-muted">Place page numbers at bottom-center, bottom-right, or top-right with standard print-safe margins.</p>
+        </div>
+      </div>
+    </article>
+  </main>
+
+  <tabkit-footer></tabkit-footer>
+  <div id="toastContainer" class="fixed bottom-6 right-4 z-50 flex flex-col gap-2 pointer-events-none"></div>
+
+  <script>
+    window.addEventListener('DOMContentLoaded', async () => {
+      try {
+        const tool = await loadTool('pdf-page-numberer');
+        const container = document.getElementById('tool-container');
+        container.innerHTML = tool.render('pdf-page-numberer');
+        tool.init('pdf-page-numberer');
+      } catch (e) {
+        console.error('Error loading tool:', e);
+      }
+    });
+  </script>
+</body>
+</html>

@@ -35,38 +35,53 @@
 - [x] **Schema.org Structured Data:** JSON-LD `WebApplication` and `FAQPage` schemas on every tool page.
 - [x] **Search Engine Directives:** Clean `robots.txt` pointing to sitemap.
 
+## Phase 6: Client-Side PDF & Document Powerhouse (Zero Uploads)
+*Goal: Complete suite of local in-browser PDF utilities replacing invasive cloud services.*
+- [x] **PDF Merger / Combiner (`pdf-merger`):** Merge and combine multiple PDFs with drag-and-drop order rearrangement and page count calculations.
+- [x] **PDF Page Rotator (`pdf-rotator`):** Correct 90°, 180°, and 270° orientation across all pages, odd/even pages, or custom ranges.
+- [x] **Images to PDF Converter (`images-to-pdf`):** Batch compile JPG, PNG, and WebP images into standardized A4 or auto-fit multi-page PDFs.
+- [x] **PDF Watermark & Stamp (`pdf-watermarker`):** Stamp "CONFIDENTIAL", "DRAFT", or custom text diagonally across every page with opacity and color styling.
+- [x] **PDF Metadata Inspector & Stripper (`pdf-metadata-editor`):** View and wipe author, title, keywords, software creator, and producer metadata for total privacy.
+- [x] **PDF Page Numberer (`pdf-page-numberer`):** Add formatted page numbers (e.g., "Page 1 of N", "1 / N") to bottom-center, bottom-right, or top-right with cover-page skip.
+
 ---
 
-## 📦 Total Tools in Registry: 32 Tools
+## 📦 Total Tools in Registry: 38 Tools
 1. `base64-encoder-decoder`
 2. `case-converter`
 3. `chmod-calculator`
 4. `curl-converter`
-5. `csv-json-converter` *(New)*
+5. `csv-json-converter`
 6. `date-calculator`
 7. `excel-formula-builder`
 8. `exif-metadata-stripper`
 9. `hex-color-converter`
 10. `image-compressor`
-11. `image-to-base64` *(New)*
-12. `json-formatter`
-13. `json-to-typescript`
-14. `jwt-decoder` *(New)*
-15. `markdown-preview` *(New)*
-16. `pdf-splitter`
-17. `percentage-calculator`
-18. `pomodoro-timer`
-19. `qr-code-generator`
-20. `random-name-picker`
-21. `regex-tester` *(New)*
-22. `secure-password-generator`
-23. `sha256-hash-generator`
-24. `social-seo-previewer`
-25. `sql-formatter` *(New)*
-26. `svg-optimizer`
-27. `text-diff-checker`
-28. `time-zone-converter`
-29. `unit-converter`
-30. `unix-timestamp-converter`
-31. `url-link-cleaner`
-32. `uuid-generator` *(New)*
+11. `image-to-base64`
+12. `images-to-pdf` *(New)*
+13. `json-formatter`
+14. `json-to-typescript`
+15. `jwt-decoder`
+16. `markdown-preview`
+17. `pdf-merger` *(New)*
+18. `pdf-metadata-editor` *(New)*
+19. `pdf-page-numberer` *(New)*
+20. `pdf-rotator` *(New)*
+21. `pdf-splitter`
+22. `pdf-watermarker` *(New)*
+23. `percentage-calculator`
+24. `pomodoro-timer`
+25. `qr-code-generator`
+26. `random-name-picker`
+27. `regex-tester`
+28. `secure-password-generator`
+29. `sha256-hash-generator`
+30. `social-seo-previewer`
+31. `sql-formatter`
+32. `svg-optimizer`
+33. `text-diff-checker`
+34. `time-zone-converter`
+35. `unit-converter`
+36. `unix-timestamp-converter`
+37. `url-link-cleaner`
+38. `uuid-generator`

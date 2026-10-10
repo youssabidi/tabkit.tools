@@ -143,11 +143,11 @@
           <div class="flex items-center gap-2">
             <div class="w-2 h-2 rounded-full bg-workspace-accent animate-pulse shadow-[0_0_8px_rgba(16,185,129,0.7)]"></div>
             <h2 class="text-xs font-bold text-workspace-text uppercase tracking-widest font-mono">
-              Tool Directory (<span id="catalogCountLabel" class="text-workspace-accent">32</span>)
+              Tool Directory (<span id="catalogCountLabel" class="text-workspace-accent">38</span>)
             </h2>
           </div>
           <div class="relative w-full sm:w-72">
-            <input id="catalogSearchInput" type="text" placeholder="Filter 32 offline tools..." class="w-full bg-workspace-bg border border-workspace-border rounded-xl pl-9 pr-3 py-1.5 text-xs font-mono text-workspace-text placeholder-workspace-muted focus:border-workspace-accent focus:outline-none transition-colors" />
+            <input id="catalogSearchInput" type="text" placeholder="Filter 38 offline tools..." class="w-full bg-workspace-bg border border-workspace-border rounded-xl pl-9 pr-3 py-1.5 text-xs font-mono text-workspace-text placeholder-workspace-muted focus:border-workspace-accent focus:outline-none transition-colors" />
             <svg class="w-4 h-4 text-workspace-muted absolute left-3 top-1/2 -translate-y-1/2" fill="none" viewBox="0 0 24 24" stroke="currentColor"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
           </div>
         </div>
@@ -203,6 +203,7 @@
       list: [
         { id: 'main', name: '★ Main Deck', tools: ['json-formatter', 'base64-encoder-decoder', 'text-diff-checker', 'secure-password-generator'] },
         { id: 'dev', name: '🛠 Dev Suite', tools: ['json-formatter', 'curl-converter', 'json-to-typescript', 'chmod-calculator', 'unix-timestamp-converter'] },
+        { id: 'pdf', name: '📄 PDF & Docs', tools: ['pdf-merger', 'pdf-splitter', 'pdf-rotator', 'images-to-pdf', 'pdf-watermarker', 'pdf-metadata-editor'] },
         { id: 'media', name: '🖼 Media & Privacy', tools: ['image-compressor', 'pdf-splitter', 'exif-metadata-stripper', 'svg-optimizer'] },
         { id: 'daily', name: '⚡ Daily Admin', tools: ['percentage-calculator', 'unit-converter', 'qr-code-generator', 'time-zone-converter'] }
       ]
@@ -561,6 +562,7 @@
 
     const CORE_CATEGORIES = [
       'All',
+      'Documents & PDF',
       'Developer & Code',
       'Text & Data',
       'Privacy & Security',

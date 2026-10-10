@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Client-Side PDF Watermark &amp; Stamp Tool | TabKit Tools</title>
+  <link rel="manifest" href="/manifest.json" />
+  <meta name="description" content="Stamp diagonal watermark text or confidential stamps onto PDF pages locally in your browser. 100% private with zero cloud uploads." />
+  <link rel="canonical" href="https://tabkit.tools/pdf-watermarker.html" />
+  <link rel="stylesheet" href="styles.css" />
+  <script src="components.js"></script>
+  <script src="utils.js"></script>
+  <script src="registry.js"></script>
+</head>
+<body class="bg-workspace-bg text-workspace-text font-sans antialiased min-h-screen flex flex-col selection:bg-workspace-accent selection:text-black">
+  <tool-header tool-name="pdf-watermarker"></tool-header>
+
+  <main class="flex-1 max-w-4xl w-full mx-auto px-4 py-8 md:py-12">
+    <div class="mb-8 text-center max-w-2xl mx-auto">
+      <div class="inline-flex items-center gap-2 px-2.5 py-1 rounded-full bg-workspace-accent/10 border border-workspace-accent/30 text-workspace-accent text-xs font-mono mb-3">
+        <span class="w-2 h-2 rounded-full bg-workspace-accent animate-pulse"></span>
+        100% Client-Side • Privacy Stamp
+      </div>
+      <h1 class="text-3xl md:text-4xl font-extrabold tracking-tight text-white mb-3">PDF Watermark &amp; Stamp Tool</h1>
+      <p class="text-sm text-workspace-muted leading-relaxed">
+        Stamp confidential notices, draft markers, or client identifiers across your documents before sharing. Fast, fully client-side, and customizable.
+      </p>
+    </div>
+
+    <div class="rounded-2xl border border-workspace-border bg-workspace-surface shadow-2xl p-6 mb-16 max-w-2xl mx-auto min-h-[480px] flex flex-col">
+      <div id="tool-container" class="flex-1 w-full relative"></div>
+    </div>
+
+    <!-- SEO & Explainer Content -->
+    <article class="prose prose-invert max-w-2xl mx-auto border-t border-workspace-border pt-12 space-y-6 text-sm text-workspace-muted leading-relaxed">
+      <h2 class="text-xl font-bold text-white">Protect Drafts and Confidential Files</h2>
+      <p>
+        Marking proprietary PDF documents as "CONFIDENTIAL", "FOR REVIEW ONLY", or "DRAFT" is standard practice across corporate, financial, and legal sectors. However, sending sensitive contracts to free cloud conversion websites completely breaks privacy agreements and GDPR compliance.
+      </p>
+      <p>
+        <strong>TabKit Tools PDF Watermarker</strong> runs entirely inside your browser sandbox. The diagonal or horizontal text overlay is rendered into the vector content stream of each page without leaving your machine.
+      </p>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-4">
+        <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface">
+          <h3 class="text-sm font-bold text-white mb-1">Adjustable Opacity &amp; Color</h3>
+          <p class="text-xs text-workspace-muted">Dial in the exact transparency so the watermark remains prominent without obscuring underlying document text.</p>
+        </div>
+        <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface">
+          <h3 class="text-sm font-bold text-white mb-1">Vector Font Embedding</h3>
+          <p class="text-xs text-workspace-muted">Embedded using native Helvetica bold vector typography for sharp rendering on all screen sizes and printouts.</p>
+        </div>
+      </div>
+    </article>
+  </main>
+
+  <tabkit-footer></tabkit-footer>
+  <div id="toastContainer" class="fixed bottom-6 right-4 z-50 flex flex-col gap-2 pointer-events-none"></div>
+
+  <script>
+    window.addEventListener('DOMContentLoaded', async () => {
+      try {
+        const tool = await loadTool('pdf-watermarker');
+        const container = document.getElementById('tool-container');
+        container.innerHTML = tool.render('pdf-watermarker');
+        tool.init('pdf-watermarker');
+      } catch (e) {
+        console.error('Error loading tool:', e);
+      }
+    });
+  </script>
+</body>
+</html>

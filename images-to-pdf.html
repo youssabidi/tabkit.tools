@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Client-Side Images to PDF Converter | TabKit Tools</title>
+  <link rel="manifest" href="/manifest.json" />
+  <meta name="description" content="Convert JPG, PNG, and WebP images, receipts, and scans into a multi-page PDF document locally in your browser. 100% private, zero server uploads." />
+  <link rel="canonical" href="https://tabkit.tools/images-to-pdf.html" />
+  <link rel="stylesheet" href="styles.css" />
+  <script src="components.js"></script>
+  <script src="utils.js"></script>
+  <script src="registry.js"></script>
+</head>
+<body class="bg-workspace-bg text-workspace-text font-sans antialiased min-h-screen flex flex-col selection:bg-workspace-accent selection:text-black">
+  <tool-header tool-name="images-to-pdf"></tool-header>
+
+  <main class="flex-1 max-w-4xl w-full mx-auto px-4 py-8 md:py-12">
+    <div class="mb-8 text-center max-w-2xl mx-auto">
+      <div class="inline-flex items-center gap-2 px-2.5 py-1 rounded-full bg-workspace-accent/10 border border-workspace-accent/30 text-workspace-accent text-xs font-mono mb-3">
+        <span class="w-2 h-2 rounded-full bg-workspace-accent animate-pulse"></span>
+        100% Client-Side • Batch Photo Engine
+      </div>
+      <h1 class="text-3xl md:text-4xl font-extrabold tracking-tight text-white mb-3">Images to PDF Converter</h1>
+      <p class="text-sm text-workspace-muted leading-relaxed">
+        Convert photos, scanned receipts, diagrams, and screenshots into an organized multi-page PDF document. Choose between A4 portrait, landscape, or custom fit.
+      </p>
+    </div>
+
+    <div class="rounded-2xl border border-workspace-border bg-workspace-surface shadow-2xl p-6 mb-16 max-w-2xl mx-auto min-h-[460px] flex flex-col">
+      <div id="tool-container" class="flex-1 w-full relative"></div>
+    </div>
+
+    <!-- SEO & Explainer Content -->
+    <article class="prose prose-invert max-w-2xl mx-auto border-t border-workspace-border pt-12 space-y-6 text-sm text-workspace-muted leading-relaxed">
+      <h2 class="text-xl font-bold text-white">Combine Photos into Multi-Page Documents</h2>
+      <p>
+        Whether you are compiling expense receipts for tax season, assembling photo evidence for legal forms, or creating a portfolio from artwork, converting separate image files into a single standardized PDF makes sharing seamless.
+      </p>
+      <p>
+        Most websites limit file quantities or compress your images on a remote server. <strong>TabKit Tools Images to PDF</strong> processes all pixel data directly on your graphics card and CPU using HTML5 Canvas and native PDF bytecode assembly.
+      </p>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-4">
+        <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface">
+          <h3 class="text-sm font-bold text-white mb-1">Universal Format Support</h3>
+          <p class="text-xs text-workspace-muted">Supports JPEG, PNG, modern WebP, GIF, and mobile photo formats with automatic color-space translation.</p>
+        </div>
+        <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface">
+          <h3 class="text-sm font-bold text-white mb-1">Flexible Page Fitting</h3>
+          <p class="text-xs text-workspace-muted">Scale images proportionally to international standard A4 or US Letter sizes with safe printing margins.</p>
+        </div>
+      </div>
+    </article>
+  </main>
+
+  <tabkit-footer></tabkit-footer>
+  <div id="toastContainer" class="fixed bottom-6 right-4 z-50 flex flex-col gap-2 pointer-events-none"></div>
+
+  <script>
+    window.addEventListener('DOMContentLoaded', async () => {
+      try {
+        const tool = await loadTool('images-to-pdf');
+        const container = document.getElementById('tool-container');
+        container.innerHTML = tool.render('images-to-pdf');
+        tool.init('images-to-pdf');
+      } catch (e) {
+        console.error('Error loading tool:', e);
+      }
+    });
+  </script>
+</body>
+</html>
