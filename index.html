@@ -250,7 +250,7 @@
     const DEFAULT_WORKSPACES = {
       activeId: 'main',
       list: [
-        { id: 'main', name: 'Main Deck', tools: ['json-formatter', 'base64-encoder-decoder', 'text-diff-checker', 'secure-password-generator'] }
+        { id: 'main', name: 'Main Deck', tools: [] }
       ]
     };
 
@@ -260,6 +260,33 @@
         const stored = localStorage.getItem('tabkit_workspaces');
         if (stored) data = JSON.parse(stored);
       } catch (e) {}
+
+      // One-time cleanup of old auto-added presets from prior versions
+      if (!localStorage.getItem('tabkit_v11_clean_defaults')) {
+        localStorage.setItem('tabkit_v11_clean_defaults', 'true');
+        if (data && Array.isArray(data.list)) {
+          // Remove auto-generated decks from earlier tests
+          data.list = data.list.filter(d => !['pdf', 'dev', 'media', 'daily'].includes(d.id));
+          const mainDeck = data.list.find(d => d.id === 'main');
+          if (mainDeck && Array.isArray(mainDeck.tools)) {
+            const joined = mainDeck.tools.join(',');
+            if (
+              joined === 'json-formatter,pdf-merger,base64-encoder-decoder,text-diff-checker,secure-password-generator' ||
+              joined === 'json-formatter,base64-encoder-decoder,text-diff-checker,secure-password-generator' ||
+              joined === 'json-formatter,pdf-merger,base64-encoder-decoder,text-diff-checker'
+            ) {
+              mainDeck.tools = [];
+            }
+          }
+          if (data.list.length === 0) {
+            data.list = [{ id: 'main', name: 'Main Deck', tools: [] }];
+            data.activeId = 'main';
+          }
+          try {
+            localStorage.setItem('tabkit_workspaces', JSON.stringify(data));
+          } catch (e) {}
+        }
+      }
 
       if (!data) {
         const legacy = localStorage.getItem('tabkit_pinned_tools');
