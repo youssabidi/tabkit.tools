@@ -138,18 +138,17 @@
       <!-- Glow effect behind empty state text -->
       <div class="absolute top-0 left-1/2 -translate-x-1/2 w-full h-1/2 bg-workspace-accent/5 blur-[80px] pointer-events-none"></div>
       
-      <div class="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-workspace-bg border border-workspace-border mb-6 shadow-[0_0_20px_rgba(0,0,0,0.5)] relative z-10">
-        <svg class="w-8 h-8 text-workspace-accent drop-shadow-[0_0_5px_rgba(16,185,129,0.8)]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M11 4a2 2 0 114 0v1a1 1 0 001 1h3a1 1 0 011 1v3a1 1 0 01-1 1h-1a2 2 0 100 4h1a1 1 0 011 1v3a1 1 0 01-1 1h-3a1 1 0 01-1-1v-1a2 2 0 10-4 0v1a1 1 0 01-1 1H7a1 1 0 01-1-1v-3a1 1 0 00-1-1H4a2 2 0 110-4h1a1 1 0 001-1V7a1 1 0 011-1h3a1 1 0 001-1V4z" />
-        </svg>
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-workspace-accent/10 border border-workspace-accent/25 text-workspace-accent text-xs font-mono mb-4">
+        <span class="w-2 h-2 rounded-full bg-workspace-accent animate-pulse"></span>
+        Zero Server Telemetry • 100% Client-Side
       </div>
       
-      <h1 class="text-3xl sm:text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-br from-white to-workspace-muted tracking-tight mb-4 relative z-10">
+      <h1 class="text-3xl sm:text-5xl font-extrabold text-workspace-text tracking-tight mb-4 relative z-10">
         Welcome to your Workbench
       </h1>
       
-      <p class="text-sm sm:text-base text-workspace-muted/90 max-w-2xl mx-auto mb-10 relative z-10">
-        Build your perfect productivity dashboard. Click any tool below to pin it to your board. Everything runs 100% locally in your browser—zero servers, zero tracking.
+      <p class="text-sm sm:text-base text-workspace-muted max-w-2xl mx-auto mb-10 relative z-10 leading-relaxed">
+        Build your ideal productivity dashboard. Pin the tools you need or search the offline directory below. Everything runs strictly in your browser with zero network latency.
       </p>
 
       <div class="flex flex-wrap items-center justify-center gap-4 mb-12 relative z-10">
@@ -484,6 +483,15 @@
       }
     }
 
+    const CATEGORY_DOT_COLORS = {
+      'Documents & PDF': 'bg-emerald-400',
+      'Developer & Code': 'bg-cyan-400',
+      'Text & Data': 'bg-sky-400',
+      'Privacy & Security': 'bg-amber-400',
+      'Media & Design': 'bg-violet-400',
+      'Productivity & Math': 'bg-rose-400'
+    };
+
     async function renderWorkbench() {
       const grid = document.getElementById('workbenchGrid');
       const emptyState = document.getElementById('emptyWorkspaceState');
@@ -541,10 +549,12 @@
           card.ondragleave = () => handleDragLeave(card);
           card.ondrop = (e) => handleDrop(toolId, card, e);
 
+          const dotColor = CATEGORY_DOT_COLORS[tool.category] || 'bg-workspace-accent';
+
           card.innerHTML = `
             <div class="flex items-center justify-between pb-3 border-b border-workspace-border mb-4 h-10 shrink-0 cursor-grab active:cursor-grabbing" title="Drag card to reorder">
               <div class="flex items-center gap-2.5 overflow-hidden mr-2">
-                <span class="w-2 h-2 rounded-full bg-workspace-accent shrink-0"></span>
+                <span class="w-2 h-2 rounded-full ${dotColor} shrink-0"></span>
                 <h3 class="text-xs font-bold text-workspace-text tracking-wide uppercase font-mono truncate select-none">${tool.name}</h3>
               </div>
               <div class="flex items-center gap-1 shrink-0 opacity-70 group-hover:opacity-100 transition-opacity">
@@ -773,13 +783,13 @@
           const isActive = selectedCatalogCategory === cat;
           const count = cat === 'All' ? allTools.length : allTools.filter(t => t.category === cat).length;
           return `
-            <button onclick="setCatalogCategory('${cat}')" class="px-3 py-1.5 rounded-xl text-xs font-mono shrink-0 transition-all border flex items-center gap-1.5 ${
+            <button onclick="setCatalogCategory('${cat}')" class="px-3.5 py-1.5 rounded-xl text-xs font-mono shrink-0 transition-all border flex items-center gap-2 select-none ${
               isActive 
-                ? 'bg-workspace-accent text-black font-bold border-workspace-accent shadow-sm' 
+                ? 'bg-workspace-accent/15 border-workspace-accent text-workspace-accent font-semibold shadow-sm' 
                 : 'bg-workspace-surface border-workspace-border hover:border-workspace-borderLight text-workspace-muted hover:text-workspace-text'
             }">
               <span>${cat}</span>
-              <span class="text-[10px] px-1.5 py-0.5 rounded-md ${isActive ? 'bg-black/20 text-black font-bold' : 'bg-workspace-bg text-workspace-muted'}">${count}</span>
+              <span class="text-[10px] px-1.5 py-0.5 rounded-md ${isActive ? 'bg-workspace-accent/20 text-workspace-accent font-bold' : 'bg-workspace-bg text-workspace-muted'}">${count}</span>
             </button>
           `;
         }).join('');
@@ -805,26 +815,29 @@
       }
 
       // Render balanced, uniform cards
-      catalogContainer.innerHTML = filtered.map(t => `
-        <button onclick="pinTool('${t.id}')" class="w-full text-left p-4 rounded-2xl bg-workspace-surface border border-workspace-border hover:border-workspace-borderLight hover:bg-workspace-surfaceHover transition-all duration-200 group flex flex-col justify-between min-h-[120px] tool-card">
-          <div>
-            <div class="flex items-center justify-between gap-2 mb-1.5">
-              <span class="text-sm font-bold text-workspace-text group-hover:text-workspace-accent transition-colors truncate">${escapeHtml(t.name)}</span>
-              <span class="text-[9px] uppercase font-mono px-2 py-0.5 rounded-md bg-workspace-bg border border-workspace-border text-workspace-muted shrink-0">${escapeHtml(t.category || 'Tool')}</span>
+      catalogContainer.innerHTML = filtered.map(t => {
+        const dotColor = CATEGORY_DOT_COLORS[t.category] || 'bg-workspace-accent';
+        return `
+          <button onclick="pinTool('${t.id}')" class="w-full text-left p-4 rounded-2xl bg-workspace-surface border border-workspace-border hover:border-workspace-borderLight hover:bg-workspace-surfaceHover transition-all duration-200 group flex flex-col justify-between min-h-[120px] tool-card">
+            <div>
+              <div class="flex items-center justify-between gap-2 mb-1.5">
+                <span class="text-sm font-bold text-workspace-text group-hover:text-workspace-accent transition-colors truncate">${escapeHtml(t.name)}</span>
+                <span class="text-[9px] uppercase font-mono px-2 py-0.5 rounded-md bg-workspace-bg border border-workspace-border text-workspace-muted shrink-0">${escapeHtml(t.category || 'Tool')}</span>
+              </div>
+              <p class="text-[11px] text-workspace-muted leading-relaxed line-clamp-2">${escapeHtml(t.description)}</p>
             </div>
-            <p class="text-[11px] text-workspace-muted leading-relaxed line-clamp-2">${escapeHtml(t.description)}</p>
-          </div>
-          <div class="flex items-center justify-between pt-2.5 border-t border-workspace-border/60 text-[10px] font-mono mt-3">
-            <span class="text-workspace-muted group-hover:text-workspace-accent transition-colors flex items-center gap-1">
-              <span class="w-1.5 h-1.5 rounded-full bg-workspace-accent/60"></span>
-              Offline
-            </span>
-            <span class="text-workspace-accent font-bold opacity-0 group-hover:opacity-100 transition-opacity flex items-center gap-1">
-              <span>+ Pin to Deck</span>
-            </span>
-          </div>
-        </button>
-      `).join('');
+            <div class="flex items-center justify-between pt-2.5 border-t border-workspace-border/60 text-[10px] font-mono mt-3">
+              <span class="text-workspace-muted group-hover:text-workspace-text transition-colors flex items-center gap-1.5">
+                <span class="w-1.5 h-1.5 rounded-full ${dotColor}"></span>
+                ${escapeHtml(t.category || 'Tool')}
+              </span>
+              <span class="text-workspace-accent font-bold opacity-0 group-hover:opacity-100 transition-opacity flex items-center gap-1">
+                <span>+ Pin to Deck</span>
+              </span>
+            </div>
+          </button>
+        `;
+      }).join('');
 
       // Wire up search listener if not wired
       if (searchInput && !searchInput.dataset.wired) {
