@@ -97,6 +97,10 @@
             <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4M12 8h.01" /></svg>
             <span>About TabKit</span>
           </a>
+          <button onclick="resetWorkbenchPrompt()" class="w-full text-left px-2.5 py-1.5 rounded-lg hover:bg-workspace-surfaceHover hover:text-workspace-danger text-workspace-muted transition-colors flex items-center gap-2">
+            <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" /></svg>
+            <span>Reset Decks</span>
+          </button>
           <button id="btnInstallApp" onclick="installPwaApp()" class="hidden w-full text-left px-2.5 py-1.5 rounded-lg hover:bg-workspace-accent/15 text-workspace-accent font-bold transition-colors flex items-center gap-2">
             <svg class="w-3.5 h-3.5 fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect><line x1="12" y1="18" x2="12.01" y2="18"></line></svg>
             <span>Install App</span>
@@ -246,11 +250,7 @@
     const DEFAULT_WORKSPACES = {
       activeId: 'main',
       list: [
-        { id: 'main', name: '★ Main Deck', tools: ['json-formatter', 'pdf-merger', 'base64-encoder-decoder', 'text-diff-checker', 'secure-password-generator'] },
-        { id: 'pdf', name: '📄 PDF & Docs', tools: ['pdf-merger', 'pdf-splitter', 'pdf-rotator', 'images-to-pdf', 'pdf-watermarker', 'pdf-metadata-editor', 'pdf-page-numberer'] },
-        { id: 'dev', name: '🛠 Dev Suite', tools: ['json-formatter', 'curl-converter', 'json-to-typescript', 'chmod-calculator', 'unix-timestamp-converter'] },
-        { id: 'media', name: '🖼 Media & Privacy', tools: ['image-compressor', 'pdf-splitter', 'exif-metadata-stripper', 'svg-optimizer'] },
-        { id: 'daily', name: '⚡ Daily Admin', tools: ['percentage-calculator', 'unit-converter', 'qr-code-generator', 'time-zone-converter'] }
+        { id: 'main', name: 'Main Deck', tools: ['json-formatter', 'base64-encoder-decoder', 'text-diff-checker', 'secure-password-generator'] }
       ]
     };
 
@@ -267,35 +267,19 @@
           try {
             const parsed = JSON.parse(legacy);
             if (Array.isArray(parsed) && parsed.length > 0) {
-              data = JSON.parse(JSON.stringify(DEFAULT_WORKSPACES));
-              data.list[0].tools = parsed;
+              data = {
+                activeId: 'main',
+                list: [{ id: 'main', name: 'Main Deck', tools: parsed }]
+              };
             }
           } catch (e) {}
         }
       }
 
-      if (!data) {
+      if (!data || !Array.isArray(data.list) || data.list.length === 0) {
         data = JSON.parse(JSON.stringify(DEFAULT_WORKSPACES));
       }
 
-      // Auto-Migration for Returning Visitors: ensure new default decks exist (e.g. PDF deck)
-      if (data && Array.isArray(data.list)) {
-        DEFAULT_WORKSPACES.list.forEach(defDeck => {
-          const existing = data.list.find(d => d.id === defDeck.id);
-          if (!existing) {
-            data.list.push(JSON.parse(JSON.stringify(defDeck)));
-          }
-        });
-        // Ensure Main Deck has pdf-merger so returning users immediately see it
-        const mainDeck = data.list.find(d => d.id === 'main');
-        if (mainDeck && Array.isArray(mainDeck.tools) && !mainDeck.tools.includes('pdf-merger')) {
-          mainDeck.tools.splice(1, 0, 'pdf-merger');
-        }
-      }
-
-      try {
-        localStorage.setItem('tabkit_workspaces', JSON.stringify(data));
-      } catch (e) {}
       return data;
     }
 
@@ -339,6 +323,7 @@
         return;
       }
       const toDelete = workspacesData.list.find(w => w.id === workspaceId);
+      if (!toDelete) return;
       if (!confirm(`Delete deck "${toDelete.name}"?`)) return;
       workspacesData.list = workspacesData.list.filter(w => w.id !== workspaceId);
       if (workspacesData.activeId === workspaceId) {
@@ -347,23 +332,49 @@
       activeWorkspace = workspacesData.list.find(w => w.id === workspacesData.activeId);
       activePinnedTools = activeWorkspace.tools;
       saveWorkspaceState();
+      if (typeof showToast !== 'undefined') showToast(`Deleted ${toDelete.name}`);
+    }
+
+    function renameWorkspace(workspaceId, e) {
+      if (e) e.stopPropagation();
+      const target = workspacesData.list.find(w => w.id === workspaceId);
+      if (!target) return;
+      const newName = prompt('Rename deck:', target.name);
+      if (!newName || !newName.trim()) return;
+      target.name = newName.trim();
+      saveWorkspaceState();
+      if (typeof showToast !== 'undefined') showToast('Deck renamed');
+    }
+
+    function resetWorkbenchPrompt() {
+      if (!confirm('Reset to a single clean deck? This will clear custom decks and pinned tools.')) return;
+      workspacesData = {
+        activeId: 'main',
+        list: [
+          { id: 'main', name: 'Main Deck', tools: [] }
+        ]
+      };
+      activeWorkspace = workspacesData.list[0];
+      activePinnedTools = activeWorkspace.tools;
+      saveWorkspaceState();
+      if (typeof showToast !== 'undefined') showToast('Workspace reset to clean deck');
     }
 
     function renderWorkspaceTabs() {
       const container = document.getElementById('workspaceTabsList');
       if (!container) return;
+      const canDelete = workspacesData.list.length > 1;
       container.innerHTML = workspacesData.list.map(w => {
         const isActive = w.id === workspacesData.activeId;
-        const isCustom = !['main', 'pdf', 'dev', 'media', 'daily'].includes(w.id);
         return `
-          <div onclick="switchWorkspace('${w.id}')" class="group cursor-pointer px-3.5 py-1.5 rounded-xl text-xs font-mono flex items-center gap-2 border transition-all shrink-0 select-none ${
+          <div onclick="switchWorkspace('${w.id}')" ondblclick="renameWorkspace('${w.id}', event)" title="Click to switch, double-click to rename" class="group cursor-pointer px-3.5 py-1.5 rounded-xl text-xs font-mono flex items-center gap-2 border transition-all shrink-0 select-none ${
             isActive 
               ? 'bg-workspace-surface border-workspace-borderLight text-workspace-text font-bold shadow-sm' 
               : 'border-transparent text-workspace-muted hover:text-workspace-text hover:bg-workspace-surface/60'
           }">
             <span class="${isActive ? 'text-workspace-accent font-semibold' : ''}">${escapeHtml(w.name)}</span>
             <span class="text-[10px] px-1.5 py-0.5 rounded-md font-mono ${isActive ? 'bg-workspace-bg text-workspace-accent border border-workspace-border' : 'bg-workspace-surface/50 text-workspace-muted'}">${w.tools.length}</span>
-            ${isCustom ? `<button onclick="deleteWorkspace('${w.id}', event)" class="opacity-0 group-hover:opacity-100 hover:text-workspace-danger ml-0.5 text-xs text-workspace-muted leading-none" title="Delete deck">&times;</button>` : ''}
+            ${canDelete ? `<button onclick="deleteWorkspace('${w.id}', event)" class="opacity-0 group-hover:opacity-100 hover:text-workspace-danger ml-0.5 text-xs text-workspace-muted leading-none p-0.5 rounded hover:bg-workspace-surfaceHover" title="Delete deck">&times;</button>` : ''}
           </div>
         `;
       }).join('');
