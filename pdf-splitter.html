@@ -5,7 +5,66 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Client-Side PDF Splitter & Page Remover | TabKit Tools</title>
   <link rel="manifest" href="/manifest.json" />
-  <meta name="description" content="Extract specific pages or split multi-page PDF documents locally in your browser with zero server uploads." />
+  <meta name="description" content="Extract specific pages, delete unwanted pages, or split multi-page PDF documents locally in your browser. 100% private, free, and secure." />
+  <meta name="keywords" content="split pdf offline, extract pdf pages in browser, separate pdf pages, delete pages from pdf, private pdf splitter" />
+  <link rel="canonical" href="https://tabkit.tools/pdf-splitter.html" />
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://tabkit.tools/pdf-splitter.html" />
+  <meta property="og:title" content="Client-Side PDF Splitter &amp; Page Extractor | TabKit Tools" />
+  <meta property="og:description" content="Split and extract PDF pages directly on your device. 100% offline with zero server uploads." />
+  <meta property="og:site_name" content="TabKit Tools" />
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Client-Side PDF Splitter &amp; Page Extractor | TabKit Tools" />
+  <meta name="twitter:description" content="Extract or delete pages from any PDF document locally in your browser." />
+
+  <!-- Structured Data: WebApplication & FAQPage JSON-LD -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebApplication",
+        "@id": "https://tabkit.tools/pdf-splitter.html#app",
+        "name": "TabKit PDF Splitter",
+        "url": "https://tabkit.tools/pdf-splitter.html",
+        "applicationCategory": "UtilitiesApplication",
+        "operatingSystem": "All",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        },
+        "description": "Free client-side PDF splitter to extract or remove pages locally without cloud uploads."
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "How does this tool split PDFs without an internet upload?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "The tool uses WebAssembly and JavaScript binary streams directly in your browser tab. Your files remain exclusively in your computer's memory."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Can I extract non-consecutive pages like 1, 3, and 5-10?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes. You can specify custom page ranges such as '1, 3, 5-10' to extract only the exact pages you need into a new PDF document."
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+
   <link rel="stylesheet" href="styles.css" />
   <script src="components.js"></script>
   <script src="utils.js"></script>
@@ -15,13 +74,55 @@
   <tool-header tool-name="pdf-splitter"></tool-header>
   <main class="flex-1 max-w-4xl w-full mx-auto px-4 py-8 md:py-12">
     <div class="mb-8 text-center max-w-2xl mx-auto">
-      <h1 class="text-3xl md:text-4xl font-extrabold tracking-tight text-white mb-3">Client-Side PDF Splitter & Page Remover</h1>
-      <p class="text-sm text-workspace-muted leading-relaxed">Extract specific pages or split multi-page PDF documents locally in your browser with zero server uploads.</p>
+      <div class="inline-flex items-center gap-2 px-2.5 py-1 rounded-full bg-workspace-accent/10 border border-workspace-accent/30 text-workspace-accent text-xs font-mono mb-3">
+        <span class="w-2 h-2 rounded-full bg-workspace-accent animate-pulse"></span>
+        100% Client-Side • Secure
+      </div>
+      <h1 class="text-3xl md:text-4xl font-extrabold tracking-tight text-white mb-3">PDF Splitter &amp; Page Extractor</h1>
+      <p class="text-sm text-workspace-muted leading-relaxed">Extract specific pages, isolate chapters, or delete unnecessary sheets with zero cloud uploads.</p>
     </div>
-    <!-- Increased height to comfortably fit file droppers and controls -->
+    
     <div class="rounded-2xl border border-workspace-border bg-workspace-surface shadow-2xl p-6 mb-16 max-w-2xl mx-auto min-h-[500px] flex flex-col">
       <div id="tool-container" class="flex-1 w-full relative"></div>
     </div>
+
+    <!-- SEO & Explainer Content -->
+    <article class="prose prose-invert max-w-2xl mx-auto border-t border-workspace-border pt-12 space-y-8 text-sm text-workspace-muted leading-relaxed">
+      <div>
+        <h2 class="text-xl font-bold text-white mb-3">Why Extract PDF Pages Locally?</h2>
+        <p>
+          Standard online PDF splitters process your files on remote web servers, creating data privacy hazards when handling sensitive contracts, bank statements, or personal records. 
+        </p>
+        <p class="mt-3">
+          <strong>TabKit PDF Splitter</strong> extracts and repackages only the pages you specify entirely in your browser using local binary operations. No file ever touches an external server.
+        </p>
+      </div>
+
+      <div class="border-t border-workspace-border pt-8 space-y-4">
+        <h2 class="text-xl font-bold text-white mb-4">Frequently Asked Questions</h2>
+        <div class="space-y-3">
+          <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/60">
+            <h3 class="text-sm font-bold text-workspace-text mb-1">How do I specify which pages to extract?</h3>
+            <p class="text-xs text-workspace-muted leading-relaxed">Enter single page numbers or ranges separated by commas, such as <code>1-3, 5, 8-12</code>, to download a new document containing only those pages.</p>
+          </div>
+          <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/60">
+            <h3 class="text-sm font-bold text-workspace-text mb-1">Is my original PDF modified or overwritten?</h3>
+            <p class="text-xs text-workspace-muted leading-relaxed">No. Your original file remains untouched on your disk. A brand new PDF containing only your selected pages is generated and downloaded to your device.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Related Tools for SEO Internal Linking -->
+      <div class="border-t border-workspace-border pt-8">
+        <h3 class="text-xs font-bold uppercase tracking-wider text-workspace-muted mb-3 font-mono">Related Document Tools</h3>
+        <div class="flex flex-wrap gap-2 text-xs font-mono">
+          <a href="/pdf-merger.html" class="px-3 py-1.5 rounded-lg border border-workspace-border bg-workspace-surface hover:border-workspace-accent hover:text-workspace-accent transition-colors">PDF Merger &rarr;</a>
+          <a href="/pdf-rotator.html" class="px-3 py-1.5 rounded-lg border border-workspace-border bg-workspace-surface hover:border-workspace-accent hover:text-workspace-accent transition-colors">PDF Rotator &rarr;</a>
+          <a href="/images-to-pdf.html" class="px-3 py-1.5 rounded-lg border border-workspace-border bg-workspace-surface hover:border-workspace-accent hover:text-workspace-accent transition-colors">Images to PDF &rarr;</a>
+          <a href="/pdf-metadata-editor.html" class="px-3 py-1.5 rounded-lg border border-workspace-border bg-workspace-surface hover:border-workspace-accent hover:text-workspace-accent transition-colors">PDF Metadata Editor &rarr;</a>
+        </div>
+      </div>
+    </article>
   </main>
   <tabkit-footer></tabkit-footer>
   <div id="toastContainer" class="fixed bottom-6 right-4 z-50 flex flex-col gap-2 pointer-events-none"></div>

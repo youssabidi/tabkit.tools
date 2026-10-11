@@ -5,8 +5,74 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Client-Side PDF Merger &amp; Combiner | TabKit Tools</title>
   <link rel="manifest" href="/manifest.json" />
-  <meta name="description" content="Merge and combine multiple PDF files into one single document locally in your browser. 100% private with zero server uploads." />
+  <meta name="description" content="Merge and combine multiple PDF files into one document locally in your browser. 100% private with zero server uploads, unlimited file size, and complete security." />
+  <meta name="keywords" content="merge pdf offline, combine pdf in browser, merge pdf without uploading, private pdf merger, free pdf combine local" />
   <link rel="canonical" href="https://tabkit.tools/pdf-merger.html" />
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://tabkit.tools/pdf-merger.html" />
+  <meta property="og:title" content="Client-Side PDF Merger &amp; Combiner | TabKit Tools" />
+  <meta property="og:description" content="Merge multiple PDF files locally in your browser. 100% private with zero server uploads." />
+  <meta property="og:site_name" content="TabKit Tools" />
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Client-Side PDF Merger &amp; Combiner | TabKit Tools" />
+  <meta name="twitter:description" content="Combine PDF files directly on your device. Fast, private, and unlimited." />
+
+  <!-- Structured Data: WebApplication & FAQPage JSON-LD -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebApplication",
+        "@id": "https://tabkit.tools/pdf-merger.html#app",
+        "name": "TabKit PDF Merger",
+        "url": "https://tabkit.tools/pdf-merger.html",
+        "applicationCategory": "UtilitiesApplication",
+        "operatingSystem": "All",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        },
+        "description": "Free in-browser PDF merger and combiner with zero server uploads and complete privacy."
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Are my PDF files uploaded to any server?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "No. TabKit executes 100% inside your browser using client-side JavaScript. Your files are never uploaded to the internet or stored on external servers."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Is there a file size limit for merging PDFs?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "There are no artificial file size limits or paywalls. Processing speed and capacity depend solely on your computer or mobile device memory."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Can I merge confidential legal or medical documents safely?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes. Because data processing occurs entirely in local memory on your device, it is fully compliant with strict confidentiality and GDPR privacy standards."
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+
   <link rel="stylesheet" href="styles.css" />
   <script src="components.js"></script>
   <script src="utils.js"></script>
@@ -32,16 +98,18 @@
     </div>
 
     <!-- SEO & Explainer Content -->
-    <article class="prose prose-invert max-w-2xl mx-auto border-t border-workspace-border pt-12 space-y-6 text-sm text-workspace-muted leading-relaxed">
-      <h2 class="text-xl font-bold text-white">Why Merge PDFs Locally?</h2>
-      <p>
-        Most commercial online PDF utilities upload your documents to third-party cloud servers to perform merging operations. If you are handling sensitive documents such as tax returns, NDAs, medical records, or proprietary corporate agreements, uploading them to unknown cloud servers creates serious privacy and compliance risks.
-      </p>
-      <p>
-        <strong>TabKit Tools PDF Merger</strong> executes entirely inside your browser using client-side WebAssembly and JavaScript binary streams. There are zero file size caps, zero queues, and zero bytes transferred across the internet.
-      </p>
+    <article class="prose prose-invert max-w-2xl mx-auto border-t border-workspace-border pt-12 space-y-8 text-sm text-workspace-muted leading-relaxed">
+      <div>
+        <h2 class="text-xl font-bold text-white mb-3">Why Merge PDFs Locally?</h2>
+        <p>
+          Most commercial online PDF utilities upload your documents to third-party cloud servers to perform merging operations. If you are handling sensitive documents such as tax returns, NDAs, medical records, or proprietary corporate agreements, uploading them to unknown cloud servers creates serious privacy and compliance risks.
+        </p>
+        <p class="mt-3">
+          <strong>TabKit Tools PDF Merger</strong> executes entirely inside your browser using client-side WebAssembly and JavaScript binary streams. There are zero file size caps, zero queues, and zero bytes transferred across the internet.
+        </p>
+      </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-4">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface">
           <h3 class="text-sm font-bold text-white mb-1">Drag, Drop &amp; Reorder</h3>
           <p class="text-xs text-workspace-muted">Easily reorder pages and files using arrow controls before generating your final merged file.</p>
@@ -49,6 +117,36 @@
         <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface">
           <h3 class="text-sm font-bold text-white mb-1">Preserve Vector Quality</h3>
           <p class="text-xs text-workspace-muted">All original vector paths, typography, form fields, and embedded images remain pixel-perfect.</p>
+        </div>
+      </div>
+
+      <!-- FAQ Accordion for Search Engines & Visitors -->
+      <div class="border-t border-workspace-border pt-8 space-y-4">
+        <h2 class="text-xl font-bold text-white mb-4">Frequently Asked Questions</h2>
+        <div class="space-y-3">
+          <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/60">
+            <h3 class="text-sm font-bold text-workspace-text mb-1">Are my PDF files uploaded to any external server?</h3>
+            <p class="text-xs text-workspace-muted leading-relaxed">No. All file processing, page merging, and binary assembly occur directly inside your browser memory using WebAssembly. Disconnecting your internet connection before merging will still work 100%.</p>
+          </div>
+          <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/60">
+            <h3 class="text-sm font-bold text-workspace-text mb-1">Is there any file size limit or watermarking?</h3>
+            <p class="text-xs text-workspace-muted leading-relaxed">No. We never inject watermarks, restrict document page counts, or charge fees. The only limit is the available memory on your machine.</p>
+          </div>
+          <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/60">
+            <h3 class="text-sm font-bold text-workspace-text mb-1">Can I reorder files before merging?</h3>
+            <p class="text-xs text-workspace-muted leading-relaxed">Yes. Use the up and down arrow controls next to each uploaded PDF file in the queue to specify the exact sequence of pages in the output document.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Related Tools for SEO Internal Linking -->
+      <div class="border-t border-workspace-border pt-8">
+        <h3 class="text-xs font-bold uppercase tracking-wider text-workspace-muted mb-3 font-mono">Related Document Tools</h3>
+        <div class="flex flex-wrap gap-2 text-xs font-mono">
+          <a href="/pdf-splitter.html" class="px-3 py-1.5 rounded-lg border border-workspace-border bg-workspace-surface hover:border-workspace-accent hover:text-workspace-accent transition-colors">PDF Splitter &rarr;</a>
+          <a href="/pdf-rotator.html" class="px-3 py-1.5 rounded-lg border border-workspace-border bg-workspace-surface hover:border-workspace-accent hover:text-workspace-accent transition-colors">PDF Rotator &rarr;</a>
+          <a href="/images-to-pdf.html" class="px-3 py-1.5 rounded-lg border border-workspace-border bg-workspace-surface hover:border-workspace-accent hover:text-workspace-accent transition-colors">Images to PDF &rarr;</a>
+          <a href="/pdf-watermarker.html" class="px-3 py-1.5 rounded-lg border border-workspace-border bg-workspace-surface hover:border-workspace-accent hover:text-workspace-accent transition-colors">PDF Watermarker &rarr;</a>
         </div>
       </div>
     </article>
