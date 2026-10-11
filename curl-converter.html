@@ -23,46 +23,70 @@
 
   <!-- Structured Data: WebApplication & FAQPage JSON-LD -->
   <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@graph": [
-      {
-        "@type": "WebApplication",
-        "@id": "https://tabkit.tools/curl-converter.html#app",
-        "name": "TabKit cURL Converter",
-        "url": "https://tabkit.tools/curl-converter.html",
-        "applicationCategory": "DeveloperApplication",
-        "operatingSystem": "All",
-        "offers": {
-          "@type": "Offer",
-          "price": "0",
-          "priceCurrency": "USD"
-        },
-        "description": "Convert cURL commands into JavaScript fetch, Node.js axios, and Python requests locally in your browser."
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebApplication",
+      "@id": "https://tabkit.tools/curl-converter.html#app",
+      "name": "TabKit cURL Converter",
+      "url": "https://tabkit.tools/curl-converter.html",
+      "applicationCategory": "DeveloperApplication",
+      "operatingSystem": "All",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
       },
-      {
-        "@type": "FAQPage",
-        "mainEntity": [
-          {
-            "@type": "Question",
-            "name": "Are API tokens and headers kept confidential?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "Yes. The parsing occurs entirely inside your browser's JavaScript engine. Authentication tokens, API keys, and Authorization headers are never sent over the network."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "Which code formats are supported?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "The tool automatically generates modern JavaScript fetch syntax, Node.js Axios configuration objects, and Python requests code snippets."
-            }
+      "description": "Convert cURL commands into JavaScript fetch, Node.js axios, and Python requests locally in your browser."
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Are API tokens and headers kept confidential?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. The parsing occurs entirely inside your browser's JavaScript engine. Authentication tokens, API keys, and Authorization headers are never sent over the network."
           }
-        ]
-      }
-    ]
-  }
+        },
+        {
+          "@type": "Question",
+          "name": "Which code formats are supported?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The tool automatically generates modern JavaScript fetch syntax, Node.js Axios configuration objects, and Python requests code snippets."
+          }
+        }
+      ]
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://tabkit.tools/curl-converter.html#breadcrumb",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "TabKit",
+          "item": "https://tabkit.tools/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Developer & Code",
+          "item": "https://tabkit.tools/#developer-code"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "cURL to Fetch / Axios / Python Converter",
+          "item": "https://tabkit.tools/curl-converter.html"
+        }
+      ]
+    }
+  ]
+}
   </script>
 
   <link rel="stylesheet" href="styles.css" />

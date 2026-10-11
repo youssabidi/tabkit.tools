@@ -24,54 +24,78 @@
 
   <!-- Structured Data: WebApplication & FAQPage JSON-LD -->
   <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@graph": [
-      {
-        "@type": "WebApplication",
-        "@id": "https://tabkit.tools/json-formatter.html#app",
-        "name": "TabKit JSON Formatter & Validator",
-        "url": "https://tabkit.tools/json-formatter.html",
-        "applicationCategory": "DeveloperApplication",
-        "operatingSystem": "All",
-        "offers": {
-          "@type": "Offer",
-          "price": "0",
-          "priceCurrency": "USD"
-        },
-        "description": "Free in-browser JSON formatter, validator, and minifier with 100% client-side privacy."
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebApplication",
+      "@id": "https://tabkit.tools/json-formatter.html#app",
+      "name": "TabKit JSON Formatter & Validator",
+      "url": "https://tabkit.tools/json-formatter.html",
+      "applicationCategory": "DeveloperApplication",
+      "operatingSystem": "All",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
       },
-      {
-        "@type": "FAQPage",
-        "mainEntity": [
-          {
-            "@type": "Question",
-            "name": "Is my JSON data uploaded or logged when formatted?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "No. TabKit runs completely client-side in your browser using native JavaScript JSON.parse and JSON.stringify. Your API keys, auth tokens, and customer data never leave your computer."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "How does TabKit validate JSON syntax errors?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "The tool parses your input string directly against strict JSON specifications (RFC 8259) and pinpoints exact syntax errors like missing trailing commas, unescaped quotes, or bad brackets."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "Can I use this JSON formatter without an active internet connection?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "Yes. TabKit is an offline-capable Progressive Web App (PWA). You can install it on your desktop or phone and format JSON payloads while completely disconnected."
-            }
+      "description": "Free in-browser JSON formatter, validator, and minifier with 100% client-side privacy."
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Is my JSON data uploaded or logged when formatted?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. TabKit runs completely client-side in your browser using native JavaScript JSON.parse and JSON.stringify. Your API keys, auth tokens, and customer data never leave your computer."
           }
-        ]
-      }
-    ]
-  }
+        },
+        {
+          "@type": "Question",
+          "name": "How does TabKit validate JSON syntax errors?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The tool parses your input string directly against strict JSON specifications (RFC 8259) and pinpoints exact syntax errors like missing trailing commas, unescaped quotes, or bad brackets."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I use this JSON formatter without an active internet connection?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. TabKit is an offline-capable Progressive Web App (PWA). You can install it on your desktop or phone and format JSON payloads while completely disconnected."
+          }
+        }
+      ]
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://tabkit.tools/json-formatter.html#breadcrumb",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "TabKit",
+          "item": "https://tabkit.tools/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Text & Data",
+          "item": "https://tabkit.tools/#text-data"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "JSON Formatter & Validator",
+          "item": "https://tabkit.tools/json-formatter.html"
+        }
+      ]
+    }
+  ]
+}
   </script>
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />

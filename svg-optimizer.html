@@ -10,6 +10,38 @@
   <script src="components.js"></script>
   <script src="utils.js"></script>
   <script src="registry.js"></script>
+  <!-- Schema.org BreadcrumbList JSON-LD -->
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://tabkit.tools/svg-optimizer.html#breadcrumb",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "TabKit",
+          "item": "https://tabkit.tools/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Media & Design",
+          "item": "https://tabkit.tools/#media-design"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "SVG Optimizer & React / CSS Exporter",
+          "item": "https://tabkit.tools/svg-optimizer.html"
+        }
+      ]
+    }
+  ]
+}
+  </script>
 </head>
 <body class="bg-workspace-bg text-workspace-text font-sans antialiased min-h-screen flex flex-col selection:bg-workspace-accent selection:text-black">
   <tool-header tool-name="svg-optimizer"></tool-header>

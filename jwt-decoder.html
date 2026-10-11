@@ -21,32 +21,56 @@
 
   <!-- Schema.org JSON-LD -->
   <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@graph": [
-      {
-        "@type": "WebApplication",
-        "name": "JSON Web Token (JWT) Decoder",
-        "url": "https://tabkit.tools/jwt-decoder.html",
-        "applicationCategory": "DeveloperApplication",
-        "operatingSystem": "All modern browsers",
-        "description": "Decode and inspect JWT header and payload claims securely in your browser with expiration validation."
-      },
-      {
-        "@type": "FAQPage",
-        "mainEntity": [
-          {
-            "@type": "Question",
-            "name": "Why should you never paste production JWTs into typical websites?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "Production JWT tokens often carry confidential user IDs, scopes, email addresses, and session permissions. Third-party decoders can intercept or log these tokens. TabKit decodes Base64URL strictly in client memory without external requests."
-            }
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebApplication",
+      "name": "JSON Web Token (JWT) Decoder",
+      "url": "https://tabkit.tools/jwt-decoder.html",
+      "applicationCategory": "DeveloperApplication",
+      "operatingSystem": "All modern browsers",
+      "description": "Decode and inspect JWT header and payload claims securely in your browser with expiration validation."
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Why should you never paste production JWTs into typical websites?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Production JWT tokens often carry confidential user IDs, scopes, email addresses, and session permissions. Third-party decoders can intercept or log these tokens. TabKit decodes Base64URL strictly in client memory without external requests."
           }
-        ]
-      }
-    ]
-  }
+        }
+      ]
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://tabkit.tools/jwt-decoder.html#breadcrumb",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "TabKit",
+          "item": "https://tabkit.tools/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Developer & Code",
+          "item": "https://tabkit.tools/#developer-code"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "JSON Web Token (JWT) Decoder",
+          "item": "https://tabkit.tools/jwt-decoder.html"
+        }
+      ]
+    }
+  ]
+}
   </script>
 
   <script src="utils.js"></script>

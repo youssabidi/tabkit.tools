@@ -21,32 +21,56 @@
 
   <!-- Schema.org JSON-LD -->
   <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@graph": [
-      {
-        "@type": "WebApplication",
-        "name": "CSV ↔ JSON Converter",
-        "url": "https://tabkit.tools/csv-json-converter.html",
-        "applicationCategory": "DeveloperApplication",
-        "operatingSystem": "All modern browsers",
-        "description": "Convert CSV spreadsheets to JSON arrays or transform JSON objects back into CSV tables locally."
-      },
-      {
-        "@type": "FAQPage",
-        "mainEntity": [
-          {
-            "@type": "Question",
-            "name": "Is my CSV spreadsheet data safe?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "Yes. All row splitting, delimiter detection, and JSON array formatting execute directly on your CPU. Confidential financial data, client lists, or internal spreadsheets never leave your device."
-            }
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebApplication",
+      "name": "CSV ↔ JSON Converter",
+      "url": "https://tabkit.tools/csv-json-converter.html",
+      "applicationCategory": "DeveloperApplication",
+      "operatingSystem": "All modern browsers",
+      "description": "Convert CSV spreadsheets to JSON arrays or transform JSON objects back into CSV tables locally."
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Is my CSV spreadsheet data safe?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. All row splitting, delimiter detection, and JSON array formatting execute directly on your CPU. Confidential financial data, client lists, or internal spreadsheets never leave your device."
           }
-        ]
-      }
-    ]
-  }
+        }
+      ]
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://tabkit.tools/csv-json-converter.html#breadcrumb",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "TabKit",
+          "item": "https://tabkit.tools/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Text & Data",
+          "item": "https://tabkit.tools/#text-data"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "CSV ↔ JSON Converter",
+          "item": "https://tabkit.tools/csv-json-converter.html"
+        }
+      ]
+    }
+  ]
+}
   </script>
 
   <script src="utils.js"></script>

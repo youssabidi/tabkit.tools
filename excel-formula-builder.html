@@ -24,20 +24,49 @@
   <link rel="stylesheet" href="styles.css" />
   <!-- Google Structured Data (JSON-LD) for SEO Rich Snippets -->
   <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "WebApplication",
-    "name": "Excel Formula Builder & Generator",
-    "url": "https://tabkit.tools/excel-formula-builder.html",
-    "applicationCategory": "BusinessApplication",
-    "operatingSystem": "Any modern web browser",
-    "description": "An interactive offline builder for Microsoft Excel and Google Sheets formulas including XLOOKUP, SUMIFS, and INDEX/MATCH.",
-    "offers": {
-      "@type": "Offer",
-      "price": "0",
-      "priceCurrency": "USD"
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Excel Formula Builder & Generator",
+      "url": "https://tabkit.tools/excel-formula-builder.html",
+      "applicationCategory": "BusinessApplication",
+      "operatingSystem": "Any modern web browser",
+      "description": "An interactive offline builder for Microsoft Excel and Google Sheets formulas including XLOOKUP, SUMIFS, and INDEX/MATCH.",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://tabkit.tools/excel-formula-builder.html#breadcrumb",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "TabKit",
+          "item": "https://tabkit.tools/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Text & Data",
+          "item": "https://tabkit.tools/#text-data"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Excel Formula Builder Cheat Sheet",
+          "item": "https://tabkit.tools/excel-formula-builder.html"
+        }
+      ]
     }
-  }
+  ]
+}
   </script>
   <script src="utils.js"></script>
   <script src="components.js"></script>

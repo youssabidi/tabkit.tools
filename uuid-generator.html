@@ -21,32 +21,56 @@
 
   <!-- Schema.org JSON-LD -->
   <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@graph": [
-      {
-        "@type": "WebApplication",
-        "name": "Bulk UUID / GUID v4 Generator",
-        "url": "https://tabkit.tools/uuid-generator.html",
-        "applicationCategory": "DeveloperApplication",
-        "operatingSystem": "All modern browsers",
-        "description": "Generate bulk cryptographically secure UUID v4 identifiers locally with custom formatting and uppercase toggles."
-      },
-      {
-        "@type": "FAQPage",
-        "mainEntity": [
-          {
-            "@type": "Question",
-            "name": "Are these UUIDs cryptographically secure?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "Yes. TabKit utilizes the browser's native crypto.randomUUID() and Web Cryptography API to generate RFC 4122 compliant version 4 UUIDs with zero collision risk."
-            }
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebApplication",
+      "name": "Bulk UUID / GUID v4 Generator",
+      "url": "https://tabkit.tools/uuid-generator.html",
+      "applicationCategory": "DeveloperApplication",
+      "operatingSystem": "All modern browsers",
+      "description": "Generate bulk cryptographically secure UUID v4 identifiers locally with custom formatting and uppercase toggles."
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Are these UUIDs cryptographically secure?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. TabKit utilizes the browser's native crypto.randomUUID() and Web Cryptography API to generate RFC 4122 compliant version 4 UUIDs with zero collision risk."
           }
-        ]
-      }
-    ]
-  }
+        }
+      ]
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://tabkit.tools/uuid-generator.html#breadcrumb",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "TabKit",
+          "item": "https://tabkit.tools/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Productivity & Math",
+          "item": "https://tabkit.tools/#productivity-math"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Bulk UUID / GUID v4 Generator",
+          "item": "https://tabkit.tools/uuid-generator.html"
+        }
+      ]
+    }
+  ]
+}
   </script>
 
   <script src="utils.js"></script>

@@ -21,32 +21,56 @@
 
   <!-- Schema.org JSON-LD -->
   <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@graph": [
-      {
-        "@type": "WebApplication",
-        "name": "SQL Query Beautifier & Formatter",
-        "url": "https://tabkit.tools/sql-formatter.html",
-        "applicationCategory": "DeveloperApplication",
-        "operatingSystem": "All modern browsers",
-        "description": "Format, beautify, and capitalize SQL queries offline with clean clause indentation and minification."
-      },
-      {
-        "@type": "FAQPage",
-        "mainEntity": [
-          {
-            "@type": "Question",
-            "name": "Can I safely format proprietary database queries here?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "Yes. Unlike typical online SQL formatters, TabKit does not send your schema, table names, or confidential queries across the web. Formatting and capitalization run strictly in client JavaScript."
-            }
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebApplication",
+      "name": "SQL Query Beautifier & Formatter",
+      "url": "https://tabkit.tools/sql-formatter.html",
+      "applicationCategory": "DeveloperApplication",
+      "operatingSystem": "All modern browsers",
+      "description": "Format, beautify, and capitalize SQL queries offline with clean clause indentation and minification."
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Can I safely format proprietary database queries here?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. Unlike typical online SQL formatters, TabKit does not send your schema, table names, or confidential queries across the web. Formatting and capitalization run strictly in client JavaScript."
           }
-        ]
-      }
-    ]
-  }
+        }
+      ]
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://tabkit.tools/sql-formatter.html#breadcrumb",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "TabKit",
+          "item": "https://tabkit.tools/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Developer & Code",
+          "item": "https://tabkit.tools/#developer-code"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "SQL Query Beautifier & Formatter",
+          "item": "https://tabkit.tools/sql-formatter.html"
+        }
+      ]
+    }
+  ]
+}
   </script>
 
   <script src="utils.js"></script>

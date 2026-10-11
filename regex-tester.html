@@ -21,32 +21,56 @@
 
   <!-- Schema.org JSON-LD -->
   <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@graph": [
-      {
-        "@type": "WebApplication",
-        "name": "Regular Expression (Regex) Live Tester",
-        "url": "https://tabkit.tools/regex-tester.html",
-        "applicationCategory": "DeveloperApplication",
-        "operatingSystem": "All modern browsers",
-        "description": "Test, debug, and highlight regular expressions against sample text with live capture badges and cheatsheets."
-      },
-      {
-        "@type": "FAQPage",
-        "mainEntity": [
-          {
-            "@type": "Question",
-            "name": "Can I test sensitive log files or credentials with this Regex tool?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "Absolutely. Most online regex testers send your sample text to backend servers for analysis. TabKit executes the JavaScript RegExp engine locally in your browser sandbox with zero telemetry."
-            }
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebApplication",
+      "name": "Regular Expression (Regex) Live Tester",
+      "url": "https://tabkit.tools/regex-tester.html",
+      "applicationCategory": "DeveloperApplication",
+      "operatingSystem": "All modern browsers",
+      "description": "Test, debug, and highlight regular expressions against sample text with live capture badges and cheatsheets."
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Can I test sensitive log files or credentials with this Regex tool?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Absolutely. Most online regex testers send your sample text to backend servers for analysis. TabKit executes the JavaScript RegExp engine locally in your browser sandbox with zero telemetry."
           }
-        ]
-      }
-    ]
-  }
+        }
+      ]
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://tabkit.tools/regex-tester.html#breadcrumb",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "TabKit",
+          "item": "https://tabkit.tools/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Developer & Code",
+          "item": "https://tabkit.tools/#developer-code"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Regular Expression (Regex) Live Tester",
+          "item": "https://tabkit.tools/regex-tester.html"
+        }
+      ]
+    }
+  ]
+}
   </script>
 
   <script src="utils.js"></script>

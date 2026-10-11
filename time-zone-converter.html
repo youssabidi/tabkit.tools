@@ -20,15 +20,44 @@
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
   <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "WebApplication",
-    "name": "World Time Zone Converter",
-    "url": "https://tabkit.tools/time-zone-converter.html",
-    "applicationCategory": "ProductivityApplication",
-    "operatingSystem": "Any",
-    "description": "Interactive time zone converter and global meeting planner."
-  }
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "World Time Zone Converter",
+      "url": "https://tabkit.tools/time-zone-converter.html",
+      "applicationCategory": "ProductivityApplication",
+      "operatingSystem": "Any",
+      "description": "Interactive time zone converter and global meeting planner."
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://tabkit.tools/time-zone-converter.html#breadcrumb",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "TabKit",
+          "item": "https://tabkit.tools/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Productivity & Math",
+          "item": "https://tabkit.tools/#productivity-math"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "World Time Zone Converter",
+          "item": "https://tabkit.tools/time-zone-converter.html"
+        }
+      ]
+    }
+  ]
+}
   </script>
   <script src="utils.js"></script>
   <script src="components.js"></script>

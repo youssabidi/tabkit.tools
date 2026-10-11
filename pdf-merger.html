@@ -23,54 +23,78 @@
 
   <!-- Structured Data: WebApplication & FAQPage JSON-LD -->
   <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@graph": [
-      {
-        "@type": "WebApplication",
-        "@id": "https://tabkit.tools/pdf-merger.html#app",
-        "name": "TabKit PDF Merger",
-        "url": "https://tabkit.tools/pdf-merger.html",
-        "applicationCategory": "UtilitiesApplication",
-        "operatingSystem": "All",
-        "offers": {
-          "@type": "Offer",
-          "price": "0",
-          "priceCurrency": "USD"
-        },
-        "description": "Free in-browser PDF merger and combiner with zero server uploads and complete privacy."
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebApplication",
+      "@id": "https://tabkit.tools/pdf-merger.html#app",
+      "name": "TabKit PDF Merger",
+      "url": "https://tabkit.tools/pdf-merger.html",
+      "applicationCategory": "UtilitiesApplication",
+      "operatingSystem": "All",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
       },
-      {
-        "@type": "FAQPage",
-        "mainEntity": [
-          {
-            "@type": "Question",
-            "name": "Are my PDF files uploaded to any server?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "No. TabKit executes 100% inside your browser using client-side JavaScript. Your files are never uploaded to the internet or stored on external servers."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "Is there a file size limit for merging PDFs?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "There are no artificial file size limits or paywalls. Processing speed and capacity depend solely on your computer or mobile device memory."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "Can I merge confidential legal or medical documents safely?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "Yes. Because data processing occurs entirely in local memory on your device, it is fully compliant with strict confidentiality and GDPR privacy standards."
-            }
+      "description": "Free in-browser PDF merger and combiner with zero server uploads and complete privacy."
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Are my PDF files uploaded to any server?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. TabKit executes 100% inside your browser using client-side JavaScript. Your files are never uploaded to the internet or stored on external servers."
           }
-        ]
-      }
-    ]
-  }
+        },
+        {
+          "@type": "Question",
+          "name": "Is there a file size limit for merging PDFs?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "There are no artificial file size limits or paywalls. Processing speed and capacity depend solely on your computer or mobile device memory."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I merge confidential legal or medical documents safely?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. Because data processing occurs entirely in local memory on your device, it is fully compliant with strict confidentiality and GDPR privacy standards."
+          }
+        }
+      ]
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://tabkit.tools/pdf-merger.html#breadcrumb",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "TabKit",
+          "item": "https://tabkit.tools/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Documents & PDF",
+          "item": "https://tabkit.tools/#documents-pdf"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Client-Side PDF Merger & Combiner",
+          "item": "https://tabkit.tools/pdf-merger.html"
+        }
+      ]
+    }
+  ]
+}
   </script>
 
   <link rel="stylesheet" href="styles.css" />

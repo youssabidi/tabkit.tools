@@ -21,32 +21,56 @@
 
   <!-- Schema.org JSON-LD -->
   <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@graph": [
-      {
-        "@type": "WebApplication",
-        "name": "Image to Base64 (Data URI) Generator",
-        "url": "https://tabkit.tools/image-to-base64.html",
-        "applicationCategory": "DeveloperApplication",
-        "operatingSystem": "All modern browsers",
-        "description": "Convert PNG, JPG, or SVG images into copy-pasteable Base64 Data URIs, HTML tags, and CSS snippets."
-      },
-      {
-        "@type": "FAQPage",
-        "mainEntity": [
-          {
-            "@type": "Question",
-            "name": "What is a Base64 Data URI?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "A Base64 Data URI allows you to embed image files directly into HTML or CSS code without needing a separate image file or HTTP request. TabKit uses HTML5 FileReader API to encode files locally in milliseconds."
-            }
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebApplication",
+      "name": "Image to Base64 (Data URI) Generator",
+      "url": "https://tabkit.tools/image-to-base64.html",
+      "applicationCategory": "DeveloperApplication",
+      "operatingSystem": "All modern browsers",
+      "description": "Convert PNG, JPG, or SVG images into copy-pasteable Base64 Data URIs, HTML tags, and CSS snippets."
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is a Base64 Data URI?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "A Base64 Data URI allows you to embed image files directly into HTML or CSS code without needing a separate image file or HTTP request. TabKit uses HTML5 FileReader API to encode files locally in milliseconds."
           }
-        ]
-      }
-    ]
-  }
+        }
+      ]
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://tabkit.tools/image-to-base64.html#breadcrumb",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "TabKit",
+          "item": "https://tabkit.tools/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Media & Design",
+          "item": "https://tabkit.tools/#media-design"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Image to Base64 (Data URI) Generator",
+          "item": "https://tabkit.tools/image-to-base64.html"
+        }
+      ]
+    }
+  ]
+}
   </script>
 
   <script src="utils.js"></script>

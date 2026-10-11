@@ -21,32 +21,56 @@
 
   <!-- Schema.org JSON-LD -->
   <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@graph": [
-      {
-        "@type": "WebApplication",
-        "name": "Markdown Live Editor & HTML Preview",
-        "url": "https://tabkit.tools/markdown-preview.html",
-        "applicationCategory": "DeveloperApplication",
-        "operatingSystem": "All modern browsers",
-        "description": "Write, preview, and convert GitHub-flavored Markdown into clean HTML with live dual-view rendering."
-      },
-      {
-        "@type": "FAQPage",
-        "mainEntity": [
-          {
-            "@type": "Question",
-            "name": "How does the offline Markdown live preview work?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "TabKit parses Markdown entirely inside your browser's JavaScript engine using regex and DOM parsing. No notes or documents are ever uploaded to an external server or cloud database."
-            }
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebApplication",
+      "name": "Markdown Live Editor & HTML Preview",
+      "url": "https://tabkit.tools/markdown-preview.html",
+      "applicationCategory": "DeveloperApplication",
+      "operatingSystem": "All modern browsers",
+      "description": "Write, preview, and convert GitHub-flavored Markdown into clean HTML with live dual-view rendering."
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "How does the offline Markdown live preview work?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "TabKit parses Markdown entirely inside your browser's JavaScript engine using regex and DOM parsing. No notes or documents are ever uploaded to an external server or cloud database."
           }
-        ]
-      }
-    ]
-  }
+        }
+      ]
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://tabkit.tools/markdown-preview.html#breadcrumb",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "TabKit",
+          "item": "https://tabkit.tools/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Text & Data",
+          "item": "https://tabkit.tools/#text-data"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Markdown Live Editor & HTML Preview",
+          "item": "https://tabkit.tools/markdown-preview.html"
+        }
+      ]
+    }
+  ]
+}
   </script>
 
   <script src="utils.js"></script>
