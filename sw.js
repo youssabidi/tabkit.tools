@@ -1,4 +1,4 @@
-const CACHE_NAME = 'tabkit-v14';
+const CACHE_NAME = 'tabkit-v15';
 const ASSETS_TO_CACHE = [
   '/',
   '/styles.css',

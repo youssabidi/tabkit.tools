@@ -19,15 +19,51 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
+  <!-- Structured Data: WebApplication & FAQPage JSON-LD -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "WebApplication",
-    "name": "Secure Hash Generator",
-    "url": "https://tabkit.tools/sha256-hash-generator.html",
-    "applicationCategory": "DeveloperApplication",
-    "operatingSystem": "Any",
-    "description": "Generate SHA-256, SHA-384, and SHA-512 hashes instantly completely offline."
+    "@graph": [
+      {
+        "@type": "WebApplication",
+        "@id": "https://tabkit.tools/sha256-hash-generator.html#app",
+        "name": "TabKit SHA-256 Hash Generator",
+        "url": "https://tabkit.tools/sha256-hash-generator.html",
+        "applicationCategory": "DeveloperApplication",
+        "operatingSystem": "All",
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+        "description": "Generate SHA-256, SHA-384, and SHA-512 cryptographic hashes in real-time with zero server uploads."
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Is it safe to generate hashes for sensitive passwords or API keys here?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes. This tool computes cryptographic hashes strictly client-side using the browser Web Crypto API (crypto.subtle.digest). No strings or hashes are ever transmitted across the internet."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What is the difference between SHA-256, SHA-384, and SHA-512?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "All three belong to the SHA-2 family. SHA-256 produces a 256-bit (64 hex character) hash, SHA-384 produces a 384-bit (96 hex character) hash, and SHA-512 produces a 512-bit (128 hex character) hash offering higher collision resistance."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Can a SHA-256 hash be decrypted back to the original text?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "No. Cryptographic hash functions are one-way mathematical algorithms designed to be irreversible."
+            }
+          }
+        ]
+      }
+    ]
   }
   </script>
   <script src="utils.js"></script>
@@ -104,6 +140,36 @@
         <p class="mt-2">
           Because you may need to hash an API Secret Key or a confidential database password, typing that string into a standard, backend-hosted web tool is extremely dangerous. This tool utilizes the browser-native <code class="text-workspace-accent">window.crypto.subtle.digest()</code> function. This guarantees that the string you type is never transmitted over the internet, providing absolute zero-knowledge security.
         </p>
+      </div>
+
+      <!-- FAQ Accordion -->
+      <div class="border-t border-workspace-border pt-8 space-y-4">
+        <h2 class="text-xl font-bold text-white mb-4">Frequently Asked Questions</h2>
+        <div class="space-y-3">
+          <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/60">
+            <h3 class="text-sm font-bold text-workspace-text mb-1">Is it safe to generate hashes for sensitive passwords or API keys here?</h3>
+            <p class="text-xs text-workspace-muted leading-relaxed">Yes. This tool computes cryptographic hashes strictly client-side using the browser Web Crypto API (crypto.subtle.digest). No strings or hashes are ever transmitted across the internet.</p>
+          </div>
+          <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/60">
+            <h3 class="text-sm font-bold text-workspace-text mb-1">What is the difference between SHA-256, SHA-384, and SHA-512?</h3>
+            <p class="text-xs text-workspace-muted leading-relaxed">All three belong to the SHA-2 family. SHA-256 produces a 256-bit (64 hex character) hash, SHA-384 produces a 384-bit (96 hex character) hash, and SHA-512 produces a 512-bit (128 hex character) hash offering higher collision resistance.</p>
+          </div>
+          <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/60">
+            <h3 class="text-sm font-bold text-workspace-text mb-1">Can a SHA-256 hash be decrypted back to the original text?</h3>
+            <p class="text-xs text-workspace-muted leading-relaxed">No. Cryptographic hash functions are one-way mathematical algorithms designed to be irreversible.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Related Tools -->
+      <div class="border-t border-workspace-border pt-8">
+        <h3 class="text-xs font-bold uppercase tracking-wider text-workspace-muted mb-3 font-mono">Related Security &amp; Dev Tools</h3>
+        <div class="flex flex-wrap gap-2 text-xs font-mono">
+          <a href="base64-encoder-decoder.html" class="px-3 py-1.5 rounded-lg border border-workspace-border bg-workspace-surface hover:border-workspace-accent hover:text-workspace-accent transition-all">Base64 Encoder/Decoder &rarr;</a>
+          <a href="secure-password-generator.html" class="px-3 py-1.5 rounded-lg border border-workspace-border bg-workspace-surface hover:border-workspace-accent hover:text-workspace-accent transition-all">Password Generator &rarr;</a>
+          <a href="uuid-generator.html" class="px-3 py-1.5 rounded-lg border border-workspace-border bg-workspace-surface hover:border-workspace-accent hover:text-workspace-accent transition-all">UUID Generator &rarr;</a>
+          <a href="jwt-decoder.html" class="px-3 py-1.5 rounded-lg border border-workspace-border bg-workspace-surface hover:border-workspace-accent hover:text-workspace-accent transition-all">JWT Decoder &rarr;</a>
+        </div>
       </div>
     </article>
   </main>

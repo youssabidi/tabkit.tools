@@ -19,15 +19,51 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
+  <!-- Structured Data: WebApplication & FAQPage JSON-LD -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "WebApplication",
-    "name": "Base64 Encoder & Decoder",
-    "url": "https://tabkit.tools/base64-encoder-decoder.html",
-    "applicationCategory": "DeveloperApplication",
-    "operatingSystem": "Any",
-    "description": "Convert plain text to Base64 encoding or decode Base64 strings completely offline."
+    "@graph": [
+      {
+        "@type": "WebApplication",
+        "@id": "https://tabkit.tools/base64-encoder-decoder.html#app",
+        "name": "TabKit Base64 Encoder & Decoder",
+        "url": "https://tabkit.tools/base64-encoder-decoder.html",
+        "applicationCategory": "DeveloperApplication",
+        "operatingSystem": "All",
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+        "description": "Convert plain text to Base64 encoding or decode Base64 strings completely offline in your browser."
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Is my text data or decoded secret sent to any remote server?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "No. Base64 encoding and decoding are executed 100% locally in your browser using client-side JavaScript. Zero bytes are uploaded to the cloud."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Does this tool support UTF-8 characters and emojis?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes. The encoding and decoding engines handle full UTF-8 byte sequences, allowing safe conversion of multilingual text, Arabic, Chinese, and emojis."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Is Base64 considered encryption?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "No. Base64 is an encoding format designed for safe data transport over ASCII-only protocols (like email or URL query strings), not cryptographic encryption."
+            }
+          }
+        ]
+      }
+    ]
   }
   </script>
   <script src="utils.js"></script>
@@ -86,6 +122,36 @@
         <p class="mt-2">
           Because developers frequently deal with API secrets or sensitive user data that happens to be Base64-encoded, pasting those strings into a remote, cloud-hosted decoder is a massive security risk. This utility uses native browser functions (<code class="text-workspace-accent">btoa()</code> and <code class="text-workspace-accent">atob()</code>) to guarantee your data never leaves your current tab.
         </p>
+      </div>
+
+      <!-- FAQ Accordion -->
+      <div class="border-t border-workspace-border pt-8 space-y-4">
+        <h2 class="text-xl font-bold text-white mb-4">Frequently Asked Questions</h2>
+        <div class="space-y-3">
+          <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/60">
+            <h3 class="text-sm font-bold text-workspace-text mb-1">Is my text data or decoded secret sent to any remote server?</h3>
+            <p class="text-xs text-workspace-muted leading-relaxed">No. Base64 encoding and decoding are executed 100% locally in your browser using client-side JavaScript. Zero bytes are uploaded to the cloud.</p>
+          </div>
+          <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/60">
+            <h3 class="text-sm font-bold text-workspace-text mb-1">Does this tool support UTF-8 characters and emojis?</h3>
+            <p class="text-xs text-workspace-muted leading-relaxed">Yes. The encoding and decoding engines handle full UTF-8 byte sequences, allowing safe conversion of multilingual text, Arabic, Chinese, and emojis.</p>
+          </div>
+          <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/60">
+            <h3 class="text-sm font-bold text-workspace-text mb-1">Is Base64 considered encryption?</h3>
+            <p class="text-xs text-workspace-muted leading-relaxed">No. Base64 is an encoding format designed for safe data transport over ASCII-only protocols, not cryptographic encryption.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Related Tools -->
+      <div class="border-t border-workspace-border pt-8">
+        <h3 class="text-xs font-bold uppercase tracking-wider text-workspace-muted mb-3 font-mono">Related Developer Utilities</h3>
+        <div class="flex flex-wrap gap-2 text-xs font-mono">
+          <a href="image-to-base64.html" class="px-3 py-1.5 rounded-lg border border-workspace-border bg-workspace-surface hover:border-workspace-accent hover:text-workspace-accent transition-all">Image to Base64 &rarr;</a>
+          <a href="jwt-decoder.html" class="px-3 py-1.5 rounded-lg border border-workspace-border bg-workspace-surface hover:border-workspace-accent hover:text-workspace-accent transition-all">JWT Decoder &rarr;</a>
+          <a href="sha256-hash-generator.html" class="px-3 py-1.5 rounded-lg border border-workspace-border bg-workspace-surface hover:border-workspace-accent hover:text-workspace-accent transition-all">SHA-256 Hash Generator &rarr;</a>
+          <a href="url-link-cleaner.html" class="px-3 py-1.5 rounded-lg border border-workspace-border bg-workspace-surface hover:border-workspace-accent hover:text-workspace-accent transition-all">URL Cleaner &rarr;</a>
+        </div>
       </div>
     </article>
   </main>
