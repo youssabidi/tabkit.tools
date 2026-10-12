@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Frequently Asked Questions (FAQ) | TabKit Tools — Private Browser Utilities</title>
+  <link rel="manifest" href="/manifest.json" />
+  
+  <meta name="description" content="Clear answers about how TabKit Tools protects your data: 100% client-side execution, offline usage, zero server storage, and zero tracking." />
+  <link rel="canonical" href="https://tabkit.tools/faq.html" />
+
+  <!-- OpenGraph & Twitter SEO -->
+  <meta property="og:title" content="FAQ | TabKit Tools — Private Client-Side Utilities" />
+  <meta property="og:description" content="Learn how TabKit executes PDF, text, password, and developer utilities entirely inside your browser without uploading data." />
+  <meta property="og:url" content="https://tabkit.tools/faq.html" />
+  <meta property="og:type" content="article" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <!-- Fonts & Stylesheet -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+
+  <!-- FAQPage Schema.org JSON-LD -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Are my files, PDFs, or pasted passwords ever uploaded to your servers?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Never. TabKit Tools is 100% client-side. Every operation—including PDF merging, password generation, JSON formatting, image compression, and hash generation—executes entirely inside your browser using HTML5 Web APIs and WebAssembly. No data is ever transmitted to any remote server."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Can I use TabKit Tools without an internet connection (offline)?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes. Once you load TabKit Tools or install it as a Progressive Web App (PWA), all utilities continue to function seamlessly without internet access."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Is TabKit Tools free to use?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes, 100% free with no account creation, no subscriptions, no credit card requirements, and no daily usage caps."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How does TabKit compare to traditional online file converter websites?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Traditional online converters upload your confidential PDFs, images, and documents to cloud servers, where they may be stored or analyzed. TabKit processes everything locally in memory on your device, ensuring maximum speed and total data privacy."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Do you use tracking cookies or sell user data?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "No. We have zero third-party advertising cookies, zero session recorders, and zero tracking pixels. We do not collect, store, or sell any personal data."
+            }
+          }
+        ]
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": "https://tabkit.tools/faq.html#breadcrumb",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "TabKit",
+            "item": "https://tabkit.tools/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "FAQ",
+            "item": "https://tabkit.tools/faq.html"
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+  <script src="utils.js"></script>
+  <script src="components.js"></script>
+</head>
+
+<body class="bg-workspace-bg text-workspace-text font-sans antialiased min-h-screen flex flex-col selection:bg-workspace-accent selection:text-black">
+
+  <tool-header tool-name="FAQ"></tool-header>
+
+  <main class="flex-1 max-w-4xl w-full mx-auto px-4 py-12 md:py-16">
+    <div class="mb-12 border-b border-workspace-border pb-8 text-center max-w-2xl mx-auto">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-workspace-accent/10 border border-workspace-accent/30 text-workspace-accent text-xs font-mono mb-4">
+        Help &amp; Answers
+      </div>
+      <h1 class="text-3xl md:text-5xl font-extrabold tracking-tight text-white mb-4">
+        Frequently Asked Questions
+      </h1>
+      <p class="text-sm md:text-base text-workspace-muted leading-relaxed">
+        Everything you need to know about our local-first architecture, privacy guarantees, and everyday browser utilities.
+      </p>
+    </div>
+
+    <!-- FAQ Accordion / Cards List -->
+    <div class="space-y-4 mb-16">
+      <div class="p-6 rounded-2xl bg-workspace-surface border border-workspace-border">
+        <h2 class="text-base font-bold text-white mb-2 flex items-center gap-2">
+          <span class="text-workspace-accent font-mono text-sm font-bold">Q:</span>
+          Are my files, PDFs, or passwords ever uploaded to your servers?
+        </h2>
+        <p class="text-xs md:text-sm text-workspace-muted leading-relaxed ps-6">
+          <strong>Never.</strong> TabKit Tools runs 100% on your device. Every operation—including PDF splitting and merging, password generation, hash creation, JSON formatting, and image compression—takes place directly in your browser's local memory using native Web APIs. Not a single byte of your data is ever transmitted across the internet.
+        </p>
+      </div>
+
+      <div class="p-6 rounded-2xl bg-workspace-surface border border-workspace-border">
+        <h2 class="text-base font-bold text-white mb-2 flex items-center gap-2">
+          <span class="text-workspace-accent font-mono text-sm font-bold">Q:</span>
+          Can I use TabKit Tools offline without an internet connection?
+        </h2>
+        <p class="text-xs md:text-sm text-workspace-muted leading-relaxed ps-6">
+          <strong>Yes.</strong> TabKit Tools is engineered as an offline-first Progressive Web App (PWA). Once loaded in your browser, every single utility operates smoothly even if you disconnect from Wi-Fi or work on an airplane.
+        </p>
+      </div>
+
+      <div class="p-6 rounded-2xl bg-workspace-surface border border-workspace-border">
+        <h2 class="text-base font-bold text-white mb-2 flex items-center gap-2">
+          <span class="text-workspace-accent font-mono text-sm font-bold">Q:</span>
+          Is TabKit Tools free? Are there any hidden fees or subscriptions?
+        </h2>
+        <p class="text-xs md:text-sm text-workspace-muted leading-relaxed ps-6">
+          TabKit Tools is completely free for everyone. There are no paid tiers, no artificial file size limits, no mandatory sign-ups, and no paywalls.
+        </p>
+      </div>
+
+      <div class="p-6 rounded-2xl bg-workspace-surface border border-workspace-border">
+        <h2 class="text-base font-bold text-white mb-2 flex items-center gap-2">
+          <span class="text-workspace-accent font-mono text-sm font-bold">Q:</span>
+          How is this different from traditional online utility websites?
+        </h2>
+        <p class="text-xs md:text-sm text-workspace-muted leading-relaxed ps-6">
+          Most online converters and utility sites force you to upload sensitive files to their remote cloud servers, exposing your confidential spreadsheets, documents, or passwords to potential logging, data breaches, and ad tracking. TabKit brings the processing power into your browser sandbox, eliminating server uploads completely.
+        </p>
+      </div>
+
+      <div class="p-6 rounded-2xl bg-workspace-surface border border-workspace-border">
+        <h2 class="text-base font-bold text-white mb-2 flex items-center gap-2">
+          <span class="text-workspace-accent font-mono text-sm font-bold">Q:</span>
+          Do you track me with advertising cookies or third-party analytics?
+        </h2>
+        <p class="text-xs md:text-sm text-workspace-muted leading-relaxed ps-6">
+          <strong>No.</strong> We have zero Google Analytics, zero Meta tracking pixels, and zero advertising cookies. We do not fingerprint your browser or sell data to brokers.
+        </p>
+      </div>
+
+      <div class="p-6 rounded-2xl bg-workspace-surface border border-workspace-border">
+        <h2 class="text-base font-bold text-white mb-2 flex items-center gap-2">
+          <span class="text-workspace-accent font-mono text-sm font-bold">Q:</span>
+          How can I suggest a new tool or report an issue?
+        </h2>
+        <p class="text-xs md:text-sm text-workspace-muted leading-relaxed ps-6">
+          We welcome community input! You can submit a feature suggestion or report a bug directly through our <a href="/report-issue.html" class="text-workspace-accent hover:underline font-semibold">Report Issue &amp; Feedback page</a> or via our <a href="/contact.html" class="text-workspace-accent hover:underline font-semibold">Contact page</a>.
+        </p>
+      </div>
+    </div>
+
+    <!-- Call to action -->
+    <div class="p-8 rounded-2xl border border-workspace-border bg-gradient-to-br from-workspace-surface to-workspace-bg text-center">
+      <h2 class="text-lg font-bold text-white mb-2">Have a question not listed here?</h2>
+      <p class="text-xs text-workspace-muted mb-6">Our team is always happy to assist and improve the workbench.</p>
+      <div class="flex items-center justify-center gap-3">
+        <a href="/contact.html" class="px-5 py-2.5 rounded-lg bg-workspace-accent hover:bg-workspace-accentHover text-black text-xs font-bold transition-all shadow-md">
+          Contact Support
+        </a>
+        <a href="/about.html" class="px-5 py-2.5 rounded-lg bg-workspace-surface hover:bg-workspace-surfaceHover text-white text-xs font-semibold border border-workspace-border transition-all">
+          Read Manifesto
+        </a>
+      </div>
+    </div>
+  </main>
+
+  <tabkit-footer></tabkit-footer>
+
+</body>
+</html>

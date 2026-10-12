@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Report an Issue &amp; Request a Tool | TabKit Tools Community</title>
+  <link rel="manifest" href="/manifest.json" />
+  
+  <meta name="description" content="Report a bug, suggest an enhancement, or request a new client-side tool for TabKit Tools." />
+  <link rel="canonical" href="https://tabkit.tools/report-issue.html" />
+
+  <!-- OpenGraph & Twitter SEO -->
+  <meta property="og:title" content="Report an Issue &amp; Request a Tool | TabKit Tools" />
+  <meta property="og:description" content="Help us improve TabKit Tools: submit bug reports, performance issues, or feature requests." />
+  <meta property="og:url" content="https://tabkit.tools/report-issue.html" />
+  <meta property="og:type" content="article" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <!-- Fonts & Stylesheet -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+
+  <!-- Schema.org JSON-LD -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebPage",
+        "name": "Report an Issue - TabKit Tools",
+        "url": "https://tabkit.tools/report-issue.html",
+        "description": "Feedback and bug reporting center for TabKit Tools."
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": "https://tabkit.tools/report-issue.html#breadcrumb",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "TabKit",
+            "item": "https://tabkit.tools/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Report Issue",
+            "item": "https://tabkit.tools/report-issue.html"
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+  <script src="utils.js"></script>
+  <script src="components.js"></script>
+</head>
+
+<body class="bg-workspace-bg text-workspace-text font-sans antialiased min-h-screen flex flex-col selection:bg-workspace-accent selection:text-black">
+
+  <tool-header tool-name="Report Issue"></tool-header>
+
+  <main class="flex-1 max-w-3xl w-full mx-auto px-4 py-12 md:py-16">
+    <div class="mb-10 text-center max-w-xl mx-auto">
+      <div class="w-12 h-12 rounded-2xl bg-rose-950/60 border border-rose-500/40 text-rose-400 mx-auto flex items-center justify-center text-xl mb-3 shadow-inner">
+        🐞
+      </div>
+      <h1 class="text-3xl md:text-4xl font-extrabold tracking-tight text-white mb-3">
+        Report an Issue or Request a Tool
+      </h1>
+      <p class="text-sm text-workspace-muted leading-relaxed">
+        TabKit is constantly evolving. If something didn't work as expected or you wish a specific tool existed in your browser, let us know!
+      </p>
+    </div>
+
+    <!-- Feedback Form Card -->
+    <div class="p-6 md:p-8 rounded-3xl bg-workspace-surface border border-workspace-border mb-12">
+      <form id="issueForm" onsubmit="handleIssueSubmit(event)" class="space-y-4">
+        <div>
+          <label for="issueType" class="block text-xs font-bold text-workspace-text mb-1">What would you like to submit? *</label>
+          <select 
+            id="issueType" 
+            required
+            class="w-full bg-workspace-bg border border-workspace-border rounded-xl px-3.5 py-2.5 text-xs text-workspace-text outline-none focus:border-workspace-accent transition"
+          >
+            <option value="Bug Report">Bug / Tool Not Working Correctly</option>
+            <option value="Tool Request">Request a New Tool</option>
+            <option value="Performance Issue">Slow Performance or High Memory</option>
+            <option value="UI Improvement">Visual or Usability Improvement</option>
+            <option value="Other Feedback">Other General Feedback</option>
+          </select>
+        </div>
+
+        <div>
+          <label for="issueTool" class="block text-xs font-bold text-workspace-text mb-1">Affected Tool or Requested Feature *</label>
+          <input 
+            type="text" 
+            id="issueTool" 
+            required 
+            placeholder="e.g. PDF Splitter, QR Generator, or New CSV Tool..." 
+            class="w-full bg-workspace-bg border border-workspace-border rounded-xl px-3.5 py-2.5 text-xs text-workspace-text outline-none focus:border-workspace-accent transition"
+          >
+        </div>
+
+        <div>
+          <label for="issueDescription" class="block text-xs font-bold text-workspace-text mb-1">Description &amp; Steps to Reproduce *</label>
+          <textarea 
+            id="issueDescription" 
+            rows="5" 
+            required 
+            placeholder="Please describe the issue or explain the tool you would love to see. If reporting a bug, what browser and device are you using?" 
+            class="w-full bg-workspace-bg border border-workspace-border rounded-xl px-3.5 py-2.5 text-xs text-workspace-text outline-none focus:border-workspace-accent transition resize-none leading-relaxed"
+          ></textarea>
+        </div>
+
+        <div>
+          <label for="issueContact" class="block text-xs font-bold text-workspace-text mb-1">Your Email (Optional, if you'd like an update)</label>
+          <input 
+            type="email" 
+            id="issueContact" 
+            placeholder="you@example.com" 
+            class="w-full bg-workspace-bg border border-workspace-border rounded-xl px-3.5 py-2.5 text-xs text-workspace-text outline-none focus:border-workspace-accent transition"
+          >
+        </div>
+
+        <button 
+          type="submit" 
+          class="w-full bg-rose-600 hover:bg-rose-500 text-white font-bold py-3 rounded-xl transition text-xs shadow-md active:scale-[0.99] cursor-pointer"
+        >
+          Submit Feedback
+        </button>
+      </form>
+
+      <div id="issueSuccess" class="hidden mt-4 p-4 rounded-xl bg-emerald-950/60 border border-emerald-500/40 text-emerald-300 text-xs">
+        <strong>Thank you!</strong> Your feedback has been recorded. We review submissions regularly to fix bugs and prioritize new tools.
+      </div>
+    </div>
+  </main>
+
+  <script>
+    function handleIssueSubmit(e) {
+      e.preventDefault();
+      const type = document.getElementById('issueType').value;
+      const tool = document.getElementById('issueTool').value;
+      const desc = document.getElementById('issueDescription').value;
+      const contact = document.getElementById('issueContact').value;
+      
+      const mailtoLink = `mailto:support@tabkit.tools?subject=${encodeURIComponent('[ISSUE/REQUEST] ' + type + ': ' + tool)}&body=${encodeURIComponent('Category: ' + type + '\nTool: ' + tool + '\nContact: ' + contact + '\n\nDescription:\n' + desc)}`;
+      window.location.href = mailtoLink;
+      
+      document.getElementById('issueForm').reset();
+      document.getElementById('issueSuccess').classList.remove('hidden');
+    }
+  </script>
+
+  <tabkit-footer></tabkit-footer>
+
+</body>
+</html>

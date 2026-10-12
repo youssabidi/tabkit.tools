@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact Us | TabKit Tools — Get in Touch</title>
+  <link rel="manifest" href="/manifest.json" />
+  
+  <meta name="description" content="Contact the TabKit Tools team for general inquiries, feedback, tool suggestions, and privacy questions." />
+  <link rel="canonical" href="https://tabkit.tools/contact.html" />
+
+  <!-- OpenGraph & Twitter SEO -->
+  <meta property="og:title" content="Contact TabKit Tools Team" />
+  <meta property="og:description" content="Reach out for support, feedback, tool requests, or privacy inquiries." />
+  <meta property="og:url" content="https://tabkit.tools/contact.html" />
+  <meta property="og:type" content="article" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <!-- Fonts & Stylesheet -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+
+  <!-- Schema.org JSON-LD -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "ContactPage",
+        "name": "Contact TabKit Tools",
+        "url": "https://tabkit.tools/contact.html",
+        "description": "Direct communication channels for the TabKit Tools project."
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": "https://tabkit.tools/contact.html#breadcrumb",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "TabKit",
+            "item": "https://tabkit.tools/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Contact Us",
+            "item": "https://tabkit.tools/contact.html"
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+  <script src="utils.js"></script>
+  <script src="components.js"></script>
+</head>
+
+<body class="bg-workspace-bg text-workspace-text font-sans antialiased min-h-screen flex flex-col selection:bg-workspace-accent selection:text-black">
+
+  <tool-header tool-name="Contact"></tool-header>
+
+  <main class="flex-1 max-w-4xl w-full mx-auto px-4 py-12 md:py-16">
+    <div class="mb-12 border-b border-workspace-border pb-8 text-center max-w-2xl mx-auto">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-workspace-accent/10 border border-workspace-accent/30 text-workspace-accent text-xs font-mono mb-4">
+        Support &amp; Inquiries
+      </div>
+      <h1 class="text-3xl md:text-5xl font-extrabold tracking-tight text-white mb-4">
+        Get in Touch
+      </h1>
+      <p class="text-sm md:text-base text-workspace-muted leading-relaxed">
+        Whether you have questions, feedback, or ideas for new privacy-first tools, we would love to hear from you.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-12 gap-8 mb-16">
+      <!-- Contact Info Cards -->
+      <div class="md:col-span-5 space-y-4">
+        <div class="p-5 rounded-2xl bg-workspace-surface border border-workspace-border">
+          <div class="w-10 h-10 rounded-xl bg-workspace-bg border border-workspace-border flex items-center justify-center text-workspace-accent text-base mb-3 font-mono">
+            @
+          </div>
+          <h2 class="text-sm font-bold text-white mb-1">Direct Email</h2>
+          <p class="text-xs text-workspace-muted mb-3">For general questions, collaborations, or inquiries:</p>
+          <a href="mailto:support@tabkit.tools" class="text-xs font-mono font-bold text-workspace-accent hover:underline">
+            support@tabkit.tools
+          </a>
+        </div>
+
+        <div class="p-5 rounded-2xl bg-workspace-surface border border-workspace-border">
+          <div class="w-10 h-10 rounded-xl bg-workspace-bg border border-workspace-border flex items-center justify-center text-emerald-400 text-base mb-3">
+            🛡️
+          </div>
+          <h2 class="text-sm font-bold text-white mb-1">Privacy Guarantee</h2>
+          <p class="text-xs text-workspace-muted leading-relaxed">
+            Your contact information is only used to respond to your inquiry. We never add your email to marketing lists or share it with third parties.
+          </p>
+        </div>
+
+        <div class="p-5 rounded-2xl bg-workspace-surface/50 border border-workspace-border/60">
+          <h3 class="text-xs font-bold text-white mb-1 flex items-center gap-1.5">
+            <span>🐞</span> Found a bug or want a new tool?
+          </h3>
+          <p class="text-xs text-workspace-muted leading-relaxed mb-3">
+            Use our quick feedback tool to report technical issues or request utilities directly:
+          </p>
+          <a href="/report-issue.html" class="inline-flex items-center gap-1 text-xs font-semibold text-workspace-accent hover:underline">
+            <span>Submit Issue or Tool Request &rarr;</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Contact Form -->
+      <div class="md:col-span-7 p-6 md:p-8 rounded-3xl bg-workspace-surface border border-workspace-border">
+        <h2 class="text-base font-bold text-white mb-4">Send us a message</h2>
+        
+        <form id="contactForm" onsubmit="handleContactSubmit(event)" class="space-y-4">
+          <div>
+            <label for="contactName" class="block text-xs font-bold text-workspace-text mb-1">Your Name *</label>
+            <input 
+              type="text" 
+              id="contactName" 
+              required 
+              placeholder="e.g. Alex Morgan" 
+              class="w-full bg-workspace-bg border border-workspace-border rounded-xl px-3.5 py-2.5 text-xs text-workspace-text outline-none focus:border-workspace-accent transition"
+            >
+          </div>
+
+          <div>
+            <label for="contactEmail" class="block text-xs font-bold text-workspace-text mb-1">Email Address *</label>
+            <input 
+              type="email" 
+              id="contactEmail" 
+              required 
+              placeholder="alex@example.com" 
+              class="w-full bg-workspace-bg border border-workspace-border rounded-xl px-3.5 py-2.5 text-xs text-workspace-text outline-none focus:border-workspace-accent transition"
+            >
+          </div>
+
+          <div>
+            <label for="contactSubject" class="block text-xs font-bold text-workspace-text mb-1">Subject *</label>
+            <select 
+              id="contactSubject" 
+              required
+              class="w-full bg-workspace-bg border border-workspace-border rounded-xl px-3.5 py-2.5 text-xs text-workspace-text outline-none focus:border-workspace-accent transition"
+            >
+              <option value="General Question">General Question</option>
+              <option value="Tool Feedback">Feedback on an Existing Tool</option>
+              <option value="Feature Request">Request a New Tool</option>
+              <option value="Bug Report">Technical Bug Report</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+
+          <div>
+            <label for="contactMessage" class="block text-xs font-bold text-workspace-text mb-1">Message *</label>
+            <textarea 
+              id="contactMessage" 
+              rows="4" 
+              required 
+              placeholder="How can we help you?" 
+              class="w-full bg-workspace-bg border border-workspace-border rounded-xl px-3.5 py-2.5 text-xs text-workspace-text outline-none focus:border-workspace-accent transition resize-none"
+            ></textarea>
+          </div>
+
+          <button 
+            type="submit" 
+            class="w-full bg-workspace-accent hover:bg-workspace-accentHover text-black font-bold py-3 rounded-xl transition text-xs shadow-md active:scale-[0.99] cursor-pointer"
+          >
+            Send Message
+          </button>
+        </form>
+
+        <div id="contactSuccess" class="hidden mt-4 p-4 rounded-xl bg-emerald-950/60 border border-emerald-500/40 text-emerald-300 text-xs">
+          <strong>Thank you!</strong> Your message has been prepared. We typically respond within 24 to 48 business hours.
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    function handleContactSubmit(e) {
+      e.preventDefault();
+      const name = document.getElementById('contactName').value;
+      const email = document.getElementById('contactEmail').value;
+      const subject = document.getElementById('contactSubject').value;
+      const message = document.getElementById('contactMessage').value;
+      
+      const mailtoLink = `mailto:support@tabkit.tools?subject=${encodeURIComponent('[TabKit] ' + subject)}&body=${encodeURIComponent('From: ' + name + ' (' + email + ')\n\n' + message)}`;
+      window.location.href = mailtoLink;
+      
+      document.getElementById('contactForm').reset();
+      document.getElementById('contactSuccess').classList.remove('hidden');
+    }
+  </script>
+
+  <tabkit-footer></tabkit-footer>
+
+</body>
+</html>

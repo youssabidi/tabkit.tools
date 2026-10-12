@@ -1,12 +1,18 @@
 class TabkitFooter extends HTMLElement {
   connectedCallback() {
     this.innerHTML = `
-      <footer class="h-12 border-t border-workspace-border bg-workspace-surface/90 px-4 flex items-center justify-between text-xs font-mono text-workspace-muted">
-        <div>&copy; TabKit Tools &bull; Local-first privacy workbench.</div>
-        <div class="flex items-center gap-3">
-          <a href="/" class="hover:text-workspace-accent transition-colors">Workbench Dashboard</a>
+      <footer class="border-t border-workspace-border bg-workspace-surface/90 px-4 py-4 md:py-3 flex flex-col md:flex-row items-center justify-between gap-3 text-xs font-mono text-workspace-muted">
+        <div>&copy; 2026 TabKit Tools &bull; 100% Client-side local privacy workbench.</div>
+        <div class="flex flex-wrap items-center justify-center gap-3 md:gap-4">
+          <a href="/" class="hover:text-workspace-accent transition-colors">Workbench</a>
           <span>&bull;</span>
           <a href="/about.html" class="hover:text-workspace-accent transition-colors">About</a>
+          <span>&bull;</span>
+          <a href="/faq.html" class="hover:text-workspace-accent transition-colors">FAQ</a>
+          <span>&bull;</span>
+          <a href="/contact.html" class="hover:text-workspace-accent transition-colors">Contact</a>
+          <span>&bull;</span>
+          <a href="/report-issue.html" class="text-rose-400 hover:text-rose-300 font-semibold transition-colors">Report Issue</a>
         </div>
       </footer>
     `;
