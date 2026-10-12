@@ -45,6 +45,7 @@ window.TOOLS_REGISTRY['exif-metadata-stripper'] = Object.assign(window.TOOLS_REG
     const btnDownload = document.getElementById(`${toolId}_btnDownload`);
 
     let cleanedBlob = null;
+    let cleanedExt = 'jpg';
     let originalName = 'sanitized-photo';
 
     function cleanPhoto(file) {
@@ -52,6 +53,10 @@ window.TOOLS_REGISTRY['exif-metadata-stripper'] = Object.assign(window.TOOLS_REG
       fileName.textContent = file.name;
       originalName = file.name.replace(/\.[^/.]+$/, "");
       status.textContent = 'Sanitizing pixels...';
+
+      const isPng = file.type === 'image/png';
+      const outMime = isPng ? 'image/png' : 'image/jpeg';
+      cleanedExt = isPng ? 'png' : 'jpg';
 
       const reader = new FileReader();
       reader.onload = (e) => {
@@ -69,7 +74,7 @@ window.TOOLS_REGISTRY['exif-metadata-stripper'] = Object.assign(window.TOOLS_REG
             status.textContent = 'Sanitized & Ready';
             btnDownload.disabled = false;
             if (typeof showToast !== 'undefined') showToast('Metadata stripped successfully!');
-          }, 'image/jpeg', 0.95);
+          }, outMime, 0.95);
         };
         img.src = e.target.result;
       };
@@ -94,7 +99,7 @@ window.TOOLS_REGISTRY['exif-metadata-stripper'] = Object.assign(window.TOOLS_REG
         if (!cleanedBlob) return;
         const a = document.createElement('a');
         a.href = URL.createObjectURL(cleanedBlob);
-        a.download = `${originalName}-clean.jpg`;
+        a.download = `${originalName}-clean.${cleanedExt}`;
         a.click();
         URL.revokeObjectURL(a.href);
       };

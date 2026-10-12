@@ -1,4 +1,4 @@
-const CACHE_NAME = 'tabkit-v17';
+const CACHE_NAME = 'tabkit-v18';
 const ASSETS_TO_CACHE = [
   '/',
   '/styles.css',
@@ -6,6 +6,7 @@ const ASSETS_TO_CACHE = [
   '/utils.js',
   '/registry.js',
   '/pdf-lib.min.js',
+  '/pdf-encrypt.min.js',
   '/cities.min.json'
 ];
 
@@ -40,7 +41,7 @@ self.addEventListener('fetch', (event) => {
     caches.match(event.request).then((cachedResponse) => {
       if (cachedResponse) {
         fetch(event.request).then((networkResponse) => {
-          if (networkResponse && networkResponse.status === 200 && networkResponse.type === 'basic') {
+          if (networkResponse && networkResponse.status === 200 && (networkResponse.type === 'basic' || networkResponse.type === 'cors')) {
             caches.open(CACHE_NAME).then((cache) => cache.put(event.request, networkResponse)).catch(() => {});
           }
         }).catch(() => {});
@@ -48,8 +49,8 @@ self.addEventListener('fetch', (event) => {
       }
 
       return fetch(event.request).then((networkResponse) => {
-        // Only cache 200 OK basic responses. Never attempt to cache 3xx redirects (e.g. 308) or errors!
-        if (networkResponse && networkResponse.status === 200 && networkResponse.type === 'basic') {
+        // Cache 200 OK responses (both same-origin basic and CDN cors)
+        if (networkResponse && networkResponse.status === 200 && (networkResponse.type === 'basic' || networkResponse.type === 'cors')) {
           const responseToCache = networkResponse.clone();
           caches.open(CACHE_NAME).then((cache) => cache.put(event.request, responseToCache)).catch(() => {});
         }

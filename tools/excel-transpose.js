@@ -135,7 +135,8 @@ window.TOOLS_REGISTRY['excel-transpose'] = Object.assign(window.TOOLS_REGISTRY['
       sample.forEach((row, rIdx) => {
         html += `<tr class="${rIdx === 0 ? 'bg-workspace-surface font-semibold text-workspace-accent' : 'hover:bg-workspace-surface/50'}">`;
         row.slice(0, 6).forEach(cell => {
-          html += `<td class="p-1 border border-workspace-border truncate max-w-[100px]">${cell !== undefined && cell !== null ? cell : ''}</td>`;
+          const val = cell !== undefined && cell !== null ? String(cell) : '';
+          html += `<td class="p-1 border border-workspace-border truncate max-w-[100px]">${escapeHtml(val)}</td>`;
         });
         if (row.length > 6) html += '<td class="p-1 border border-workspace-border text-workspace-muted">...</td>';
         html += '</tr>';

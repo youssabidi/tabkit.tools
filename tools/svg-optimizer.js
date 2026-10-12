@@ -87,14 +87,14 @@ window.TOOLS_REGISTRY['svg-optimizer'] = Object.assign(window.TOOLS_REGISTRY['sv
 
       const minified = cleanSvg(raw);
 
-      // Update visual preview safely
+      // Update visual preview safely (using <img> tag to sandbox script execution)
       if (minified.includes('<svg')) {
-        preview.innerHTML = minified;
-        const svgEl = preview.querySelector('svg');
-        if (svgEl) {
-          svgEl.setAttribute('width', '100%');
-          svgEl.setAttribute('height', '100%');
-        }
+        preview.innerHTML = '';
+        const img = document.createElement('img');
+        img.src = 'data:image/svg+xml;utf8,' + encodeURIComponent(minified);
+        img.className = 'w-full h-full object-contain';
+        img.alt = 'SVG Preview';
+        preview.appendChild(img);
       }
 
       if (activeType === 'svg') {

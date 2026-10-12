@@ -13,7 +13,7 @@ function testRegexTool(toolId) {
   const text = textInput.value;
 
   if (!rawPattern || !text) {
-    highlight.innerHTML = escapeHtml(text);
+    highlight.textContent = text;
     matchCount.textContent = '0 matches';
     return;
   }
@@ -21,18 +21,39 @@ function testRegexTool(toolId) {
   try {
     const re = new RegExp(rawPattern, flags.includes('g') ? flags : flags + 'g');
     let matches = 0;
-    const highlighted = text.replace(re, (m) => {
-      matches++;
-      return `<mark class="bg-amber-400/30 text-amber-300 font-bold px-0.5 rounded border border-amber-400/40">${escapeHtml(m)}</mark>`;
-    });
+    highlight.innerHTML = '';
+    const frag = document.createDocumentFragment();
+    let lastIndex = 0;
+    let match;
 
-    highlight.innerHTML = highlighted;
+    while ((match = re.exec(text)) !== null) {
+      matches++;
+      if (match.index > lastIndex) {
+        frag.appendChild(document.createTextNode(text.substring(lastIndex, match.index)));
+      }
+      const mark = document.createElement('mark');
+      mark.className = 'bg-amber-400/30 text-amber-300 font-bold px-0.5 rounded border border-amber-400/40';
+      mark.textContent = match[0];
+      frag.appendChild(mark);
+
+      lastIndex = match.index + match[0].length;
+      if (match[0].length === 0) {
+        re.lastIndex++;
+      }
+      if (!re.global) break;
+    }
+
+    if (lastIndex < text.length) {
+      frag.appendChild(document.createTextNode(text.substring(lastIndex)));
+    }
+
+    highlight.appendChild(frag);
     matchCount.textContent = `${matches} match${matches === 1 ? '' : 'es'}`;
     matchCount.className = matches > 0 ? 'text-workspace-accent font-bold' : 'text-workspace-muted';
   } catch (err) {
     matchCount.textContent = 'Invalid regex';
     matchCount.className = 'text-workspace-danger font-bold';
-    highlight.innerHTML = escapeHtml(text);
+    highlight.textContent = text;
   }
 }
 

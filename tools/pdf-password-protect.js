@@ -61,10 +61,22 @@ window.TOOLS_REGISTRY['pdf-password-protect'] = Object.assign(window.TOOLS_REGIS
 
     function ensurePdfLib() {
       return new Promise((resolve, reject) => {
-        if (window.PDFLib) return resolve(window.PDFLib);
+        function loadEncrypt() {
+          if (window.PDFEncrypt) return resolve();
+          const scrEnc = document.createElement('script');
+          scrEnc.src = 'pdf-encrypt.min.js';
+          scrEnc.onload = () => resolve();
+          scrEnc.onerror = () => reject(new Error('Failed to load PDF Encryption engine.'));
+          document.head.appendChild(scrEnc);
+        }
+
+        if (window.PDFLib) {
+          loadEncrypt();
+          return;
+        }
         const script = document.createElement('script');
         script.src = 'pdf-lib.min.js';
-        script.onload = () => resolve(window.PDFLib);
+        script.onload = () => loadEncrypt();
         script.onerror = () => reject(new Error('Failed to load PDF-Lib.'));
         document.head.appendChild(script);
       });
@@ -121,17 +133,19 @@ window.TOOLS_REGISTRY['pdf-password-protect'] = Object.assign(window.TOOLS_REGIS
 
       status.textContent = 'Encrypting PDF...';
       try {
-        const PDFLib = await ensurePdfLib();
+        await ensurePdfLib();
         const arrayBuffer = await currentFile.arrayBuffer();
-        const pdfDoc = await PDFLib.PDFDocument.load(arrayBuffer);
+        
+        // 1. Standardize and serialize PDF document
+        const pdfDoc = await window.PDFLib.PDFDocument.load(arrayBuffer);
+        const rawBytes = await pdfDoc.save();
 
-        // Save with encryption
-        const pdfBytes = await pdfDoc.save({
-          userPassword: pass,
+        // 2. Genuine client-side PDF encryption with standard /Encrypt dictionary
+        const encryptedBytes = await window.PDFEncrypt.encryptPDF(rawBytes, pass, {
           ownerPassword: pass + '_owner'
         });
 
-        const blob = new Blob([pdfBytes], { type: 'application/pdf' });
+        const blob = new Blob([encryptedBytes], { type: 'application/pdf' });
         const url = URL.createObjectURL(blob);
         const a = document.createElement('a');
         a.href = url;

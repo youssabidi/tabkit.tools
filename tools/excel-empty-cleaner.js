@@ -133,7 +133,7 @@ window.TOOLS_REGISTRY['excel-empty-cleaner'] = Object.assign(window.TOOLS_REGIST
       }));
 
       const origRowCount = rows.length;
-      const maxColCount = Math.max(...rows.map(r => r.length));
+      const maxColCount = rows.reduce((max, r) => Math.max(max, r.length), 0);
 
       // Remove empty rows
       let filteredRows = rows;

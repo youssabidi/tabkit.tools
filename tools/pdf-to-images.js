@@ -126,10 +126,16 @@ window.TOOLS_REGISTRY['pdf-to-images'] = Object.assign(window.TOOLS_REGISTRY['pd
       const format = formatSelect.value;
       const ext = format === 'image/jpeg' ? 'jpg' : 'png';
 
-      stats.textContent = `Rendering ${currentPdf.numPages} pages...`;
+      const totalPages = currentPdf.numPages;
+      const MAX_PAGES = 50;
+      const pagesToRender = Math.min(totalPages, MAX_PAGES);
 
-      for (let i = 1; i <= currentPdf.numPages; i++) {
-        status.textContent = `Rendering page ${i} of ${currentPdf.numPages}...`;
+      stats.textContent = totalPages > MAX_PAGES 
+        ? `Rendering first ${MAX_PAGES} of ${totalPages} pages (Memory Safeguard)...` 
+        : `Rendering ${totalPages} pages...`;
+
+      for (let i = 1; i <= pagesToRender; i++) {
+        status.textContent = `Rendering page ${i} of ${pagesToRender}...`;
         const page = await currentPdf.getPage(i);
         const viewport = page.getViewport({ scale });
 
@@ -161,7 +167,9 @@ window.TOOLS_REGISTRY['pdf-to-images'] = Object.assign(window.TOOLS_REGISTRY['pd
         pagesGrid.appendChild(card);
       }
 
-      stats.textContent = `Rendered Pages (${renderedImages.length})`;
+      stats.textContent = totalPages > MAX_PAGES
+        ? `Rendered ${renderedImages.length} of ${totalPages} pages (Capped to prevent memory crash)`
+        : `Rendered Pages (${renderedImages.length})`;
     }
 
     function downloadImage(dataUrl, name) {

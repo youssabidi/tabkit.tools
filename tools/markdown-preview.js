@@ -23,8 +23,14 @@ function parseMarkdownToHtml(md) {
   html = html.replace(/\*\*([^*]+)\*\*/g, '<strong class="font-bold text-workspace-text">$1</strong>');
   html = html.replace(/\*([^*]+)\*/g, '<em class="italic">$1</em>');
 
-  // Links
-  html = html.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer" class="text-workspace-accent underline hover:text-workspace-accentHover">$1</a>');
+  // Links (sanitize href to allow only safe protocols)
+  html = html.replace(/\[([^\]]+)\]\(([^)]+)\)/g, (match, label, href) => {
+    const cleanHref = href.trim();
+    if (/^(https?:\/\/|mailto:|#|\/)/i.test(cleanHref)) {
+      return `<a href="${cleanHref}" target="_blank" rel="noopener noreferrer" class="text-workspace-accent underline hover:text-workspace-accentHover">${label}</a>`;
+    }
+    return label;
+  });
 
   // Unordered Lists
   html = html.replace(/^\s*-\s+(.*$)/gim, '<li class="ml-4 list-disc text-workspace-text">$1</li>');

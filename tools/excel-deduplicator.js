@@ -207,7 +207,7 @@ window.TOOLS_REGISTRY['excel-deduplicator'] = Object.assign(window.TOOLS_REGISTR
       const sampleRows = cleanedData.slice(0, 5);
       let html = '<table class="w-full border-collapse border border-workspace-border text-left"><thead><tr class="bg-workspace-surface">';
       headers.forEach(h => {
-        html += `<th class="p-1 border border-workspace-border text-workspace-accent font-semibold truncate max-w-[120px]">${h}</th>`;
+        html += `<th class="p-1 border border-workspace-border text-workspace-accent font-semibold truncate max-w-[120px]">${escapeHtml(h)}</th>`;
       });
       html += '</tr></thead><tbody>';
 
@@ -215,7 +215,7 @@ window.TOOLS_REGISTRY['excel-deduplicator'] = Object.assign(window.TOOLS_REGISTR
         html += '<tr class="hover:bg-workspace-surface/50">';
         headers.forEach((_, idx) => {
           const cellVal = row[idx] !== undefined && row[idx] !== null ? row[idx] : '';
-          html += `<td class="p-1 border border-workspace-border truncate max-w-[120px]">${cellVal}</td>`;
+          html += `<td class="p-1 border border-workspace-border truncate max-w-[120px]">${escapeHtml(String(cellVal))}</td>`;
         });
         html += '</tr>';
       });
