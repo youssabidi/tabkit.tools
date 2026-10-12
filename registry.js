@@ -265,6 +265,90 @@ window.TOOLS_REGISTRY = {
     "category": "Documents & PDF",
     "standaloneUrl": "/pdf-page-numberer.html",
     "description": "Add page numbers, pagination headers, or footers to PDF documents locally in your browser with zero server uploads."
+  },
+  "excel-to-csv": {
+    "id": "excel-to-csv",
+    "name": "Excel to CSV Converter",
+    "category": "Text & Data",
+    "standaloneUrl": "/excel-to-csv.html",
+    "description": "Convert Excel (.xlsx, .xls) spreadsheets to clean UTF-8 CSV locally in your browser with zero uploads."
+  },
+  "excel-to-json": {
+    "id": "excel-to-json",
+    "name": "Excel to JSON Converter",
+    "category": "Text & Data",
+    "standaloneUrl": "/excel-to-json.html",
+    "description": "Convert Excel (.xlsx, .xls) spreadsheets to clean JSON objects or arrays locally with zero uploads."
+  },
+  "excel-deduplicator": {
+    "id": "excel-deduplicator",
+    "name": "Spreadsheet Row Deduplicator",
+    "category": "Text & Data",
+    "standaloneUrl": "/excel-deduplicator.html",
+    "description": "Detect and purge duplicate rows in Excel and CSV files by specific columns or entire rows locally."
+  },
+  "pdf-text-extractor": {
+    "id": "pdf-text-extractor",
+    "name": "PDF Text & Markdown Extractor",
+    "category": "Documents & PDF",
+    "standaloneUrl": "/pdf-text-extractor.html",
+    "description": "Extract raw text, paragraphs, and formatted markdown from PDF files locally with zero server uploads."
+  },
+  "csv-to-excel": {
+    "id": "csv-to-excel",
+    "name": "CSV to Excel (.xlsx) Converter",
+    "category": "Text & Data",
+    "standaloneUrl": "/csv-to-excel.html",
+    "description": "Convert raw CSV and TSV files or pasted text into styled Microsoft Excel (.xlsx) workbooks locally."
+  },
+  "json-to-excel": {
+    "id": "json-to-excel",
+    "name": "JSON to Excel (.xlsx) Converter",
+    "category": "Text & Data",
+    "standaloneUrl": "/json-to-excel.html",
+    "description": "Convert JSON arrays or objects directly into formatted Microsoft Excel (.xlsx) workbooks locally."
+  },
+  "excel-to-markdown": {
+    "id": "excel-to-markdown",
+    "name": "Excel to Markdown Table Generator",
+    "category": "Text & Data",
+    "standaloneUrl": "/excel-to-markdown.html",
+    "description": "Convert Excel and CSV spreadsheets into clean GitHub-flavored Markdown tables locally."
+  },
+  "excel-transpose": {
+    "id": "excel-transpose",
+    "name": "Spreadsheet Row & Column Transposer",
+    "category": "Text & Data",
+    "standaloneUrl": "/excel-transpose.html",
+    "description": "Flip spreadsheet rows to columns and columns to rows in Excel and CSV files instantly in your browser."
+  },
+  "excel-empty-cleaner": {
+    "id": "excel-empty-cleaner",
+    "name": "Empty Rows & Whitespace Stripper",
+    "category": "Text & Data",
+    "standaloneUrl": "/excel-empty-cleaner.html",
+    "description": "Clean messy spreadsheets by removing blank rows, empty columns, and phantom whitespace in Excel & CSV files."
+  },
+  "pdf-to-images": {
+    "id": "pdf-to-images",
+    "name": "Client-Side PDF to Images (PNG/JPG)",
+    "category": "Documents & PDF",
+    "standaloneUrl": "/pdf-to-images.html",
+    "description": "Convert every page of a PDF document into high-resolution PNG or JPG images locally in your browser."
+  },
+  "pdf-password-protect": {
+    "id": "pdf-password-protect",
+    "name": "Client-Side PDF Password Protect",
+    "category": "Documents & PDF",
+    "standaloneUrl": "/pdf-password-protect.html",
+    "description": "Encrypt and lock sensitive PDF documents with custom passwords locally in your browser with zero uploads."
+  },
+  "pdf-sign-stamp": {
+    "id": "pdf-sign-stamp",
+    "name": "Client-Side PDF Signature & Stamp",
+    "category": "Documents & PDF",
+    "standaloneUrl": "/pdf-sign-stamp.html",
+    "description": "Draw or type your digital signature and stamp it onto any page of a PDF locally in your browser."
   }
 };
 
