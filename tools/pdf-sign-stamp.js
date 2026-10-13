@@ -4,7 +4,7 @@ window.TOOLS_REGISTRY['pdf-sign-stamp'] = Object.assign(window.TOOLS_REGISTRY['p
   id: 'pdf-sign-stamp',
   name: 'Client-Side PDF Signature & Stamp',
   category: 'Documents & PDF',
-  standaloneUrl: '/pdf-sign-stamp.html',
+  standaloneUrl: '/pdf-sign-stamp',
   description: 'Draw or type your digital signature and stamp it onto any page of a PDF locally in your browser.',
   render: (toolId) => `
     <div class="flex flex-col h-full justify-between space-y-3 font-sans text-xs">

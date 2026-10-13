@@ -1,4 +1,4 @@
-const CACHE_NAME = 'tabkit-v18';
+const CACHE_NAME = 'tabkit-v19';
 const ASSETS_TO_CACHE = [
   '/',
   '/styles.css',
@@ -7,6 +7,7 @@ const ASSETS_TO_CACHE = [
   '/registry.js',
   '/pdf-lib.min.js',
   '/pdf-encrypt.min.js',
+  '/xlsx.full.min.js',
   '/cities.min.json'
 ];
 

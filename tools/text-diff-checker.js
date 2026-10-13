@@ -69,7 +69,7 @@ window.TOOLS_REGISTRY['text-diff-checker'] = Object.assign(window.TOOLS_REGISTRY
     id: 'text-diff-checker',
     name: 'Text Diff Checker & Notepad',
     category: 'Text & Data',
-    standaloneUrl: '/text-diff-checker.html',
+    standaloneUrl: '/text-diff-checker',
     description: 'Auto-saving local notes and true line-by-line diff comparison.',
     render: (toolId) => `
       <div class="flex flex-col h-full space-y-3 font-sans">

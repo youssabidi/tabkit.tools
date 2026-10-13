@@ -75,7 +75,7 @@ window.TOOLS_REGISTRY['json-formatter'] = Object.assign(window.TOOLS_REGISTRY['j
   id: 'json-formatter',
   name: 'JSON Formatter & Validator',
   category: 'Text & Data',
-  standaloneUrl: '/json-formatter.html',
+  standaloneUrl: '/json-formatter',
   description: 'Format, validate, syntax-highlight, and minify JSON strings instantly.',
   render: (toolId) => `
     <div class="flex flex-col h-full space-y-2 font-sans">

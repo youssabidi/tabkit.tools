@@ -4,7 +4,7 @@ window.TOOLS_REGISTRY['pdf-to-images'] = Object.assign(window.TOOLS_REGISTRY['pd
   id: 'pdf-to-images',
   name: 'Client-Side PDF to Images (PNG/JPG)',
   category: 'Documents & PDF',
-  standaloneUrl: '/pdf-to-images.html',
+  standaloneUrl: '/pdf-to-images',
   description: 'Convert every page of a PDF document into high-resolution PNG or JPG images locally in your browser.',
   render: (toolId) => `
     <div class="flex flex-col h-full justify-between space-y-3 font-sans text-xs">

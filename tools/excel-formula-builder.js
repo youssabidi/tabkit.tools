@@ -4,7 +4,7 @@ window.TOOLS_REGISTRY['excel-formula-builder'] = Object.assign(window.TOOLS_REGI
     id: 'excel-formula-builder',
     name: 'Excel Formula Builder Cheat Sheet',
     category: 'Text & Data',
-    standaloneUrl: '/excel-formula-builder.html',
+    standaloneUrl: '/excel-formula-builder',
     description: 'Massive offline registry of Excel/Sheets formulas with a fill-in-the-blanks builder.',
     render: (toolId) => `
       <div class="flex flex-col h-[480px] font-sans relative overflow-hidden">

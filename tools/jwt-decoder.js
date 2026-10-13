@@ -61,7 +61,7 @@ window.TOOLS_REGISTRY['jwt-decoder'] = Object.assign(window.TOOLS_REGISTRY['jwt-
   id: 'jwt-decoder',
   name: 'JSON Web Token (JWT) Decoder',
   category: 'Developer & Code',
-  standaloneUrl: '/jwt-decoder.html',
+  standaloneUrl: '/jwt-decoder',
   description: 'Decode and inspect JWT header and payload claims securely in your browser with expiration validation.',
   render: (toolId) => `
     <div class="flex flex-col h-full space-y-2 font-sans text-xs">

@@ -4,7 +4,7 @@ window.TOOLS_REGISTRY['image-to-base64'] = Object.assign(window.TOOLS_REGISTRY['
   id: 'image-to-base64',
   name: 'Image to Base64 (Data URI) Generator',
   category: 'Media & Design',
-  standaloneUrl: '/image-to-base64.html',
+  standaloneUrl: '/image-to-base64',
   description: 'Convert PNG, JPG, or SVG images into copy-pasteable Base64 Data URIs, HTML tags, and CSS snippets.',
   render: (toolId) => `
     <div class="flex flex-col h-full justify-between space-y-2 font-sans text-xs">

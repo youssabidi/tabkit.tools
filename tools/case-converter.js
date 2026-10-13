@@ -43,7 +43,7 @@ window.TOOLS_REGISTRY['case-converter'] = Object.assign(window.TOOLS_REGISTRY['c
     id: 'case-converter',
     name: 'Case Converter & Word Counter',
     category: 'Text & Data',
-    standaloneUrl: '/case-converter.html',
+    standaloneUrl: '/case-converter',
     description: 'Deduplicate lines, toggle cases, and count words and characters without uploads.',
     render: (toolId) => `
       <div class="flex flex-col h-full space-y-2.5 font-sans">

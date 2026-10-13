@@ -60,7 +60,7 @@ window.TOOLS_REGISTRY['secure-password-generator'] = Object.assign(window.TOOLS_
     id: 'secure-password-generator',
     name: 'Secure Password Generator',
     category: 'Privacy & Security',
-    standaloneUrl: '/random-password-generator.html',
+    standaloneUrl: '/random-password-generator',
     description: 'Generate cryptographically secure passwords or numeric PIN codes.',
     render: (toolId) => `
       <div class="flex flex-col h-full space-y-3 font-sans">

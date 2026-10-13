@@ -4,7 +4,7 @@ window.TOOLS_REGISTRY['pdf-page-numberer'] = Object.assign(window.TOOLS_REGISTRY
   id: 'pdf-page-numberer',
   name: 'Client-Side PDF Page Numberer',
   category: 'Documents & PDF',
-  standaloneUrl: '/pdf-page-numberer.html',
+  standaloneUrl: '/pdf-page-numberer',
   description: 'Add page numbers, pagination headers, or footers to PDF documents locally in your browser with zero server uploads.',
   render: (toolId) => `
     <div class="flex flex-col h-full justify-between space-y-3 font-sans text-xs">

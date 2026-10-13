@@ -4,7 +4,7 @@ window.TOOLS_REGISTRY['csv-to-excel'] = Object.assign(window.TOOLS_REGISTRY['csv
   id: 'csv-to-excel',
   name: 'CSV to Excel (.xlsx) Converter',
   category: 'Text & Data',
-  standaloneUrl: '/csv-to-excel.html',
+  standaloneUrl: '/csv-to-excel',
   description: 'Convert raw CSV and TSV files or pasted text into styled Microsoft Excel (.xlsx) workbooks locally.',
   render: (toolId) => `
     <div class="flex flex-col h-full justify-between space-y-3 font-sans text-xs">
@@ -72,7 +72,7 @@ window.TOOLS_REGISTRY['csv-to-excel'] = Object.assign(window.TOOLS_REGISTRY['csv
       return new Promise((resolve, reject) => {
         if (window.XLSX) return resolve(window.XLSX);
         const script = document.createElement('script');
-        script.src = 'https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js';
+        script.src = 'xlsx.full.min.js';
         script.onload = () => resolve(window.XLSX);
         script.onerror = () => reject(new Error('Failed to load SheetJS library.'));
         document.head.appendChild(script);

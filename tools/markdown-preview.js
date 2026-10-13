@@ -62,7 +62,7 @@ window.TOOLS_REGISTRY['markdown-preview'] = Object.assign(window.TOOLS_REGISTRY[
   id: 'markdown-preview',
   name: 'Markdown Live Editor & HTML Preview',
   category: 'Text & Data',
-  standaloneUrl: '/markdown-preview.html',
+  standaloneUrl: '/markdown-preview',
   description: 'Write, preview, and convert GitHub-flavored Markdown into clean HTML with live dual-view rendering.',
   render: (toolId) => `
     <div class="flex flex-col h-full space-y-2 font-sans text-xs">

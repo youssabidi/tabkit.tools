@@ -30,7 +30,7 @@ window.TOOLS_REGISTRY['percentage-calculator'] = Object.assign(window.TOOLS_REGI
     id: 'percentage-calculator',
     name: 'Online Percentage Calculator',
     category: 'Productivity & Math',
-    standaloneUrl: '/percentage-calculator.html',
+    standaloneUrl: '/percentage-calculator',
     description: 'Everyday percentage calculator for discounts, tips, and fractions.',
     render: (toolId) => `
       <div class="flex flex-col h-full space-y-3 font-sans text-xs">

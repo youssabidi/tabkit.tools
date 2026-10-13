@@ -39,7 +39,7 @@ window.TOOLS_REGISTRY['sha256-hash-generator'] = Object.assign(window.TOOLS_REGI
     id: 'sha256-hash-generator',
     name: 'SHA-256 Hash Generator',
     category: 'Privacy & Security',
-    standaloneUrl: '/sha256-hash-generator.html',
+    standaloneUrl: '/sha256-hash-generator',
     description: 'Generate SHA-256, SHA-384, and SHA-512 hashes instantly.',
     render: (toolId) => `
       <div class="flex flex-col h-full space-y-3 font-sans">

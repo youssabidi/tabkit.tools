@@ -70,7 +70,7 @@ window.TOOLS_REGISTRY['regex-tester'] = Object.assign(window.TOOLS_REGISTRY['reg
   id: 'regex-tester',
   name: 'Regular Expression (Regex) Live Tester',
   category: 'Developer & Code',
-  standaloneUrl: '/regex-tester.html',
+  standaloneUrl: '/regex-tester',
   description: 'Test, debug, and highlight regular expressions against sample text with live capture badges and cheatsheets.',
   render: (toolId) => `
     <div class="flex flex-col h-full space-y-2 font-sans text-xs">

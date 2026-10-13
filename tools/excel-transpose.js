@@ -4,7 +4,7 @@ window.TOOLS_REGISTRY['excel-transpose'] = Object.assign(window.TOOLS_REGISTRY['
   id: 'excel-transpose',
   name: 'Spreadsheet Row & Column Transposer',
   category: 'Text & Data',
-  standaloneUrl: '/excel-transpose.html',
+  standaloneUrl: '/excel-transpose',
   description: 'Flip spreadsheet rows to columns and columns to rows in Excel and CSV files instantly in your browser.',
   render: (toolId) => `
     <div class="flex flex-col h-full justify-between space-y-3 font-sans text-xs">
@@ -68,7 +68,7 @@ window.TOOLS_REGISTRY['excel-transpose'] = Object.assign(window.TOOLS_REGISTRY['
       return new Promise((resolve, reject) => {
         if (window.XLSX) return resolve(window.XLSX);
         const script = document.createElement('script');
-        script.src = 'https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js';
+        script.src = 'xlsx.full.min.js';
         script.onload = () => resolve(window.XLSX);
         script.onerror = () => reject(new Error('Failed to load SheetJS.'));
         document.head.appendChild(script);

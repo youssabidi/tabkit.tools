@@ -13,7 +13,7 @@ function generateUuidsTool(toolId) {
   const results = [];
   for (let i = 0; i < count; i++) {
     let id = (typeof crypto !== 'undefined' && crypto.randomUUID) ? crypto.randomUUID() : 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, c => {
-      const r = Math.random() * 16 | 0;
+      const r = (crypto.getRandomValues(new Uint8Array(1))[0] & 15);
       return (c === 'x' ? r : (r & 0x3 | 0x8)).toString(16);
     });
 
@@ -30,7 +30,7 @@ window.TOOLS_REGISTRY['uuid-generator'] = Object.assign(window.TOOLS_REGISTRY['u
   id: 'uuid-generator',
   name: 'Bulk UUID / GUID v4 Generator',
   category: 'Productivity & Math',
-  standaloneUrl: '/uuid-generator.html',
+  standaloneUrl: '/uuid-generator',
   description: 'Generate bulk cryptographically secure UUID v4 identifiers locally with custom formatting and uppercase toggles.',
   render: (toolId) => `
     <div class="flex flex-col h-full space-y-2 font-sans text-xs">

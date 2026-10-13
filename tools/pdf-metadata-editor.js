@@ -4,7 +4,7 @@ window.TOOLS_REGISTRY['pdf-metadata-editor'] = Object.assign(window.TOOLS_REGIST
   id: 'pdf-metadata-editor',
   name: 'PDF Metadata Inspector & Stripper',
   category: 'Documents & PDF',
-  standaloneUrl: '/pdf-metadata-editor.html',
+  standaloneUrl: '/pdf-metadata-editor',
   description: 'View, edit, or completely wipe author, producer, and title metadata from PDF files locally for total privacy.',
   render: (toolId) => `
     <div class="flex flex-col h-full justify-between space-y-3 font-sans text-xs">

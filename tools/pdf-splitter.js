@@ -4,7 +4,7 @@ window.TOOLS_REGISTRY['pdf-splitter'] = Object.assign(window.TOOLS_REGISTRY['pdf
   id: 'pdf-splitter',
   name: 'Client-Side PDF Splitter & Page Remover',
   category: 'Privacy & Security',
-  standaloneUrl: '/pdf-splitter.html',
+  standaloneUrl: '/pdf-splitter',
   description: 'Extract specific pages or split multi-page PDF documents locally with visual page chips and zero server uploads.',
   render: (toolId) => `
     <div class="flex flex-col h-full justify-between space-y-2 font-sans text-xs">

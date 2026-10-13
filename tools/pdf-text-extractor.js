@@ -4,7 +4,7 @@ window.TOOLS_REGISTRY['pdf-text-extractor'] = Object.assign(window.TOOLS_REGISTR
   id: 'pdf-text-extractor',
   name: 'PDF Text & Markdown Extractor',
   category: 'Documents & PDF',
-  standaloneUrl: '/pdf-text-extractor.html',
+  standaloneUrl: '/pdf-text-extractor',
   description: 'Extract raw text, paragraphs, and formatted markdown from PDF files locally with zero server uploads.',
   render: (toolId) => `
     <div class="flex flex-col h-full justify-between space-y-3 font-sans text-xs">

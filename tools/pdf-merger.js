@@ -4,7 +4,7 @@ window.TOOLS_REGISTRY['pdf-merger'] = Object.assign(window.TOOLS_REGISTRY['pdf-m
   id: 'pdf-merger',
   name: 'Client-Side PDF Merger & Combiner',
   category: 'Documents & PDF',
-  standaloneUrl: '/pdf-merger.html',
+  standaloneUrl: '/pdf-merger',
   description: 'Combine multiple PDF documents into a single file locally in your browser with zero server uploads.',
   render: (toolId) => `
     <div class="flex flex-col h-full justify-between space-y-3 font-sans text-xs">

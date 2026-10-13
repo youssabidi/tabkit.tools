@@ -36,7 +36,7 @@ window.TOOLS_REGISTRY['qr-code-generator'] = Object.assign(window.TOOLS_REGISTRY
     id: 'qr-code-generator',
     name: 'Free QR Code Generator',
     category: 'Media & Design',
-    standaloneUrl: '/qr-code-generator.html',
+    standaloneUrl: '/qr-code-generator',
     description: 'Generate high-contrast QR codes for links, phone dialer numbers, or plain text.',
     render: (toolId) => `
       <div class="flex flex-col h-full space-y-3 font-sans">

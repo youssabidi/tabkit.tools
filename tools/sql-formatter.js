@@ -52,7 +52,7 @@ window.TOOLS_REGISTRY['sql-formatter'] = Object.assign(window.TOOLS_REGISTRY['sq
   id: 'sql-formatter',
   name: 'SQL Query Beautifier & Formatter',
   category: 'Developer & Code',
-  standaloneUrl: '/sql-formatter.html',
+  standaloneUrl: '/sql-formatter',
   description: 'Format, beautify, and capitalize SQL queries offline with clean clause indentation and minification.',
   render: (toolId) => `
     <div class="flex flex-col h-full space-y-2 font-sans text-xs">

@@ -4,7 +4,7 @@ window.TOOLS_REGISTRY['excel-deduplicator'] = Object.assign(window.TOOLS_REGISTR
   id: 'excel-deduplicator',
   name: 'Spreadsheet Row Deduplicator',
   category: 'Text & Data',
-  standaloneUrl: '/excel-deduplicator.html',
+  standaloneUrl: '/excel-deduplicator',
   description: 'Detect and purge duplicate rows in Excel and CSV files by specific columns or entire rows locally.',
   render: (toolId) => `
     <div class="flex flex-col h-full justify-between space-y-3 font-sans text-xs">
@@ -100,7 +100,7 @@ window.TOOLS_REGISTRY['excel-deduplicator'] = Object.assign(window.TOOLS_REGISTR
       return new Promise((resolve, reject) => {
         if (window.XLSX) return resolve(window.XLSX);
         const script = document.createElement('script');
-        script.src = 'https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js';
+        script.src = 'xlsx.full.min.js';
         script.onload = () => resolve(window.XLSX);
         script.onerror = () => reject(new Error('Failed to load SheetJS.'));
         document.head.appendChild(script);

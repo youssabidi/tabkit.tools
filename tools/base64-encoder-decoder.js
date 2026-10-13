@@ -24,7 +24,7 @@ window.TOOLS_REGISTRY['base64-encoder-decoder'] = Object.assign(window.TOOLS_REG
     id: 'base64-encoder-decoder',
     name: 'Base64 Encoder / Decoder',
     category: 'Privacy & Security',
-    standaloneUrl: '/base64-encoder-decoder.html',
+    standaloneUrl: '/base64-encoder-decoder',
     description: 'Encode or decode text to Base64 format locally.',
     render: (toolId) => `
       <div class="flex flex-col h-full space-y-2.5 font-sans">

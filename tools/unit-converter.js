@@ -19,7 +19,7 @@ window.TOOLS_REGISTRY['unit-converter'] = Object.assign(window.TOOLS_REGISTRY['u
     id: 'unit-converter',
     name: 'Universal Unit Converter',
     category: 'Productivity & Math',
-    standaloneUrl: '/unit-converter.html',
+    standaloneUrl: '/unit-converter',
     description: 'Multi-category converter for data, length, mass, temperature, speed, volume, and time.',
     render: (toolId) => `
       <div class="flex flex-col h-full space-y-3 font-sans">

@@ -4,7 +4,7 @@ window.TOOLS_REGISTRY['time-zone-converter'] = Object.assign(window.TOOLS_REGIST
     id: 'time-zone-converter',
     name: 'World Time Zone Converter',
     category: 'Productivity & Math',
-    standaloneUrl: '/time-zone-converter.html',
+    standaloneUrl: '/time-zone-converter',
     description: 'Interactive world clock with 25,000+ searchable cities and synchronized hour slider.',
     render: (toolId) => `
       <div class="flex flex-col h-full space-y-3 font-sans">

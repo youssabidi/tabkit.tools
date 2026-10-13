@@ -65,7 +65,7 @@ function escapeHtml(str) {
     .replace(/&/g, '&amp;')
     .replace(/</g, '&lt;')
     .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;');
+    .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
 }
 
 // LCS Difference Algorithm for Text Diff
@@ -304,4 +304,14 @@ function playAudioChime() {
     osc1.stop(now + 0.8);
     osc2.stop(now + 0.8);
   } catch (e) {}
+}
+
+
+// Prevent Formula Injection in Spreadsheet Exports (T-07)
+function sanitizeSpreadsheetCell(val) {
+  if (typeof val !== 'string') return val;
+  if (/^[=+\-@\t\r]/.test(val)) {
+    return "'" + val;
+  }
+  return val;
 }

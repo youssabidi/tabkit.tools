@@ -4,7 +4,7 @@ window.TOOLS_REGISTRY['pdf-password-protect'] = Object.assign(window.TOOLS_REGIS
   id: 'pdf-password-protect',
   name: 'Client-Side PDF Password Protect',
   category: 'Documents & PDF',
-  standaloneUrl: '/pdf-password-protect.html',
+  standaloneUrl: '/pdf-password-protect',
   description: 'Encrypt and lock sensitive PDF documents with custom passwords locally in your browser with zero uploads.',
   render: (toolId) => `
     <div class="flex flex-col h-full justify-between space-y-3 font-sans text-xs">

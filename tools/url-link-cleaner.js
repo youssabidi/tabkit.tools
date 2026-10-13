@@ -69,7 +69,7 @@ window.TOOLS_REGISTRY['url-link-cleaner'] = Object.assign(window.TOOLS_REGISTRY[
     id: 'url-link-cleaner',
     name: 'URL Tracking Link Cleaner',
     category: 'Privacy & Security',
-    standaloneUrl: '/url-link-cleaner.html',
+    standaloneUrl: '/url-link-cleaner',
     description: 'Extract URLs, strip tracking tags (UTM, fbclid, gclid), and copy clean links.',
     render: (toolId) => `
       <div class="flex flex-col h-full space-y-2.5 font-sans">

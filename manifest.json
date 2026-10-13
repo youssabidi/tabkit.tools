@@ -2,7 +2,7 @@
   "name": "TabKit Tools",
   "short_name": "TabKit",
   "description": "Privacy-First Local Browser Utilities",
-  "start_url": "/index.html",
+  "start_url": "/",
   "display": "standalone",
   "background_color": "#0F1117",
   "theme_color": "#0F1117",

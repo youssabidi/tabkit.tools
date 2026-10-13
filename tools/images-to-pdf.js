@@ -4,7 +4,7 @@ window.TOOLS_REGISTRY['images-to-pdf'] = Object.assign(window.TOOLS_REGISTRY['im
   id: 'images-to-pdf',
   name: 'Client-Side Images to PDF Converter',
   category: 'Documents & PDF',
-  standaloneUrl: '/images-to-pdf.html',
+  standaloneUrl: '/images-to-pdf',
   description: 'Convert JPG, PNG, and WebP photos or scans into a clean multi-page PDF document with zero uploads.',
   render: (toolId) => `
     <div class="flex flex-col h-full justify-between space-y-3 font-sans text-xs">

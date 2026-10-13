@@ -111,7 +111,7 @@ window.TOOLS_REGISTRY['pomodoro-timer'] = Object.assign(window.TOOLS_REGISTRY['p
   id: 'pomodoro-timer',
   name: 'Pomodoro Timer Online',
   category: 'Productivity & Math',
-  standaloneUrl: '/pomodoro-timer.html',
+  standaloneUrl: '/pomodoro-timer',
   description: 'Countdown timer with sound chimes and native background notifications for focused work sprints.',
   render: (toolId) => `
     <div class="flex flex-col h-full justify-between py-1 font-sans">

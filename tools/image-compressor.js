@@ -4,7 +4,7 @@ window.TOOLS_REGISTRY['image-compressor'] = Object.assign(window.TOOLS_REGISTRY[
   id: 'image-compressor',
   name: 'Client-Side Image Compressor & WebP',
   category: 'Media & Design',
-  standaloneUrl: '/image-compressor.html',
+  standaloneUrl: '/image-compressor',
   description: 'Batch compress PNG, JPEG, and WebP images locally with dimension scaling and zero server uploads.',
   render: (toolId) => `
     <div class="flex flex-col h-full justify-between space-y-2 font-sans text-xs">

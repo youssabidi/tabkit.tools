@@ -4,7 +4,7 @@ window.TOOLS_REGISTRY['pdf-watermarker'] = Object.assign(window.TOOLS_REGISTRY['
   id: 'pdf-watermarker',
   name: 'Client-Side PDF Watermark & Stamp',
   category: 'Documents & PDF',
-  standaloneUrl: '/pdf-watermarker.html',
+  standaloneUrl: '/pdf-watermarker',
   description: 'Stamp custom text or diagonal watermark overlays onto every page of a PDF document with zero uploads.',
   render: (toolId) => `
     <div class="flex flex-col h-full justify-between space-y-3 font-sans text-xs">

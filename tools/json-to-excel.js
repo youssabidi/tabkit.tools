@@ -4,7 +4,7 @@ window.TOOLS_REGISTRY['json-to-excel'] = Object.assign(window.TOOLS_REGISTRY['js
   id: 'json-to-excel',
   name: 'JSON to Excel (.xlsx) Converter',
   category: 'Text & Data',
-  standaloneUrl: '/json-to-excel.html',
+  standaloneUrl: '/json-to-excel',
   description: 'Convert JSON arrays or objects directly into formatted Microsoft Excel (.xlsx) workbooks locally.',
   render: (toolId) => `
     <div class="flex flex-col h-full justify-between space-y-3 font-sans text-xs">
@@ -69,7 +69,7 @@ window.TOOLS_REGISTRY['json-to-excel'] = Object.assign(window.TOOLS_REGISTRY['js
       return new Promise((resolve, reject) => {
         if (window.XLSX) return resolve(window.XLSX);
         const script = document.createElement('script');
-        script.src = 'https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js';
+        script.src = 'xlsx.full.min.js';
         script.onload = () => resolve(window.XLSX);
         script.onerror = () => reject(new Error('Failed to load SheetJS library.'));
         document.head.appendChild(script);

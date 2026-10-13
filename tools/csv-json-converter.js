@@ -67,7 +67,7 @@ window.TOOLS_REGISTRY['csv-json-converter'] = Object.assign(window.TOOLS_REGISTR
   id: 'csv-json-converter',
   name: 'CSV ↔ JSON Converter',
   category: 'Text & Data',
-  standaloneUrl: '/csv-json-converter.html',
+  standaloneUrl: '/csv-json-converter',
   description: 'Convert CSV spreadsheets to JSON arrays or transform JSON objects back into CSV tables locally.',
   render: (toolId) => `
     <div class="flex flex-col h-full space-y-2 font-sans text-xs">

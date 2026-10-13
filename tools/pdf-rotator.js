@@ -4,7 +4,7 @@ window.TOOLS_REGISTRY['pdf-rotator'] = Object.assign(window.TOOLS_REGISTRY['pdf-
   id: 'pdf-rotator',
   name: 'Client-Side PDF Page Rotator',
   category: 'Documents & PDF',
-  standaloneUrl: '/pdf-rotator.html',
+  standaloneUrl: '/pdf-rotator',
   description: 'Rotate upside-down or sideways PDF pages by 90°, 180°, or 270° locally in your browser.',
   render: (toolId) => `
     <div class="flex flex-col h-full justify-between space-y-3 font-sans text-xs">

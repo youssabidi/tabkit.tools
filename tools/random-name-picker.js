@@ -7,7 +7,7 @@ function rollNumber(toolId) {
     document.getElementById(`${toolId}_numRes`).textContent = 'Err';
     return;
   }
-  const res = Math.floor(Math.random() * (max - min + 1)) + min;
+  const res = Math.floor((crypto.getRandomValues(new Uint32Array(1))[0] / (0xffffffff + 1)) * (max - min + 1)) + min;
   document.getElementById(`${toolId}_numRes`).textContent = res;
 }
 
@@ -21,7 +21,7 @@ function pickRandom(toolId) {
     resEl.textContent = 'List is empty';
     return;
   }
-  resEl.textContent = items[Math.floor(Math.random() * items.length)];
+  resEl.textContent = items[Math.floor((crypto.getRandomValues(new Uint32Array(1))[0] / (0xffffffff + 1)) * items.length)];
 }
 
 window.TOOLS_REGISTRY = window.TOOLS_REGISTRY || {};
@@ -29,7 +29,7 @@ window.TOOLS_REGISTRY['random-name-picker'] = Object.assign(window.TOOLS_REGISTR
     id: 'random-name-picker',
     name: 'Random Name Picker & Wheel',
     category: 'Productivity & Math',
-    standaloneUrl: '/random-name-picker.html',
+    standaloneUrl: '/random-name-picker',
     description: 'Pick a random name from a list or generate a random number.',
     render: (toolId) => `
       <div class="flex flex-col h-full space-y-3 font-sans text-xs">

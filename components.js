@@ -6,13 +6,13 @@ class TabkitFooter extends HTMLElement {
         <div class="flex flex-wrap items-center justify-center gap-3 md:gap-4">
           <a href="/" class="hover:text-workspace-accent transition-colors">Workbench</a>
           <span>&bull;</span>
-          <a href="/about.html" class="hover:text-workspace-accent transition-colors">About</a>
+          <a href="/about" class="hover:text-workspace-accent transition-colors">About</a>
           <span>&bull;</span>
-          <a href="/faq.html" class="hover:text-workspace-accent transition-colors">FAQ</a>
+          <a href="/faq" class="hover:text-workspace-accent transition-colors">FAQ</a>
           <span>&bull;</span>
-          <a href="/contact.html" class="hover:text-workspace-accent transition-colors">Contact</a>
+          <a href="/contact" class="hover:text-workspace-accent transition-colors">Contact</a>
           <span>&bull;</span>
-          <a href="/report-issue.html" class="text-rose-400 hover:text-rose-300 font-semibold transition-colors">Report Issue</a>
+          <a href="/report-issue" class="text-rose-400 hover:text-rose-300 font-semibold transition-colors">Report Issue</a>
         </div>
       </footer>
     `;
@@ -39,9 +39,9 @@ class ToolHeader extends HTMLElement {
         </div>
         <div class="flex items-center gap-3 font-mono text-xs">
           <nav class="hidden md:flex items-center gap-3 text-workspace-muted text-[11px] pe-2">
-            <a href="/about.html" class="hover:text-workspace-text transition-colors">About</a>
-            <a href="/faq.html" class="hover:text-workspace-text transition-colors">FAQ</a>
-            <a href="/contact.html" class="hover:text-workspace-text transition-colors">Contact</a>
+            <a href="/about" class="hover:text-workspace-text transition-colors">About</a>
+            <a href="/faq" class="hover:text-workspace-text transition-colors">FAQ</a>
+            <a href="/contact" class="hover:text-workspace-text transition-colors">Contact</a>
           </nav>
           <button onclick="toggleTheme()" class="px-2 py-1 rounded-lg hover:bg-workspace-accent/10 text-workspace-muted hover:text-workspace-accent transition-all" title="Toggle Theme">
             <svg class="w-4 h-4 theme-toggle-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
