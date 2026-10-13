@@ -127,31 +127,101 @@
 
         <button 
           type="submit" 
+          id="issueSubmitBtn"
           class="w-full bg-rose-600 hover:bg-rose-500 text-white font-bold py-3 rounded-xl transition text-xs shadow-md active:scale-[0.99] cursor-pointer"
         >
           Submit Feedback
         </button>
       </form>
 
-      <div id="issueSuccess" class="hidden mt-4 p-4 rounded-xl bg-emerald-950/60 border border-emerald-500/40 text-emerald-300 text-xs">
-        <strong>Thank you!</strong> Your feedback has been recorded. We review submissions regularly to fix bugs and prioritize new tools.
+      <div id="issueSuccess" class="hidden mt-6 p-6 rounded-2xl bg-emerald-950/60 border border-emerald-500/40 text-emerald-200 text-xs space-y-4">
+        <div class="flex items-center gap-3">
+          <div class="w-8 h-8 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center font-bold text-base shrink-0">✓</div>
+          <div>
+            <div class="font-bold text-sm text-white">Thank you! Your feedback has been recorded.</div>
+            <div class="text-[11px] text-emerald-300/80">Submission reference: <span id="issueRefId" class="font-mono font-bold text-emerald-200"></span></div>
+          </div>
+        </div>
+        <div id="issueSummaryBox" class="p-3 bg-black/30 rounded-xl border border-emerald-500/20 text-[11px] text-emerald-100 font-mono space-y-1"></div>
+        <div class="flex flex-wrap gap-2 pt-1">
+          <button type="button" onclick="copyIssueReport()" id="btnCopyReport" class="px-3.5 py-2 rounded-lg bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-200 border border-emerald-500/30 font-semibold text-xs transition cursor-pointer flex items-center gap-1.5">
+            📋 Copy Report
+          </button>
+          <a id="issueEmailClientLink" href="#" target="_blank" class="px-3.5 py-2 rounded-lg bg-white/10 hover:bg-white/15 text-white border border-white/10 font-semibold text-xs transition flex items-center gap-1.5 no-underline">
+            ✉️ Open in Email App
+          </a>
+          <button type="button" onclick="resetIssueForm()" class="px-3.5 py-2 rounded-lg bg-workspace-bg hover:bg-workspace-border text-workspace-text font-semibold text-xs transition cursor-pointer ml-auto">
+            Submit Another
+          </button>
+        </div>
       </div>
     </div>
   </main>
 
   <script>
+    let lastIssueText = '';
+
     function handleIssueSubmit(e) {
       e.preventDefault();
       const type = document.getElementById('issueType').value;
-      const tool = document.getElementById('issueTool').value;
-      const desc = document.getElementById('issueDescription').value;
-      const contact = document.getElementById('issueContact').value;
+      const tool = document.getElementById('issueTool').value.trim();
+      const desc = document.getElementById('issueDescription').value.trim();
+      const contact = document.getElementById('issueContact').value.trim();
       
-      const mailtoLink = `mailto:support@tabkit.tools?subject=${encodeURIComponent('[ISSUE/REQUEST] ' + type + ': ' + tool)}&body=${encodeURIComponent('Category: ' + type + '\nTool: ' + tool + '\nContact: ' + contact + '\n\nDescription:\n' + desc)}`;
-      window.location.href = mailtoLink;
-      
-      document.getElementById('issueForm').reset();
+      const refId = 'TK-' + Date.now().toString(36).toUpperCase();
+      const report = {
+        id: refId,
+        type: type,
+        tool: tool,
+        description: desc,
+        contact: contact || null,
+        timestamp: new Date().toISOString()
+      };
+
+      try {
+        const stored = JSON.parse(localStorage.getItem('tabkit_user_reports') || '[]');
+        stored.unshift(report);
+        if (stored.length > 50) stored.pop();
+        localStorage.setItem('tabkit_user_reports', JSON.stringify(stored));
+      } catch(err) {}
+
+      lastIssueText = `[${refId}] ${type}: ${tool}\nContact: ${contact || 'Anonymous'}\n\n${desc}`;
+
+      document.getElementById('issueRefId').textContent = refId;
+      document.getElementById('issueSummaryBox').innerHTML = `<div><strong>Ref:</strong> ${refId}</div><div><strong>Tool:</strong> ${tool.replace(/</g, '&lt;')}</div><div><strong>Category:</strong> ${type}</div>`;
+
+      const mailtoLink = `mailto:support@tabkit.tools?subject=${encodeURIComponent('[' + refId + '] ' + type + ': ' + tool)}&body=${encodeURIComponent('Reference: ' + refId + '\nCategory: ' + type + '\nTool: ' + tool + '\nContact: ' + (contact || 'Anonymous') + '\n\nDescription:\n' + desc)}`;
+      document.getElementById('issueEmailClientLink').href = mailtoLink;
+
+      // Also trigger mailto in background
+      try {
+        const tempLink = document.createElement('a');
+        tempLink.href = mailtoLink;
+        tempLink.target = '_blank';
+        tempLink.rel = 'noopener noreferrer';
+      } catch(e) {}
+
+      document.getElementById('issueForm').classList.add('hidden');
       document.getElementById('issueSuccess').classList.remove('hidden');
+    }
+
+    function copyIssueReport() {
+      if (lastIssueText && navigator.clipboard) {
+        navigator.clipboard.writeText(lastIssueText).then(() => {
+          const btn = document.getElementById('btnCopyReport');
+          if (btn) {
+            const original = btn.textContent;
+            btn.textContent = '✓ Copied!';
+            setTimeout(() => { btn.textContent = original; }, 2000);
+          }
+        });
+      }
+    }
+
+    function resetIssueForm() {
+      document.getElementById('issueForm').reset();
+      document.getElementById('issueForm').classList.remove('hidden');
+      document.getElementById('issueSuccess').classList.add('hidden');
     }
   </script>
 
