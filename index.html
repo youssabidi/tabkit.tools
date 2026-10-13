@@ -217,11 +217,11 @@
           <div class="flex items-center gap-2">
             <div class="w-2 h-2 rounded-full bg-workspace-accent animate-pulse shadow-[0_0_8px_rgba(6,182,212,0.7)]"></div>
             <h2 class="text-xs font-bold text-workspace-text uppercase tracking-widest font-mono">
-              Tool Directory (<span id="catalogCountLabel" class="text-workspace-accent">49</span>)
+              Tool Directory
             </h2>
           </div>
           <div class="relative w-full sm:w-72">
-            <input id="catalogSearchInput" type="text" placeholder="Filter 49 offline tools..." class="w-full bg-workspace-bg border border-workspace-border rounded-xl pl-9 pr-3 py-1.5 text-xs font-mono text-workspace-text placeholder-workspace-muted focus:border-workspace-accent focus:outline-none transition-colors" />
+            <input id="catalogSearchInput" type="text" placeholder="Filter tools..." class="w-full bg-workspace-bg border border-workspace-border rounded-xl pl-9 pr-3 py-1.5 text-xs font-mono text-workspace-text placeholder-workspace-muted focus:border-workspace-accent focus:outline-none transition-colors" />
             <svg class="w-4 h-4 text-workspace-muted absolute left-3 top-1/2 -translate-y-1/2" fill="none" viewBox="0 0 24 24" stroke="currentColor"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
           </div>
         </div>
@@ -1205,7 +1205,7 @@
           Standalone Index &bull; Zero Server Storage
         </div>
         <h2 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight mb-2">
-          Directory of 49 Independent Offline Web Tools
+          Offline Web Tools Directory
         </h2>
         <p class="text-xs sm:text-sm text-workspace-muted leading-relaxed">
           Every tool on TabKit is accessible as an independent, fully isolated webpage. No server processing, zero tracking, and 100% client-side computation. Use them standalone or pin them into your multi-deck workbench.
@@ -2222,7 +2222,6 @@
       if (pillsContainer) {
         pillsContainer.innerHTML = CORE_CATEGORIES.map(cat => {
           const isActive = selectedCatalogCategory === cat;
-          const count = cat === 'All' ? allTools.length : allTools.filter(t => t.category === cat).length;
           return `
             <button onclick="setCatalogCategory('${cat}')" class="px-3.5 py-1.5 rounded-xl text-xs font-mono shrink-0 transition-all border flex items-center gap-2 select-none ${
               isActive 
@@ -2230,7 +2229,6 @@
                 : 'bg-workspace-surface border-workspace-border hover:border-workspace-borderLight text-workspace-muted hover:text-workspace-text'
             }">
               <span>${cat}</span>
-              <span class="text-[10px] px-1.5 py-0.5 rounded-md ${isActive ? 'bg-workspace-accent/20 text-workspace-accent font-bold' : 'bg-workspace-bg text-workspace-muted'}">${count}</span>
             </button>
           `;
         }).join('');
