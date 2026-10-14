@@ -1,1 +1,5 @@
 /*.html /:splat 301
+/docs/* / 301
+/src/* / 301
+/input.css / 301
+/ROADMAP.md / 301

@@ -4,8 +4,8 @@
   "description": "Local-First Browser Workbench & Utilities",
   "main": "components.js",
   "scripts": {
-    "build:css": "tailwindcss -i ./input.css -o ./styles.css --minify",
-    "watch:css": "tailwindcss -i ./input.css -o ./styles.css --watch"
+    "build:css": "tailwindcss -i ./src/input.css -o ./styles.css --minify",
+    "watch:css": "tailwindcss -i ./src/input.css -o ./styles.css --watch"
   },
   "repository": {
     "type": "git",

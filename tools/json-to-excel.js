@@ -151,12 +151,14 @@ window.TOOLS_REGISTRY['json-to-excel'] = Object.assign(window.TOOLS_REGISTRY['js
         const XLSX = await ensureXlsx();
         let records = Array.isArray(parsed) ? parsed : [parsed];
 
-        // Flatten nested objects if present
+        // Flatten nested objects if present and sanitize cells
         records = records.map(item => {
-          if (typeof item !== 'object' || item === null) return { value: item };
+          if (typeof item !== 'object' || item === null) return { value: sanitizeSpreadsheetCell(item) };
           const flat = {};
           for (let [k, v] of Object.entries(item)) {
-            flat[k] = (typeof v === 'object' && v !== null) ? JSON.stringify(v) : v;
+            if (k === '__proto__' || k === 'constructor' || k === 'prototype') continue;
+            const strVal = (typeof v === 'object' && v !== null) ? JSON.stringify(v) : v;
+            flat[k] = sanitizeSpreadsheetCell(strVal);
           }
           return flat;
         });

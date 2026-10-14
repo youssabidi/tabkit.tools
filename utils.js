@@ -102,6 +102,32 @@ function computeLCSDiff(linesA, linesB) {
 }
 
 // Cities Database Loader
+function sanitizeSpreadsheetCell(val) {
+  if (val === null || val === undefined) return '';
+  if (typeof val === 'string' && /^[=+\-@\t\r]/.test(val)) {
+    return "'" + val;
+  }
+  return val;
+}
+
+function sanitizeSpreadsheetRows(rows) {
+  if (!Array.isArray(rows)) return rows;
+  return rows.map(row => {
+    if (Array.isArray(row)) {
+      return row.map(sanitizeSpreadsheetCell);
+    }
+    if (typeof row === 'object' && row !== null) {
+      const clean = {};
+      for (const [k, v] of Object.entries(row)) {
+        if (k === '__proto__' || k === 'constructor' || k === 'prototype') continue;
+        clean[k] = sanitizeSpreadsheetCell(v);
+      }
+      return clean;
+    }
+    return sanitizeSpreadsheetCell(row);
+  });
+}
+
 let citiesDataset = null;
 let isFetchingCities = false;
 

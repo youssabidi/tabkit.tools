@@ -149,9 +149,10 @@ window.TOOLS_REGISTRY['excel-transpose'] = Object.assign(window.TOOLS_REGISTRY['
 
     btnDownloadCsv.addEventListener('click', () => {
       if (!transposedData.length) return;
-      const ws = window.XLSX.utils.aoa_to_sheet(transposedData);
+      const safeData = sanitizeSpreadsheetRows(transposedData);
+      const ws = window.XLSX.utils.aoa_to_sheet(safeData);
       const csv = window.XLSX.utils.sheet_to_csv(ws);
-      const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+      const blob = new Blob(['\uFEFF' + csv], { type: 'text/csv;charset=utf-8;' });
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
       a.href = url;
@@ -164,7 +165,8 @@ window.TOOLS_REGISTRY['excel-transpose'] = Object.assign(window.TOOLS_REGISTRY['
 
     btnDownloadXlsx.addEventListener('click', () => {
       if (!transposedData.length) return;
-      const ws = window.XLSX.utils.aoa_to_sheet(transposedData);
+      const safeData = sanitizeSpreadsheetRows(transposedData);
+      const ws = window.XLSX.utils.aoa_to_sheet(safeData);
       const wb = window.XLSX.utils.book_new();
       window.XLSX.utils.book_append_sheet(wb, ws, "Transposed");
       window.XLSX.writeFile(wb, `${originalBaseName}_transposed.xlsx`);

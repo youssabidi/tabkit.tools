@@ -148,7 +148,7 @@ window.TOOLS_REGISTRY['excel-to-csv'] = Object.assign(window.TOOLS_REGISTRY['exc
 
     btnDownload.addEventListener('click', () => {
       if (!output.value) return;
-      const blob = new Blob([output.value], { type: 'text/csv;charset=utf-8;' });
+      const blob = new Blob(['\uFEFF' + output.value], { type: 'text/csv;charset=utf-8;' });
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
       a.href = url;
