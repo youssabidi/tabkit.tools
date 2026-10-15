@@ -216,9 +216,10 @@
         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-4 pb-2 border-b border-workspace-border">
           <div class="flex items-center gap-2">
             <div class="w-2 h-2 rounded-full bg-workspace-accent animate-pulse shadow-[0_0_8px_rgba(6,182,212,0.7)]"></div>
-            <h2 class="text-xs font-bold text-workspace-text uppercase tracking-widest font-mono">
-              Tool Directory
+            <h2 id="catalogHeaderTitle" class="text-xs font-bold text-workspace-text uppercase tracking-widest font-mono">
+              Suggested Tools
             </h2>
+            <span id="catalogCountLabel" class="text-[10px] font-mono px-2 py-0.5 rounded-full bg-workspace-accent/10 border border-workspace-accent/30 text-workspace-accent">8 Suggestions</span>
           </div>
           <div class="relative w-full sm:w-72">
             <input id="catalogSearchInput" type="text" placeholder="Filter tools..." class="w-full bg-workspace-bg border border-workspace-border rounded-xl pl-9 pr-3 py-1.5 text-xs font-mono text-workspace-text placeholder-workspace-muted focus:border-workspace-accent focus:outline-none transition-colors" />
@@ -234,89 +235,13 @@
           <div class="w-full p-4 rounded-2xl bg-workspace-surface border border-workspace-border hover:border-workspace-borderLight hover:bg-workspace-surfaceHover transition-all duration-200 group flex flex-col justify-between min-h-[135px] tool-card">
             <div>
               <div class="flex items-center justify-between gap-2 mb-1.5">
-                <a href="/base64-encoder-decoder" class="text-sm font-bold text-workspace-text hover:text-workspace-accent transition-colors truncate" title="Open standalone Base64 Encoder / Decoder">Base64 Encoder / Decoder</a>
-                <span class="text-[9px] uppercase font-mono px-2 py-0.5 rounded-md bg-workspace-bg border border-workspace-border text-workspace-muted shrink-0">Privacy &amp; Security</span>
-              </div>
-              <p class="text-[11px] text-workspace-muted leading-relaxed line-clamp-2">Encode or decode text to Base64 format locally.</p>
-            </div>
-            <div class="flex items-center justify-between pt-2.5 border-t border-workspace-border/60 text-[11px] font-mono mt-3">
-              <a href="/base64-encoder-decoder" class="text-workspace-muted hover:text-workspace-accent transition-colors flex items-center gap-1" title="Open independent page">
-                <span>Open Page</span>
-                <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
-              </a>
-              <button type="button" onclick="pinTool('base64-encoder-decoder')" class="px-2.5 py-1 rounded-lg bg-workspace-accent/10 border border-workspace-accent/25 text-workspace-accent hover:bg-workspace-accent hover:text-black font-semibold transition-all flex items-center gap-1 shadow-sm" title="Pin to active deck">
-                <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
-                <span>Pin to Deck</span>
-              </button>
-            </div>
-          </div>
-          <div class="w-full p-4 rounded-2xl bg-workspace-surface border border-workspace-border hover:border-workspace-borderLight hover:bg-workspace-surfaceHover transition-all duration-200 group flex flex-col justify-between min-h-[135px] tool-card">
-            <div>
-              <div class="flex items-center justify-between gap-2 mb-1.5">
-                <a href="/case-converter" class="text-sm font-bold text-workspace-text hover:text-workspace-accent transition-colors truncate" title="Open standalone Case Converter &amp; Word Counter">Case Converter &amp; Word Counter</a>
-                <span class="text-[9px] uppercase font-mono px-2 py-0.5 rounded-md bg-workspace-bg border border-workspace-border text-workspace-muted shrink-0">Text &amp; Data</span>
-              </div>
-              <p class="text-[11px] text-workspace-muted leading-relaxed line-clamp-2">Deduplicate lines, toggle cases, and count words and characters without uploads.</p>
-            </div>
-            <div class="flex items-center justify-between pt-2.5 border-t border-workspace-border/60 text-[11px] font-mono mt-3">
-              <a href="/case-converter" class="text-workspace-muted hover:text-workspace-accent transition-colors flex items-center gap-1" title="Open independent page">
-                <span>Open Page</span>
-                <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
-              </a>
-              <button type="button" onclick="pinTool('case-converter')" class="px-2.5 py-1 rounded-lg bg-workspace-accent/10 border border-workspace-accent/25 text-workspace-accent hover:bg-workspace-accent hover:text-black font-semibold transition-all flex items-center gap-1 shadow-sm" title="Pin to active deck">
-                <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
-                <span>Pin to Deck</span>
-              </button>
-            </div>
-          </div>
-          <div class="w-full p-4 rounded-2xl bg-workspace-surface border border-workspace-border hover:border-workspace-borderLight hover:bg-workspace-surfaceHover transition-all duration-200 group flex flex-col justify-between min-h-[135px] tool-card">
-            <div>
-              <div class="flex items-center justify-between gap-2 mb-1.5">
-                <a href="/chmod-calculator" class="text-sm font-bold text-workspace-text hover:text-workspace-accent transition-colors truncate" title="Open standalone Visual chmod Permissions Calculator">Visual chmod Permissions Calculator</a>
-                <span class="text-[9px] uppercase font-mono px-2 py-0.5 rounded-md bg-workspace-bg border border-workspace-border text-workspace-muted shrink-0">Developer &amp; Code</span>
-              </div>
-              <p class="text-[11px] text-workspace-muted leading-relaxed line-clamp-2">Interactive visual permission calculator for Linux/Unix file permissions with octal and symbolic modes.</p>
-            </div>
-            <div class="flex items-center justify-between pt-2.5 border-t border-workspace-border/60 text-[11px] font-mono mt-3">
-              <a href="/chmod-calculator" class="text-workspace-muted hover:text-workspace-accent transition-colors flex items-center gap-1" title="Open independent page">
-                <span>Open Page</span>
-                <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
-              </a>
-              <button type="button" onclick="pinTool('chmod-calculator')" class="px-2.5 py-1 rounded-lg bg-workspace-accent/10 border border-workspace-accent/25 text-workspace-accent hover:bg-workspace-accent hover:text-black font-semibold transition-all flex items-center gap-1 shadow-sm" title="Pin to active deck">
-                <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
-                <span>Pin to Deck</span>
-              </button>
-            </div>
-          </div>
-          <div class="w-full p-4 rounded-2xl bg-workspace-surface border border-workspace-border hover:border-workspace-borderLight hover:bg-workspace-surfaceHover transition-all duration-200 group flex flex-col justify-between min-h-[135px] tool-card">
-            <div>
-              <div class="flex items-center justify-between gap-2 mb-1.5">
-                <a href="/curl-converter" class="text-sm font-bold text-workspace-text hover:text-workspace-accent transition-colors truncate" title="Open standalone cURL to Fetch / Axios / Python Converter">cURL to Fetch / Axios / Python Converter</a>
-                <span class="text-[9px] uppercase font-mono px-2 py-0.5 rounded-md bg-workspace-bg border border-workspace-border text-workspace-muted shrink-0">Developer &amp; Code</span>
-              </div>
-              <p class="text-[11px] text-workspace-muted leading-relaxed line-clamp-2">Convert cURL requests into copy-pasteable JavaScript fetch, Node.js axios, and Python requests code.</p>
-            </div>
-            <div class="flex items-center justify-between pt-2.5 border-t border-workspace-border/60 text-[11px] font-mono mt-3">
-              <a href="/curl-converter" class="text-workspace-muted hover:text-workspace-accent transition-colors flex items-center gap-1" title="Open independent page">
-                <span>Open Page</span>
-                <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
-              </a>
-              <button type="button" onclick="pinTool('curl-converter')" class="px-2.5 py-1 rounded-lg bg-workspace-accent/10 border border-workspace-accent/25 text-workspace-accent hover:bg-workspace-accent hover:text-black font-semibold transition-all flex items-center gap-1 shadow-sm" title="Pin to active deck">
-                <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
-                <span>Pin to Deck</span>
-              </button>
-            </div>
-          </div>
-          <div class="w-full p-4 rounded-2xl bg-workspace-surface border border-workspace-border hover:border-workspace-borderLight hover:bg-workspace-surfaceHover transition-all duration-200 group flex flex-col justify-between min-h-[135px] tool-card">
-            <div>
-              <div class="flex items-center justify-between gap-2 mb-1.5">
-                <a href="/date-calculator" class="text-sm font-bold text-workspace-text hover:text-workspace-accent transition-colors truncate" title="Open standalone Days Between Dates Calculator">Days Between Dates Calculator</a>
+                <a href="/date-calculator.html" class="text-sm font-bold text-workspace-text hover:text-workspace-accent transition-colors truncate" title="Open standalone Days Between Dates Calculator">Days Between Dates Calculator</a>
                 <span class="text-[9px] uppercase font-mono px-2 py-0.5 rounded-md bg-workspace-bg border border-workspace-border text-workspace-muted shrink-0">Productivity &amp; Math</span>
               </div>
               <p class="text-[11px] text-workspace-muted leading-relaxed line-clamp-2">Calculate days between dates or add/subtract days from a date.</p>
             </div>
             <div class="flex items-center justify-between pt-2.5 border-t border-workspace-border/60 text-[11px] font-mono mt-3">
-              <a href="/date-calculator" class="text-workspace-muted hover:text-workspace-accent transition-colors flex items-center gap-1" title="Open independent page">
+              <a href="/date-calculator.html" class="text-workspace-muted hover:text-workspace-accent transition-colors flex items-center gap-1" title="Open independent page">
                 <span>Open Page</span>
                 <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
               </a>
@@ -329,222 +254,13 @@
           <div class="w-full p-4 rounded-2xl bg-workspace-surface border border-workspace-border hover:border-workspace-borderLight hover:bg-workspace-surfaceHover transition-all duration-200 group flex flex-col justify-between min-h-[135px] tool-card">
             <div>
               <div class="flex items-center justify-between gap-2 mb-1.5">
-                <a href="/excel-formula-builder" class="text-sm font-bold text-workspace-text hover:text-workspace-accent transition-colors truncate" title="Open standalone Excel Formula Builder Cheat Sheet">Excel Formula Builder Cheat Sheet</a>
-                <span class="text-[9px] uppercase font-mono px-2 py-0.5 rounded-md bg-workspace-bg border border-workspace-border text-workspace-muted shrink-0">Text &amp; Data</span>
-              </div>
-              <p class="text-[11px] text-workspace-muted leading-relaxed line-clamp-2">Massive offline registry of Excel/Sheets formulas with a fill-in-the-blanks builder.</p>
-            </div>
-            <div class="flex items-center justify-between pt-2.5 border-t border-workspace-border/60 text-[11px] font-mono mt-3">
-              <a href="/excel-formula-builder" class="text-workspace-muted hover:text-workspace-accent transition-colors flex items-center gap-1" title="Open independent page">
-                <span>Open Page</span>
-                <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
-              </a>
-              <button type="button" onclick="pinTool('excel-formula-builder')" class="px-2.5 py-1 rounded-lg bg-workspace-accent/10 border border-workspace-accent/25 text-workspace-accent hover:bg-workspace-accent hover:text-black font-semibold transition-all flex items-center gap-1 shadow-sm" title="Pin to active deck">
-                <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
-                <span>Pin to Deck</span>
-              </button>
-            </div>
-          </div>
-          <div class="w-full p-4 rounded-2xl bg-workspace-surface border border-workspace-border hover:border-workspace-borderLight hover:bg-workspace-surfaceHover transition-all duration-200 group flex flex-col justify-between min-h-[135px] tool-card">
-            <div>
-              <div class="flex items-center justify-between gap-2 mb-1.5">
-                <a href="/exif-metadata-stripper" class="text-sm font-bold text-workspace-text hover:text-workspace-accent transition-colors truncate" title="Open standalone Photo EXIF &amp; GPS Metadata Stripper">Photo EXIF &amp; GPS Metadata Stripper</a>
-                <span class="text-[9px] uppercase font-mono px-2 py-0.5 rounded-md bg-workspace-bg border border-workspace-border text-workspace-muted shrink-0">Privacy &amp; Security</span>
-              </div>
-              <p class="text-[11px] text-workspace-muted leading-relaxed line-clamp-2">Strip hidden GPS coordinates, camera serial numbers, and device metadata from photos before sharing.</p>
-            </div>
-            <div class="flex items-center justify-between pt-2.5 border-t border-workspace-border/60 text-[11px] font-mono mt-3">
-              <a href="/exif-metadata-stripper" class="text-workspace-muted hover:text-workspace-accent transition-colors flex items-center gap-1" title="Open independent page">
-                <span>Open Page</span>
-                <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
-              </a>
-              <button type="button" onclick="pinTool('exif-metadata-stripper')" class="px-2.5 py-1 rounded-lg bg-workspace-accent/10 border border-workspace-accent/25 text-workspace-accent hover:bg-workspace-accent hover:text-black font-semibold transition-all flex items-center gap-1 shadow-sm" title="Pin to active deck">
-                <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
-                <span>Pin to Deck</span>
-              </button>
-            </div>
-          </div>
-          <div class="w-full p-4 rounded-2xl bg-workspace-surface border border-workspace-border hover:border-workspace-borderLight hover:bg-workspace-surfaceHover transition-all duration-200 group flex flex-col justify-between min-h-[135px] tool-card">
-            <div>
-              <div class="flex items-center justify-between gap-2 mb-1.5">
-                <a href="/hex-color-converter" class="text-sm font-bold text-workspace-text hover:text-workspace-accent transition-colors truncate" title="Open standalone HEX to RGB Color Converter">HEX to RGB Color Converter</a>
-                <span class="text-[9px] uppercase font-mono px-2 py-0.5 rounded-md bg-workspace-bg border border-workspace-border text-workspace-muted shrink-0">Media &amp; Design</span>
-              </div>
-              <p class="text-[11px] text-workspace-muted leading-relaxed line-clamp-2">Convert colors between HEX, RGB, and HSL formats.</p>
-            </div>
-            <div class="flex items-center justify-between pt-2.5 border-t border-workspace-border/60 text-[11px] font-mono mt-3">
-              <a href="/hex-color-converter" class="text-workspace-muted hover:text-workspace-accent transition-colors flex items-center gap-1" title="Open independent page">
-                <span>Open Page</span>
-                <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
-              </a>
-              <button type="button" onclick="pinTool('hex-color-converter')" class="px-2.5 py-1 rounded-lg bg-workspace-accent/10 border border-workspace-accent/25 text-workspace-accent hover:bg-workspace-accent hover:text-black font-semibold transition-all flex items-center gap-1 shadow-sm" title="Pin to active deck">
-                <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
-                <span>Pin to Deck</span>
-              </button>
-            </div>
-          </div>
-          <div class="w-full p-4 rounded-2xl bg-workspace-surface border border-workspace-border hover:border-workspace-borderLight hover:bg-workspace-surfaceHover transition-all duration-200 group flex flex-col justify-between min-h-[135px] tool-card">
-            <div>
-              <div class="flex items-center justify-between gap-2 mb-1.5">
-                <a href="/image-compressor" class="text-sm font-bold text-workspace-text hover:text-workspace-accent transition-colors truncate" title="Open standalone Client-Side Image Compressor &amp; WebP">Client-Side Image Compressor &amp; WebP</a>
-                <span class="text-[9px] uppercase font-mono px-2 py-0.5 rounded-md bg-workspace-bg border border-workspace-border text-workspace-muted shrink-0">Media &amp; Design</span>
-              </div>
-              <p class="text-[11px] text-workspace-muted leading-relaxed line-clamp-2">Compress PNG, JPEG, and WebP images locally inside your browser with zero server uploads.</p>
-            </div>
-            <div class="flex items-center justify-between pt-2.5 border-t border-workspace-border/60 text-[11px] font-mono mt-3">
-              <a href="/image-compressor" class="text-workspace-muted hover:text-workspace-accent transition-colors flex items-center gap-1" title="Open independent page">
-                <span>Open Page</span>
-                <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
-              </a>
-              <button type="button" onclick="pinTool('image-compressor')" class="px-2.5 py-1 rounded-lg bg-workspace-accent/10 border border-workspace-accent/25 text-workspace-accent hover:bg-workspace-accent hover:text-black font-semibold transition-all flex items-center gap-1 shadow-sm" title="Pin to active deck">
-                <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
-                <span>Pin to Deck</span>
-              </button>
-            </div>
-          </div>
-          <div class="w-full p-4 rounded-2xl bg-workspace-surface border border-workspace-border hover:border-workspace-borderLight hover:bg-workspace-surfaceHover transition-all duration-200 group flex flex-col justify-between min-h-[135px] tool-card">
-            <div>
-              <div class="flex items-center justify-between gap-2 mb-1.5">
-                <a href="/json-formatter" class="text-sm font-bold text-workspace-text hover:text-workspace-accent transition-colors truncate" title="Open standalone JSON Formatter &amp; Validator">JSON Formatter &amp; Validator</a>
-                <span class="text-[9px] uppercase font-mono px-2 py-0.5 rounded-md bg-workspace-bg border border-workspace-border text-workspace-muted shrink-0">Text &amp; Data</span>
-              </div>
-              <p class="text-[11px] text-workspace-muted leading-relaxed line-clamp-2">Format, validate, and minify JSON strings instantly.</p>
-            </div>
-            <div class="flex items-center justify-between pt-2.5 border-t border-workspace-border/60 text-[11px] font-mono mt-3">
-              <a href="/json-formatter" class="text-workspace-muted hover:text-workspace-accent transition-colors flex items-center gap-1" title="Open independent page">
-                <span>Open Page</span>
-                <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
-              </a>
-              <button type="button" onclick="pinTool('json-formatter')" class="px-2.5 py-1 rounded-lg bg-workspace-accent/10 border border-workspace-accent/25 text-workspace-accent hover:bg-workspace-accent hover:text-black font-semibold transition-all flex items-center gap-1 shadow-sm" title="Pin to active deck">
-                <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
-                <span>Pin to Deck</span>
-              </button>
-            </div>
-          </div>
-          <div class="w-full p-4 rounded-2xl bg-workspace-surface border border-workspace-border hover:border-workspace-borderLight hover:bg-workspace-surfaceHover transition-all duration-200 group flex flex-col justify-between min-h-[135px] tool-card">
-            <div>
-              <div class="flex items-center justify-between gap-2 mb-1.5">
-                <a href="/json-to-typescript" class="text-sm font-bold text-workspace-text hover:text-workspace-accent transition-colors truncate" title="Open standalone JSON to TypeScript &amp; Zod Schema">JSON to TypeScript &amp; Zod Schema</a>
-                <span class="text-[9px] uppercase font-mono px-2 py-0.5 rounded-md bg-workspace-bg border border-workspace-border text-workspace-muted shrink-0">Developer &amp; Code</span>
-              </div>
-              <p class="text-[11px] text-workspace-muted leading-relaxed line-clamp-2">Convert JSON payloads into clean TypeScript interfaces, types, and Zod validation schemas.</p>
-            </div>
-            <div class="flex items-center justify-between pt-2.5 border-t border-workspace-border/60 text-[11px] font-mono mt-3">
-              <a href="/json-to-typescript" class="text-workspace-muted hover:text-workspace-accent transition-colors flex items-center gap-1" title="Open independent page">
-                <span>Open Page</span>
-                <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
-              </a>
-              <button type="button" onclick="pinTool('json-to-typescript')" class="px-2.5 py-1 rounded-lg bg-workspace-accent/10 border border-workspace-accent/25 text-workspace-accent hover:bg-workspace-accent hover:text-black font-semibold transition-all flex items-center gap-1 shadow-sm" title="Pin to active deck">
-                <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
-                <span>Pin to Deck</span>
-              </button>
-            </div>
-          </div>
-          <div class="w-full p-4 rounded-2xl bg-workspace-surface border border-workspace-border hover:border-workspace-borderLight hover:bg-workspace-surfaceHover transition-all duration-200 group flex flex-col justify-between min-h-[135px] tool-card">
-            <div>
-              <div class="flex items-center justify-between gap-2 mb-1.5">
-                <a href="/pdf-splitter" class="text-sm font-bold text-workspace-text hover:text-workspace-accent transition-colors truncate" title="Open standalone Client-Side PDF Splitter &amp; Page Remover">Client-Side PDF Splitter &amp; Page Remover</a>
-                <span class="text-[9px] uppercase font-mono px-2 py-0.5 rounded-md bg-workspace-bg border border-workspace-border text-workspace-muted shrink-0">Documents &amp; PDF</span>
-              </div>
-              <p class="text-[11px] text-workspace-muted leading-relaxed line-clamp-2">Extract specific pages or split multi-page PDF documents locally in your browser with zero server uploads.</p>
-            </div>
-            <div class="flex items-center justify-between pt-2.5 border-t border-workspace-border/60 text-[11px] font-mono mt-3">
-              <a href="/pdf-splitter" class="text-workspace-muted hover:text-workspace-accent transition-colors flex items-center gap-1" title="Open independent page">
-                <span>Open Page</span>
-                <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
-              </a>
-              <button type="button" onclick="pinTool('pdf-splitter')" class="px-2.5 py-1 rounded-lg bg-workspace-accent/10 border border-workspace-accent/25 text-workspace-accent hover:bg-workspace-accent hover:text-black font-semibold transition-all flex items-center gap-1 shadow-sm" title="Pin to active deck">
-                <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
-                <span>Pin to Deck</span>
-              </button>
-            </div>
-          </div>
-          <div class="w-full p-4 rounded-2xl bg-workspace-surface border border-workspace-border hover:border-workspace-borderLight hover:bg-workspace-surfaceHover transition-all duration-200 group flex flex-col justify-between min-h-[135px] tool-card">
-            <div>
-              <div class="flex items-center justify-between gap-2 mb-1.5">
-                <a href="/percentage-calculator" class="text-sm font-bold text-workspace-text hover:text-workspace-accent transition-colors truncate" title="Open standalone Online Percentage Calculator">Online Percentage Calculator</a>
-                <span class="text-[9px] uppercase font-mono px-2 py-0.5 rounded-md bg-workspace-bg border border-workspace-border text-workspace-muted shrink-0">Productivity &amp; Math</span>
-              </div>
-              <p class="text-[11px] text-workspace-muted leading-relaxed line-clamp-2">Everyday percentage calculator for discounts, tips, and fractions.</p>
-            </div>
-            <div class="flex items-center justify-between pt-2.5 border-t border-workspace-border/60 text-[11px] font-mono mt-3">
-              <a href="/percentage-calculator" class="text-workspace-muted hover:text-workspace-accent transition-colors flex items-center gap-1" title="Open independent page">
-                <span>Open Page</span>
-                <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
-              </a>
-              <button type="button" onclick="pinTool('percentage-calculator')" class="px-2.5 py-1 rounded-lg bg-workspace-accent/10 border border-workspace-accent/25 text-workspace-accent hover:bg-workspace-accent hover:text-black font-semibold transition-all flex items-center gap-1 shadow-sm" title="Pin to active deck">
-                <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
-                <span>Pin to Deck</span>
-              </button>
-            </div>
-          </div>
-          <div class="w-full p-4 rounded-2xl bg-workspace-surface border border-workspace-border hover:border-workspace-borderLight hover:bg-workspace-surfaceHover transition-all duration-200 group flex flex-col justify-between min-h-[135px] tool-card">
-            <div>
-              <div class="flex items-center justify-between gap-2 mb-1.5">
-                <a href="/pomodoro-timer" class="text-sm font-bold text-workspace-text hover:text-workspace-accent transition-colors truncate" title="Open standalone Pomodoro Timer Online">Pomodoro Timer Online</a>
-                <span class="text-[9px] uppercase font-mono px-2 py-0.5 rounded-md bg-workspace-bg border border-workspace-border text-workspace-muted shrink-0">Productivity &amp; Math</span>
-              </div>
-              <p class="text-[11px] text-workspace-muted leading-relaxed line-clamp-2">A simple Pomodoro countdown timer for focused work sessions.</p>
-            </div>
-            <div class="flex items-center justify-between pt-2.5 border-t border-workspace-border/60 text-[11px] font-mono mt-3">
-              <a href="/pomodoro-timer" class="text-workspace-muted hover:text-workspace-accent transition-colors flex items-center gap-1" title="Open independent page">
-                <span>Open Page</span>
-                <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
-              </a>
-              <button type="button" onclick="pinTool('pomodoro-timer')" class="px-2.5 py-1 rounded-lg bg-workspace-accent/10 border border-workspace-accent/25 text-workspace-accent hover:bg-workspace-accent hover:text-black font-semibold transition-all flex items-center gap-1 shadow-sm" title="Pin to active deck">
-                <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
-                <span>Pin to Deck</span>
-              </button>
-            </div>
-          </div>
-          <div class="w-full p-4 rounded-2xl bg-workspace-surface border border-workspace-border hover:border-workspace-borderLight hover:bg-workspace-surfaceHover transition-all duration-200 group flex flex-col justify-between min-h-[135px] tool-card">
-            <div>
-              <div class="flex items-center justify-between gap-2 mb-1.5">
-                <a href="/qr-code-generator" class="text-sm font-bold text-workspace-text hover:text-workspace-accent transition-colors truncate" title="Open standalone Free QR Code Generator">Free QR Code Generator</a>
-                <span class="text-[9px] uppercase font-mono px-2 py-0.5 rounded-md bg-workspace-bg border border-workspace-border text-workspace-muted shrink-0">Media &amp; Design</span>
-              </div>
-              <p class="text-[11px] text-workspace-muted leading-relaxed line-clamp-2">Generate high-contrast QR codes for links, phone dialer numbers, or plain text.</p>
-            </div>
-            <div class="flex items-center justify-between pt-2.5 border-t border-workspace-border/60 text-[11px] font-mono mt-3">
-              <a href="/qr-code-generator" class="text-workspace-muted hover:text-workspace-accent transition-colors flex items-center gap-1" title="Open independent page">
-                <span>Open Page</span>
-                <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
-              </a>
-              <button type="button" onclick="pinTool('qr-code-generator')" class="px-2.5 py-1 rounded-lg bg-workspace-accent/10 border border-workspace-accent/25 text-workspace-accent hover:bg-workspace-accent hover:text-black font-semibold transition-all flex items-center gap-1 shadow-sm" title="Pin to active deck">
-                <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
-                <span>Pin to Deck</span>
-              </button>
-            </div>
-          </div>
-          <div class="w-full p-4 rounded-2xl bg-workspace-surface border border-workspace-border hover:border-workspace-borderLight hover:bg-workspace-surfaceHover transition-all duration-200 group flex flex-col justify-between min-h-[135px] tool-card">
-            <div>
-              <div class="flex items-center justify-between gap-2 mb-1.5">
-                <a href="/random-name-picker" class="text-sm font-bold text-workspace-text hover:text-workspace-accent transition-colors truncate" title="Open standalone Random Name Picker &amp; Wheel">Random Name Picker &amp; Wheel</a>
-                <span class="text-[9px] uppercase font-mono px-2 py-0.5 rounded-md bg-workspace-bg border border-workspace-border text-workspace-muted shrink-0">Productivity &amp; Math</span>
-              </div>
-              <p class="text-[11px] text-workspace-muted leading-relaxed line-clamp-2">Pick a random name from a list or generate a random number.</p>
-            </div>
-            <div class="flex items-center justify-between pt-2.5 border-t border-workspace-border/60 text-[11px] font-mono mt-3">
-              <a href="/random-name-picker" class="text-workspace-muted hover:text-workspace-accent transition-colors flex items-center gap-1" title="Open independent page">
-                <span>Open Page</span>
-                <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
-              </a>
-              <button type="button" onclick="pinTool('random-name-picker')" class="px-2.5 py-1 rounded-lg bg-workspace-accent/10 border border-workspace-accent/25 text-workspace-accent hover:bg-workspace-accent hover:text-black font-semibold transition-all flex items-center gap-1 shadow-sm" title="Pin to active deck">
-                <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
-                <span>Pin to Deck</span>
-              </button>
-            </div>
-          </div>
-          <div class="w-full p-4 rounded-2xl bg-workspace-surface border border-workspace-border hover:border-workspace-borderLight hover:bg-workspace-surfaceHover transition-all duration-200 group flex flex-col justify-between min-h-[135px] tool-card">
-            <div>
-              <div class="flex items-center justify-between gap-2 mb-1.5">
-                <a href="/random-password-generator" class="text-sm font-bold text-workspace-text hover:text-workspace-accent transition-colors truncate" title="Open standalone Secure Password Generator">Secure Password Generator</a>
+                <a href="/random-password-generator.html" class="text-sm font-bold text-workspace-text hover:text-workspace-accent transition-colors truncate" title="Open standalone Secure Password Generator">Secure Password Generator</a>
                 <span class="text-[9px] uppercase font-mono px-2 py-0.5 rounded-md bg-workspace-bg border border-workspace-border text-workspace-muted shrink-0">Privacy &amp; Security</span>
               </div>
               <p class="text-[11px] text-workspace-muted leading-relaxed line-clamp-2">Generate cryptographically secure passwords or numeric PIN codes.</p>
             </div>
             <div class="flex items-center justify-between pt-2.5 border-t border-workspace-border/60 text-[11px] font-mono mt-3">
-              <a href="/random-password-generator" class="text-workspace-muted hover:text-workspace-accent transition-colors flex items-center gap-1" title="Open independent page">
+              <a href="/random-password-generator.html" class="text-workspace-muted hover:text-workspace-accent transition-colors flex items-center gap-1" title="Open independent page">
                 <span>Open Page</span>
                 <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
               </a>
@@ -557,36 +273,17 @@
           <div class="w-full p-4 rounded-2xl bg-workspace-surface border border-workspace-border hover:border-workspace-borderLight hover:bg-workspace-surfaceHover transition-all duration-200 group flex flex-col justify-between min-h-[135px] tool-card">
             <div>
               <div class="flex items-center justify-between gap-2 mb-1.5">
-                <a href="/sha256-hash-generator" class="text-sm font-bold text-workspace-text hover:text-workspace-accent transition-colors truncate" title="Open standalone SHA-256 Hash Generator">SHA-256 Hash Generator</a>
-                <span class="text-[9px] uppercase font-mono px-2 py-0.5 rounded-md bg-workspace-bg border border-workspace-border text-workspace-muted shrink-0">Privacy &amp; Security</span>
-              </div>
-              <p class="text-[11px] text-workspace-muted leading-relaxed line-clamp-2">Generate SHA-256, SHA-384, and SHA-512 hashes instantly.</p>
-            </div>
-            <div class="flex items-center justify-between pt-2.5 border-t border-workspace-border/60 text-[11px] font-mono mt-3">
-              <a href="/sha256-hash-generator" class="text-workspace-muted hover:text-workspace-accent transition-colors flex items-center gap-1" title="Open independent page">
-                <span>Open Page</span>
-                <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
-              </a>
-              <button type="button" onclick="pinTool('sha256-hash-generator')" class="px-2.5 py-1 rounded-lg bg-workspace-accent/10 border border-workspace-accent/25 text-workspace-accent hover:bg-workspace-accent hover:text-black font-semibold transition-all flex items-center gap-1 shadow-sm" title="Pin to active deck">
-                <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
-                <span>Pin to Deck</span>
-              </button>
-            </div>
-          </div>
-          <div class="w-full p-4 rounded-2xl bg-workspace-surface border border-workspace-border hover:border-workspace-borderLight hover:bg-workspace-surfaceHover transition-all duration-200 group flex flex-col justify-between min-h-[135px] tool-card">
-            <div>
-              <div class="flex items-center justify-between gap-2 mb-1.5">
-                <a href="/social-seo-previewer" class="text-sm font-bold text-workspace-text hover:text-workspace-accent transition-colors truncate" title="Open standalone Social Media &amp; Google SERP Previewer">Social Media &amp; Google SERP Previewer</a>
+                <a href="/qr-code-generator.html" class="text-sm font-bold text-workspace-text hover:text-workspace-accent transition-colors truncate" title="Open standalone Free QR Code Generator">Free QR Code Generator</a>
                 <span class="text-[9px] uppercase font-mono px-2 py-0.5 rounded-md bg-workspace-bg border border-workspace-border text-workspace-muted shrink-0">Media &amp; Design</span>
               </div>
-              <p class="text-[11px] text-workspace-muted leading-relaxed line-clamp-2">Simulate how your meta tags, title, and description will look on Google Search and X (Twitter).</p>
+              <p class="text-[11px] text-workspace-muted leading-relaxed line-clamp-2">Generate high-contrast QR codes for links, phone dialer numbers, or plain text.</p>
             </div>
             <div class="flex items-center justify-between pt-2.5 border-t border-workspace-border/60 text-[11px] font-mono mt-3">
-              <a href="/social-seo-previewer" class="text-workspace-muted hover:text-workspace-accent transition-colors flex items-center gap-1" title="Open independent page">
+              <a href="/qr-code-generator.html" class="text-workspace-muted hover:text-workspace-accent transition-colors flex items-center gap-1" title="Open independent page">
                 <span>Open Page</span>
                 <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
               </a>
-              <button type="button" onclick="pinTool('social-seo-previewer')" class="px-2.5 py-1 rounded-lg bg-workspace-accent/10 border border-workspace-accent/25 text-workspace-accent hover:bg-workspace-accent hover:text-black font-semibold transition-all flex items-center gap-1 shadow-sm" title="Pin to active deck">
+              <button type="button" onclick="pinTool('qr-code-generator')" class="px-2.5 py-1 rounded-lg bg-workspace-accent/10 border border-workspace-accent/25 text-workspace-accent hover:bg-workspace-accent hover:text-black font-semibold transition-all flex items-center gap-1 shadow-sm" title="Pin to active deck">
                 <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
                 <span>Pin to Deck</span>
               </button>
@@ -595,17 +292,17 @@
           <div class="w-full p-4 rounded-2xl bg-workspace-surface border border-workspace-border hover:border-workspace-borderLight hover:bg-workspace-surfaceHover transition-all duration-200 group flex flex-col justify-between min-h-[135px] tool-card">
             <div>
               <div class="flex items-center justify-between gap-2 mb-1.5">
-                <a href="/svg-optimizer" class="text-sm font-bold text-workspace-text hover:text-workspace-accent transition-colors truncate" title="Open standalone SVG Optimizer &amp; React / CSS Exporter">SVG Optimizer &amp; React / CSS Exporter</a>
+                <a href="/image-compressor.html" class="text-sm font-bold text-workspace-text hover:text-workspace-accent transition-colors truncate" title="Open standalone Client-Side Image Compressor &amp; WebP">Client-Side Image Compressor &amp; WebP</a>
                 <span class="text-[9px] uppercase font-mono px-2 py-0.5 rounded-md bg-workspace-bg border border-workspace-border text-workspace-muted shrink-0">Media &amp; Design</span>
               </div>
-              <p class="text-[11px] text-workspace-muted leading-relaxed line-clamp-2">Clean and minify SVG markup, convert to CSS Data URIs, and export to React JSX components.</p>
+              <p class="text-[11px] text-workspace-muted leading-relaxed line-clamp-2">Compress PNG, JPEG, and WebP images locally inside your browser with zero server uploads.</p>
             </div>
             <div class="flex items-center justify-between pt-2.5 border-t border-workspace-border/60 text-[11px] font-mono mt-3">
-              <a href="/svg-optimizer" class="text-workspace-muted hover:text-workspace-accent transition-colors flex items-center gap-1" title="Open independent page">
+              <a href="/image-compressor.html" class="text-workspace-muted hover:text-workspace-accent transition-colors flex items-center gap-1" title="Open independent page">
                 <span>Open Page</span>
                 <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
               </a>
-              <button type="button" onclick="pinTool('svg-optimizer')" class="px-2.5 py-1 rounded-lg bg-workspace-accent/10 border border-workspace-accent/25 text-workspace-accent hover:bg-workspace-accent hover:text-black font-semibold transition-all flex items-center gap-1 shadow-sm" title="Pin to active deck">
+              <button type="button" onclick="pinTool('image-compressor')" class="px-2.5 py-1 rounded-lg bg-workspace-accent/10 border border-workspace-accent/25 text-workspace-accent hover:bg-workspace-accent hover:text-black font-semibold transition-all flex items-center gap-1 shadow-sm" title="Pin to active deck">
                 <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
                 <span>Pin to Deck</span>
               </button>
@@ -614,17 +311,17 @@
           <div class="w-full p-4 rounded-2xl bg-workspace-surface border border-workspace-border hover:border-workspace-borderLight hover:bg-workspace-surfaceHover transition-all duration-200 group flex flex-col justify-between min-h-[135px] tool-card">
             <div>
               <div class="flex items-center justify-between gap-2 mb-1.5">
-                <a href="/text-diff-checker" class="text-sm font-bold text-workspace-text hover:text-workspace-accent transition-colors truncate" title="Open standalone Text Diff Checker &amp; Notepad">Text Diff Checker &amp; Notepad</a>
+                <a href="/json-formatter.html" class="text-sm font-bold text-workspace-text hover:text-workspace-accent transition-colors truncate" title="Open standalone JSON Formatter &amp; Validator">JSON Formatter &amp; Validator</a>
                 <span class="text-[9px] uppercase font-mono px-2 py-0.5 rounded-md bg-workspace-bg border border-workspace-border text-workspace-muted shrink-0">Text &amp; Data</span>
               </div>
-              <p class="text-[11px] text-workspace-muted leading-relaxed line-clamp-2">Auto-saving local notes and true line-by-line diff comparison.</p>
+              <p class="text-[11px] text-workspace-muted leading-relaxed line-clamp-2">Format, validate, and minify JSON strings instantly.</p>
             </div>
             <div class="flex items-center justify-between pt-2.5 border-t border-workspace-border/60 text-[11px] font-mono mt-3">
-              <a href="/text-diff-checker" class="text-workspace-muted hover:text-workspace-accent transition-colors flex items-center gap-1" title="Open independent page">
+              <a href="/json-formatter.html" class="text-workspace-muted hover:text-workspace-accent transition-colors flex items-center gap-1" title="Open independent page">
                 <span>Open Page</span>
                 <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
               </a>
-              <button type="button" onclick="pinTool('text-diff-checker')" class="px-2.5 py-1 rounded-lg bg-workspace-accent/10 border border-workspace-accent/25 text-workspace-accent hover:bg-workspace-accent hover:text-black font-semibold transition-all flex items-center gap-1 shadow-sm" title="Pin to active deck">
+              <button type="button" onclick="pinTool('json-formatter')" class="px-2.5 py-1 rounded-lg bg-workspace-accent/10 border border-workspace-accent/25 text-workspace-accent hover:bg-workspace-accent hover:text-black font-semibold transition-all flex items-center gap-1 shadow-sm" title="Pin to active deck">
                 <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
                 <span>Pin to Deck</span>
               </button>
@@ -633,222 +330,13 @@
           <div class="w-full p-4 rounded-2xl bg-workspace-surface border border-workspace-border hover:border-workspace-borderLight hover:bg-workspace-surfaceHover transition-all duration-200 group flex flex-col justify-between min-h-[135px] tool-card">
             <div>
               <div class="flex items-center justify-between gap-2 mb-1.5">
-                <a href="/time-zone-converter" class="text-sm font-bold text-workspace-text hover:text-workspace-accent transition-colors truncate" title="Open standalone World Time Zone Converter">World Time Zone Converter</a>
-                <span class="text-[9px] uppercase font-mono px-2 py-0.5 rounded-md bg-workspace-bg border border-workspace-border text-workspace-muted shrink-0">Productivity &amp; Math</span>
-              </div>
-              <p class="text-[11px] text-workspace-muted leading-relaxed line-clamp-2">Interactive world clock with 25,000+ searchable cities and synchronized hour slider.</p>
-            </div>
-            <div class="flex items-center justify-between pt-2.5 border-t border-workspace-border/60 text-[11px] font-mono mt-3">
-              <a href="/time-zone-converter" class="text-workspace-muted hover:text-workspace-accent transition-colors flex items-center gap-1" title="Open independent page">
-                <span>Open Page</span>
-                <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
-              </a>
-              <button type="button" onclick="pinTool('time-zone-converter')" class="px-2.5 py-1 rounded-lg bg-workspace-accent/10 border border-workspace-accent/25 text-workspace-accent hover:bg-workspace-accent hover:text-black font-semibold transition-all flex items-center gap-1 shadow-sm" title="Pin to active deck">
-                <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
-                <span>Pin to Deck</span>
-              </button>
-            </div>
-          </div>
-          <div class="w-full p-4 rounded-2xl bg-workspace-surface border border-workspace-border hover:border-workspace-borderLight hover:bg-workspace-surfaceHover transition-all duration-200 group flex flex-col justify-between min-h-[135px] tool-card">
-            <div>
-              <div class="flex items-center justify-between gap-2 mb-1.5">
-                <a href="/unit-converter" class="text-sm font-bold text-workspace-text hover:text-workspace-accent transition-colors truncate" title="Open standalone Universal Unit Converter">Universal Unit Converter</a>
-                <span class="text-[9px] uppercase font-mono px-2 py-0.5 rounded-md bg-workspace-bg border border-workspace-border text-workspace-muted shrink-0">Productivity &amp; Math</span>
-              </div>
-              <p class="text-[11px] text-workspace-muted leading-relaxed line-clamp-2">Multi-category converter for data, length, mass, temperature, speed, volume, and time.</p>
-            </div>
-            <div class="flex items-center justify-between pt-2.5 border-t border-workspace-border/60 text-[11px] font-mono mt-3">
-              <a href="/unit-converter" class="text-workspace-muted hover:text-workspace-accent transition-colors flex items-center gap-1" title="Open independent page">
-                <span>Open Page</span>
-                <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
-              </a>
-              <button type="button" onclick="pinTool('unit-converter')" class="px-2.5 py-1 rounded-lg bg-workspace-accent/10 border border-workspace-accent/25 text-workspace-accent hover:bg-workspace-accent hover:text-black font-semibold transition-all flex items-center gap-1 shadow-sm" title="Pin to active deck">
-                <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
-                <span>Pin to Deck</span>
-              </button>
-            </div>
-          </div>
-          <div class="w-full p-4 rounded-2xl bg-workspace-surface border border-workspace-border hover:border-workspace-borderLight hover:bg-workspace-surfaceHover transition-all duration-200 group flex flex-col justify-between min-h-[135px] tool-card">
-            <div>
-              <div class="flex items-center justify-between gap-2 mb-1.5">
-                <a href="/unix-timestamp-converter" class="text-sm font-bold text-workspace-text hover:text-workspace-accent transition-colors truncate" title="Open standalone Unix Timestamp &amp; Epoch Converter">Unix Timestamp &amp; Epoch Converter</a>
-                <span class="text-[9px] uppercase font-mono px-2 py-0.5 rounded-md bg-workspace-bg border border-workspace-border text-workspace-muted shrink-0">Developer &amp; Code</span>
-              </div>
-              <p class="text-[11px] text-workspace-muted leading-relaxed line-clamp-2">Convert between Unix timestamps (seconds &amp; milliseconds), UTC dates, local timezones, and relative time.</p>
-            </div>
-            <div class="flex items-center justify-between pt-2.5 border-t border-workspace-border/60 text-[11px] font-mono mt-3">
-              <a href="/unix-timestamp-converter" class="text-workspace-muted hover:text-workspace-accent transition-colors flex items-center gap-1" title="Open independent page">
-                <span>Open Page</span>
-                <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
-              </a>
-              <button type="button" onclick="pinTool('unix-timestamp-converter')" class="px-2.5 py-1 rounded-lg bg-workspace-accent/10 border border-workspace-accent/25 text-workspace-accent hover:bg-workspace-accent hover:text-black font-semibold transition-all flex items-center gap-1 shadow-sm" title="Pin to active deck">
-                <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
-                <span>Pin to Deck</span>
-              </button>
-            </div>
-          </div>
-          <div class="w-full p-4 rounded-2xl bg-workspace-surface border border-workspace-border hover:border-workspace-borderLight hover:bg-workspace-surfaceHover transition-all duration-200 group flex flex-col justify-between min-h-[135px] tool-card">
-            <div>
-              <div class="flex items-center justify-between gap-2 mb-1.5">
-                <a href="/url-link-cleaner" class="text-sm font-bold text-workspace-text hover:text-workspace-accent transition-colors truncate" title="Open standalone URL Tracking Link Cleaner">URL Tracking Link Cleaner</a>
-                <span class="text-[9px] uppercase font-mono px-2 py-0.5 rounded-md bg-workspace-bg border border-workspace-border text-workspace-muted shrink-0">Privacy &amp; Security</span>
-              </div>
-              <p class="text-[11px] text-workspace-muted leading-relaxed line-clamp-2">Extract URLs, strip tracking tags (UTM, fbclid, gclid), and copy clean links.</p>
-            </div>
-            <div class="flex items-center justify-between pt-2.5 border-t border-workspace-border/60 text-[11px] font-mono mt-3">
-              <a href="/url-link-cleaner" class="text-workspace-muted hover:text-workspace-accent transition-colors flex items-center gap-1" title="Open independent page">
-                <span>Open Page</span>
-                <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
-              </a>
-              <button type="button" onclick="pinTool('url-link-cleaner')" class="px-2.5 py-1 rounded-lg bg-workspace-accent/10 border border-workspace-accent/25 text-workspace-accent hover:bg-workspace-accent hover:text-black font-semibold transition-all flex items-center gap-1 shadow-sm" title="Pin to active deck">
-                <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
-                <span>Pin to Deck</span>
-              </button>
-            </div>
-          </div>
-          <div class="w-full p-4 rounded-2xl bg-workspace-surface border border-workspace-border hover:border-workspace-borderLight hover:bg-workspace-surfaceHover transition-all duration-200 group flex flex-col justify-between min-h-[135px] tool-card">
-            <div>
-              <div class="flex items-center justify-between gap-2 mb-1.5">
-                <a href="/markdown-preview" class="text-sm font-bold text-workspace-text hover:text-workspace-accent transition-colors truncate" title="Open standalone Markdown Live Editor &amp; HTML Preview">Markdown Live Editor &amp; HTML Preview</a>
-                <span class="text-[9px] uppercase font-mono px-2 py-0.5 rounded-md bg-workspace-bg border border-workspace-border text-workspace-muted shrink-0">Text &amp; Data</span>
-              </div>
-              <p class="text-[11px] text-workspace-muted leading-relaxed line-clamp-2">Write, preview, and convert GitHub-flavored Markdown into clean HTML with live dual-view rendering.</p>
-            </div>
-            <div class="flex items-center justify-between pt-2.5 border-t border-workspace-border/60 text-[11px] font-mono mt-3">
-              <a href="/markdown-preview" class="text-workspace-muted hover:text-workspace-accent transition-colors flex items-center gap-1" title="Open independent page">
-                <span>Open Page</span>
-                <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
-              </a>
-              <button type="button" onclick="pinTool('markdown-preview')" class="px-2.5 py-1 rounded-lg bg-workspace-accent/10 border border-workspace-accent/25 text-workspace-accent hover:bg-workspace-accent hover:text-black font-semibold transition-all flex items-center gap-1 shadow-sm" title="Pin to active deck">
-                <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
-                <span>Pin to Deck</span>
-              </button>
-            </div>
-          </div>
-          <div class="w-full p-4 rounded-2xl bg-workspace-surface border border-workspace-border hover:border-workspace-borderLight hover:bg-workspace-surfaceHover transition-all duration-200 group flex flex-col justify-between min-h-[135px] tool-card">
-            <div>
-              <div class="flex items-center justify-between gap-2 mb-1.5">
-                <a href="/csv-json-converter" class="text-sm font-bold text-workspace-text hover:text-workspace-accent transition-colors truncate" title="Open standalone CSV ↔ JSON Converter">CSV ↔ JSON Converter</a>
-                <span class="text-[9px] uppercase font-mono px-2 py-0.5 rounded-md bg-workspace-bg border border-workspace-border text-workspace-muted shrink-0">Text &amp; Data</span>
-              </div>
-              <p class="text-[11px] text-workspace-muted leading-relaxed line-clamp-2">Convert CSV spreadsheets to JSON arrays or transform JSON objects back into CSV tables locally.</p>
-            </div>
-            <div class="flex items-center justify-between pt-2.5 border-t border-workspace-border/60 text-[11px] font-mono mt-3">
-              <a href="/csv-json-converter" class="text-workspace-muted hover:text-workspace-accent transition-colors flex items-center gap-1" title="Open independent page">
-                <span>Open Page</span>
-                <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
-              </a>
-              <button type="button" onclick="pinTool('csv-json-converter')" class="px-2.5 py-1 rounded-lg bg-workspace-accent/10 border border-workspace-accent/25 text-workspace-accent hover:bg-workspace-accent hover:text-black font-semibold transition-all flex items-center gap-1 shadow-sm" title="Pin to active deck">
-                <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
-                <span>Pin to Deck</span>
-              </button>
-            </div>
-          </div>
-          <div class="w-full p-4 rounded-2xl bg-workspace-surface border border-workspace-border hover:border-workspace-borderLight hover:bg-workspace-surfaceHover transition-all duration-200 group flex flex-col justify-between min-h-[135px] tool-card">
-            <div>
-              <div class="flex items-center justify-between gap-2 mb-1.5">
-                <a href="/regex-tester" class="text-sm font-bold text-workspace-text hover:text-workspace-accent transition-colors truncate" title="Open standalone Regular Expression (Regex) Live Tester">Regular Expression (Regex) Live Tester</a>
-                <span class="text-[9px] uppercase font-mono px-2 py-0.5 rounded-md bg-workspace-bg border border-workspace-border text-workspace-muted shrink-0">Developer &amp; Code</span>
-              </div>
-              <p class="text-[11px] text-workspace-muted leading-relaxed line-clamp-2">Test, debug, and highlight regular expressions against sample text with live capture badges and cheatsheets.</p>
-            </div>
-            <div class="flex items-center justify-between pt-2.5 border-t border-workspace-border/60 text-[11px] font-mono mt-3">
-              <a href="/regex-tester" class="text-workspace-muted hover:text-workspace-accent transition-colors flex items-center gap-1" title="Open independent page">
-                <span>Open Page</span>
-                <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
-              </a>
-              <button type="button" onclick="pinTool('regex-tester')" class="px-2.5 py-1 rounded-lg bg-workspace-accent/10 border border-workspace-accent/25 text-workspace-accent hover:bg-workspace-accent hover:text-black font-semibold transition-all flex items-center gap-1 shadow-sm" title="Pin to active deck">
-                <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
-                <span>Pin to Deck</span>
-              </button>
-            </div>
-          </div>
-          <div class="w-full p-4 rounded-2xl bg-workspace-surface border border-workspace-border hover:border-workspace-borderLight hover:bg-workspace-surfaceHover transition-all duration-200 group flex flex-col justify-between min-h-[135px] tool-card">
-            <div>
-              <div class="flex items-center justify-between gap-2 mb-1.5">
-                <a href="/jwt-decoder" class="text-sm font-bold text-workspace-text hover:text-workspace-accent transition-colors truncate" title="Open standalone JSON Web Token (JWT) Decoder">JSON Web Token (JWT) Decoder</a>
-                <span class="text-[9px] uppercase font-mono px-2 py-0.5 rounded-md bg-workspace-bg border border-workspace-border text-workspace-muted shrink-0">Developer &amp; Code</span>
-              </div>
-              <p class="text-[11px] text-workspace-muted leading-relaxed line-clamp-2">Decode and inspect JWT header and payload claims securely in your browser with expiration validation.</p>
-            </div>
-            <div class="flex items-center justify-between pt-2.5 border-t border-workspace-border/60 text-[11px] font-mono mt-3">
-              <a href="/jwt-decoder" class="text-workspace-muted hover:text-workspace-accent transition-colors flex items-center gap-1" title="Open independent page">
-                <span>Open Page</span>
-                <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
-              </a>
-              <button type="button" onclick="pinTool('jwt-decoder')" class="px-2.5 py-1 rounded-lg bg-workspace-accent/10 border border-workspace-accent/25 text-workspace-accent hover:bg-workspace-accent hover:text-black font-semibold transition-all flex items-center gap-1 shadow-sm" title="Pin to active deck">
-                <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
-                <span>Pin to Deck</span>
-              </button>
-            </div>
-          </div>
-          <div class="w-full p-4 rounded-2xl bg-workspace-surface border border-workspace-border hover:border-workspace-borderLight hover:bg-workspace-surfaceHover transition-all duration-200 group flex flex-col justify-between min-h-[135px] tool-card">
-            <div>
-              <div class="flex items-center justify-between gap-2 mb-1.5">
-                <a href="/image-to-base64" class="text-sm font-bold text-workspace-text hover:text-workspace-accent transition-colors truncate" title="Open standalone Image to Base64 (Data URI) Generator">Image to Base64 (Data URI) Generator</a>
-                <span class="text-[9px] uppercase font-mono px-2 py-0.5 rounded-md bg-workspace-bg border border-workspace-border text-workspace-muted shrink-0">Media &amp; Design</span>
-              </div>
-              <p class="text-[11px] text-workspace-muted leading-relaxed line-clamp-2">Convert PNG, JPG, or SVG images into copy-pasteable Base64 Data URIs, HTML tags, and CSS snippets.</p>
-            </div>
-            <div class="flex items-center justify-between pt-2.5 border-t border-workspace-border/60 text-[11px] font-mono mt-3">
-              <a href="/image-to-base64" class="text-workspace-muted hover:text-workspace-accent transition-colors flex items-center gap-1" title="Open independent page">
-                <span>Open Page</span>
-                <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
-              </a>
-              <button type="button" onclick="pinTool('image-to-base64')" class="px-2.5 py-1 rounded-lg bg-workspace-accent/10 border border-workspace-accent/25 text-workspace-accent hover:bg-workspace-accent hover:text-black font-semibold transition-all flex items-center gap-1 shadow-sm" title="Pin to active deck">
-                <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
-                <span>Pin to Deck</span>
-              </button>
-            </div>
-          </div>
-          <div class="w-full p-4 rounded-2xl bg-workspace-surface border border-workspace-border hover:border-workspace-borderLight hover:bg-workspace-surfaceHover transition-all duration-200 group flex flex-col justify-between min-h-[135px] tool-card">
-            <div>
-              <div class="flex items-center justify-between gap-2 mb-1.5">
-                <a href="/uuid-generator" class="text-sm font-bold text-workspace-text hover:text-workspace-accent transition-colors truncate" title="Open standalone Bulk UUID / GUID v4 Generator">Bulk UUID / GUID v4 Generator</a>
-                <span class="text-[9px] uppercase font-mono px-2 py-0.5 rounded-md bg-workspace-bg border border-workspace-border text-workspace-muted shrink-0">Productivity &amp; Math</span>
-              </div>
-              <p class="text-[11px] text-workspace-muted leading-relaxed line-clamp-2">Generate bulk cryptographically secure UUID v4 identifiers locally with custom formatting and uppercase toggles.</p>
-            </div>
-            <div class="flex items-center justify-between pt-2.5 border-t border-workspace-border/60 text-[11px] font-mono mt-3">
-              <a href="/uuid-generator" class="text-workspace-muted hover:text-workspace-accent transition-colors flex items-center gap-1" title="Open independent page">
-                <span>Open Page</span>
-                <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
-              </a>
-              <button type="button" onclick="pinTool('uuid-generator')" class="px-2.5 py-1 rounded-lg bg-workspace-accent/10 border border-workspace-accent/25 text-workspace-accent hover:bg-workspace-accent hover:text-black font-semibold transition-all flex items-center gap-1 shadow-sm" title="Pin to active deck">
-                <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
-                <span>Pin to Deck</span>
-              </button>
-            </div>
-          </div>
-          <div class="w-full p-4 rounded-2xl bg-workspace-surface border border-workspace-border hover:border-workspace-borderLight hover:bg-workspace-surfaceHover transition-all duration-200 group flex flex-col justify-between min-h-[135px] tool-card">
-            <div>
-              <div class="flex items-center justify-between gap-2 mb-1.5">
-                <a href="/sql-formatter" class="text-sm font-bold text-workspace-text hover:text-workspace-accent transition-colors truncate" title="Open standalone SQL Query Beautifier &amp; Formatter">SQL Query Beautifier &amp; Formatter</a>
-                <span class="text-[9px] uppercase font-mono px-2 py-0.5 rounded-md bg-workspace-bg border border-workspace-border text-workspace-muted shrink-0">Developer &amp; Code</span>
-              </div>
-              <p class="text-[11px] text-workspace-muted leading-relaxed line-clamp-2">Format, beautify, and capitalize SQL queries offline with clean clause indentation and minification.</p>
-            </div>
-            <div class="flex items-center justify-between pt-2.5 border-t border-workspace-border/60 text-[11px] font-mono mt-3">
-              <a href="/sql-formatter" class="text-workspace-muted hover:text-workspace-accent transition-colors flex items-center gap-1" title="Open independent page">
-                <span>Open Page</span>
-                <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
-              </a>
-              <button type="button" onclick="pinTool('sql-formatter')" class="px-2.5 py-1 rounded-lg bg-workspace-accent/10 border border-workspace-accent/25 text-workspace-accent hover:bg-workspace-accent hover:text-black font-semibold transition-all flex items-center gap-1 shadow-sm" title="Pin to active deck">
-                <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
-                <span>Pin to Deck</span>
-              </button>
-            </div>
-          </div>
-          <div class="w-full p-4 rounded-2xl bg-workspace-surface border border-workspace-border hover:border-workspace-borderLight hover:bg-workspace-surfaceHover transition-all duration-200 group flex flex-col justify-between min-h-[135px] tool-card">
-            <div>
-              <div class="flex items-center justify-between gap-2 mb-1.5">
-                <a href="/pdf-merger" class="text-sm font-bold text-workspace-text hover:text-workspace-accent transition-colors truncate" title="Open standalone Client-Side PDF Merger &amp; Combiner">Client-Side PDF Merger &amp; Combiner</a>
+                <a href="/pdf-merger.html" class="text-sm font-bold text-workspace-text hover:text-workspace-accent transition-colors truncate" title="Open standalone Client-Side PDF Merger &amp; Combiner">Client-Side PDF Merger &amp; Combiner</a>
                 <span class="text-[9px] uppercase font-mono px-2 py-0.5 rounded-md bg-workspace-bg border border-workspace-border text-workspace-muted shrink-0">Documents &amp; PDF</span>
               </div>
               <p class="text-[11px] text-workspace-muted leading-relaxed line-clamp-2">Combine multiple PDF documents into a single file locally in your browser with zero server uploads.</p>
             </div>
             <div class="flex items-center justify-between pt-2.5 border-t border-workspace-border/60 text-[11px] font-mono mt-3">
-              <a href="/pdf-merger" class="text-workspace-muted hover:text-workspace-accent transition-colors flex items-center gap-1" title="Open independent page">
+              <a href="/pdf-merger.html" class="text-workspace-muted hover:text-workspace-accent transition-colors flex items-center gap-1" title="Open independent page">
                 <span>Open Page</span>
                 <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
               </a>
@@ -861,17 +349,17 @@
           <div class="w-full p-4 rounded-2xl bg-workspace-surface border border-workspace-border hover:border-workspace-borderLight hover:bg-workspace-surfaceHover transition-all duration-200 group flex flex-col justify-between min-h-[135px] tool-card">
             <div>
               <div class="flex items-center justify-between gap-2 mb-1.5">
-                <a href="/pdf-rotator" class="text-sm font-bold text-workspace-text hover:text-workspace-accent transition-colors truncate" title="Open standalone Client-Side PDF Page Rotator">Client-Side PDF Page Rotator</a>
-                <span class="text-[9px] uppercase font-mono px-2 py-0.5 rounded-md bg-workspace-bg border border-workspace-border text-workspace-muted shrink-0">Documents &amp; PDF</span>
+                <a href="/percentage-calculator.html" class="text-sm font-bold text-workspace-text hover:text-workspace-accent transition-colors truncate" title="Open standalone Online Percentage Calculator">Online Percentage Calculator</a>
+                <span class="text-[9px] uppercase font-mono px-2 py-0.5 rounded-md bg-workspace-bg border border-workspace-border text-workspace-muted shrink-0">Productivity &amp; Math</span>
               </div>
-              <p class="text-[11px] text-workspace-muted leading-relaxed line-clamp-2">Rotate upside-down or sideways PDF pages by 90°, 180°, or 270° locally in your browser.</p>
+              <p class="text-[11px] text-workspace-muted leading-relaxed line-clamp-2">Everyday percentage calculator for discounts, tips, and fractions.</p>
             </div>
             <div class="flex items-center justify-between pt-2.5 border-t border-workspace-border/60 text-[11px] font-mono mt-3">
-              <a href="/pdf-rotator" class="text-workspace-muted hover:text-workspace-accent transition-colors flex items-center gap-1" title="Open independent page">
+              <a href="/percentage-calculator.html" class="text-workspace-muted hover:text-workspace-accent transition-colors flex items-center gap-1" title="Open independent page">
                 <span>Open Page</span>
                 <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
               </a>
-              <button type="button" onclick="pinTool('pdf-rotator')" class="px-2.5 py-1 rounded-lg bg-workspace-accent/10 border border-workspace-accent/25 text-workspace-accent hover:bg-workspace-accent hover:text-black font-semibold transition-all flex items-center gap-1 shadow-sm" title="Pin to active deck">
+              <button type="button" onclick="pinTool('percentage-calculator')" class="px-2.5 py-1 rounded-lg bg-workspace-accent/10 border border-workspace-accent/25 text-workspace-accent hover:bg-workspace-accent hover:text-black font-semibold transition-all flex items-center gap-1 shadow-sm" title="Pin to active deck">
                 <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
                 <span>Pin to Deck</span>
               </button>
@@ -880,319 +368,34 @@
           <div class="w-full p-4 rounded-2xl bg-workspace-surface border border-workspace-border hover:border-workspace-borderLight hover:bg-workspace-surfaceHover transition-all duration-200 group flex flex-col justify-between min-h-[135px] tool-card">
             <div>
               <div class="flex items-center justify-between gap-2 mb-1.5">
-                <a href="/images-to-pdf" class="text-sm font-bold text-workspace-text hover:text-workspace-accent transition-colors truncate" title="Open standalone Client-Side Images to PDF Converter">Client-Side Images to PDF Converter</a>
-                <span class="text-[9px] uppercase font-mono px-2 py-0.5 rounded-md bg-workspace-bg border border-workspace-border text-workspace-muted shrink-0">Documents &amp; PDF</span>
-              </div>
-              <p class="text-[11px] text-workspace-muted leading-relaxed line-clamp-2">Convert JPG, PNG, and WebP photos or scans into a clean multi-page PDF document with zero uploads.</p>
-            </div>
-            <div class="flex items-center justify-between pt-2.5 border-t border-workspace-border/60 text-[11px] font-mono mt-3">
-              <a href="/images-to-pdf" class="text-workspace-muted hover:text-workspace-accent transition-colors flex items-center gap-1" title="Open independent page">
-                <span>Open Page</span>
-                <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
-              </a>
-              <button type="button" onclick="pinTool('images-to-pdf')" class="px-2.5 py-1 rounded-lg bg-workspace-accent/10 border border-workspace-accent/25 text-workspace-accent hover:bg-workspace-accent hover:text-black font-semibold transition-all flex items-center gap-1 shadow-sm" title="Pin to active deck">
-                <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
-                <span>Pin to Deck</span>
-              </button>
-            </div>
-          </div>
-          <div class="w-full p-4 rounded-2xl bg-workspace-surface border border-workspace-border hover:border-workspace-borderLight hover:bg-workspace-surfaceHover transition-all duration-200 group flex flex-col justify-between min-h-[135px] tool-card">
-            <div>
-              <div class="flex items-center justify-between gap-2 mb-1.5">
-                <a href="/pdf-watermarker" class="text-sm font-bold text-workspace-text hover:text-workspace-accent transition-colors truncate" title="Open standalone Client-Side PDF Watermark &amp; Stamp">Client-Side PDF Watermark &amp; Stamp</a>
-                <span class="text-[9px] uppercase font-mono px-2 py-0.5 rounded-md bg-workspace-bg border border-workspace-border text-workspace-muted shrink-0">Documents &amp; PDF</span>
-              </div>
-              <p class="text-[11px] text-workspace-muted leading-relaxed line-clamp-2">Stamp custom text or diagonal watermark overlays onto every page of a PDF document with zero uploads.</p>
-            </div>
-            <div class="flex items-center justify-between pt-2.5 border-t border-workspace-border/60 text-[11px] font-mono mt-3">
-              <a href="/pdf-watermarker" class="text-workspace-muted hover:text-workspace-accent transition-colors flex items-center gap-1" title="Open independent page">
-                <span>Open Page</span>
-                <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
-              </a>
-              <button type="button" onclick="pinTool('pdf-watermarker')" class="px-2.5 py-1 rounded-lg bg-workspace-accent/10 border border-workspace-accent/25 text-workspace-accent hover:bg-workspace-accent hover:text-black font-semibold transition-all flex items-center gap-1 shadow-sm" title="Pin to active deck">
-                <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
-                <span>Pin to Deck</span>
-              </button>
-            </div>
-          </div>
-          <div class="w-full p-4 rounded-2xl bg-workspace-surface border border-workspace-border hover:border-workspace-borderLight hover:bg-workspace-surfaceHover transition-all duration-200 group flex flex-col justify-between min-h-[135px] tool-card">
-            <div>
-              <div class="flex items-center justify-between gap-2 mb-1.5">
-                <a href="/pdf-metadata-editor" class="text-sm font-bold text-workspace-text hover:text-workspace-accent transition-colors truncate" title="Open standalone PDF Metadata Inspector &amp; Stripper">PDF Metadata Inspector &amp; Stripper</a>
-                <span class="text-[9px] uppercase font-mono px-2 py-0.5 rounded-md bg-workspace-bg border border-workspace-border text-workspace-muted shrink-0">Documents &amp; PDF</span>
-              </div>
-              <p class="text-[11px] text-workspace-muted leading-relaxed line-clamp-2">View, edit, or completely wipe author, producer, and title metadata from PDF files locally for total privacy.</p>
-            </div>
-            <div class="flex items-center justify-between pt-2.5 border-t border-workspace-border/60 text-[11px] font-mono mt-3">
-              <a href="/pdf-metadata-editor" class="text-workspace-muted hover:text-workspace-accent transition-colors flex items-center gap-1" title="Open independent page">
-                <span>Open Page</span>
-                <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
-              </a>
-              <button type="button" onclick="pinTool('pdf-metadata-editor')" class="px-2.5 py-1 rounded-lg bg-workspace-accent/10 border border-workspace-accent/25 text-workspace-accent hover:bg-workspace-accent hover:text-black font-semibold transition-all flex items-center gap-1 shadow-sm" title="Pin to active deck">
-                <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
-                <span>Pin to Deck</span>
-              </button>
-            </div>
-          </div>
-          <div class="w-full p-4 rounded-2xl bg-workspace-surface border border-workspace-border hover:border-workspace-borderLight hover:bg-workspace-surfaceHover transition-all duration-200 group flex flex-col justify-between min-h-[135px] tool-card">
-            <div>
-              <div class="flex items-center justify-between gap-2 mb-1.5">
-                <a href="/pdf-page-numberer" class="text-sm font-bold text-workspace-text hover:text-workspace-accent transition-colors truncate" title="Open standalone Client-Side PDF Page Numberer">Client-Side PDF Page Numberer</a>
-                <span class="text-[9px] uppercase font-mono px-2 py-0.5 rounded-md bg-workspace-bg border border-workspace-border text-workspace-muted shrink-0">Documents &amp; PDF</span>
-              </div>
-              <p class="text-[11px] text-workspace-muted leading-relaxed line-clamp-2">Add page numbers, pagination headers, or footers to PDF documents locally in your browser with zero server uploads.</p>
-            </div>
-            <div class="flex items-center justify-between pt-2.5 border-t border-workspace-border/60 text-[11px] font-mono mt-3">
-              <a href="/pdf-page-numberer" class="text-workspace-muted hover:text-workspace-accent transition-colors flex items-center gap-1" title="Open independent page">
-                <span>Open Page</span>
-                <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
-              </a>
-              <button type="button" onclick="pinTool('pdf-page-numberer')" class="px-2.5 py-1 rounded-lg bg-workspace-accent/10 border border-workspace-accent/25 text-workspace-accent hover:bg-workspace-accent hover:text-black font-semibold transition-all flex items-center gap-1 shadow-sm" title="Pin to active deck">
-                <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
-                <span>Pin to Deck</span>
-              </button>
-            </div>
-          </div>
-          <!-- Excel to CSV -->
-          <div class="w-full p-4 rounded-2xl bg-workspace-surface border border-workspace-border hover:border-workspace-borderLight hover:bg-workspace-surfaceHover transition-all duration-200 group flex flex-col justify-between min-h-[135px] tool-card">
-            <div>
-              <div class="flex items-center justify-between gap-2 mb-1.5">
-                <a href="/excel-to-csv" class="text-sm font-bold text-workspace-text hover:text-workspace-accent transition-colors truncate" title="Open standalone Excel to CSV Converter">Excel to CSV Converter</a>
+                <a href="/case-converter.html" class="text-sm font-bold text-workspace-text hover:text-workspace-accent transition-colors truncate" title="Open standalone Case Converter &amp; Word Counter">Case Converter &amp; Word Counter</a>
                 <span class="text-[9px] uppercase font-mono px-2 py-0.5 rounded-md bg-workspace-bg border border-workspace-border text-workspace-muted shrink-0">Text &amp; Data</span>
               </div>
-              <p class="text-[11px] text-workspace-muted leading-relaxed line-clamp-2">Convert Excel (.xlsx, .xls) spreadsheets to clean UTF-8 CSV locally in your browser with zero uploads.</p>
+              <p class="text-[11px] text-workspace-muted leading-relaxed line-clamp-2">Deduplicate lines, toggle cases, and count words and characters without uploads.</p>
             </div>
             <div class="flex items-center justify-between pt-2.5 border-t border-workspace-border/60 text-[11px] font-mono mt-3">
-              <a href="/excel-to-csv" class="text-workspace-muted hover:text-workspace-accent transition-colors flex items-center gap-1">
+              <a href="/case-converter.html" class="text-workspace-muted hover:text-workspace-accent transition-colors flex items-center gap-1" title="Open independent page">
                 <span>Open Page</span>
                 <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
               </a>
-              <button type="button" onclick="pinTool('excel-to-csv')" class="px-2.5 py-1 rounded-lg bg-workspace-accent/10 border border-workspace-accent/25 text-workspace-accent hover:bg-workspace-accent hover:text-black font-semibold transition-all flex items-center gap-1 shadow-sm">
+              <button type="button" onclick="pinTool('case-converter')" class="px-2.5 py-1 rounded-lg bg-workspace-accent/10 border border-workspace-accent/25 text-workspace-accent hover:bg-workspace-accent hover:text-black font-semibold transition-all flex items-center gap-1 shadow-sm" title="Pin to active deck">
                 <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
                 <span>Pin to Deck</span>
               </button>
             </div>
           </div>
-          <!-- CSV to Excel -->
-          <div class="w-full p-4 rounded-2xl bg-workspace-surface border border-workspace-border hover:border-workspace-borderLight hover:bg-workspace-surfaceHover transition-all duration-200 group flex flex-col justify-between min-h-[135px] tool-card">
-            <div>
-              <div class="flex items-center justify-between gap-2 mb-1.5">
-                <a href="/csv-to-excel" class="text-sm font-bold text-workspace-text hover:text-workspace-accent transition-colors truncate" title="Open standalone CSV to Excel Converter">CSV to Excel Converter</a>
-                <span class="text-[9px] uppercase font-mono px-2 py-0.5 rounded-md bg-workspace-bg border border-workspace-border text-workspace-muted shrink-0">Text &amp; Data</span>
-              </div>
-              <p class="text-[11px] text-workspace-muted leading-relaxed line-clamp-2">Convert raw CSV and TSV files or pasted text into styled Microsoft Excel (.xlsx) workbooks locally.</p>
-            </div>
-            <div class="flex items-center justify-between pt-2.5 border-t border-workspace-border/60 text-[11px] font-mono mt-3">
-              <a href="/csv-to-excel" class="text-workspace-muted hover:text-workspace-accent transition-colors flex items-center gap-1">
-                <span>Open Page</span>
-                <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
-              </a>
-              <button type="button" onclick="pinTool('csv-to-excel')" class="px-2.5 py-1 rounded-lg bg-workspace-accent/10 border border-workspace-accent/25 text-workspace-accent hover:bg-workspace-accent hover:text-black font-semibold transition-all flex items-center gap-1 shadow-sm">
-                <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
-                <span>Pin to Deck</span>
-              </button>
-            </div>
+        </div>
+
+        <!-- Expansion & Exploration Action Bar -->
+        <div id="catalogExploreContainer" class="mt-6 flex flex-col sm:flex-row items-center justify-between gap-4 p-4 rounded-2xl bg-workspace-surface/50 border border-workspace-border">
+          <div class="flex items-center gap-2.5 text-xs text-workspace-muted font-mono">
+            <div class="w-2 h-2 rounded-full bg-workspace-accent"></div>
+            <span>Showing 8 curated suggestions &bull; 50 offline utilities available</span>
           </div>
-          <!-- Excel to JSON -->
-          <div class="w-full p-4 rounded-2xl bg-workspace-surface border border-workspace-border hover:border-workspace-borderLight hover:bg-workspace-surfaceHover transition-all duration-200 group flex flex-col justify-between min-h-[135px] tool-card">
-            <div>
-              <div class="flex items-center justify-between gap-2 mb-1.5">
-                <a href="/excel-to-json" class="text-sm font-bold text-workspace-text hover:text-workspace-accent transition-colors truncate" title="Open standalone Excel to JSON Converter">Excel to JSON Converter</a>
-                <span class="text-[9px] uppercase font-mono px-2 py-0.5 rounded-md bg-workspace-bg border border-workspace-border text-workspace-muted shrink-0">Text &amp; Data</span>
-              </div>
-              <p class="text-[11px] text-workspace-muted leading-relaxed line-clamp-2">Convert Excel (.xlsx, .xls) spreadsheets to clean JSON objects or arrays locally with zero uploads.</p>
-            </div>
-            <div class="flex items-center justify-between pt-2.5 border-t border-workspace-border/60 text-[11px] font-mono mt-3">
-              <a href="/excel-to-json" class="text-workspace-muted hover:text-workspace-accent transition-colors flex items-center gap-1">
-                <span>Open Page</span>
-                <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
-              </a>
-              <button type="button" onclick="pinTool('excel-to-json')" class="px-2.5 py-1 rounded-lg bg-workspace-accent/10 border border-workspace-accent/25 text-workspace-accent hover:bg-workspace-accent hover:text-black font-semibold transition-all flex items-center gap-1 shadow-sm">
-                <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
-                <span>Pin to Deck</span>
-              </button>
-            </div>
-          </div>
-          <!-- JSON to Excel -->
-          <div class="w-full p-4 rounded-2xl bg-workspace-surface border border-workspace-border hover:border-workspace-borderLight hover:bg-workspace-surfaceHover transition-all duration-200 group flex flex-col justify-between min-h-[135px] tool-card">
-            <div>
-              <div class="flex items-center justify-between gap-2 mb-1.5">
-                <a href="/json-to-excel" class="text-sm font-bold text-workspace-text hover:text-workspace-accent transition-colors truncate" title="Open standalone JSON to Excel Converter">JSON to Excel Converter</a>
-                <span class="text-[9px] uppercase font-mono px-2 py-0.5 rounded-md bg-workspace-bg border border-workspace-border text-workspace-muted shrink-0">Text &amp; Data</span>
-              </div>
-              <p class="text-[11px] text-workspace-muted leading-relaxed line-clamp-2">Convert JSON arrays or objects directly into formatted Microsoft Excel (.xlsx) workbooks locally.</p>
-            </div>
-            <div class="flex items-center justify-between pt-2.5 border-t border-workspace-border/60 text-[11px] font-mono mt-3">
-              <a href="/json-to-excel" class="text-workspace-muted hover:text-workspace-accent transition-colors flex items-center gap-1">
-                <span>Open Page</span>
-                <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
-              </a>
-              <button type="button" onclick="pinTool('json-to-excel')" class="px-2.5 py-1 rounded-lg bg-workspace-accent/10 border border-workspace-accent/25 text-workspace-accent hover:bg-workspace-accent hover:text-black font-semibold transition-all flex items-center gap-1 shadow-sm">
-                <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
-                <span>Pin to Deck</span>
-              </button>
-            </div>
-          </div>
-          <!-- Spreadsheet Row Deduplicator -->
-          <div class="w-full p-4 rounded-2xl bg-workspace-surface border border-workspace-border hover:border-workspace-borderLight hover:bg-workspace-surfaceHover transition-all duration-200 group flex flex-col justify-between min-h-[135px] tool-card">
-            <div>
-              <div class="flex items-center justify-between gap-2 mb-1.5">
-                <a href="/excel-deduplicator" class="text-sm font-bold text-workspace-text hover:text-workspace-accent transition-colors truncate" title="Open standalone Spreadsheet Row Deduplicator">Spreadsheet Row Deduplicator</a>
-                <span class="text-[9px] uppercase font-mono px-2 py-0.5 rounded-md bg-workspace-bg border border-workspace-border text-workspace-muted shrink-0">Text &amp; Data</span>
-              </div>
-              <p class="text-[11px] text-workspace-muted leading-relaxed line-clamp-2">Detect and purge duplicate rows in Excel and CSV files by specific columns or entire rows locally.</p>
-            </div>
-            <div class="flex items-center justify-between pt-2.5 border-t border-workspace-border/60 text-[11px] font-mono mt-3">
-              <a href="/excel-deduplicator" class="text-workspace-muted hover:text-workspace-accent transition-colors flex items-center gap-1">
-                <span>Open Page</span>
-                <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
-              </a>
-              <button type="button" onclick="pinTool('excel-deduplicator')" class="px-2.5 py-1 rounded-lg bg-workspace-accent/10 border border-workspace-accent/25 text-workspace-accent hover:bg-workspace-accent hover:text-black font-semibold transition-all flex items-center gap-1 shadow-sm">
-                <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
-                <span>Pin to Deck</span>
-              </button>
-            </div>
-          </div>
-          <!-- Excel to Markdown -->
-          <div class="w-full p-4 rounded-2xl bg-workspace-surface border border-workspace-border hover:border-workspace-borderLight hover:bg-workspace-surfaceHover transition-all duration-200 group flex flex-col justify-between min-h-[135px] tool-card">
-            <div>
-              <div class="flex items-center justify-between gap-2 mb-1.5">
-                <a href="/excel-to-markdown" class="text-sm font-bold text-workspace-text hover:text-workspace-accent transition-colors truncate" title="Open standalone Excel to Markdown Table Generator">Excel to Markdown Table</a>
-                <span class="text-[9px] uppercase font-mono px-2 py-0.5 rounded-md bg-workspace-bg border border-workspace-border text-workspace-muted shrink-0">Text &amp; Data</span>
-              </div>
-              <p class="text-[11px] text-workspace-muted leading-relaxed line-clamp-2">Convert Excel and CSV spreadsheets into clean GitHub-flavored Markdown tables locally.</p>
-            </div>
-            <div class="flex items-center justify-between pt-2.5 border-t border-workspace-border/60 text-[11px] font-mono mt-3">
-              <a href="/excel-to-markdown" class="text-workspace-muted hover:text-workspace-accent transition-colors flex items-center gap-1">
-                <span>Open Page</span>
-                <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
-              </a>
-              <button type="button" onclick="pinTool('excel-to-markdown')" class="px-2.5 py-1 rounded-lg bg-workspace-accent/10 border border-workspace-accent/25 text-workspace-accent hover:bg-workspace-accent hover:text-black font-semibold transition-all flex items-center gap-1 shadow-sm">
-                <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
-                <span>Pin to Deck</span>
-              </button>
-            </div>
-          </div>
-          <!-- Row & Column Transposer -->
-          <div class="w-full p-4 rounded-2xl bg-workspace-surface border border-workspace-border hover:border-workspace-borderLight hover:bg-workspace-surfaceHover transition-all duration-200 group flex flex-col justify-between min-h-[135px] tool-card">
-            <div>
-              <div class="flex items-center justify-between gap-2 mb-1.5">
-                <a href="/excel-transpose" class="text-sm font-bold text-workspace-text hover:text-workspace-accent transition-colors truncate" title="Open standalone Spreadsheet Row &amp; Column Transposer">Row &amp; Column Transposer</a>
-                <span class="text-[9px] uppercase font-mono px-2 py-0.5 rounded-md bg-workspace-bg border border-workspace-border text-workspace-muted shrink-0">Text &amp; Data</span>
-              </div>
-              <p class="text-[11px] text-workspace-muted leading-relaxed line-clamp-2">Flip spreadsheet rows to columns and columns to rows in Excel and CSV files instantly in your browser.</p>
-            </div>
-            <div class="flex items-center justify-between pt-2.5 border-t border-workspace-border/60 text-[11px] font-mono mt-3">
-              <a href="/excel-transpose" class="text-workspace-muted hover:text-workspace-accent transition-colors flex items-center gap-1">
-                <span>Open Page</span>
-                <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
-              </a>
-              <button type="button" onclick="pinTool('excel-transpose')" class="px-2.5 py-1 rounded-lg bg-workspace-accent/10 border border-workspace-accent/25 text-workspace-accent hover:bg-workspace-accent hover:text-black font-semibold transition-all flex items-center gap-1 shadow-sm">
-                <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
-                <span>Pin to Deck</span>
-              </button>
-            </div>
-          </div>
-          <!-- Empty Rows Cleaner -->
-          <div class="w-full p-4 rounded-2xl bg-workspace-surface border border-workspace-border hover:border-workspace-borderLight hover:bg-workspace-surfaceHover transition-all duration-200 group flex flex-col justify-between min-h-[135px] tool-card">
-            <div>
-              <div class="flex items-center justify-between gap-2 mb-1.5">
-                <a href="/excel-empty-cleaner" class="text-sm font-bold text-workspace-text hover:text-workspace-accent transition-colors truncate" title="Open standalone Empty Rows &amp; Whitespace Stripper">Empty Rows &amp; Whitespace Stripper</a>
-                <span class="text-[9px] uppercase font-mono px-2 py-0.5 rounded-md bg-workspace-bg border border-workspace-border text-workspace-muted shrink-0">Text &amp; Data</span>
-              </div>
-              <p class="text-[11px] text-workspace-muted leading-relaxed line-clamp-2">Clean messy spreadsheets by removing blank rows, empty columns, and phantom whitespace in Excel &amp; CSV files.</p>
-            </div>
-            <div class="flex items-center justify-between pt-2.5 border-t border-workspace-border/60 text-[11px] font-mono mt-3">
-              <a href="/excel-empty-cleaner" class="text-workspace-muted hover:text-workspace-accent transition-colors flex items-center gap-1">
-                <span>Open Page</span>
-                <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
-              </a>
-              <button type="button" onclick="pinTool('excel-empty-cleaner')" class="px-2.5 py-1 rounded-lg bg-workspace-accent/10 border border-workspace-accent/25 text-workspace-accent hover:bg-workspace-accent hover:text-black font-semibold transition-all flex items-center gap-1 shadow-sm">
-                <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
-                <span>Pin to Deck</span>
-              </button>
-            </div>
-          </div>
-          <!-- PDF to Images -->
-          <div class="w-full p-4 rounded-2xl bg-workspace-surface border border-workspace-border hover:border-workspace-borderLight hover:bg-workspace-surfaceHover transition-all duration-200 group flex flex-col justify-between min-h-[135px] tool-card">
-            <div>
-              <div class="flex items-center justify-between gap-2 mb-1.5">
-                <a href="/pdf-to-images" class="text-sm font-bold text-workspace-text hover:text-workspace-accent transition-colors truncate" title="Open standalone PDF to Images">PDF to Images (PNG/JPG)</a>
-                <span class="text-[9px] uppercase font-mono px-2 py-0.5 rounded-md bg-workspace-bg border border-workspace-border text-workspace-muted shrink-0">Documents &amp; PDF</span>
-              </div>
-              <p class="text-[11px] text-workspace-muted leading-relaxed line-clamp-2">Convert every page of a PDF document into high-resolution PNG or JPG images locally in your browser.</p>
-            </div>
-            <div class="flex items-center justify-between pt-2.5 border-t border-workspace-border/60 text-[11px] font-mono mt-3">
-              <a href="/pdf-to-images" class="text-workspace-muted hover:text-workspace-accent transition-colors flex items-center gap-1">
-                <span>Open Page</span>
-                <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
-              </a>
-              <button type="button" onclick="pinTool('pdf-to-images')" class="px-2.5 py-1 rounded-lg bg-workspace-accent/10 border border-workspace-accent/25 text-workspace-accent hover:bg-workspace-accent hover:text-black font-semibold transition-all flex items-center gap-1 shadow-sm">
-                <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
-                <span>Pin to Deck</span>
-              </button>
-            </div>
-          </div>
-          <!-- PDF Text Extractor -->
-          <div class="w-full p-4 rounded-2xl bg-workspace-surface border border-workspace-border hover:border-workspace-borderLight hover:bg-workspace-surfaceHover transition-all duration-200 group flex flex-col justify-between min-h-[135px] tool-card">
-            <div>
-              <div class="flex items-center justify-between gap-2 mb-1.5">
-                <a href="/pdf-text-extractor" class="text-sm font-bold text-workspace-text hover:text-workspace-accent transition-colors truncate" title="Open standalone PDF Text &amp; Markdown Extractor">PDF Text Extractor</a>
-                <span class="text-[9px] uppercase font-mono px-2 py-0.5 rounded-md bg-workspace-bg border border-workspace-border text-workspace-muted shrink-0">Documents &amp; PDF</span>
-              </div>
-              <p class="text-[11px] text-workspace-muted leading-relaxed line-clamp-2">Extract raw text, paragraphs, and formatted markdown from PDF files locally with zero server uploads.</p>
-            </div>
-            <div class="flex items-center justify-between pt-2.5 border-t border-workspace-border/60 text-[11px] font-mono mt-3">
-              <a href="/pdf-text-extractor" class="text-workspace-muted hover:text-workspace-accent transition-colors flex items-center gap-1">
-                <span>Open Page</span>
-                <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
-              </a>
-              <button type="button" onclick="pinTool('pdf-text-extractor')" class="px-2.5 py-1 rounded-lg bg-workspace-accent/10 border border-workspace-accent/25 text-workspace-accent hover:bg-workspace-accent hover:text-black font-semibold transition-all flex items-center gap-1 shadow-sm">
-                <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
-                <span>Pin to Deck</span>
-              </button>
-            </div>
-          </div>
-          <!-- PDF Password Protect -->
-          <div class="w-full p-4 rounded-2xl bg-workspace-surface border border-workspace-border hover:border-workspace-borderLight hover:bg-workspace-surfaceHover transition-all duration-200 group flex flex-col justify-between min-h-[135px] tool-card">
-            <div>
-              <div class="flex items-center justify-between gap-2 mb-1.5">
-                <a href="/pdf-password-protect" class="text-sm font-bold text-workspace-text hover:text-workspace-accent transition-colors truncate" title="Open standalone PDF Password Protect">PDF Password Protect</a>
-                <span class="text-[9px] uppercase font-mono px-2 py-0.5 rounded-md bg-workspace-bg border border-workspace-border text-workspace-muted shrink-0">Documents &amp; PDF</span>
-              </div>
-              <p class="text-[11px] text-workspace-muted leading-relaxed line-clamp-2">Encrypt and lock sensitive PDF documents with custom passwords locally in your browser with zero uploads.</p>
-            </div>
-            <div class="flex items-center justify-between pt-2.5 border-t border-workspace-border/60 text-[11px] font-mono mt-3">
-              <a href="/pdf-password-protect" class="text-workspace-muted hover:text-workspace-accent transition-colors flex items-center gap-1">
-                <span>Open Page</span>
-                <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
-              </a>
-              <button type="button" onclick="pinTool('pdf-password-protect')" class="px-2.5 py-1 rounded-lg bg-workspace-accent/10 border border-workspace-accent/25 text-workspace-accent hover:bg-workspace-accent hover:text-black font-semibold transition-all flex items-center gap-1 shadow-sm">
-                <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
-                <span>Pin to Deck</span>
-              </button>
-            </div>
-          </div>
-          <!-- PDF Signature & Stamp -->
-          <div class="w-full p-4 rounded-2xl bg-workspace-surface border border-workspace-border hover:border-workspace-borderLight hover:bg-workspace-surfaceHover transition-all duration-200 group flex flex-col justify-between min-h-[135px] tool-card">
-            <div>
-              <div class="flex items-center justify-between gap-2 mb-1.5">
-                <a href="/pdf-sign-stamp" class="text-sm font-bold text-workspace-text hover:text-workspace-accent transition-colors truncate" title="Open standalone PDF Signature &amp; Stamp">PDF Signature &amp; Stamp</a>
-                <span class="text-[9px] uppercase font-mono px-2 py-0.5 rounded-md bg-workspace-bg border border-workspace-border text-workspace-muted shrink-0">Documents &amp; PDF</span>
-              </div>
-              <p class="text-[11px] text-workspace-muted leading-relaxed line-clamp-2">Draw or type your digital signature and stamp it onto any page of a PDF locally in your browser.</p>
-            </div>
-            <div class="flex items-center justify-between pt-2.5 border-t border-workspace-border/60 text-[11px] font-mono mt-3">
-              <a href="/pdf-sign-stamp" class="text-workspace-muted hover:text-workspace-accent transition-colors flex items-center gap-1">
-                <span>Open Page</span>
-                <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
-              </a>
-              <button type="button" onclick="pinTool('pdf-sign-stamp')" class="px-2.5 py-1 rounded-lg bg-workspace-accent/10 border border-workspace-accent/25 text-workspace-accent hover:bg-workspace-accent hover:text-black font-semibold transition-all flex items-center gap-1 shadow-sm">
-                <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
-                <span>Pin to Deck</span>
-              </button>
-            </div>
-          </div>
+          <button type="button" onclick="toggleCatalogExpansion(true)" class="px-5 py-2.5 rounded-xl bg-workspace-surface border border-workspace-border hover:border-workspace-accent hover:bg-workspace-surfaceHover text-xs font-mono font-bold text-workspace-text hover:text-workspace-accent transition-all flex items-center gap-2 group shadow-sm">
+            <span>Browse All 50 Tools</span>
+            <svg class="w-4 h-4 group-hover:translate-y-0.5 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+          </button>
         </div>
       </div>
     </div>
@@ -2193,10 +1396,22 @@
     // ==========================================
     
     // ==========================================
-    // BALANCED TOOL DIRECTORY & FILTER PILLS
+    // BALANCED TOOL DIRECTORY & CURATED SUGGESTIONS
     // ==========================================
     let selectedCatalogCategory = 'All';
     let catalogSearchQuery = '';
+    let isCatalogExpanded = false;
+
+    const SUGGESTED_TOOL_IDS = [
+      'date-calculator',
+      'secure-password-generator',
+      'qr-code-generator',
+      'image-compressor',
+      'json-formatter',
+      'pdf-merger',
+      'percentage-calculator',
+      'case-converter'
+    ];
 
     const CORE_CATEGORIES = [
       'All',
@@ -2211,8 +1426,10 @@
     function renderCatalogDirectory() {
       const catalogContainer = document.getElementById('emptyStateCatalog');
       const pillsContainer = document.getElementById('catalogCategoryPills');
+      const headerTitle = document.getElementById('catalogHeaderTitle');
       const countLabel = document.getElementById('catalogCountLabel');
       const searchInput = document.getElementById('catalogSearchInput');
+      const exploreContainer = document.getElementById('catalogExploreContainer');
 
       if (!catalogContainer || typeof TOOLS_REGISTRY === 'undefined') return;
 
@@ -2236,26 +1453,61 @@
 
       // Filter tools by category and search
       const q = catalogSearchQuery.toLowerCase().trim();
-      const filtered = allTools.filter(t => {
-        const matchesCategory = selectedCatalogCategory === 'All' || t.category === selectedCatalogCategory;
-        const matchesSearch = !q || t.name.toLowerCase().includes(q) || t.description.toLowerCase().includes(q) || (t.category && t.category.toLowerCase().includes(q));
-        return matchesCategory && matchesSearch;
-      });
+      const isFiltered = q !== '' || selectedCatalogCategory !== 'All';
 
-      if (countLabel) countLabel.textContent = filtered.length;
+      let displayTools = [];
+      let isShowingSuggestions = false;
 
-      if (filtered.length === 0) {
+      if (isFiltered) {
+        displayTools = allTools.filter(t => {
+          const matchesCategory = selectedCatalogCategory === 'All' || t.category === selectedCatalogCategory;
+          const matchesSearch = !q || t.name.toLowerCase().includes(q) || t.description.toLowerCase().includes(q) || (t.category && t.category.toLowerCase().includes(q));
+          return matchesCategory && matchesSearch;
+        });
+      } else {
+        if (!isCatalogExpanded) {
+          isShowingSuggestions = true;
+          displayTools = SUGGESTED_TOOL_IDS.map(id => TOOLS_REGISTRY[id]).filter(Boolean);
+        } else {
+          displayTools = allTools;
+        }
+      }
+
+      // Update Header Title & Badge
+      if (headerTitle) {
+        if (isFiltered) {
+          headerTitle.textContent = selectedCatalogCategory !== 'All' ? selectedCatalogCategory : 'Search Results';
+        } else if (isShowingSuggestions) {
+          headerTitle.textContent = 'Suggested Tools';
+        } else {
+          headerTitle.textContent = 'Tool Directory';
+        }
+      }
+
+      if (countLabel) {
+        if (isShowingSuggestions) {
+          countLabel.textContent = `${displayTools.length} Suggestions`;
+        } else {
+          countLabel.textContent = `${displayTools.length} Tool${displayTools.length === 1 ? '' : 's'}`;
+        }
+      }
+
+      // Empty State if no tools match
+      if (displayTools.length === 0) {
         catalogContainer.innerHTML = `
           <div class="col-span-full p-8 text-center bg-workspace-bg border border-workspace-border rounded-2xl text-workspace-muted font-mono text-xs">
             No tools found matching "${escapeHtml(catalogSearchQuery)}". Try clearing your search or switching categories.
+            <div class="mt-3">
+              <button type="button" onclick="resetCatalogFilters()" class="px-3.5 py-1.5 rounded-lg bg-workspace-accent/10 border border-workspace-accent/25 text-workspace-accent text-xs hover:bg-workspace-accent hover:text-black transition-all">Clear Filters</button>
+            </div>
           </div>
         `;
+        if (exploreContainer) exploreContainer.innerHTML = '';
         return;
       }
 
       // Render balanced, uniform cards
-      catalogContainer.innerHTML = filtered.map(t => {
-        const dotColor = CATEGORY_DOT_COLORS[t.category] || 'bg-workspace-accent';
+      catalogContainer.innerHTML = displayTools.map(t => {
         return `
           <div class="w-full p-4 rounded-2xl bg-workspace-surface border border-workspace-border hover:border-workspace-borderLight hover:bg-workspace-surfaceHover transition-all duration-200 group flex flex-col justify-between min-h-[135px] tool-card">
             <div>
@@ -2279,6 +1531,46 @@
         `;
       }).join('');
 
+      // Render Explore / Toggle Action Bar
+      if (exploreContainer) {
+        if (isFiltered) {
+          exploreContainer.innerHTML = `
+            <div class="flex items-center justify-between w-full text-xs text-workspace-muted font-mono">
+              <div class="flex items-center gap-2">
+                <span class="w-2 h-2 rounded-full bg-workspace-accent"></span>
+                <span>Filtered results: showing ${displayTools.length} tool${displayTools.length === 1 ? '' : 's'}</span>
+              </div>
+              <button type="button" onclick="resetCatalogFilters()" class="text-workspace-accent hover:underline flex items-center gap-1.5 transition-colors">
+                <span>Reset to Suggestions</span>
+                <span class="text-sm font-bold">&times;</span>
+              </button>
+            </div>
+          `;
+        } else if (isShowingSuggestions) {
+          exploreContainer.innerHTML = `
+            <div class="flex items-center gap-2.5 text-xs text-workspace-muted font-mono">
+              <div class="w-2 h-2 rounded-full bg-workspace-accent"></div>
+              <span>Showing ${displayTools.length} curated suggestions &bull; 50 offline utilities available</span>
+            </div>
+            <button type="button" onclick="toggleCatalogExpansion(true)" class="px-5 py-2.5 rounded-xl bg-workspace-surface border border-workspace-border hover:border-workspace-accent hover:bg-workspace-surfaceHover text-xs font-mono font-bold text-workspace-text hover:text-workspace-accent transition-all flex items-center gap-2 group shadow-sm">
+              <span>Browse All 50 Tools</span>
+              <svg class="w-4 h-4 group-hover:translate-y-0.5 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+            </button>
+          `;
+        } else {
+          exploreContainer.innerHTML = `
+            <div class="flex items-center gap-2.5 text-xs text-workspace-muted font-mono">
+              <div class="w-2 h-2 rounded-full bg-workspace-accent"></div>
+              <span>Showing all 50 offline utilities</span>
+            </div>
+            <button type="button" onclick="toggleCatalogExpansion(false)" class="px-5 py-2.5 rounded-xl bg-workspace-surface border border-workspace-border hover:border-workspace-accent hover:bg-workspace-surfaceHover text-xs font-mono font-bold text-workspace-text hover:text-workspace-accent transition-all flex items-center gap-2 group shadow-sm">
+              <span>Show Curated Suggestions</span>
+              <svg class="w-4 h-4 group-hover:-translate-y-0.5 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 15l7-7 7 7"/></svg>
+            </button>
+          `;
+        }
+      }
+
       // Wire up search listener if not wired
       if (searchInput && !searchInput.dataset.wired) {
         searchInput.dataset.wired = 'true';
@@ -2287,6 +1579,24 @@
           renderCatalogDirectory();
         });
       }
+    }
+
+    function toggleCatalogExpansion(expand) {
+      isCatalogExpanded = (typeof expand === 'boolean') ? expand : !isCatalogExpanded;
+      renderCatalogDirectory();
+      if (!isCatalogExpanded) {
+        const el = document.getElementById('catalogHeaderTitle');
+        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }
+
+    function resetCatalogFilters() {
+      selectedCatalogCategory = 'All';
+      catalogSearchQuery = '';
+      isCatalogExpanded = false;
+      const searchInput = document.getElementById('catalogSearchInput');
+      if (searchInput) searchInput.value = '';
+      renderCatalogDirectory();
     }
 
     function setCatalogCategory(cat) {
