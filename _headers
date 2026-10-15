@@ -3,5 +3,21 @@
   X-Content-Type-Options: nosniff
   Referrer-Policy: strict-origin-when-cross-origin
   Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
-  Permissions-Policy: camera=(), microphone=(), geolocation=()
-  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.tailwindcss.com https://cdnjs.cloudflare.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob: https:; worker-src 'self' blob: https://cdnjs.cloudflare.com;
+  Permissions-Policy: camera=(), microphone=(), geolocation=(), interest-cohort=()
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.tailwindcss.com https://cdnjs.cloudflare.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob: https:; worker-src 'self' blob: https://cdnjs.cloudflare.com; connect-src 'self' blob: https://cdnjs.cloudflare.com; object-src 'none'; base-uri 'self'; frame-ancestors 'none';
+  Cache-Control: public, max-age=0, must-revalidate
+
+/package.json
+  X-Robots-Tag: noindex, nofollow, noarchive
+
+/package-lock.json
+  X-Robots-Tag: noindex, nofollow, noarchive
+
+/tailwind.config.js
+  X-Robots-Tag: noindex, nofollow, noarchive
+
+/styles.css
+  Cache-Control: public, max-age=86400, stale-while-revalidate=604800
+
+/manifest.json
+  Cache-Control: public, max-age=86400, must-revalidate

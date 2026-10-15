@@ -4,350 +4,350 @@ window.TOOLS_REGISTRY = {
     "id": "base64-encoder-decoder",
     "name": "Base64 Encoder / Decoder",
     "category": "Privacy & Security",
-    "standaloneUrl": "/base64-encoder-decoder.html",
+    "standaloneUrl": "/base64-encoder-decoder",
     "description": "Encode or decode text to Base64 format locally."
   },
   "case-converter": {
     "id": "case-converter",
     "name": "Case Converter & Word Counter",
     "category": "Text & Data",
-    "standaloneUrl": "/case-converter.html",
+    "standaloneUrl": "/case-converter",
     "description": "Deduplicate lines, toggle cases, and count words and characters without uploads."
   },
   "chmod-calculator": {
     "id": "chmod-calculator",
     "name": "Visual chmod Permissions Calculator",
     "category": "Developer & Code",
-    "standaloneUrl": "/chmod-calculator.html",
+    "standaloneUrl": "/chmod-calculator",
     "description": "Interactive visual permission calculator for Linux/Unix file permissions with octal and symbolic modes."
   },
   "curl-converter": {
     "id": "curl-converter",
     "name": "cURL to Fetch / Axios / Python Converter",
     "category": "Developer & Code",
-    "standaloneUrl": "/curl-converter.html",
+    "standaloneUrl": "/curl-converter",
     "description": "Convert cURL requests into copy-pasteable JavaScript fetch, Node.js axios, and Python requests code."
   },
   "date-calculator": {
     "id": "date-calculator",
     "name": "Days Between Dates Calculator",
     "category": "Productivity & Math",
-    "standaloneUrl": "/date-calculator.html",
+    "standaloneUrl": "/date-calculator",
     "description": "Calculate days between dates or add/subtract days from a date."
   },
   "excel-formula-builder": {
     "id": "excel-formula-builder",
     "name": "Excel Formula Builder Cheat Sheet",
     "category": "Text & Data",
-    "standaloneUrl": "/excel-formula-builder.html",
+    "standaloneUrl": "/excel-formula-builder",
     "description": "Massive offline registry of Excel/Sheets formulas with a fill-in-the-blanks builder."
   },
   "exif-metadata-stripper": {
     "id": "exif-metadata-stripper",
     "name": "Photo EXIF & GPS Metadata Stripper",
     "category": "Privacy & Security",
-    "standaloneUrl": "/exif-metadata-stripper.html",
+    "standaloneUrl": "/exif-metadata-stripper",
     "description": "Strip hidden GPS coordinates, camera serial numbers, and device metadata from photos before sharing."
   },
   "hex-color-converter": {
     "id": "hex-color-converter",
     "name": "HEX to RGB Color Converter",
     "category": "Media & Design",
-    "standaloneUrl": "/hex-color-converter.html",
+    "standaloneUrl": "/hex-color-converter",
     "description": "Convert colors between HEX, RGB, and HSL formats."
   },
   "image-compressor": {
     "id": "image-compressor",
     "name": "Client-Side Image Compressor & WebP",
     "category": "Media & Design",
-    "standaloneUrl": "/image-compressor.html",
+    "standaloneUrl": "/image-compressor",
     "description": "Compress PNG, JPEG, and WebP images locally inside your browser with zero server uploads."
   },
   "json-formatter": {
     "id": "json-formatter",
     "name": "JSON Formatter & Validator",
     "category": "Text & Data",
-    "standaloneUrl": "/json-formatter.html",
+    "standaloneUrl": "/json-formatter",
     "description": "Format, validate, and minify JSON strings instantly."
   },
   "json-to-typescript": {
     "id": "json-to-typescript",
     "name": "JSON to TypeScript & Zod Schema",
     "category": "Developer & Code",
-    "standaloneUrl": "/json-to-typescript.html",
+    "standaloneUrl": "/json-to-typescript",
     "description": "Convert JSON payloads into clean TypeScript interfaces, types, and Zod validation schemas."
   },
   "pdf-splitter": {
     "id": "pdf-splitter",
     "name": "Client-Side PDF Splitter & Page Remover",
     "category": "Documents & PDF",
-    "standaloneUrl": "/pdf-splitter.html",
+    "standaloneUrl": "/pdf-splitter",
     "description": "Extract specific pages or split multi-page PDF documents locally in your browser with zero server uploads."
   },
   "percentage-calculator": {
     "id": "percentage-calculator",
     "name": "Online Percentage Calculator",
     "category": "Productivity & Math",
-    "standaloneUrl": "/percentage-calculator.html",
+    "standaloneUrl": "/percentage-calculator",
     "description": "Everyday percentage calculator for discounts, tips, and fractions."
   },
   "pomodoro-timer": {
     "id": "pomodoro-timer",
     "name": "Pomodoro Timer Online",
     "category": "Productivity & Math",
-    "standaloneUrl": "/pomodoro-timer.html",
+    "standaloneUrl": "/pomodoro-timer",
     "description": "A simple Pomodoro countdown timer for focused work sessions."
   },
   "qr-code-generator": {
     "id": "qr-code-generator",
     "name": "Free QR Code Generator",
     "category": "Media & Design",
-    "standaloneUrl": "/qr-code-generator.html",
+    "standaloneUrl": "/qr-code-generator",
     "description": "Generate high-contrast QR codes for links, phone dialer numbers, or plain text."
   },
   "random-name-picker": {
     "id": "random-name-picker",
     "name": "Random Name Picker & Wheel",
     "category": "Productivity & Math",
-    "standaloneUrl": "/random-name-picker.html",
+    "standaloneUrl": "/random-name-picker",
     "description": "Pick a random name from a list or generate a random number."
   },
   "secure-password-generator": {
     "id": "secure-password-generator",
     "name": "Secure Password Generator",
     "category": "Privacy & Security",
-    "standaloneUrl": "/random-password-generator.html",
+    "standaloneUrl": "/secure-password-generator",
     "description": "Generate cryptographically secure passwords or numeric PIN codes."
   },
   "sha256-hash-generator": {
     "id": "sha256-hash-generator",
     "name": "SHA-256 Hash Generator",
     "category": "Privacy & Security",
-    "standaloneUrl": "/sha256-hash-generator.html",
+    "standaloneUrl": "/sha256-hash-generator",
     "description": "Generate SHA-256, SHA-384, and SHA-512 hashes instantly."
   },
   "social-seo-previewer": {
     "id": "social-seo-previewer",
     "name": "Social Media & Google SERP Previewer",
     "category": "Media & Design",
-    "standaloneUrl": "/social-seo-previewer.html",
+    "standaloneUrl": "/social-seo-previewer",
     "description": "Simulate how your meta tags, title, and description will look on Google Search and X (Twitter)."
   },
   "svg-optimizer": {
     "id": "svg-optimizer",
     "name": "SVG Optimizer & React / CSS Exporter",
     "category": "Media & Design",
-    "standaloneUrl": "/svg-optimizer.html",
+    "standaloneUrl": "/svg-optimizer",
     "description": "Clean and minify SVG markup, convert to CSS Data URIs, and export to React JSX components."
   },
   "text-diff-checker": {
     "id": "text-diff-checker",
     "name": "Text Diff Checker & Notepad",
     "category": "Text & Data",
-    "standaloneUrl": "/text-diff-checker.html",
+    "standaloneUrl": "/text-diff-checker",
     "description": "Auto-saving local notes and true line-by-line diff comparison."
   },
   "time-zone-converter": {
     "id": "time-zone-converter",
     "name": "World Time Zone Converter",
     "category": "Productivity & Math",
-    "standaloneUrl": "/time-zone-converter.html",
+    "standaloneUrl": "/time-zone-converter",
     "description": "Interactive world clock with 25,000+ searchable cities and synchronized hour slider."
   },
   "unit-converter": {
     "id": "unit-converter",
     "name": "Universal Unit Converter",
     "category": "Productivity & Math",
-    "standaloneUrl": "/unit-converter.html",
+    "standaloneUrl": "/unit-converter",
     "description": "Multi-category converter for data, length, mass, temperature, speed, volume, and time."
   },
   "unix-timestamp-converter": {
     "id": "unix-timestamp-converter",
     "name": "Unix Timestamp & Epoch Converter",
     "category": "Developer & Code",
-    "standaloneUrl": "/unix-timestamp-converter.html",
+    "standaloneUrl": "/unix-timestamp-converter",
     "description": "Convert between Unix timestamps (seconds & milliseconds), UTC dates, local timezones, and relative time."
   },
   "url-link-cleaner": {
     "id": "url-link-cleaner",
     "name": "URL Tracking Link Cleaner",
     "category": "Privacy & Security",
-    "standaloneUrl": "/url-link-cleaner.html",
+    "standaloneUrl": "/url-link-cleaner",
     "description": "Extract URLs, strip tracking tags (UTM, fbclid, gclid), and copy clean links."
   },
   "markdown-preview": {
     "id": "markdown-preview",
     "name": "Markdown Live Editor & HTML Preview",
     "category": "Text & Data",
-    "standaloneUrl": "/markdown-preview.html",
+    "standaloneUrl": "/markdown-preview",
     "description": "Write, preview, and convert GitHub-flavored Markdown into clean HTML with live dual-view rendering."
   },
   "csv-json-converter": {
     "id": "csv-json-converter",
     "name": "CSV ↔ JSON Converter",
     "category": "Text & Data",
-    "standaloneUrl": "/csv-json-converter.html",
+    "standaloneUrl": "/csv-json-converter",
     "description": "Convert CSV spreadsheets to JSON arrays or transform JSON objects back into CSV tables locally."
   },
   "regex-tester": {
     "id": "regex-tester",
     "name": "Regular Expression (Regex) Live Tester",
     "category": "Developer & Code",
-    "standaloneUrl": "/regex-tester.html",
+    "standaloneUrl": "/regex-tester",
     "description": "Test, debug, and highlight regular expressions against sample text with live capture badges and cheatsheets."
   },
   "jwt-decoder": {
     "id": "jwt-decoder",
     "name": "JSON Web Token (JWT) Decoder",
     "category": "Developer & Code",
-    "standaloneUrl": "/jwt-decoder.html",
+    "standaloneUrl": "/jwt-decoder",
     "description": "Decode and inspect JWT header and payload claims securely in your browser with expiration validation."
   },
   "image-to-base64": {
     "id": "image-to-base64",
     "name": "Image to Base64 (Data URI) Generator",
     "category": "Media & Design",
-    "standaloneUrl": "/image-to-base64.html",
+    "standaloneUrl": "/image-to-base64",
     "description": "Convert PNG, JPG, or SVG images into copy-pasteable Base64 Data URIs, HTML tags, and CSS snippets."
   },
   "uuid-generator": {
     "id": "uuid-generator",
     "name": "Bulk UUID / GUID v4 Generator",
     "category": "Productivity & Math",
-    "standaloneUrl": "/uuid-generator.html",
+    "standaloneUrl": "/uuid-generator",
     "description": "Generate bulk cryptographically secure UUID v4 identifiers locally with custom formatting and uppercase toggles."
   },
   "sql-formatter": {
     "id": "sql-formatter",
     "name": "SQL Query Beautifier & Formatter",
     "category": "Developer & Code",
-    "standaloneUrl": "/sql-formatter.html",
+    "standaloneUrl": "/sql-formatter",
     "description": "Format, beautify, and capitalize SQL queries offline with clean clause indentation and minification."
   },
   "pdf-merger": {
     "id": "pdf-merger",
     "name": "Client-Side PDF Merger & Combiner",
     "category": "Documents & PDF",
-    "standaloneUrl": "/pdf-merger.html",
+    "standaloneUrl": "/pdf-merger",
     "description": "Combine multiple PDF documents into a single file locally in your browser with zero server uploads."
   },
   "pdf-rotator": {
     "id": "pdf-rotator",
     "name": "Client-Side PDF Page Rotator",
     "category": "Documents & PDF",
-    "standaloneUrl": "/pdf-rotator.html",
+    "standaloneUrl": "/pdf-rotator",
     "description": "Rotate upside-down or sideways PDF pages by 90°, 180°, or 270° locally in your browser."
   },
   "images-to-pdf": {
     "id": "images-to-pdf",
     "name": "Client-Side Images to PDF Converter",
     "category": "Documents & PDF",
-    "standaloneUrl": "/images-to-pdf.html",
+    "standaloneUrl": "/images-to-pdf",
     "description": "Convert JPG, PNG, and WebP photos or scans into a clean multi-page PDF document with zero uploads."
   },
   "pdf-watermarker": {
     "id": "pdf-watermarker",
     "name": "Client-Side PDF Watermark & Stamp",
     "category": "Documents & PDF",
-    "standaloneUrl": "/pdf-watermarker.html",
+    "standaloneUrl": "/pdf-watermarker",
     "description": "Stamp custom text or diagonal watermark overlays onto every page of a PDF document with zero uploads."
   },
   "pdf-metadata-editor": {
     "id": "pdf-metadata-editor",
     "name": "PDF Metadata Inspector & Stripper",
     "category": "Documents & PDF",
-    "standaloneUrl": "/pdf-metadata-editor.html",
+    "standaloneUrl": "/pdf-metadata-editor",
     "description": "View, edit, or completely wipe author, producer, and title metadata from PDF files locally for total privacy."
   },
   "pdf-page-numberer": {
     "id": "pdf-page-numberer",
     "name": "Client-Side PDF Page Numberer",
     "category": "Documents & PDF",
-    "standaloneUrl": "/pdf-page-numberer.html",
+    "standaloneUrl": "/pdf-page-numberer",
     "description": "Add page numbers, pagination headers, or footers to PDF documents locally in your browser with zero server uploads."
   },
   "excel-to-csv": {
     "id": "excel-to-csv",
     "name": "Excel to CSV Converter",
     "category": "Text & Data",
-    "standaloneUrl": "/excel-to-csv.html",
+    "standaloneUrl": "/excel-to-csv",
     "description": "Convert Excel (.xlsx, .xls) spreadsheets to clean UTF-8 CSV locally in your browser with zero uploads."
   },
   "excel-to-json": {
     "id": "excel-to-json",
     "name": "Excel to JSON Converter",
     "category": "Text & Data",
-    "standaloneUrl": "/excel-to-json.html",
+    "standaloneUrl": "/excel-to-json",
     "description": "Convert Excel (.xlsx, .xls) spreadsheets to clean JSON objects or arrays locally with zero uploads."
   },
   "excel-deduplicator": {
     "id": "excel-deduplicator",
     "name": "Spreadsheet Row Deduplicator",
     "category": "Text & Data",
-    "standaloneUrl": "/excel-deduplicator.html",
+    "standaloneUrl": "/excel-deduplicator",
     "description": "Detect and purge duplicate rows in Excel and CSV files by specific columns or entire rows locally."
   },
   "pdf-text-extractor": {
     "id": "pdf-text-extractor",
     "name": "PDF Text & Markdown Extractor",
     "category": "Documents & PDF",
-    "standaloneUrl": "/pdf-text-extractor.html",
+    "standaloneUrl": "/pdf-text-extractor",
     "description": "Extract raw text, paragraphs, and formatted markdown from PDF files locally with zero server uploads."
   },
   "csv-to-excel": {
     "id": "csv-to-excel",
     "name": "CSV to Excel (.xlsx) Converter",
     "category": "Text & Data",
-    "standaloneUrl": "/csv-to-excel.html",
+    "standaloneUrl": "/csv-to-excel",
     "description": "Convert raw CSV and TSV files or pasted text into styled Microsoft Excel (.xlsx) workbooks locally."
   },
   "json-to-excel": {
     "id": "json-to-excel",
     "name": "JSON to Excel (.xlsx) Converter",
     "category": "Text & Data",
-    "standaloneUrl": "/json-to-excel.html",
+    "standaloneUrl": "/json-to-excel",
     "description": "Convert JSON arrays or objects directly into formatted Microsoft Excel (.xlsx) workbooks locally."
   },
   "excel-to-markdown": {
     "id": "excel-to-markdown",
     "name": "Excel to Markdown Table Generator",
     "category": "Text & Data",
-    "standaloneUrl": "/excel-to-markdown.html",
+    "standaloneUrl": "/excel-to-markdown",
     "description": "Convert Excel and CSV spreadsheets into clean GitHub-flavored Markdown tables locally."
   },
   "excel-transpose": {
     "id": "excel-transpose",
     "name": "Spreadsheet Row & Column Transposer",
     "category": "Text & Data",
-    "standaloneUrl": "/excel-transpose.html",
+    "standaloneUrl": "/excel-transpose",
     "description": "Flip spreadsheet rows to columns and columns to rows in Excel and CSV files instantly in your browser."
   },
   "excel-empty-cleaner": {
     "id": "excel-empty-cleaner",
     "name": "Empty Rows & Whitespace Stripper",
     "category": "Text & Data",
-    "standaloneUrl": "/excel-empty-cleaner.html",
+    "standaloneUrl": "/excel-empty-cleaner",
     "description": "Clean messy spreadsheets by removing blank rows, empty columns, and phantom whitespace in Excel & CSV files."
   },
   "pdf-to-images": {
     "id": "pdf-to-images",
     "name": "Client-Side PDF to Images (PNG/JPG)",
     "category": "Documents & PDF",
-    "standaloneUrl": "/pdf-to-images.html",
+    "standaloneUrl": "/pdf-to-images",
     "description": "Convert every page of a PDF document into high-resolution PNG or JPG images locally in your browser."
   },
   "pdf-password-protect": {
     "id": "pdf-password-protect",
     "name": "Client-Side PDF Password Protect",
     "category": "Documents & PDF",
-    "standaloneUrl": "/pdf-password-protect.html",
+    "standaloneUrl": "/pdf-password-protect",
     "description": "Encrypt and lock sensitive PDF documents with custom passwords locally in your browser with zero uploads."
   },
   "pdf-sign-stamp": {
     "id": "pdf-sign-stamp",
     "name": "Client-Side PDF Signature & Stamp",
     "category": "Documents & PDF",
-    "standaloneUrl": "/pdf-sign-stamp.html",
+    "standaloneUrl": "/pdf-sign-stamp",
     "description": "Draw or type your digital signature and stamp it onto any page of a PDF locally in your browser."
   }
 };

@@ -1,5 +1,10 @@
+/random-password-generator /secure-password-generator 301
 /*.html /:splat 301
 /docs/* / 301
 /src/* / 301
 /input.css / 301
 /ROADMAP.md / 301
+/package.json / 404
+/package-lock.json / 404
+/tailwind.config.js / 404
+/.git/* / 404

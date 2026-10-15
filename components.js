@@ -12,6 +12,10 @@ class TabkitFooter extends HTMLElement {
           <span>&bull;</span>
           <a href="/contact" class="hover:text-workspace-accent transition-colors">Contact</a>
           <span>&bull;</span>
+          <a href="/privacy" class="hover:text-workspace-accent transition-colors">Privacy</a>
+          <span>&bull;</span>
+          <a href="/terms" class="hover:text-workspace-accent transition-colors">Terms</a>
+          <span>&bull;</span>
           <a href="/report-issue" class="text-rose-400 hover:text-rose-300 font-semibold transition-colors">Report Issue</a>
         </div>
       </footer>
@@ -40,6 +44,7 @@ class ToolHeader extends HTMLElement {
         <div class="flex items-center gap-3 font-mono text-xs">
           <nav class="hidden md:flex items-center gap-3 text-workspace-muted text-[11px] pe-2">
             <a href="/about" class="hover:text-workspace-text transition-colors">About</a>
+            <a href="/privacy" class="hover:text-workspace-text transition-colors">Privacy</a>
             <a href="/faq" class="hover:text-workspace-text transition-colors">FAQ</a>
             <a href="/contact" class="hover:text-workspace-text transition-colors">Contact</a>
           </nav>

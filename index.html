@@ -834,6 +834,8 @@
     <div class="flex items-center gap-3 sm:gap-4">
       <span class="hidden lg:inline"><kbd class="px-1 py-0.5 rounded bg-workspace-bg border border-workspace-border text-workspace-text">Ctrl+K</kbd> Search</span>
       <a href="/about" class="hover:text-workspace-accent transition-colors">About</a>
+      <a href="/privacy" class="hover:text-workspace-accent transition-colors">Privacy</a>
+      <a href="/terms" class="hover:text-workspace-accent transition-colors">Terms</a>
       <a href="/faq" class="hover:text-workspace-accent transition-colors">FAQ</a>
       <a href="/contact" class="hover:text-workspace-accent transition-colors">Contact</a>
       <a href="/report-issue" class="text-rose-400 hover:text-rose-300 font-semibold transition-colors">Report Issue</a>
@@ -866,7 +868,7 @@
           <span class="text-[10px] font-mono px-2 py-0.5 rounded-full bg-workspace-accent/10 border border-workspace-accent/30 text-workspace-accent">Focus Mode</span>
         </div>
         <div class="flex items-center gap-2">
-          <a id="focusModalStandaloneLink" href="#" target="_blank" class="text-xs font-mono text-workspace-muted hover:text-workspace-accent px-2.5 py-1 rounded-lg border border-workspace-border hover:border-workspace-accent flex items-center gap-1.5 transition-colors">
+          <a id="focusModalStandaloneLink" href="#" target="_blank" rel="noopener noreferrer" class="text-xs font-mono text-workspace-muted hover:text-workspace-accent px-2.5 py-1 rounded-lg border border-workspace-border hover:border-workspace-accent flex items-center gap-1.5 transition-colors">
             <span>Open in Tab</span>
             <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
           </a>
@@ -1213,7 +1215,7 @@
                   </svg>
                 </button>
                 ${tool.standaloneUrl ? `
-                  <a href="${tool.standaloneUrl}" target="_blank" title="Open in dedicated tab" class="text-workspace-muted hover:text-workspace-accent hover:bg-workspace-surfaceHover p-1.5 rounded-lg transition-colors">
+                  <a href="${tool.standaloneUrl}" target="_blank" rel="noopener noreferrer" title="Open in dedicated tab" class="text-workspace-muted hover:text-workspace-accent hover:bg-workspace-surfaceHover p-1.5 rounded-lg transition-colors">
                     <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                       <path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
                     </svg>
