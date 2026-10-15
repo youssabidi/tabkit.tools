@@ -82,15 +82,15 @@
     </div>
 
     <!-- The Tool -->
-    <div class="rounded-2xl border border-workspace-border bg-workspace-surface shadow-2xl p-6 sm:p-8 mb-16 max-w-2xl mx-auto space-y-6">
+    <div class="rounded-2xl border border-workspace-border bg-workspace-surface shadow-2xl p-4 sm:p-8 mb-16 max-w-2xl mx-auto space-y-6">
       
       <!-- Calc 1 -->
       <div class="p-5 bg-workspace-bg border border-workspace-border rounded-xl flex flex-col sm:flex-row items-center justify-between gap-4">
-        <div class="flex items-center gap-3 text-sm">
+        <div class="flex flex-wrap items-center gap-2 sm:gap-3 text-sm">
           <span class="text-workspace-muted font-medium">What is</span>
-          <input id="p1A" type="number" oninput="calcPct1()" class="w-20 bg-workspace-surface border border-workspace-border rounded-lg px-3 py-2 text-workspace-text focus:border-workspace-accent focus:outline-none font-mono" value="15">
+          <input id="p1A" type="number" inputmode="decimal" oninput="calcPct1()" class="w-20 bg-workspace-surface border border-workspace-border rounded-lg px-3 py-2 text-workspace-text focus:border-workspace-accent focus:outline-none font-mono" value="15">
           <span class="text-workspace-muted font-medium">% of</span>
-          <input id="p1B" type="number" oninput="calcPct1()" class="w-32 bg-workspace-surface border border-workspace-border rounded-lg px-3 py-2 text-workspace-text focus:border-workspace-accent focus:outline-none font-mono" value="100">
+          <input id="p1B" type="number" inputmode="decimal" oninput="calcPct1()" class="w-32 bg-workspace-surface border border-workspace-border rounded-lg px-3 py-2 text-workspace-text focus:border-workspace-accent focus:outline-none font-mono" value="100">
         </div>
         <div class="flex items-center gap-3">
           <span class="text-workspace-muted">=</span>
@@ -100,10 +100,10 @@
 
       <!-- Calc 2 -->
       <div class="p-5 bg-workspace-bg border border-workspace-border rounded-xl flex flex-col sm:flex-row items-center justify-between gap-4">
-        <div class="flex items-center gap-3 text-sm">
-          <input id="p2A" type="number" oninput="calcPct2()" class="w-24 bg-workspace-surface border border-workspace-border rounded-lg px-3 py-2 text-workspace-text focus:border-workspace-accent focus:outline-none font-mono" value="25">
+        <div class="flex flex-wrap items-center gap-2 sm:gap-3 text-sm">
+          <input id="p2A" type="number" inputmode="decimal" oninput="calcPct2()" class="w-24 bg-workspace-surface border border-workspace-border rounded-lg px-3 py-2 text-workspace-text focus:border-workspace-accent focus:outline-none font-mono" value="25">
           <span class="text-workspace-muted font-medium">is what % of</span>
-          <input id="p2B" type="number" oninput="calcPct2()" class="w-32 bg-workspace-surface border border-workspace-border rounded-lg px-3 py-2 text-workspace-text focus:border-workspace-accent focus:outline-none font-mono" value="100">
+          <input id="p2B" type="number" inputmode="decimal" oninput="calcPct2()" class="w-32 bg-workspace-surface border border-workspace-border rounded-lg px-3 py-2 text-workspace-text focus:border-workspace-accent focus:outline-none font-mono" value="100">
         </div>
         <div class="flex items-center gap-3">
           <span class="text-workspace-muted">=</span>
@@ -113,14 +113,14 @@
 
       <!-- Calc 3 -->
       <div class="p-5 bg-workspace-bg border border-workspace-border rounded-xl flex flex-col sm:flex-row items-center justify-between gap-4">
-        <div class="flex items-center gap-3 text-sm">
+        <div class="flex flex-wrap items-center gap-2 sm:gap-3 text-sm">
           <select id="p3Mode" onchange="calcPct3()" class="bg-workspace-surface border border-workspace-border rounded-lg px-2 py-2 text-workspace-text focus:border-workspace-accent focus:outline-none font-medium cursor-pointer">
             <option value="inc">Increase</option>
             <option value="dec">Decrease</option>
           </select>
-          <input id="p3A" type="number" oninput="calcPct3()" class="w-24 bg-workspace-surface border border-workspace-border rounded-lg px-3 py-2 text-workspace-text focus:border-workspace-accent focus:outline-none font-mono" value="100">
+          <input id="p3A" type="number" inputmode="decimal" oninput="calcPct3()" class="w-24 bg-workspace-surface border border-workspace-border rounded-lg px-3 py-2 text-workspace-text focus:border-workspace-accent focus:outline-none font-mono" value="100">
           <span class="text-workspace-muted font-medium">by</span>
-          <input id="p3B" type="number" oninput="calcPct3()" class="w-20 bg-workspace-surface border border-workspace-border rounded-lg px-3 py-2 text-workspace-text focus:border-workspace-accent focus:outline-none font-mono" value="10">
+          <input id="p3B" type="number" inputmode="decimal" oninput="calcPct3()" class="w-20 bg-workspace-surface border border-workspace-border rounded-lg px-3 py-2 text-workspace-text focus:border-workspace-accent focus:outline-none font-mono" value="10">
           <span class="text-workspace-muted font-medium">%</span>
         </div>
         <div class="flex items-center gap-3">

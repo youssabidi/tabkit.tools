@@ -60,7 +60,7 @@ window.TOOLS_REGISTRY['images-to-pdf'] = Object.assign(window.TOOLS_REGISTRY['im
       return new Promise((resolve, reject) => {
         if (window.PDFLib) return resolve(window.PDFLib);
         const script = document.createElement('script');
-        script.src = 'pdf-lib.min.js';
+        script.src = '/pdf-lib.min.js';
         script.onload = () => resolve(window.PDFLib);
         script.onerror = () => {
           if (status) status.textContent = 'Error: Failed to load PDF engine';

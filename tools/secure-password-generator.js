@@ -63,7 +63,7 @@ window.TOOLS_REGISTRY['secure-password-generator'] = Object.assign(window.TOOLS_
     standaloneUrl: '/random-password-generator',
     description: 'Generate cryptographically secure passwords or numeric PIN codes.',
     render: (toolId) => `
-      <div class="flex flex-col h-full space-y-3 font-sans">
+      <div id="card_${toolId}" class="flex flex-col h-full space-y-3 font-sans">
         <div class="flex gap-2 bg-workspace-bg p-1 rounded-lg border border-workspace-border text-xs">
           <button id="${toolId}_tabPass" onclick="setPwType('${toolId}', 'pass')" class="flex-1 py-1 rounded bg-workspace-surface text-workspace-accent font-medium">Password</button>
           <button id="${toolId}_tabPin" onclick="setPwType('${toolId}', 'pin')" class="flex-1 py-1 rounded text-workspace-muted hover:text-workspace-text font-medium">PIN Code</button>

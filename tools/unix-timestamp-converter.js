@@ -21,7 +21,7 @@ window.TOOLS_REGISTRY['unix-timestamp-converter'] = Object.assign(window.TOOLS_R
       <div class="space-y-1">
         <label class="block text-[10px] font-mono text-workspace-muted">Timestamp (Seconds or Milliseconds)</label>
         <div class="flex gap-2">
-          <input id="${toolId}_epochInput" type="number" placeholder="e.g. 1770542385" class="flex-1 bg-workspace-bg border border-workspace-border rounded-lg px-2.5 py-1.5 font-mono text-xs text-workspace-text focus:border-workspace-accent focus:outline-none" />
+          <input id="${toolId}_epochInput" type="number" inputmode="numeric" pattern="[0-9]*" placeholder="e.g. 1770542385" class="flex-1 bg-workspace-bg border border-workspace-border rounded-lg px-2.5 py-1.5 font-mono text-xs text-workspace-text focus:border-workspace-accent focus:outline-none" />
           <button id="${toolId}_btnNow" class="px-2.5 py-1 text-[11px] font-mono bg-workspace-surface border border-workspace-border hover:border-workspace-borderLight text-workspace-text rounded-lg">Now</button>
         </div>
       </div>

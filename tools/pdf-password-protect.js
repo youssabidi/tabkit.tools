@@ -64,7 +64,7 @@ window.TOOLS_REGISTRY['pdf-password-protect'] = Object.assign(window.TOOLS_REGIS
         function loadEncrypt() {
           if (window.PDFEncrypt) return resolve();
           const scrEnc = document.createElement('script');
-          scrEnc.src = 'pdf-encrypt.min.js';
+          scrEnc.src = '/pdf-encrypt.min.js';
           scrEnc.onload = () => resolve();
           scrEnc.onerror = () => reject(new Error('Failed to load PDF Encryption engine.'));
           document.head.appendChild(scrEnc);
@@ -75,7 +75,7 @@ window.TOOLS_REGISTRY['pdf-password-protect'] = Object.assign(window.TOOLS_REGIS
           return;
         }
         const script = document.createElement('script');
-        script.src = 'pdf-lib.min.js';
+        script.src = '/pdf-lib.min.js';
         script.onload = () => loadEncrypt();
         script.onerror = () => reject(new Error('Failed to load PDF-Lib.'));
         document.head.appendChild(script);

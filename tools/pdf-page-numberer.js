@@ -46,7 +46,7 @@ window.TOOLS_REGISTRY['pdf-page-numberer'] = Object.assign(window.TOOLS_REGISTRY
           </label>
           <div class="flex items-center gap-1">
             <span class="text-workspace-muted">Start At:</span>
-            <input type="number" id="${toolId}_startNum" value="1" min="1" max="999" class="w-12 bg-workspace-surface border border-workspace-border rounded px-1 py-0.5 text-center text-workspace-text focus:outline-none" />
+            <input type="number" inputmode="numeric" pattern="[0-9]*" id="${toolId}_startNum" value="1" min="1" max="999" class="w-12 bg-workspace-surface border border-workspace-border rounded px-1 py-0.5 text-center text-workspace-text focus:outline-none" />
           </div>
         </div>
       </div>
@@ -78,7 +78,7 @@ window.TOOLS_REGISTRY['pdf-page-numberer'] = Object.assign(window.TOOLS_REGISTRY
       return new Promise((resolve, reject) => {
         if (window.PDFLib) return resolve(window.PDFLib);
         const script = document.createElement('script');
-        script.src = 'pdf-lib.min.js';
+        script.src = '/pdf-lib.min.js';
         script.onload = () => resolve(window.PDFLib);
         script.onerror = () => {
           if (status) status.textContent = 'Error: Failed to load PDF engine';

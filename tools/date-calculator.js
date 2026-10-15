@@ -46,7 +46,7 @@ window.TOOLS_REGISTRY['date-calculator'] = Object.assign(window.TOOLS_REGISTRY['
           <div class="flex items-center gap-2">
             <input id="${toolId}_d2A" type="date" onchange="calcDateAdd('${toolId}')" class="flex-1 bg-workspace-surface border border-workspace-border rounded px-2 py-1.5 text-workspace-text focus:outline-none">
             <span class="text-workspace-muted">+</span>
-            <input id="${toolId}_d2B" type="number" value="30" oninput="calcDateAdd('${toolId}')" class="w-16 bg-workspace-surface border border-workspace-border rounded px-2 py-1.5 text-workspace-text focus:outline-none">
+            <input id="${toolId}_d2B" type="number" inputmode="numeric" pattern="[0-9]*" value="30" oninput="calcDateAdd('${toolId}')" class="w-16 bg-workspace-surface border border-workspace-border rounded px-2 py-1.5 text-workspace-text focus:outline-none">
             <span class="text-workspace-muted">days</span>
           </div>
           <div class="text-workspace-accent font-bold text-sm text-right" id="${toolId}_d2R">--</div>

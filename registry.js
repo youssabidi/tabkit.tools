@@ -373,7 +373,7 @@ window.loadTool = function(toolId) {
     }
     _loadedToolScripts.add(toolId);
     const script = document.createElement('script');
-    script.src = 'tools/' + toolId + '.js';
+    script.src = '/tools/' + toolId + '.js';
     script.async = true;
     script.onload = () => {
       resolve(window.TOOLS_REGISTRY[toolId]);

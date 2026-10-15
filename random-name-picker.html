@@ -101,9 +101,9 @@
         <div class="p-5 bg-workspace-bg border border-workspace-border rounded-xl flex flex-col sm:flex-row items-center justify-between gap-4">
           <div class="flex items-center gap-3 w-full sm:w-auto text-sm">
             <span class="text-workspace-muted font-mono">Min</span>
-            <input id="rnd_min" type="number" value="1" class="w-20 bg-workspace-surface border border-workspace-border rounded-lg px-3 py-2 text-workspace-text focus:border-workspace-accent focus:outline-none font-mono text-center">
+            <input id="rnd_min" type="number" inputmode="numeric" pattern="[0-9]*" value="1" class="w-20 bg-workspace-surface border border-workspace-border rounded-lg px-3 py-2 text-workspace-text focus:border-workspace-accent focus:outline-none font-mono text-center">
             <span class="text-workspace-muted font-mono">Max</span>
-            <input id="rnd_max" type="number" value="100" class="w-24 bg-workspace-surface border border-workspace-border rounded-lg px-3 py-2 text-workspace-text focus:border-workspace-accent focus:outline-none font-mono text-center">
+            <input id="rnd_max" type="number" inputmode="numeric" pattern="[0-9]*" value="100" class="w-24 bg-workspace-surface border border-workspace-border rounded-lg px-3 py-2 text-workspace-text focus:border-workspace-accent focus:outline-none font-mono text-center">
           </div>
           
           <button onclick="rollNumber()" class="w-full sm:w-auto px-6 py-2.5 bg-workspace-surface border border-workspace-border hover:border-workspace-accent hover:text-workspace-accent text-workspace-text font-bold rounded-lg transition-colors">

@@ -34,9 +34,9 @@ window.TOOLS_REGISTRY['random-name-picker'] = Object.assign(window.TOOLS_REGISTR
     render: (toolId) => `
       <div class="flex flex-col h-full space-y-3 font-sans text-xs">
         <div class="p-2.5 bg-workspace-bg border border-workspace-border rounded-lg flex items-center gap-2">
-          <input id="${toolId}_min" type="number" value="1" class="w-16 bg-workspace-surface border border-workspace-border rounded p-1.5 text-workspace-text focus:outline-none" placeholder="Min">
+          <input id="${toolId}_min" type="number" inputmode="numeric" pattern="[0-9]*" value="1" class="w-16 bg-workspace-surface border border-workspace-border rounded p-1.5 text-workspace-text focus:outline-none" placeholder="Min">
           <span class="text-workspace-muted">to</span>
-          <input id="${toolId}_max" type="number" value="100" class="w-20 bg-workspace-surface border border-workspace-border rounded p-1.5 text-workspace-text focus:outline-none" placeholder="Max">
+          <input id="${toolId}_max" type="number" inputmode="numeric" pattern="[0-9]*" value="100" class="w-20 bg-workspace-surface border border-workspace-border rounded p-1.5 text-workspace-text focus:outline-none" placeholder="Max">
           <button onclick="rollNumber('${toolId}')" class="flex-1 bg-workspace-surface border border-workspace-border py-1.5 rounded hover:text-workspace-accent transition-colors">Roll</button>
           <div id="${toolId}_numRes" class="w-12 text-center font-mono text-base font-bold text-workspace-accent">--</div>
         </div>

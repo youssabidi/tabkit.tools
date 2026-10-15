@@ -37,9 +37,9 @@ window.TOOLS_REGISTRY['percentage-calculator'] = Object.assign(window.TOOLS_REGI
         <div class="p-2.5 bg-workspace-bg border border-workspace-border rounded-lg flex items-center justify-between gap-2">
           <div class="flex items-center gap-2">
             <span class="text-workspace-muted">What is</span>
-            <input id="${toolId}_p1A" type="number" oninput="calcPct1('${toolId}')" class="w-14 bg-workspace-surface border border-workspace-border rounded px-1.5 py-1 text-workspace-text focus:outline-none" value="15">
+            <input id="${toolId}_p1A" type="number" inputmode="decimal" oninput="calcPct1('${toolId}')" class="w-14 bg-workspace-surface border border-workspace-border rounded px-1.5 py-1 text-workspace-text focus:outline-none" value="15">
             <span class="text-workspace-muted">% of</span>
-            <input id="${toolId}_p1B" type="number" oninput="calcPct1('${toolId}')" class="w-20 bg-workspace-surface border border-workspace-border rounded px-1.5 py-1 text-workspace-text focus:outline-none" value="100">
+            <input id="${toolId}_p1B" type="number" inputmode="decimal" oninput="calcPct1('${toolId}')" class="w-20 bg-workspace-surface border border-workspace-border rounded px-1.5 py-1 text-workspace-text focus:outline-none" value="100">
           </div>
           <div class="flex items-center gap-2">
             <span class="text-workspace-muted">=</span>
@@ -48,9 +48,9 @@ window.TOOLS_REGISTRY['percentage-calculator'] = Object.assign(window.TOOLS_REGI
         </div>
         <div class="p-2.5 bg-workspace-bg border border-workspace-border rounded-lg flex items-center justify-between gap-2">
           <div class="flex items-center gap-2">
-            <input id="${toolId}_p2A" type="number" oninput="calcPct2('${toolId}')" class="w-16 bg-workspace-surface border border-workspace-border rounded px-1.5 py-1 text-workspace-text focus:outline-none" value="25">
+            <input id="${toolId}_p2A" type="number" inputmode="decimal" oninput="calcPct2('${toolId}')" class="w-16 bg-workspace-surface border border-workspace-border rounded px-1.5 py-1 text-workspace-text focus:outline-none" value="25">
             <span class="text-workspace-muted">is what % of</span>
-            <input id="${toolId}_p2B" type="number" oninput="calcPct2('${toolId}')" class="w-20 bg-workspace-surface border border-workspace-border rounded px-1.5 py-1 text-workspace-text focus:outline-none" value="100">
+            <input id="${toolId}_p2B" type="number" inputmode="decimal" oninput="calcPct2('${toolId}')" class="w-20 bg-workspace-surface border border-workspace-border rounded px-1.5 py-1 text-workspace-text focus:outline-none" value="100">
           </div>
           <div class="flex items-center gap-2">
             <span class="text-workspace-muted">=</span>
@@ -60,9 +60,9 @@ window.TOOLS_REGISTRY['percentage-calculator'] = Object.assign(window.TOOLS_REGI
         <div class="p-2.5 bg-workspace-bg border border-workspace-border rounded-lg flex items-center justify-between gap-2">
           <div class="flex items-center gap-2">
             <span class="text-workspace-muted">Increase</span>
-            <input id="${toolId}_p3A" type="number" oninput="calcPct3('${toolId}')" class="w-16 bg-workspace-surface border border-workspace-border rounded px-1.5 py-1 text-workspace-text focus:outline-none" value="100">
+            <input id="${toolId}_p3A" type="number" inputmode="decimal" oninput="calcPct3('${toolId}')" class="w-16 bg-workspace-surface border border-workspace-border rounded px-1.5 py-1 text-workspace-text focus:outline-none" value="100">
             <span class="text-workspace-muted">by</span>
-            <input id="${toolId}_p3B" type="number" oninput="calcPct3('${toolId}')" class="w-14 bg-workspace-surface border border-workspace-border rounded px-1.5 py-1 text-workspace-text focus:outline-none" value="10">
+            <input id="${toolId}_p3B" type="number" inputmode="decimal" oninput="calcPct3('${toolId}')" class="w-14 bg-workspace-surface border border-workspace-border rounded px-1.5 py-1 text-workspace-text focus:outline-none" value="10">
             <span class="text-workspace-muted">%</span>
           </div>
           <div class="flex items-center gap-2">

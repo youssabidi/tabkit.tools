@@ -43,14 +43,14 @@ window.TOOLS_REGISTRY['unit-converter'] = Object.assign(window.TOOLS_REGISTRY['u
         <div class="grid grid-cols-[1fr,auto,1fr] gap-2 items-center font-mono">
           <div class="space-y-1.5">
             <select id="${toolId}_unitA" class="w-full bg-workspace-bg border border-workspace-border rounded p-1 text-base sm:text-[11px] text-workspace-text focus:outline-none"></select>
-            <input id="${toolId}_inputA" type="number" step="any" value="1" class="w-full bg-workspace-bg border border-workspace-border rounded p-2 text-base sm:text-xs text-workspace-text focus:border-workspace-accent focus:outline-none" />
+            <input id="${toolId}_inputA" type="number" inputmode="decimal" step="any" value="1" class="w-full bg-workspace-bg border border-workspace-border rounded p-2 text-base sm:text-xs text-workspace-text focus:border-workspace-accent focus:outline-none" />
           </div>
           <button id="${toolId}_btnSwap" type="button" title="Swap Units" class="p-1.5 mt-5 rounded bg-workspace-bg hover:bg-workspace-surfaceHover border border-workspace-border text-workspace-muted hover:text-workspace-accent transition-colors">
             ⇄
           </button>
           <div class="space-y-1.5">
             <select id="${toolId}_unitB" class="w-full bg-workspace-bg border border-workspace-border rounded p-1 text-base sm:text-[11px] text-workspace-text focus:outline-none"></select>
-            <input id="${toolId}_inputB" type="number" step="any" class="w-full bg-workspace-bg border border-workspace-border rounded p-2 text-base sm:text-xs text-workspace-accent font-bold focus:border-workspace-accent focus:outline-none" />
+            <input id="${toolId}_inputB" type="number" inputmode="decimal" step="any" class="w-full bg-workspace-bg border border-workspace-border rounded p-2 text-base sm:text-xs text-workspace-accent font-bold focus:border-workspace-accent focus:outline-none" />
           </div>
         </div>
         <div id="${toolId}_formula" class="text-[11px] font-mono text-center text-workspace-muted pt-2 border-t border-workspace-border/50"></div>

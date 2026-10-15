@@ -82,7 +82,7 @@ window.TOOLS_REGISTRY['excel-empty-cleaner'] = Object.assign(window.TOOLS_REGIST
       return new Promise((resolve, reject) => {
         if (window.XLSX) return resolve(window.XLSX);
         const script = document.createElement('script');
-        script.src = 'xlsx.full.min.js';
+        script.src = '/xlsx.full.min.js';
         script.onload = () => resolve(window.XLSX);
         script.onerror = () => reject(new Error('Failed to load SheetJS.'));
         document.head.appendChild(script);
