@@ -60,6 +60,47 @@
     <div class="rounded-2xl border border-workspace-border bg-workspace-surface shadow-2xl p-6 mb-16 max-w-2xl mx-auto min-h-[500px] flex flex-col">
       <div id="tool-container" class="flex-1 w-full relative"></div>
     </div>
+  
+    <!-- SEO Educational Content -->
+    <article class="prose prose-invert max-w-none border-t border-workspace-border pt-12 space-y-8 text-sm text-workspace-muted leading-relaxed">
+      <div>
+        <h2 class="text-xl font-bold text-white mb-3">Test and Optimize Open Graph & Twitter Social Cards</h2>
+        <p>
+          When links are shared on social media platforms like X (Twitter), Facebook, LinkedIn, Slack, and Discord, web crawlers scan the page's HTML head for <strong>Open Graph</strong> (<code class="text-workspace-accent font-mono font-bold">og:title</code>, <code class="text-workspace-accent font-mono font-bold">og:image</code>, <code class="text-workspace-accent font-mono font-bold">og:description</code>) and <strong>Twitter Card</strong> meta tags. If tags are missing, misconfigured, or improperly sized, links appear as plain text or broken cards, drastically reducing click-through rates.
+        </p>
+        <p class="mt-3">
+          This previewer provides instant visual simulation of how your website preview will look across major search and social feeds. Test title lengths to prevent truncation (under 60 characters), verify description readability (under 160 characters), and preview image aspect ratios (1200x630px recommended) before deploying changes to production.
+        </p>
+      </div>
+
+      <div class="border-t border-workspace-border pt-8 space-y-4">
+        <h2 class="text-xl font-bold text-white mb-4">Frequently Asked Questions</h2>
+        <div class="space-y-3">
+          <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/60">
+            <h3 class="text-sm font-bold text-workspace-text mb-1">What are the recommended dimensions for Open Graph images?</h3>
+            <p class="text-xs text-workspace-muted leading-relaxed">The optimal dimension for Open Graph images is 1200 x 630 pixels (1.91:1 aspect ratio). This resolution ensures sharp rendering across high-DPI smartphone screens and desktop news feeds.</p>
+          </div>
+          <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/60">
+            <h3 class="text-sm font-bold text-workspace-text mb-1">Why doesn't social media update my card preview after publishing?</h3>
+            <p class="text-xs text-workspace-muted leading-relaxed">Social networks aggressively cache metadata for shared URLs. When updating tags, use official platform debuggers (such as Twitter Card Validator or Facebook Sharing Debugger) to force a cache refresh.</p>
+          </div>
+          <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/60">
+            <h3 class="text-sm font-bold text-workspace-text mb-1">Does this previewer scrape my site through a backend proxy?</h3>
+            <p class="text-xs text-workspace-muted leading-relaxed">No. You can test your meta tag values manually or paste HTML snippets directly. Everything renders client-side in your current browser tab without outbound scraping servers.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="border-t border-workspace-border pt-8">
+        <h3 class="text-xs font-bold uppercase tracking-wider text-workspace-muted mb-3 font-mono">Related Developer Utilities</h3>
+        <div class="flex flex-wrap gap-2 text-xs font-mono">
+          <a href="/css-html-minifier" class="px-3 py-1.5 rounded-lg border border-workspace-border bg-workspace-surface hover:border-workspace-accent hover:text-workspace-accent transition-all">HTML & CSS Minifier &rarr;</a>
+          <a href="/markdown-preview" class="px-3 py-1.5 rounded-lg border border-workspace-border bg-workspace-surface hover:border-workspace-accent hover:text-workspace-accent transition-all">Markdown Preview &rarr;</a>
+          <a href="/url-link-cleaner" class="px-3 py-1.5 rounded-lg border border-workspace-border bg-workspace-surface hover:border-workspace-accent hover:text-workspace-accent transition-all">URL Link Cleaner &rarr;</a>
+          <a href="/hex-color-converter" class="px-3 py-1.5 rounded-lg border border-workspace-border bg-workspace-surface hover:border-workspace-accent hover:text-workspace-accent transition-all">Color Converter &rarr;</a>
+        </div>
+      </div>
+    </article>
   </main>
   <tabkit-footer></tabkit-footer>
   <div id="toastContainer" class="fixed bottom-6 right-4 z-50 flex flex-col gap-2 pointer-events-none"></div>

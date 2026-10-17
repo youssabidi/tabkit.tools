@@ -76,9 +76,9 @@
       
       <!-- Name Picker -->
       <div>
-        <h3 class="text-sm font-bold text-workspace-text mb-3 uppercase tracking-wider font-mono flex items-center gap-2">
+        <h2 class="text-sm font-bold text-workspace-text mb-3 uppercase tracking-wider font-mono flex items-center gap-2">
           <span class="w-4 h-px bg-workspace-accent"></span> List Picker
-        </h3>
+        </h2>
         <div class="flex flex-col space-y-4 p-5 bg-workspace-bg border border-workspace-border rounded-xl">
           <textarea id="rnd_list" class="w-full h-40 bg-workspace-surface border border-workspace-border rounded-xl p-4 text-sm text-workspace-text focus:border-workspace-accent focus:outline-none resize-y leading-relaxed" placeholder="Paste your list here (one item per line)..."></textarea>
           
@@ -95,9 +95,9 @@
 
       <!-- Number Generator -->
       <div>
-        <h3 class="text-sm font-bold text-workspace-text mb-3 uppercase tracking-wider font-mono flex items-center gap-2">
+        <h2 class="text-sm font-bold text-workspace-text mb-3 uppercase tracking-wider font-mono flex items-center gap-2">
           <span class="w-4 h-px bg-workspace-accent"></span> Number Generator
-        </h3>
+        </h2>
         <div class="p-5 bg-workspace-bg border border-workspace-border rounded-xl flex flex-col sm:flex-row items-center justify-between gap-4">
           <div class="flex items-center gap-3 w-full sm:w-auto text-sm">
             <span class="text-workspace-muted font-mono">Min</span>
@@ -117,6 +117,47 @@
       </div>
 
     </div>
+  
+    <!-- SEO Educational Content -->
+    <article class="prose prose-invert max-w-none border-t border-workspace-border pt-12 space-y-8 text-sm text-workspace-muted leading-relaxed">
+      <div>
+        <h2 class="text-xl font-bold text-white mb-3">Fair, Unbiased Random Selection for Contests & Teams</h2>
+        <p>
+          Choosing a random winner for social media giveaways, selecting students for classroom participation, or assigning agile sprint standup order requires a demonstrably fair and unbiased randomization algorithm. Standard pseudo-random functions found in common scripting languages can exhibit statistical clustering over repeated trials.
+        </p>
+        <p class="mt-3">
+          TabKit's Random Name Picker and Number Generator utilizes the browser's native <code class="text-workspace-accent font-mono font-bold">crypto.getRandomValues()</code> Web Cryptography API. This provides cryptographically secure randomness generated directly by your operating system's entropy pool, ensuring statistically uniform distribution and total impartiality.
+        </p>
+      </div>
+
+      <div class="border-t border-workspace-border pt-8 space-y-4">
+        <h2 class="text-xl font-bold text-white mb-4">Frequently Asked Questions</h2>
+        <div class="space-y-3">
+          <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/60">
+            <h3 class="text-sm font-bold text-workspace-text mb-1">How does TabKit guarantee fair and unbiased random picking?</h3>
+            <p class="text-xs text-workspace-muted leading-relaxed">Rather than using predictable pseudo-random seeds, TabKit taps directly into your device's hardware entropy pool via the Web Crypto API, guaranteeing every participant has an equal probability of selection.</p>
+          </div>
+          <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/60">
+            <h3 class="text-sm font-bold text-workspace-text mb-1">Can I pick multiple unique winners from the same list?</h3>
+            <p class="text-xs text-workspace-muted leading-relaxed">Yes. You can paste any list of names or entries, draw winners sequentially, or remove drawn names to conduct multi-round prize giveaways without duplicate winners.</p>
+          </div>
+          <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/60">
+            <h3 class="text-sm font-bold text-workspace-text mb-1">Is my contestant list or participant data saved anywhere?</h3>
+            <p class="text-xs text-workspace-muted leading-relaxed">No. Everything runs strictly in volatile browser memory. When you reload or close the tab, your list is completely cleared with zero records kept.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="border-t border-workspace-border pt-8">
+        <h3 class="text-xs font-bold uppercase tracking-wider text-workspace-muted mb-3 font-mono">Related Randomization Tools</h3>
+        <div class="flex flex-wrap gap-2 text-xs font-mono">
+          <a href="/secure-password-generator" class="px-3 py-1.5 rounded-lg border border-workspace-border bg-workspace-surface hover:border-workspace-accent hover:text-workspace-accent transition-all">Password Generator &rarr;</a>
+          <a href="/uuid-generator" class="px-3 py-1.5 rounded-lg border border-workspace-border bg-workspace-surface hover:border-workspace-accent hover:text-workspace-accent transition-all">UUID Generator &rarr;</a>
+          <a href="/pomodoro-timer" class="px-3 py-1.5 rounded-lg border border-workspace-border bg-workspace-surface hover:border-workspace-accent hover:text-workspace-accent transition-all">Pomodoro Timer &rarr;</a>
+          <a href="/percentage-calculator" class="px-3 py-1.5 rounded-lg border border-workspace-border bg-workspace-surface hover:border-workspace-accent hover:text-workspace-accent transition-all">Percentage Calculator &rarr;</a>
+        </div>
+      </div>
+    </article>
   </main>
 
   <tabkit-footer></tabkit-footer>

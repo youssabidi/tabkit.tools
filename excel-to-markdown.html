@@ -35,6 +35,47 @@
     <div class="rounded-2xl border border-workspace-border bg-workspace-surface shadow-2xl p-6 mb-16 max-w-2xl mx-auto min-h-[460px] flex flex-col">
       <div id="tool-container" class="flex-1 w-full relative"></div>
     </div>
+  
+    <!-- SEO Educational Content -->
+    <article class="prose prose-invert max-w-none border-t border-workspace-border pt-12 space-y-8 text-sm text-workspace-muted leading-relaxed">
+      <div>
+        <h2 class="text-xl font-bold text-white mb-3">Convert Excel & Google Sheets to GitHub Markdown Tables</h2>
+        <p>
+          Writing Markdown tables by hand using pipe delimiters (<code class="text-workspace-accent font-mono font-bold">|</code>) and hyphens (<code class="text-workspace-accent font-mono font-bold">---</code>) is slow, tedious, and prone to formatting misalignment. When documenting project data, API parameters, or benchmarking results, manual formatting drains developer productivity.
+        </p>
+        <p class="mt-3">
+          This converter allows you to copy cells directly from Microsoft Excel, Google Sheets, or Apple Numbers and paste them into the editor, or upload an <code class="text-workspace-accent font-mono font-bold">.xlsx</code> spreadsheet. It immediately converts your tabular data into clean, aligned GitHub Flavored Markdown (GFM) tables ready for READMEs, documentation wikis, and PR descriptions.
+        </p>
+      </div>
+
+      <div class="border-t border-workspace-border pt-8 space-y-4">
+        <h2 class="text-xl font-bold text-white mb-4">Frequently Asked Questions</h2>
+        <div class="space-y-3">
+          <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/60">
+            <h3 class="text-sm font-bold text-workspace-text mb-1">Can I copy and paste directly from Google Sheets?</h3>
+            <p class="text-xs text-workspace-muted leading-relaxed">Yes. Simply highlight your cells in Google Sheets, copy them to your clipboard, and paste them into the input area. The tool parses tab-separated clipboard data and formats it into Markdown instantly.</p>
+          </div>
+          <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/60">
+            <h3 class="text-sm font-bold text-workspace-text mb-1">How are multi-line cells and special characters handled in Markdown?</h3>
+            <p class="text-xs text-workspace-muted leading-relaxed">Line breaks inside spreadsheet cells are converted into HTML break tags (<code class="text-workspace-accent font-mono">&lt;br&gt;</code>), and pipe symbols are escaped with backslashes to maintain table structural integrity.</p>
+          </div>
+          <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/60">
+            <h3 class="text-sm font-bold text-workspace-text mb-1">Does this tool require an active internet connection?</h3>
+            <p class="text-xs text-workspace-muted leading-relaxed">No. As a local Progressive Web App (PWA), TabKit executes all conversion logic entirely in your browser cache. No data ever leaves your computer.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="border-t border-workspace-border pt-8">
+        <h3 class="text-xs font-bold uppercase tracking-wider text-workspace-muted mb-3 font-mono">Related Documentation Utilities</h3>
+        <div class="flex flex-wrap gap-2 text-xs font-mono">
+          <a href="/markdown-preview" class="px-3 py-1.5 rounded-lg border border-workspace-border bg-workspace-surface hover:border-workspace-accent hover:text-workspace-accent transition-all">Markdown Live Preview &rarr;</a>
+          <a href="/excel-to-json" class="px-3 py-1.5 rounded-lg border border-workspace-border bg-workspace-surface hover:border-workspace-accent hover:text-workspace-accent transition-all">Excel to JSON &rarr;</a>
+          <a href="/csv-json-converter" class="px-3 py-1.5 rounded-lg border border-workspace-border bg-workspace-surface hover:border-workspace-accent hover:text-workspace-accent transition-all">CSV to JSON &rarr;</a>
+          <a href="/css-html-minifier" class="px-3 py-1.5 rounded-lg border border-workspace-border bg-workspace-surface hover:border-workspace-accent hover:text-workspace-accent transition-all">HTML Minifier &rarr;</a>
+        </div>
+      </div>
+    </article>
   </main>
 
   <tabkit-footer></tabkit-footer>

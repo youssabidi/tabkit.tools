@@ -60,6 +60,47 @@
     <div class="rounded-2xl border border-workspace-border bg-workspace-surface shadow-2xl p-6 mb-16 max-w-2xl mx-auto min-h-[500px] flex flex-col">
       <div id="tool-container" class="flex-1 w-full relative"></div>
     </div>
+  
+    <!-- SEO Educational Content -->
+    <article class="prose prose-invert max-w-none border-t border-workspace-border pt-12 space-y-8 text-sm text-workspace-muted leading-relaxed">
+      <div>
+        <h2 class="text-xl font-bold text-white mb-3">Understanding Linux File Permissions (chmod)</h2>
+        <p>
+          Linux and Unix-like operating systems regulate file access using a permissions model divided across three user categories: <strong>User (Owner)</strong>, <strong>Group</strong>, and <strong>Others (Public)</strong>. Each category supports three distinct operations: <strong>Read (r = 4)</strong>, <strong>Write (w = 2)</strong>, and <strong>Execute (x = 1)</strong>.
+        </p>
+        <p class="mt-3">
+          By combining these numeric values, you form a three-digit <strong>octal notation</strong> representing total permissions. For instance, <code class="text-workspace-accent font-mono font-bold">chmod 755</code> grants full read, write, and execute permissions (4+2+1=7) to the owner, while group members and public users receive read and execute access (4+0+1=5). This visual calculator allows you to toggle checkboxes and instantly view the corresponding octal digits and symbolic string (e.g. <code class="text-workspace-accent font-mono font-bold">-rwxr-xr-x</code>) in real time.
+        </p>
+      </div>
+
+      <div class="border-t border-workspace-border pt-8 space-y-4">
+        <h2 class="text-xl font-bold text-white mb-4">Frequently Asked Questions</h2>
+        <div class="space-y-3">
+          <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/60">
+            <h3 class="text-sm font-bold text-workspace-text mb-1">What is the difference between 755 and 644 permissions?</h3>
+            <p class="text-xs text-workspace-muted leading-relaxed">Permission 644 grants read and write access to the file owner, and read-only access to everyone else, making it the industry standard for public web server files like HTML and images. Permission 755 adds execute rights for everyone, which is required for directories and executable binaries or scripts.</p>
+          </div>
+          <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/60">
+            <h3 class="text-sm font-bold text-workspace-text mb-1">Why is chmod 777 dangerous in production?</h3>
+            <p class="text-xs text-workspace-muted leading-relaxed">Assigning 777 grants full read, write, and execute permissions to every user on the system, including anonymous or compromised service accounts. Any compromised process can overwrite, alter, or inject malicious shell code directly into the file.</p>
+          </div>
+          <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/60">
+            <h3 class="text-sm font-bold text-workspace-text mb-1">How can I apply permissions recursively in the terminal?</h3>
+            <p class="text-xs text-workspace-muted leading-relaxed">To apply a permission set across an entire directory and all nested child files, use the recursive flag: <code class="text-workspace-accent font-mono">chmod -R 755 /path/to/directory</code>. Be cautious when applying recursive flags to avoid accidentally exposing sensitive configuration files.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="border-t border-workspace-border pt-8">
+        <h3 class="text-xs font-bold uppercase tracking-wider text-workspace-muted mb-3 font-mono">Related Developer Utilities</h3>
+        <div class="flex flex-wrap gap-2 text-xs font-mono">
+          <a href="/unix-timestamp-converter" class="px-3 py-1.5 rounded-lg border border-workspace-border bg-workspace-surface hover:border-workspace-accent hover:text-workspace-accent transition-all">Unix Timestamp &rarr;</a>
+          <a href="/base64-encoder-decoder" class="px-3 py-1.5 rounded-lg border border-workspace-border bg-workspace-surface hover:border-workspace-accent hover:text-workspace-accent transition-all">Base64 Converter &rarr;</a>
+          <a href="/sha256-hash-generator" class="px-3 py-1.5 rounded-lg border border-workspace-border bg-workspace-surface hover:border-workspace-accent hover:text-workspace-accent transition-all">SHA-256 Generator &rarr;</a>
+          <a href="/curl-converter" class="px-3 py-1.5 rounded-lg border border-workspace-border bg-workspace-surface hover:border-workspace-accent hover:text-workspace-accent transition-all">cURL Converter &rarr;</a>
+        </div>
+      </div>
+    </article>
   </main>
   <tabkit-footer></tabkit-footer>
   <div id="toastContainer" class="fixed bottom-6 right-4 z-50 flex flex-col gap-2 pointer-events-none"></div>

@@ -99,7 +99,7 @@ window.TOOLS_REGISTRY['markdown-preview'] = Object.assign(window.TOOLS_REGISTRY[
     if (input) {
       input.addEventListener('input', () => updateMarkdownView(toolId));
       if (!input.value) {
-        input.value = `# Welcome to TabKit Markdown\n\nA **fast**, 100% offline editor.\n\n- Write GitHub flavored lists\n- Add \`code snippets\`\n- Export clean HTML\n\n> Zero cloud uploads.`;
+        input.value = `## Welcome to TabKit Markdown\n\nA **fast**, 100% offline editor.\n\n- Write GitHub flavored lists\n- Add \`code snippets\`\n- Export clean HTML\n\n> Zero cloud uploads.`;
         updateMarkdownView(toolId);
       }
     }

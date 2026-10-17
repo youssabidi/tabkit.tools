@@ -35,6 +35,47 @@
     <div class="rounded-2xl border border-workspace-border bg-workspace-surface shadow-2xl p-6 mb-16 max-w-2xl mx-auto min-h-[460px] flex flex-col">
       <div id="tool-container" class="flex-1 w-full relative"></div>
     </div>
+  
+    <!-- SEO Educational Content -->
+    <article class="prose prose-invert max-w-none border-t border-workspace-border pt-12 space-y-8 text-sm text-workspace-muted leading-relaxed">
+      <div>
+        <h2 class="text-xl font-bold text-white mb-3">Sign, Stamp, and Annotate PDF Documents in Your Browser</h2>
+        <p>
+          Signing business contracts, non-disclosure agreements, and official forms traditionally required printing physical paper, signing with ink, and scanning the document back to digital format. This wasteful cycle is eliminated with client-side digital PDF stamping.
+        </p>
+        <p class="mt-3">
+          TabKit allows you to draw your signature directly on screen, upload a transparent PNG signature image, or stamp predefined approval marks (such as Approved, Confidential, or Paid) directly onto PDF pages. Everything executes inside your browser canvas session with zero uploads to remote servers, safeguarding sensitive agreements from exposure.
+        </p>
+      </div>
+
+      <div class="border-t border-workspace-border pt-8 space-y-4">
+        <h2 class="text-xl font-bold text-white mb-4">Frequently Asked Questions</h2>
+        <div class="space-y-3">
+          <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/60">
+            <h3 class="text-sm font-bold text-workspace-text mb-1">Are electronic signatures placed here legally binding?</h3>
+            <p class="text-xs text-workspace-muted leading-relaxed">In many jurisdictions (including under the US ESIGN Act and EU eIDAS regulations), electronic signatures on commercial contracts are legally recognized when both parties agree. For highly regulated documents requiring cryptographic certificates, consult legal counsel.</p>
+          </div>
+          <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/60">
+            <h3 class="text-sm font-bold text-workspace-text mb-1">Can I upload a pre-drawn signature image?</h3>
+            <p class="text-xs text-workspace-muted leading-relaxed">Yes. You can draw your signature using a mouse, stylus, or touchpad, or upload an image file with transparency for exact positioning and scaling.</p>
+          </div>
+          <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/60">
+            <h3 class="text-sm font-bold text-workspace-text mb-1">Is a copy of my signature or signed document saved on any server?</h3>
+            <p class="text-xs text-workspace-muted leading-relaxed">No. TabKit operates with zero server storage. Your signature image and PDF documents exist only in your current browser memory and are deleted once the tab is closed.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="border-t border-workspace-border pt-8">
+        <h3 class="text-xs font-bold uppercase tracking-wider text-workspace-muted mb-3 font-mono">Related PDF Utilities</h3>
+        <div class="flex flex-wrap gap-2 text-xs font-mono">
+          <a href="/pdf-merger" class="px-3 py-1.5 rounded-lg border border-workspace-border bg-workspace-surface hover:border-workspace-accent hover:text-workspace-accent transition-all">PDF Merger &rarr;</a>
+          <a href="/pdf-watermarker" class="px-3 py-1.5 rounded-lg border border-workspace-border bg-workspace-surface hover:border-workspace-accent hover:text-workspace-accent transition-all">PDF Watermarker &rarr;</a>
+          <a href="/pdf-password-protect" class="px-3 py-1.5 rounded-lg border border-workspace-border bg-workspace-surface hover:border-workspace-accent hover:text-workspace-accent transition-all">Password Protect PDF &rarr;</a>
+          <a href="/pdf-to-images" class="px-3 py-1.5 rounded-lg border border-workspace-border bg-workspace-surface hover:border-workspace-accent hover:text-workspace-accent transition-all">PDF to Images &rarr;</a>
+        </div>
+      </div>
+    </article>
   </main>
 
   <tabkit-footer></tabkit-footer>

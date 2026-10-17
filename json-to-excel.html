@@ -35,6 +35,47 @@
     <div class="rounded-2xl border border-workspace-border bg-workspace-surface shadow-2xl p-6 mb-16 max-w-2xl mx-auto min-h-[460px] flex flex-col">
       <div id="tool-container" class="flex-1 w-full relative"></div>
     </div>
+  
+    <!-- SEO Educational Content -->
+    <article class="prose prose-invert max-w-none border-t border-workspace-border pt-12 space-y-8 text-sm text-workspace-muted leading-relaxed">
+      <div>
+        <h2 class="text-xl font-bold text-white mb-3">Convert JSON Arrays and API Payloads to Excel (.xlsx)</h2>
+        <p>
+          Backend web applications, microservices, and modern SaaS platforms expose business data through JSON REST APIs. However, business stakeholders, finance teams, and operations managers require spreadsheets in Microsoft Excel (<code class="text-workspace-accent font-mono font-bold">.xlsx</code>) format for analysis and reporting.
+        </p>
+        <p class="mt-3">
+          TabKit's JSON to Excel converter bridges this gap instantly. It analyzes your JSON structure, flattens nested key hierarchies into standardized table columns, formats cell values, and compiles a downloadable Excel workbook in seconds. Because execution occurs entirely client-side, sensitive database dumps, API tokens, and confidential financial metrics remain strictly private.
+        </p>
+      </div>
+
+      <div class="border-t border-workspace-border pt-8 space-y-4">
+        <h2 class="text-xl font-bold text-white mb-4">Frequently Asked Questions</h2>
+        <div class="space-y-3">
+          <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/60">
+            <h3 class="text-sm font-bold text-workspace-text mb-1">How does the converter handle nested JSON objects and arrays?</h3>
+            <p class="text-xs text-workspace-muted leading-relaxed">Nested object keys are flattened using dot notation (e.g. <code class="text-workspace-accent font-mono">user.address.city</code>) into dedicated spreadsheet columns, ensuring no data attributes are omitted during export.</p>
+          </div>
+          <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/60">
+            <h3 class="text-sm font-bold text-workspace-text mb-1">Can I paste raw JSON text or upload a .json file directly?</h3>
+            <p class="text-xs text-workspace-muted leading-relaxed">Both methods are supported. You can paste raw JSON payloads directly into the editor or drag and drop a <code class="text-workspace-accent font-mono">.json</code> file from your computer.</p>
+          </div>
+          <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/60">
+            <h3 class="text-sm font-bold text-workspace-text mb-1">Is my proprietary API data stored or transmitted?</h3>
+            <p class="text-xs text-workspace-muted leading-relaxed">Never. All parsing and OpenXML file creation happen locally in your web browser. Zero bytes are uploaded to any server or cloud infrastructure.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="border-t border-workspace-border pt-8">
+        <h3 class="text-xs font-bold uppercase tracking-wider text-workspace-muted mb-3 font-mono">Related Data Utilities</h3>
+        <div class="flex flex-wrap gap-2 text-xs font-mono">
+          <a href="/csv-to-excel" class="px-3 py-1.5 rounded-lg border border-workspace-border bg-workspace-surface hover:border-workspace-accent hover:text-workspace-accent transition-all">CSV to Excel &rarr;</a>
+          <a href="/excel-to-json" class="px-3 py-1.5 rounded-lg border border-workspace-border bg-workspace-surface hover:border-workspace-accent hover:text-workspace-accent transition-all">Excel to JSON &rarr;</a>
+          <a href="/json-formatter" class="px-3 py-1.5 rounded-lg border border-workspace-border bg-workspace-surface hover:border-workspace-accent hover:text-workspace-accent transition-all">JSON Formatter &rarr;</a>
+          <a href="/json-to-typescript" class="px-3 py-1.5 rounded-lg border border-workspace-border bg-workspace-surface hover:border-workspace-accent hover:text-workspace-accent transition-all">JSON to TypeScript &rarr;</a>
+        </div>
+      </div>
+    </article>
   </main>
 
   <tabkit-footer></tabkit-footer>
