@@ -97,22 +97,41 @@
     </div>
 
     <!-- SEO Content -->
-    <article class="prose prose-invert max-w-none border-t border-workspace-border pt-12 space-y-6 text-sm text-workspace-muted leading-relaxed">
+    <article class="prose prose-invert max-w-none border-t border-workspace-border pt-12 space-y-8 text-sm text-workspace-muted leading-relaxed">
       <div>
-        <h2 class="text-xl font-bold text-white mb-2">What does this tool remove?</h2>
+        <h2 class="text-xl font-bold text-white mb-3">Sanitize URLs and Remove Tracking Parameters Privately</h2>
         <p>
-          Marketers attach strings of text to the end of URLs (called query parameters) to track where you came from. If you copy a link from a Facebook ad or an email newsletter and paste it to a friend, you are dragging that tracking code along with it.
+          When copying links from social media platforms, newsletters, and search engines, URLs are routinely cluttered with tracking parameters (such as UTM campaign tags, Facebook Click IDs, and Google Click IDs). These query strings monitor user browsing habits and inflate link lengths.
         </p>
-        <p class="mt-2">
-          This URL Cleaner uses native URL parsing to safely strip out:
+        <p class="mt-3">
+          TabKit URL Cleaner strips tracking parameters and marketing telemetry in local browser memory. Paste any text or list of links, and the tool automatically extracts valid URLs, strips over 30 common tracking keys, removes duplicate links, and produces clean, canonical URLs with zero server logging.
         </p>
-        <ul class="list-disc pl-5 mt-2 space-y-1">
-          <li><strong>UTM parameters:</strong> <code class="text-workspace-accent">utm_source</code>, <code class="text-workspace-accent">utm_medium</code>, <code class="text-workspace-accent">utm_campaign</code></li>
-          <li><strong>Facebook IDs:</strong> <code class="text-workspace-accent">fbclid</code></li>
-          <li><strong>Google IDs:</strong> <code class="text-workspace-accent">gclid</code>, <code class="text-workspace-accent">gclsrc</code></li>
-          <li><strong>Mailchimp IDs:</strong> <code class="text-workspace-accent">mc_eid</code></li>
-          <li><strong>Instagram IDs:</strong> <code class="text-workspace-accent">igshid</code></li>
-        </ul>
+      </div>
+      <div class="border-t border-workspace-border pt-8 space-y-4">
+        <h2 class="text-xl font-bold text-white mb-4">Frequently Asked Questions</h2>
+        <div class="space-y-3">
+          <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/60">
+            <h3 class="text-sm font-bold text-workspace-text mb-1">Which tracking parameters are removed?</h3>
+            <p class="text-xs text-workspace-muted leading-relaxed">It strips UTM tags (utm_source, utm_medium, utm_campaign), Facebook fbclid, Google gclid/gclsrc, Mailchimp mc_eid, Instagram igshid, and numerous ad identifiers.</p>
+          </div>
+          <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/60">
+            <h3 class="text-sm font-bold text-workspace-text mb-1">Will stripping parameters break the target website?</h3>
+            <p class="text-xs text-workspace-muted leading-relaxed">No. Essential query parameters required for page functionality are preserved, while only non-essential advertising and analytics trackers are safely deleted.</p>
+          </div>
+          <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/60">
+            <h3 class="text-sm font-bold text-workspace-text mb-1">Are my links logged or monitored?</h3>
+            <p class="text-xs text-workspace-muted leading-relaxed">No. Everything executes in client-side JavaScript memory using the browser native URL API. Zero outbound network requests are made.</p>
+          </div>
+        </div>
+      </div>
+      <div class="border-t border-workspace-border pt-8">
+        <h3 class="text-xs font-bold uppercase tracking-wider text-workspace-muted mb-3 font-mono">Related Privacy Utilities</h3>
+        <div class="flex flex-wrap gap-2 text-xs font-mono">
+          <a href="/qr-code-generator" class="px-3 py-1.5 rounded-lg border border-workspace-border bg-workspace-surface hover:border-workspace-accent hover:text-workspace-accent transition-all">QR Code Generator &rarr;</a>
+          <a href="/social-seo-previewer" class="px-3 py-1.5 rounded-lg border border-workspace-border bg-workspace-surface hover:border-workspace-accent hover:text-workspace-accent transition-all">Social Previewer &rarr;</a>
+          <a href="/exif-metadata-stripper" class="px-3 py-1.5 rounded-lg border border-workspace-border bg-workspace-surface hover:border-workspace-accent hover:text-workspace-accent transition-all">Strip EXIF Data &rarr;</a>
+          <a href="/base64-encoder-decoder" class="px-3 py-1.5 rounded-lg border border-workspace-border bg-workspace-surface hover:border-workspace-accent hover:text-workspace-accent transition-all">Base64 Converter &rarr;</a>
+        </div>
       </div>
     </article>
   </main>

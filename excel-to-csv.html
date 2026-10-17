@@ -36,14 +36,42 @@
       <div id="tool-container" class="flex-1 w-full relative"></div>
     </div>
 
-    <article class="prose prose-invert max-w-2xl mx-auto border-t border-workspace-border pt-12 space-y-6 text-sm text-workspace-muted leading-relaxed">
-      <h2 class="text-xl font-bold text-white">Why Convert Excel to CSV Locally?</h2>
-      <p>
-        CSV (Comma-Separated Values) is the universal language for databases, SQL imports, analytics scripts, and data engineering pipelines. However, uploading proprietary spreadsheets or customer data to third-party online converters exposes confidential business numbers to remote servers.
-      </p>
-      <p>
-        <strong>TabKit Tools Excel to CSV Converter</strong> runs entirely in your local browser sandbox using SheetJS. No workbook bytes ever travel across the network.
-      </p>
+    <article class="prose prose-invert max-w-none border-t border-workspace-border pt-12 space-y-8 text-sm text-workspace-muted leading-relaxed">
+      <div>
+        <h2 class="text-xl font-bold text-white mb-3">Convert Excel (.xlsx) Spreadsheets to Clean CSV</h2>
+        <p>
+          Relational databases, data science libraries (such as Python Pandas), and command-line data pipelines require plain-text Comma-Separated Values (CSV). Converting binary Microsoft Excel workbooks (<code class="text-workspace-accent font-mono font-bold">.xlsx</code> or <code class="text-workspace-accent font-mono font-bold">.xls</code>) into standardized CSV is an everyday requirement.
+        </p>
+        <p class="mt-3">
+          TabKit converts Excel spreadsheets to CSV locally using client-side OpenXML parsing. It supports sheet selection, formats dates and numerical fields cleanly, handles commas inside quoted text, and exports UTF-8 encoded CSV files with zero cloud latency and total privacy.
+        </p>
+      </div>
+      <div class="border-t border-workspace-border pt-8 space-y-4">
+        <h2 class="text-xl font-bold text-white mb-4">Frequently Asked Questions</h2>
+        <div class="space-y-3">
+          <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/60">
+            <h3 class="text-sm font-bold text-workspace-text mb-1">How does the converter handle multi-sheet workbooks?</h3>
+            <p class="text-xs text-workspace-muted leading-relaxed">The tool lets you select any individual worksheet from your workbook to convert and export as an independent CSV table.</p>
+          </div>
+          <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/60">
+            <h3 class="text-sm font-bold text-workspace-text mb-1">Does the exported CSV support international characters and Arabic?</h3>
+            <p class="text-xs text-workspace-muted leading-relaxed">Yes. All CSV exports use standard UTF-8 encoding with optional BOM (Byte Order Mark) to ensure proper rendering across Microsoft Excel, Google Sheets, and Unix systems.</p>
+          </div>
+          <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/60">
+            <h3 class="text-sm font-bold text-workspace-text mb-1">Is my spreadsheet data sent to external servers?</h3>
+            <p class="text-xs text-workspace-muted leading-relaxed">No. All file reading, decompression, and CSV string generation execute directly on your device CPU.</p>
+          </div>
+        </div>
+      </div>
+      <div class="border-t border-workspace-border pt-8">
+        <h3 class="text-xs font-bold uppercase tracking-wider text-workspace-muted mb-3 font-mono">Related Spreadsheet Utilities</h3>
+        <div class="flex flex-wrap gap-2 text-xs font-mono">
+          <a href="/csv-to-excel" class="px-3 py-1.5 rounded-lg border border-workspace-border bg-workspace-surface hover:border-workspace-accent hover:text-workspace-accent transition-all">CSV to Excel &rarr;</a>
+          <a href="/excel-to-json" class="px-3 py-1.5 rounded-lg border border-workspace-border bg-workspace-surface hover:border-workspace-accent hover:text-workspace-accent transition-all">Excel to JSON &rarr;</a>
+          <a href="/excel-empty-cleaner" class="px-3 py-1.5 rounded-lg border border-workspace-border bg-workspace-surface hover:border-workspace-accent hover:text-workspace-accent transition-all">Clean Empty Rows &rarr;</a>
+          <a href="/excel-transpose" class="px-3 py-1.5 rounded-lg border border-workspace-border bg-workspace-surface hover:border-workspace-accent hover:text-workspace-accent transition-all">Transpose Excel &rarr;</a>
+        </div>
+      </div>
     </article>
   </main>
 

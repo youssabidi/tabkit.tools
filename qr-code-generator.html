@@ -108,19 +108,42 @@
     <!-- SEO Content -->
     <article class="prose prose-invert max-w-none border-t border-workspace-border pt-12 space-y-8 text-sm text-workspace-muted leading-relaxed">
       <div>
-        <h2 class="text-xl font-bold text-white mb-3">How does this offline QR Code Generator work?</h2>
+        <h2 class="text-xl font-bold text-white mb-3">Privacy-First Quick Response (QR) Code Generation</h2>
         <p>
-          Most QR code generators on the web send your text or URLs to a backend server, generate an image, and send it back. This compromises your privacy and allows companies to track the links you are creating.
+          Quick Response (QR) codes connect the physical and digital worlds, facilitating Wi-Fi network joining, mobile website navigation, digital payments, vCard contact sharing, and restaurant menu access.
         </p>
-        <p class="mt-2">
-          TabKit Tools uses a client-side JavaScript library. The moment you type in the box, your browser's CPU calculates the matrix and draws the barcode locally on an HTML5 canvas. It happens in milliseconds, and no server ever sees your data.
+        <p class="mt-3">
+          Unlike commercial QR generators that inject tracking redirect URLs or require paid subscriptions, TabKit creates direct, unmediated QR codes entirely in your browser. When scanned, cameras navigate directly to your destination with zero tracking hops or analytics logging.
+        </p>
+        <p class="mt-3">
+          Our generator features automatic phone dialer detection (<code class="text-workspace-accent">tel:</code> URI format), high-error-correction redundancy (Level H), and instant PNG image downloads with verified accessibility attributes.
         </p>
       </div>
-      <div>
-        <h3 class="text-base font-bold text-white mb-2">Smart Phone Number Detection</h3>
-        <p>
-          If you type a phone number, the tool automatically detects it and gives you the option to encode it using the <code class="text-workspace-accent">tel:</code> URI scheme. This ensures that when someone scans the QR code with their mobile phone camera, it immediately opens their phone app's dialer with the number pre-filled.
-        </p>
+      <div class="border-t border-workspace-border pt-8 space-y-4">
+        <h2 class="text-xl font-bold text-white mb-4">Frequently Asked Questions</h2>
+        <div class="space-y-3">
+          <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/60">
+            <h3 class="text-sm font-bold text-workspace-text mb-1">Will these QR codes expire or stop working?</h3>
+            <p class="text-xs text-workspace-muted leading-relaxed">Never. These are direct, static QR codes containing your raw data. They do not depend on any third-party redirection service and will work indefinitely.</p>
+          </div>
+          <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/60">
+            <h3 class="text-sm font-bold text-workspace-text mb-1">What error correction level is used?</h3>
+            <p class="text-xs text-workspace-muted leading-relaxed">We utilize Level H error correction, allowing the code to be successfully scanned even if up to 30% of the surface is smudged or covered.</p>
+          </div>
+          <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/60">
+            <h3 class="text-sm font-bold text-workspace-text mb-1">Is my input text or URL tracked?</h3>
+            <p class="text-xs text-workspace-muted leading-relaxed">No. Everything generates in client-side JavaScript canvas memory. Zero data leaves your computer.</p>
+          </div>
+        </div>
+      </div>
+      <div class="border-t border-workspace-border pt-8">
+        <h3 class="text-xs font-bold uppercase tracking-wider text-workspace-muted mb-3 font-mono">Related Sharing Utilities</h3>
+        <div class="flex flex-wrap gap-2 text-xs font-mono">
+          <a href="/url-link-cleaner" class="px-3 py-1.5 rounded-lg border border-workspace-border bg-workspace-surface hover:border-workspace-accent hover:text-workspace-accent transition-all">URL Cleaner &rarr;</a>
+          <a href="/social-seo-previewer" class="px-3 py-1.5 rounded-lg border border-workspace-border bg-workspace-surface hover:border-workspace-accent hover:text-workspace-accent transition-all">Social Previewer &rarr;</a>
+          <a href="/image-compressor" class="px-3 py-1.5 rounded-lg border border-workspace-border bg-workspace-surface hover:border-workspace-accent hover:text-workspace-accent transition-all">Image Compressor &rarr;</a>
+          <a href="/base64-encoder-decoder" class="px-3 py-1.5 rounded-lg border border-workspace-border bg-workspace-surface hover:border-workspace-accent hover:text-workspace-accent transition-all">Base64 Converter &rarr;</a>
+        </div>
       </div>
     </article>
   </main>

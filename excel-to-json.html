@@ -36,14 +36,42 @@
       <div id="tool-container" class="flex-1 w-full relative"></div>
     </div>
 
-    <article class="prose prose-invert max-w-2xl mx-auto border-t border-workspace-border pt-12 space-y-6 text-sm text-workspace-muted leading-relaxed">
-      <h2 class="text-xl font-bold text-white">Turn Spreadsheets into API-Ready Data</h2>
-      <p>
-        Developers, data analysts, and QA engineers frequently receive client data locked in spreadsheets. Converting tables into JSON by hand is slow and error-prone.
-      </p>
-      <p>
-        <strong>TabKit Tools Excel to JSON</strong> automatically infers column headers as object keys, handles dates and numbers cleanly, and gives you instant copy-to-clipboard or `.json` file download.
-      </p>
+    <article class="prose prose-invert max-w-none border-t border-workspace-border pt-12 space-y-8 text-sm text-workspace-muted leading-relaxed">
+      <div>
+        <h2 class="text-xl font-bold text-white mb-3">Convert Excel Spreadsheets to Structured JSON Objects</h2>
+        <p>
+          Software engineers frequently need to import business data from client Excel workbooks into web applications, NoSQL databases (like MongoDB), and REST APIs. Manually parsing rows and typing JSON keys is labor-intensive and causes data mapping errors.
+        </p>
+        <p class="mt-3">
+          TabKit transforms Excel rows into clean arrays of JSON objects locally. Column headers in the first row automatically become JSON object keys, and numbers, booleans, and text strings are parsed into correct primitive data types. Your confidential spreadsheets never leave your device.
+        </p>
+      </div>
+      <div class="border-t border-workspace-border pt-8 space-y-4">
+        <h2 class="text-xl font-bold text-white mb-4">Frequently Asked Questions</h2>
+        <div class="space-y-3">
+          <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/60">
+            <h3 class="text-sm font-bold text-workspace-text mb-1">How are column headers mapped to JSON keys?</h3>
+            <p class="text-xs text-workspace-muted leading-relaxed">The first row of your spreadsheet is treated as the header row. Each column title becomes the property key for every row object in the resulting JSON array.</p>
+          </div>
+          <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/60">
+            <h3 class="text-sm font-bold text-workspace-text mb-1">Can I copy the JSON or download it as a .json file?</h3>
+            <p class="text-xs text-workspace-muted leading-relaxed">Both options are provided. You can copy the formatted JSON string directly to your clipboard or download it as a standalone file.</p>
+          </div>
+          <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/60">
+            <h3 class="text-sm font-bold text-workspace-text mb-1">Is there a row or file size limit?</h3>
+            <p class="text-xs text-workspace-muted leading-relaxed">No. Because execution is client-side, performance is limited only by your computer memory, allowing datasets with tens of thousands of rows to convert rapidly.</p>
+          </div>
+        </div>
+      </div>
+      <div class="border-t border-workspace-border pt-8">
+        <h3 class="text-xs font-bold uppercase tracking-wider text-workspace-muted mb-3 font-mono">Related Data Utilities</h3>
+        <div class="flex flex-wrap gap-2 text-xs font-mono">
+          <a href="/json-to-excel" class="px-3 py-1.5 rounded-lg border border-workspace-border bg-workspace-surface hover:border-workspace-accent hover:text-workspace-accent transition-all">JSON to Excel &rarr;</a>
+          <a href="/json-formatter" class="px-3 py-1.5 rounded-lg border border-workspace-border bg-workspace-surface hover:border-workspace-accent hover:text-workspace-accent transition-all">JSON Formatter &rarr;</a>
+          <a href="/json-to-typescript" class="px-3 py-1.5 rounded-lg border border-workspace-border bg-workspace-surface hover:border-workspace-accent hover:text-workspace-accent transition-all">JSON to TypeScript &rarr;</a>
+          <a href="/csv-json-converter" class="px-3 py-1.5 rounded-lg border border-workspace-border bg-workspace-surface hover:border-workspace-accent hover:text-workspace-accent transition-all">CSV to JSON &rarr;</a>
+        </div>
+      </div>
     </article>
   </main>
 

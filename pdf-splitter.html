@@ -111,39 +111,43 @@
     </div>
 
     <!-- SEO & Explainer Content -->
-    <article class="prose prose-invert max-w-2xl mx-auto border-t border-workspace-border pt-12 space-y-8 text-sm text-workspace-muted leading-relaxed">
+    <article class="prose prose-invert max-w-none border-t border-workspace-border pt-12 space-y-8 text-sm text-workspace-muted leading-relaxed">
       <div>
-        <h2 class="text-xl font-bold text-white mb-3">Why Extract PDF Pages Locally?</h2>
+        <h2 class="text-xl font-bold text-white mb-3">Split PDF Pages and Extract Custom Page Ranges</h2>
         <p>
-          Standard online PDF splitters process your files on remote web servers, creating data privacy hazards when handling sensitive contracts, bank statements, or personal records. 
+          Large PDF files containing multiple chapters, invoices, or legal filings often need to be separated into distinct documents or specific single-page extracts for email attachments and secure distribution.
         </p>
         <p class="mt-3">
-          <strong>TabKit PDF Splitter</strong> extracts and repackages only the pages you specify entirely in your browser using local binary operations. No file ever touches an external server.
+          TabKit PDF Splitter extracts pages and custom ranges (e.g. 1-3, 5, 8-12) locally. The tool reconstructs valid standalone PDF documents with high fidelity in your browser session with zero server uploads and total privacy.
+        </p>
+        <p class="mt-3">
+          Extracting pages directly in browser memory eliminates the risk of confidential business agreements, financial statements, or patient medical histories being logged on external cloud servers.
         </p>
       </div>
-
       <div class="border-t border-workspace-border pt-8 space-y-4">
         <h2 class="text-xl font-bold text-white mb-4">Frequently Asked Questions</h2>
         <div class="space-y-3">
           <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/60">
-            <h3 class="text-sm font-bold text-workspace-text mb-1">How do I specify which pages to extract?</h3>
-            <p class="text-xs text-workspace-muted leading-relaxed">Enter single page numbers or ranges separated by commas, such as <code>1-3, 5, 8-12</code>, to download a new document containing only those pages.</p>
+            <h3 class="text-sm font-bold text-workspace-text mb-1">Can I extract non-consecutive pages?</h3>
+            <p class="text-xs text-workspace-muted leading-relaxed">Yes. You can specify custom page ranges such as "1, 3-5, 9" to extract exactly the pages you need into a new document.</p>
           </div>
           <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/60">
-            <h3 class="text-sm font-bold text-workspace-text mb-1">Is my original PDF modified or overwritten?</h3>
-            <p class="text-xs text-workspace-muted leading-relaxed">No. Your original file remains untouched on your disk. A brand new PDF containing only your selected pages is generated and downloaded to your device.</p>
+            <h3 class="text-sm font-bold text-workspace-text mb-1">Does splitting a PDF reduce document quality?</h3>
+            <p class="text-xs text-workspace-muted leading-relaxed">No. PDF pages are extracted losslessly, preserving original vector fonts, high-resolution imagery, and document layout.</p>
+          </div>
+          <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/60">
+            <h3 class="text-sm font-bold text-workspace-text mb-1">Are my sensitive PDF documents uploaded to external servers?</h3>
+            <p class="text-xs text-workspace-muted leading-relaxed">No. All parsing and binary extraction execute 100% locally in your web browser memory.</p>
           </div>
         </div>
       </div>
-
-      <!-- Related Tools for SEO Internal Linking -->
       <div class="border-t border-workspace-border pt-8">
-        <h3 class="text-xs font-bold uppercase tracking-wider text-workspace-muted mb-3 font-mono">Related Document Tools</h3>
+        <h3 class="text-xs font-bold uppercase tracking-wider text-workspace-muted mb-3 font-mono">Related PDF Utilities</h3>
         <div class="flex flex-wrap gap-2 text-xs font-mono">
-          <a href="/pdf-merger" class="px-3 py-1.5 rounded-lg border border-workspace-border bg-workspace-surface hover:border-workspace-accent hover:text-workspace-accent transition-colors">PDF Merger &rarr;</a>
-          <a href="/pdf-rotator" class="px-3 py-1.5 rounded-lg border border-workspace-border bg-workspace-surface hover:border-workspace-accent hover:text-workspace-accent transition-colors">PDF Rotator &rarr;</a>
-          <a href="/images-to-pdf" class="px-3 py-1.5 rounded-lg border border-workspace-border bg-workspace-surface hover:border-workspace-accent hover:text-workspace-accent transition-colors">Images to PDF &rarr;</a>
-          <a href="/pdf-metadata-editor" class="px-3 py-1.5 rounded-lg border border-workspace-border bg-workspace-surface hover:border-workspace-accent hover:text-workspace-accent transition-colors">PDF Metadata Editor &rarr;</a>
+          <a href="/pdf-merger" class="px-3 py-1.5 rounded-lg border border-workspace-border bg-workspace-surface hover:border-workspace-accent hover:text-workspace-accent transition-all">PDF Merger &rarr;</a>
+          <a href="/pdf-page-numberer" class="px-3 py-1.5 rounded-lg border border-workspace-border bg-workspace-surface hover:border-workspace-accent hover:text-workspace-accent transition-all">PDF Page Numberer &rarr;</a>
+          <a href="/pdf-rotator" class="px-3 py-1.5 rounded-lg border border-workspace-border bg-workspace-surface hover:border-workspace-accent hover:text-workspace-accent transition-all">PDF Rotator &rarr;</a>
+          <a href="/pdf-text-extractor" class="px-3 py-1.5 rounded-lg border border-workspace-border bg-workspace-surface hover:border-workspace-accent hover:text-workspace-accent transition-all">PDF Text Extractor &rarr;</a>
         </div>
       </div>
     </article>

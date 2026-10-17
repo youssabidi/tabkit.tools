@@ -96,24 +96,40 @@
     </div>
 
     <!-- SEO Educational Content -->
-    <article class="prose prose-invert max-w-none border-t border-workspace-border pt-12 space-y-6 text-sm text-workspace-muted leading-relaxed">
+    <article class="prose prose-invert max-w-none border-t border-workspace-border pt-12 space-y-8 text-sm text-workspace-muted leading-relaxed">
       <div>
-        <h2 class="text-xl font-bold text-white mb-2">Can I test sensitive log files or credentials with this Regex tool?</h2>
-        <p>Absolutely. Most online regex testers send your sample text to backend servers for analysis. TabKit executes the JavaScript RegExp engine locally in your browser sandbox with zero telemetry.</p>
+        <h2 class="text-xl font-bold text-white mb-3">Test & Debug Regular Expressions with Real-Time Matches</h2>
+        <p>
+          Regular expressions (RegEx) are powerful pattern-matching tools used across all programming languages for input validation, text scraping, and string transformations. Writing complex regex without interactive visual feedback often results in catastrophic backtracking or syntax bugs.
+        </p>
+        <p class="mt-3">
+          TabKit Regex Tester highlights matches, capture groups, and character indexes in real time as you type. It supports global (<code class="text-workspace-accent font-mono">g</code>), case-insensitive (<code class="text-workspace-accent font-mono">i</code>), multiline (<code class="text-workspace-accent font-mono">m</code>), and unicode (<code class="text-workspace-accent font-mono">u</code>) flags in a private browser sandbox with zero server tracking.
+        </p>
       </div>
-      <div>
-        <h3 class="text-base font-bold text-white mb-2">Privacy & Local-First Philosophy</h3>
-        <p>TabKit Tools executes every transformation strictly in client memory. By executing on your device, you get zero latency, complete protection against data breaches, and full offline availability.</p>
+      <div class="border-t border-workspace-border pt-8 space-y-4">
+        <h2 class="text-xl font-bold text-white mb-4">Frequently Asked Questions</h2>
+        <div class="space-y-3">
+          <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/60">
+            <h3 class="text-sm font-bold text-workspace-text mb-1">Which regex engine powers this tool?</h3>
+            <p class="text-xs text-workspace-muted leading-relaxed">The tool utilizes modern ECMAScript RegExp specifications implemented directly by your browser engine, supporting lookaheads, lookbehinds, and named capture groups.</p>
+          </div>
+          <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/60">
+            <h3 class="text-sm font-bold text-workspace-text mb-1">Does the tester protect against infinite loop regex execution?</h3>
+            <p class="text-xs text-workspace-muted leading-relaxed">Yes. Regex evaluations are guarded by execution boundaries to prevent catastrophic backtracking from freezing your browser window.</p>
+          </div>
+          <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/60">
+            <h3 class="text-sm font-bold text-workspace-text mb-1">Is my test data uploaded to external servers?</h3>
+            <p class="text-xs text-workspace-muted leading-relaxed">No. All pattern evaluation runs strictly in client-side JavaScript memory on your computer.</p>
+          </div>
+        </div>
       </div>
-
-      <!-- Related Tools -->
-      <div class="border-t border-workspace-border pt-6">
+      <div class="border-t border-workspace-border pt-8">
         <h3 class="text-xs font-bold uppercase tracking-wider text-workspace-muted mb-3 font-mono">Related Developer Utilities</h3>
         <div class="flex flex-wrap gap-2 text-xs font-mono">
-          <a href="/text-diff-checker" class="px-3 py-1.5 rounded-lg border border-workspace-border bg-workspace-surface hover:border-workspace-accent hover:text-workspace-accent transition-all">Text Diff Checker &rarr;</a>
           <a href="/case-converter" class="px-3 py-1.5 rounded-lg border border-workspace-border bg-workspace-surface hover:border-workspace-accent hover:text-workspace-accent transition-all">Case Converter &rarr;</a>
-          <a href="/sql-formatter" class="px-3 py-1.5 rounded-lg border border-workspace-border bg-workspace-surface hover:border-workspace-accent hover:text-workspace-accent transition-all">SQL Formatter &rarr;</a>
+          <a href="/text-diff-checker" class="px-3 py-1.5 rounded-lg border border-workspace-border bg-workspace-surface hover:border-workspace-accent hover:text-workspace-accent transition-all">Text Diff Checker &rarr;</a>
           <a href="/json-formatter" class="px-3 py-1.5 rounded-lg border border-workspace-border bg-workspace-surface hover:border-workspace-accent hover:text-workspace-accent transition-all">JSON Formatter &rarr;</a>
+          <a href="/curl-converter" class="px-3 py-1.5 rounded-lg border border-workspace-border bg-workspace-surface hover:border-workspace-accent hover:text-workspace-accent transition-all">cURL Converter &rarr;</a>
         </div>
       </div>
     </article>

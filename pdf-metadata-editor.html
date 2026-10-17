@@ -69,23 +69,43 @@
     </div>
 
     <!-- SEO & Explainer Content -->
-    <article class="prose prose-invert max-w-2xl mx-auto border-t border-workspace-border pt-12 space-y-6 text-sm text-workspace-muted leading-relaxed">
-      <h2 class="text-xl font-bold text-white">Why Clean PDF Metadata?</h2>
-      <p>
-        Every time a document is exported from Microsoft Word, Adobe InDesign, Google Docs, or macOS Preview, it embeds hidden tracking tags. These tags often reveal your full real name, computer user account username, proprietary company file paths, and exact software versions.
-      </p>
-      <p>
-        <strong>TabKit Tools PDF Metadata Stripper</strong> extracts the PDF Info dictionary and provides a 1-click wipe option to completely sanitize your document before emailing it or posting it online.
-      </p>
-
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-4">
-        <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface">
-          <h3 class="text-sm font-bold text-white mb-1">One-Click Wipe</h3>
-          <p class="text-xs text-workspace-muted">Clear Author, Subject, Keywords, Creator, and Producer simultaneously with a single click.</p>
+    <article class="prose prose-invert max-w-none border-t border-workspace-border pt-12 space-y-8 text-sm text-workspace-muted leading-relaxed">
+      <div>
+        <h2 class="text-xl font-bold text-white mb-3">View and Edit PDF Document Properties & Metadata</h2>
+        <p>
+          PDF documents contain embedded metadata properties including Title, Author, Subject, Keywords, Creator application, and Producer tool. Before publishing research papers or legal filings, editing or stripping these properties is critical for privacy, compliance, and professional formatting.
+        </p>
+        <p class="mt-3">
+          TabKit PDF Metadata Editor reads and updates document info dictionaries locally. Modify title tags, update author credits, or clear legacy metadata completely without uploading sensitive PDF files to external servers.
+        </p>
+        <p class="mt-3">
+          By inspecting and updating metadata before distribution, you eliminate hidden author paths, software versions, and internal network usernames embedded in files by word processors.
+        </p>
+      </div>
+      <div class="border-t border-workspace-border pt-8 space-y-4">
+        <h2 class="text-xl font-bold text-white mb-4">Frequently Asked Questions</h2>
+        <div class="space-y-3">
+          <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/60">
+            <h3 class="text-sm font-bold text-workspace-text mb-1">What metadata fields can I edit in my PDF?</h3>
+            <p class="text-xs text-workspace-muted leading-relaxed">You can edit the Title, Author, Subject, Keywords, and Creator fields, or wipe all fields to anonymize the document.</p>
+          </div>
+          <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/60">
+            <h3 class="text-sm font-bold text-workspace-text mb-1">Will editing metadata modify the page content or text formatting?</h3>
+            <p class="text-xs text-workspace-muted leading-relaxed">No. Only the document information dictionary and XMP metadata stream are modified. Page contents and formatting remain unchanged.</p>
+          </div>
+          <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/60">
+            <h3 class="text-sm font-bold text-workspace-text mb-1">Are my confidential PDF documents uploaded to external servers?</h3>
+            <p class="text-xs text-workspace-muted leading-relaxed">No. All reading and writing of PDF binary streams execute 100% locally on your computer.</p>
+          </div>
         </div>
-        <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface">
-          <h3 class="text-sm font-bold text-white mb-1">Anonymized Submissions</h3>
-          <p class="text-xs text-workspace-muted">Ideal for double-blind academic peer reviews, legal discovery redactions, and job resumes.</p>
+      </div>
+      <div class="border-t border-workspace-border pt-8">
+        <h3 class="text-xs font-bold uppercase tracking-wider text-workspace-muted mb-3 font-mono">Related PDF Utilities</h3>
+        <div class="flex flex-wrap gap-2 text-xs font-mono">
+          <a href="/pdf-merger" class="px-3 py-1.5 rounded-lg border border-workspace-border bg-workspace-surface hover:border-workspace-accent hover:text-workspace-accent transition-all">PDF Merger &rarr;</a>
+          <a href="/pdf-page-numberer" class="px-3 py-1.5 rounded-lg border border-workspace-border bg-workspace-surface hover:border-workspace-accent hover:text-workspace-accent transition-all">PDF Page Numberer &rarr;</a>
+          <a href="/pdf-password-protect" class="px-3 py-1.5 rounded-lg border border-workspace-border bg-workspace-surface hover:border-workspace-accent hover:text-workspace-accent transition-all">Password Protect PDF &rarr;</a>
+          <a href="/pdf-splitter" class="px-3 py-1.5 rounded-lg border border-workspace-border bg-workspace-surface hover:border-workspace-accent hover:text-workspace-accent transition-all">PDF Splitter &rarr;</a>
         </div>
       </div>
     </article>

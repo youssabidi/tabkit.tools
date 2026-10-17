@@ -98,25 +98,40 @@
     </div>
 
     <!-- SEO Content -->
-    <article class="prose prose-invert max-w-none border-t border-workspace-border pt-12 space-y-6 text-sm text-workspace-muted leading-relaxed">
+    <article class="prose prose-invert max-w-none border-t border-workspace-border pt-12 space-y-8 text-sm text-workspace-muted leading-relaxed">
       <div>
-        <h2 class="text-xl font-bold text-white mb-2">Why do you need an offline text formatter?</h2>
+        <h2 class="text-xl font-bold text-white mb-3">Developer & Writer Case Conversion Guide</h2>
         <p>
-          If you are working on a Twitter post, a meta description, or a sensitive internal email, checking the character count online usually involves sending your text to a server. This offline tool runs purely in your local browser tab.
+          String casing conventions are critical in software architecture, API contract design, database naming, and editorial typography. Translating text between <strong>camelCase</strong> (JavaScript/TypeScript variables), <strong>PascalCase</strong> (classes and React components), <strong>snake_case</strong> (Python and PostgreSQL columns), and <strong>kebab-case</strong> (CSS classes and URLs) manually is error-prone.
+        </p>
+        <p class="mt-3">
+          TabKit Case Converter transforms text strings instantly in local memory. It supports title case capitalization (conforming to AP and Chicago Manual of Style rules), sentence case, screaming snake case for constants, and alternating case. Processing runs 100% client-side, ensuring private credentials, schema definitions, and draft manuscripts are never exposed.
         </p>
       </div>
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div class="p-5 rounded-xl border border-workspace-border bg-workspace-surface">
-          <h3 class="text-base font-bold text-white mb-2">Line Deduplication</h3>
-          <p class="text-xs text-workspace-muted">
-            The "Remove Duplicates" button instantly analyzes your text line-by-line and strips out any repeating rows. This is incredibly useful for cleaning up email lists or CSV data dumps before importing them elsewhere.
-          </p>
+      <div class="border-t border-workspace-border pt-8 space-y-4">
+        <h2 class="text-xl font-bold text-white mb-4">Frequently Asked Questions</h2>
+        <div class="space-y-3">
+          <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/60">
+            <h3 class="text-sm font-bold text-workspace-text mb-1">What is the difference between camelCase and PascalCase?</h3>
+            <p class="text-xs text-workspace-muted leading-relaxed">camelCase starts with a lowercase letter and capitalizes subsequent words (e.g. userProfileData), whereas PascalCase capitalizes the initial letter as well (e.g. UserProfileData), commonly used for classes and components.</p>
+          </div>
+          <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/60">
+            <h3 class="text-sm font-bold text-workspace-text mb-1">Does this converter preserve acronyms and numeric prefixes?</h3>
+            <p class="text-xs text-workspace-muted leading-relaxed">Yes. The engine intelligently tokenizes numbers and multi-letter acronyms (such as HTML or API) so that transformed strings remain syntactically valid in code.</p>
+          </div>
+          <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/60">
+            <h3 class="text-sm font-bold text-workspace-text mb-1">Is my text stored or sent over the network?</h3>
+            <p class="text-xs text-workspace-muted leading-relaxed">No. Everything runs strictly in your browser session using native regular expressions. Zero network requests are made.</p>
+          </div>
         </div>
-        <div class="p-5 rounded-xl border border-workspace-border bg-workspace-surface">
-          <h3 class="text-base font-bold text-white mb-2">Title Case Logic</h3>
-          <p class="text-xs text-workspace-muted">
-            Instead of manually capitalizing every word in your blog title or header, click "Title Case" to apply smart capitalization instantly using native JavaScript regex formatting.
-          </p>
+      </div>
+      <div class="border-t border-workspace-border pt-8">
+        <h3 class="text-xs font-bold uppercase tracking-wider text-workspace-muted mb-3 font-mono">Related Text Utilities</h3>
+        <div class="flex flex-wrap gap-2 text-xs font-mono">
+          <a href="/text-diff-checker" class="px-3 py-1.5 rounded-lg border border-workspace-border bg-workspace-surface hover:border-workspace-accent hover:text-workspace-accent transition-all">Text Diff Checker &rarr;</a>
+          <a href="/markdown-preview" class="px-3 py-1.5 rounded-lg border border-workspace-border bg-workspace-surface hover:border-workspace-accent hover:text-workspace-accent transition-all">Markdown Preview &rarr;</a>
+          <a href="/base64-encoder-decoder" class="px-3 py-1.5 rounded-lg border border-workspace-border bg-workspace-surface hover:border-workspace-accent hover:text-workspace-accent transition-all">Base64 Encoder &rarr;</a>
+          <a href="/regex-tester" class="px-3 py-1.5 rounded-lg border border-workspace-border bg-workspace-surface hover:border-workspace-accent hover:text-workspace-accent transition-all">Regex Tester &rarr;</a>
         </div>
       </div>
     </article>

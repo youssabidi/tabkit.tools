@@ -132,25 +132,40 @@
     </div>
 
     <!-- SEO Content -->
-    <article class="prose prose-invert max-w-none border-t border-workspace-border pt-12 space-y-6 text-sm text-workspace-muted leading-relaxed">
+    <article class="prose prose-invert max-w-none border-t border-workspace-border pt-12 space-y-8 text-sm text-workspace-muted leading-relaxed">
       <div>
-        <h2 class="text-xl font-bold text-white mb-2">The essential desk converter</h2>
+        <h2 class="text-xl font-bold text-white mb-3">Universal Scientific & Everyday Unit Conversion</h2>
         <p>
-          Whether you are a developer calculating server hard drive capacities (Gigabytes to Terabytes), an engineer converting specs (Metric to Imperial), or just adjusting a cooking recipe, you need an instant conversion tool that doesn't bombard you with ads. 
+          Converting measurements across Metric, Imperial, and US customary units is essential for engineering, cooking, construction, and travel. Manual conversion formulas introduce calculation errors.
+        </p>
+        <p class="mt-3">
+          TabKit Unit Converter provides instant conversion across length, weight, area, volume, temperature, speed, digital data storage (MB, GB, TB), and energy. All conversions compute locally in real time with high floating-point precision and zero ad tracking.
         </p>
       </div>
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-4">
-        <div class="p-5 rounded-xl border border-workspace-border bg-workspace-surface">
-          <h3 class="text-base font-bold text-white mb-2">Bidirectional Inputs</h3>
-          <p class="text-xs text-workspace-muted">
-            You don't need to specify which side is the "source" and which is the "destination". If you edit the left box, the right box updates. If you edit the right box, the left box updates. Pure convenience.
-          </p>
+      <div class="border-t border-workspace-border pt-8 space-y-4">
+        <h2 class="text-xl font-bold text-white mb-4">Frequently Asked Questions</h2>
+        <div class="space-y-3">
+          <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/60">
+            <h3 class="text-sm font-bold text-workspace-text mb-1">What measurement categories are included?</h3>
+            <p class="text-xs text-workspace-muted leading-relaxed">Length, Weight/Mass, Temperature, Area, Volume, Speed, and Digital Storage measurements are all supported.</p>
+          </div>
+          <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/60">
+            <h3 class="text-sm font-bold text-workspace-text mb-1">How accurate are the conversion formulas?</h3>
+            <p class="text-xs text-workspace-muted leading-relaxed">Conversions use standardized international constants (NIST / SI) with double-precision floating-point accuracy.</p>
+          </div>
+          <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/60">
+            <h3 class="text-sm font-bold text-workspace-text mb-1">Does this converter work offline?</h3>
+            <p class="text-xs text-workspace-muted leading-relaxed">Yes. Because TabKit is an offline-capable PWA, all unit conversions run locally without internet access.</p>
+          </div>
         </div>
-        <div class="p-5 rounded-xl border border-workspace-border bg-workspace-surface">
-          <h3 class="text-base font-bold text-white mb-2">Smart Decimal Truncation</h3>
-          <p class="text-xs text-workspace-muted">
-            Certain conversions (like Miles to Kilometers) can result in endlessly long, annoying decimal outputs. Use the built-in precision selector to automatically round your answers to 2, 4, or 6 decimal places, or output flat whole numbers.
-          </p>
+      </div>
+      <div class="border-t border-workspace-border pt-8">
+        <h3 class="text-xs font-bold uppercase tracking-wider text-workspace-muted mb-3 font-mono">Related Calculation Utilities</h3>
+        <div class="flex flex-wrap gap-2 text-xs font-mono">
+          <a href="/percentage-calculator" class="px-3 py-1.5 rounded-lg border border-workspace-border bg-workspace-surface hover:border-workspace-accent hover:text-workspace-accent transition-all">Percentage Calculator &rarr;</a>
+          <a href="/date-calculator" class="px-3 py-1.5 rounded-lg border border-workspace-border bg-workspace-surface hover:border-workspace-accent hover:text-workspace-accent transition-all">Date Calculator &rarr;</a>
+          <a href="/hex-color-converter" class="px-3 py-1.5 rounded-lg border border-workspace-border bg-workspace-surface hover:border-workspace-accent hover:text-workspace-accent transition-all">Color Converter &rarr;</a>
+          <a href="/pomodoro-timer" class="px-3 py-1.5 rounded-lg border border-workspace-border bg-workspace-surface hover:border-workspace-accent hover:text-workspace-accent transition-all">Pomodoro Timer &rarr;</a>
         </div>
       </div>
     </article>

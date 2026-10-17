@@ -36,14 +36,42 @@
       <div id="tool-container" class="flex-1 w-full relative"></div>
     </div>
 
-    <article class="prose prose-invert max-w-2xl mx-auto border-t border-workspace-border pt-12 space-y-6 text-sm text-workspace-muted leading-relaxed">
-      <h2 class="text-xl font-bold text-white">Clean Messy Spreadsheets in Seconds</h2>
-      <p>
-        Accidental duplicates in lead lists waste marketing budget and corrupt sales reports. Using native Excel deduplication often freezes on large datasets or silently deletes the wrong columns.
-      </p>
-      <p>
-        <strong>TabKit Tools Spreadsheet Deduplicator</strong> shows live counts of original, duplicate, and clean rows with a sample preview before you export to `.xlsx` or `.csv`.
-      </p>
+    <article class="prose prose-invert max-w-none border-t border-workspace-border pt-12 space-y-8 text-sm text-workspace-muted leading-relaxed">
+      <div>
+        <h2 class="text-xl font-bold text-white mb-3">Remove Duplicate Rows from Excel Spreadsheets Locally</h2>
+        <p>
+          Duplicate records in customer email lists, sales rosters, and financial datasets cause skewed analytics, redundant billing, and wasted marketing spend. Manually reviewing thousands of spreadsheet rows to identify duplicates is slow and vulnerable to human oversight.
+        </p>
+        <p class="mt-3">
+          TabKit Excel Deduplicator hashes and compares rows in local memory. You can deduplicate based on all columns or target specific primary key columns (such as Email or ID), stripping duplicate occurrences while retaining the original record. Your files never touch external servers, safeguarding private customer records.
+        </p>
+      </div>
+      <div class="border-t border-workspace-border pt-8 space-y-4">
+        <h2 class="text-xl font-bold text-white mb-4">Frequently Asked Questions</h2>
+        <div class="space-y-3">
+          <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/60">
+            <h3 class="text-sm font-bold text-workspace-text mb-1">Does deduplication distinguish between uppercase and lowercase text?</h3>
+            <p class="text-xs text-workspace-muted leading-relaxed">You can choose between case-sensitive and case-insensitive comparison, allowing you to treat "test@example.com" and "Test@example.com" as duplicates.</p>
+          </div>
+          <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/60">
+            <h3 class="text-sm font-bold text-workspace-text mb-1">Which duplicate row is kept during deduplication?</h3>
+            <p class="text-xs text-workspace-muted leading-relaxed">By default, the first occurrence of a duplicated record is preserved, and subsequent identical entries are pruned from the dataset.</p>
+          </div>
+          <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/60">
+            <h3 class="text-sm font-bold text-workspace-text mb-1">Are my confidential business workbooks uploaded anywhere?</h3>
+            <p class="text-xs text-workspace-muted leading-relaxed">Never. All deduplication logic runs entirely inside client-side JavaScript. Zero bytes leave your web browser.</p>
+          </div>
+        </div>
+      </div>
+      <div class="border-t border-workspace-border pt-8">
+        <h3 class="text-xs font-bold uppercase tracking-wider text-workspace-muted mb-3 font-mono">Related Spreadsheet Utilities</h3>
+        <div class="flex flex-wrap gap-2 text-xs font-mono">
+          <a href="/excel-empty-cleaner" class="px-3 py-1.5 rounded-lg border border-workspace-border bg-workspace-surface hover:border-workspace-accent hover:text-workspace-accent transition-all">Clean Empty Rows &rarr;</a>
+          <a href="/excel-transpose" class="px-3 py-1.5 rounded-lg border border-workspace-border bg-workspace-surface hover:border-workspace-accent hover:text-workspace-accent transition-all">Transpose Excel &rarr;</a>
+          <a href="/csv-to-excel" class="px-3 py-1.5 rounded-lg border border-workspace-border bg-workspace-surface hover:border-workspace-accent hover:text-workspace-accent transition-all">CSV to Excel &rarr;</a>
+          <a href="/excel-formula-builder" class="px-3 py-1.5 rounded-lg border border-workspace-border bg-workspace-surface hover:border-workspace-accent hover:text-workspace-accent transition-all">Formula Builder &rarr;</a>
+        </div>
+      </div>
     </article>
   </main>
 

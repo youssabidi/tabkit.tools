@@ -104,23 +104,39 @@
     </div>
 
     <!-- SEO Educational Content -->
-    <article class="prose prose-invert max-w-none border-t border-workspace-border pt-12 space-y-6 text-sm text-workspace-muted leading-relaxed">
+    <article class="prose prose-invert max-w-none border-t border-workspace-border pt-12 space-y-8 text-sm text-workspace-muted leading-relaxed">
       <div>
-        <h2 class="text-xl font-bold text-white mb-2">Why Minify CSS and HTML?</h2>
-        <p>During development, code is written with generous whitespace, indentation, and explanatory comments for human readability. In production, browsers do not need whitespace or comments to parse your DOM and CSSOM trees. Minifying source assets reduces network overhead, accelerates page download time, and improves Google Core Web Vitals rankings.</p>
+        <h2 class="text-xl font-bold text-white mb-3">Optimize Web Assets with Client-Side Minification</h2>
+        <p>
+          Minifying production HTML and CSS code removes redundant whitespace, comments, trailing semicolons, and unneeded line breaks. This compression directly reduces network payload bytes, accelerates First Contentful Paint (FCP), and improves Google Core Web Vitals rankings.
+        </p>
+        <p class="mt-3">
+          TabKit performs instant minification right in your browser. Unlike web minifiers that require uploading source files to remote backends, TabKit guarantees that proprietary frontend templates, inline SVG assets, and confidential internal styling rules stay entirely inside your computer.
+        </p>
       </div>
-      <div>
-        <h3 class="text-base font-bold text-white mb-2">Privacy & Zero-Tracking Guarantee</h3>
-        <p>Unlike third-party minifier websites that process text on backend servers, TabKit Tools runs everything client-side using native JavaScript strings and regular expressions. Your private templates, internal styling classes, and proprietary design tokens remain strictly confidential on your computer.</p>
+      <div class="border-t border-workspace-border pt-8 space-y-4">
+        <h2 class="text-xl font-bold text-white mb-4">Frequently Asked Questions</h2>
+        <div class="space-y-3">
+          <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/60">
+            <h3 class="text-sm font-bold text-workspace-text mb-1">Will minification alter the behavior or appearance of my website?</h3>
+            <p class="text-xs text-workspace-muted leading-relaxed">No. Minification strips only non-executable whitespace and comments while preserving all semantic markup, CSS selectors, media queries, and attribute values.</p>
+          </div>
+          <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/60">
+            <h3 class="text-sm font-bold text-workspace-text mb-1">Does this minifier support inline scripts and CSS styles?</h3>
+            <p class="text-xs text-workspace-muted leading-relaxed">Yes. It collapses inline style blocks and script tags without corrupting quoted string literals or regular expressions.</p>
+          </div>
+          <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/60">
+            <h3 class="text-sm font-bold text-workspace-text mb-1">Can I copy the minified code directly to my clipboard?</h3>
+            <p class="text-xs text-workspace-muted leading-relaxed">Yes. One-click copy and character count metrics show your exact byte savings and percentage reduction instantly.</p>
+          </div>
+        </div>
       </div>
-
-      <!-- Related Tools -->
-      <div class="border-t border-workspace-border pt-6">
-        <h3 class="text-xs font-bold uppercase tracking-wider text-workspace-muted mb-3 font-mono">Related Developer Utilities</h3>
+      <div class="border-t border-workspace-border pt-8">
+        <h3 class="text-xs font-bold uppercase tracking-wider text-workspace-muted mb-3 font-mono">Related Web Utilities</h3>
         <div class="flex flex-wrap gap-2 text-xs font-mono">
-          <a href="/text-diff-checker" class="px-3 py-1.5 rounded-lg border border-workspace-border bg-workspace-surface hover:border-workspace-accent hover:text-workspace-accent transition-all">Text Diff Checker &rarr;</a>
-          <a href="/json-formatter" class="px-3 py-1.5 rounded-lg border border-workspace-border bg-workspace-surface hover:border-workspace-accent hover:text-workspace-accent transition-all">JSON Formatter &rarr;</a>
-          <a href="/sql-formatter" class="px-3 py-1.5 rounded-lg border border-workspace-border bg-workspace-surface hover:border-workspace-accent hover:text-workspace-accent transition-all">SQL Formatter &rarr;</a>
+          <a href="/svg-optimizer" class="px-3 py-1.5 rounded-lg border border-workspace-border bg-workspace-surface hover:border-workspace-accent hover:text-workspace-accent transition-all">SVG Optimizer &rarr;</a>
+          <a href="/social-seo-previewer" class="px-3 py-1.5 rounded-lg border border-workspace-border bg-workspace-surface hover:border-workspace-accent hover:text-workspace-accent transition-all">Social SEO Previewer &rarr;</a>
+          <a href="/image-compressor" class="px-3 py-1.5 rounded-lg border border-workspace-border bg-workspace-surface hover:border-workspace-accent hover:text-workspace-accent transition-all">Image Compressor &rarr;</a>
           <a href="/markdown-preview" class="px-3 py-1.5 rounded-lg border border-workspace-border bg-workspace-surface hover:border-workspace-accent hover:text-workspace-accent transition-all">Markdown Preview &rarr;</a>
         </div>
       </div>

@@ -60,6 +60,47 @@
     <div class="rounded-2xl border border-workspace-border bg-workspace-surface shadow-2xl p-6 mb-16 max-w-2xl mx-auto min-h-[500px] flex flex-col">
       <div id="tool-container" class="flex-1 w-full relative"></div>
     </div>
+  
+    <article class="prose prose-invert max-w-none border-t border-workspace-border pt-12 space-y-8 text-sm text-workspace-muted leading-relaxed">
+      <div>
+        <h2 class="text-xl font-bold text-white mb-3">Convert Unix Epoch Timestamps to Human-Readable Dates</h2>
+        <p>
+          Unix timestamps count the number of elapsed seconds since January 1, 1970 UTC (the Unix Epoch). Server logs, database timestamps, and API responses frequently store time in epoch seconds or milliseconds for universal storage.
+        </p>
+        <p class="mt-3">
+          TabKit Unix Timestamp Converter translates numeric epoch values into standard UTC and local calendar date-times (ISO 8601, RFC 2822) instantly. Convert current timestamps, test future dates, and inspect milliseconds with zero network requests.
+        </p>
+        <p class="mt-3">
+          The converter automatically handles both standard 10-digit second timestamps and 13-digit millisecond timestamps, displaying relative time differences (e.g. "2 hours ago" or "in 3 days") in real time.
+        </p>
+      </div>
+      <div class="border-t border-workspace-border pt-8 space-y-4">
+        <h2 class="text-xl font-bold text-white mb-4">Frequently Asked Questions</h2>
+        <div class="space-y-3">
+          <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/60">
+            <h3 class="text-sm font-bold text-workspace-text mb-1">What is the difference between seconds and milliseconds timestamps?</h3>
+            <p class="text-xs text-workspace-muted leading-relaxed">Standard Unix timestamps use 10-digit seconds, while JavaScript and modern databases often use 13-digit millisecond timestamps. The converter automatically detects both formats.</p>
+          </div>
+          <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/60">
+            <h3 class="text-sm font-bold text-workspace-text mb-1">What is the Year 2038 Problem?</h3>
+            <p class="text-xs text-workspace-muted leading-relaxed">Legacy 32-bit signed integers will overflow on January 19, 2038. Modern 64-bit systems and JavaScript safely support timestamps far into the future.</p>
+          </div>
+          <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/60">
+            <h3 class="text-sm font-bold text-workspace-text mb-1">Is this timestamp tool available offline?</h3>
+            <p class="text-xs text-workspace-muted leading-relaxed">Yes. All epoch math computes locally in client-side JavaScript without external API calls.</p>
+          </div>
+        </div>
+      </div>
+      <div class="border-t border-workspace-border pt-8">
+        <h3 class="text-xs font-bold uppercase tracking-wider text-workspace-muted mb-3 font-mono">Related Time Utilities</h3>
+        <div class="flex flex-wrap gap-2 text-xs font-mono">
+          <a href="/date-calculator" class="px-3 py-1.5 rounded-lg border border-workspace-border bg-workspace-surface hover:border-workspace-accent hover:text-workspace-accent transition-all">Date Calculator &rarr;</a>
+          <a href="/time-zone-converter" class="px-3 py-1.5 rounded-lg border border-workspace-border bg-workspace-surface hover:border-workspace-accent hover:text-workspace-accent transition-all">Time Zone Converter &rarr;</a>
+          <a href="/chmod-calculator" class="px-3 py-1.5 rounded-lg border border-workspace-border bg-workspace-surface hover:border-workspace-accent hover:text-workspace-accent transition-all">chmod Calculator &rarr;</a>
+          <a href="/base64-encoder-decoder" class="px-3 py-1.5 rounded-lg border border-workspace-border bg-workspace-surface hover:border-workspace-accent hover:text-workspace-accent transition-all">Base64 Converter &rarr;</a>
+        </div>
+      </div>
+    </article>
   </main>
   <tabkit-footer></tabkit-footer>
   <div id="toastContainer" class="fixed bottom-6 right-4 z-50 flex flex-col gap-2 pointer-events-none"></div>
