@@ -1,7 +1,7 @@
 {
   "name": "TabKit Tools",
   "short_name": "TabKit",
-  "description": "Privacy-First Local Browser Utilities",
+  "description": "Privacy-First Local Browser Utilities (51 Client-Side Tools)",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#0F1117",
@@ -16,6 +16,36 @@
       "src": "icon-512.png",
       "sizes": "512x512",
       "type": "image/png"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "JSON Formatter",
+      "short_name": "JSON",
+      "description": "Validate, prettify, and minify JSON locally",
+      "url": "/json-formatter",
+      "icons": [{ "src": "icon-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "PDF Splitter & Merger",
+      "short_name": "PDF Tools",
+      "description": "Client-side PDF page manipulation",
+      "url": "/pdf-splitter",
+      "icons": [{ "src": "icon-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Image Compressor",
+      "short_name": "Compress",
+      "description": "Batch compress images with zero uploads",
+      "url": "/image-compressor",
+      "icons": [{ "src": "icon-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "CSS & HTML Minifier",
+      "short_name": "Minifier",
+      "description": "Fast code minifier and beautifier",
+      "url": "/css-html-minifier",
+      "icons": [{ "src": "icon-192.png", "sizes": "192x192" }]
     }
   ]
 }

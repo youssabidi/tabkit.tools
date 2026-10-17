@@ -28,6 +28,13 @@ window.TOOLS_REGISTRY = {
     "standaloneUrl": "/curl-converter",
     "description": "Convert cURL requests into copy-pasteable JavaScript fetch, Node.js axios, and Python requests code."
   },
+  "css-html-minifier": {
+    "id": "css-html-minifier",
+    "name": "CSS & HTML Minifier & Beautifier",
+    "category": "Developer & Code",
+    "standaloneUrl": "/css-html-minifier",
+    "description": "Minify, compress, or beautify CSS styles and HTML markup client-side with real-time compression metrics."
+  },
   "date-calculator": {
     "id": "date-calculator",
     "name": "Days Between Dates Calculator",

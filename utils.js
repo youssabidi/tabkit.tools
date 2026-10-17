@@ -251,21 +251,35 @@ function sendToTool(targetToolId, payload) {
       }
     }, 250);
   } else {
-    // Navigate to workbench and handoff data via localStorage
+    // Navigate directly to standalone tool page or workbench with handoff
     localStorage.setItem('tabkit_handoff_data', JSON.stringify({ toolId: targetToolId, payload }));
-    window.location.href = '/index.html';
+    window.location.href = `/${targetToolId}`;
   }
 }
 
-// Check for pending handoff data on workbench load
+// Check for pending handoff data on load (supports both Standalone Pages and Full Workbench)
 if (typeof window !== 'undefined') {
   window.addEventListener('DOMContentLoaded', () => {
     const rawHandoff = localStorage.getItem('tabkit_handoff_data');
     if (rawHandoff) {
       try {
         const { toolId, payload } = JSON.parse(rawHandoff);
-        localStorage.removeItem('tabkit_handoff_data');
-        setTimeout(() => sendToTool(toolId, payload), 500);
+        const currentPath = window.location.pathname.replace(/^\/|\.html$/g, '');
+        if (currentPath === toolId) {
+          localStorage.removeItem('tabkit_handoff_data');
+          setTimeout(() => {
+            const inputEl = document.getElementById(`${toolId}_input`) || document.querySelector('textarea, input[type="text"]');
+            if (inputEl) {
+              inputEl.value = payload;
+              inputEl.dispatchEvent(new Event('input', { bubbles: true }));
+              inputEl.dispatchEvent(new Event('change', { bubbles: true }));
+              if (typeof showToast !== 'undefined') showToast(`Piped data from previous tool!`);
+            }
+          }, 350);
+        } else if (typeof activePinnedTools !== 'undefined' && typeof pinTool === 'function') {
+          localStorage.removeItem('tabkit_handoff_data');
+          setTimeout(() => sendToTool(toolId, payload), 500);
+        }
       } catch (e) {}
     }
   });

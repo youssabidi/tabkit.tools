@@ -62,6 +62,19 @@ function convertCsvToJsonTool(toolId) {
   }
 }
 
+function chainCsvJsonTo(toolId, targetTool) {
+  const output = document.getElementById(`${toolId}_output`);
+  const input = document.getElementById(`${toolId}_input`);
+  const payload = (output && output.value.trim()) ? output.value.trim() : (input ? input.value.trim() : '');
+  if (!payload) {
+    if (typeof showToast !== 'undefined') showToast('No data to send', 'error');
+    return;
+  }
+  if (typeof sendToTool === 'function') {
+    sendToTool(targetTool, payload);
+  }
+}
+
 window.TOOLS_REGISTRY = window.TOOLS_REGISTRY || {};
 window.TOOLS_REGISTRY['csv-json-converter'] = Object.assign(window.TOOLS_REGISTRY['csv-json-converter'] || {}, {
   id: 'csv-json-converter',
@@ -79,6 +92,7 @@ window.TOOLS_REGISTRY['csv-json-converter'] = Object.assign(window.TOOLS_REGISTR
       <div class="flex items-center justify-between pt-1 border-t border-workspace-border text-[11px] font-mono">
         <button onclick="convertCsvToJsonTool('${toolId}')" class="px-3 py-1 bg-workspace-accent text-black font-bold rounded-lg hover:bg-workspace-accentHover transition-all shadow-[0_0_10px_rgba(16,185,129,0.2)]">Convert &harr;</button>
         <div class="flex items-center gap-1.5">
+          <button onclick="chainCsvJsonTo('${toolId}', 'json-formatter')" title="Send result to JSON Formatter" class="px-2 py-1 bg-workspace-bg border border-workspace-border hover:border-workspace-accent hover:text-workspace-accent text-workspace-muted rounded-lg text-xs font-mono transition-all">&rarr; JSON Formatter</button>
           <button onclick="copyOutputTool('${toolId}')" class="px-2.5 py-1 bg-workspace-bg border border-workspace-border hover:border-workspace-borderLight text-workspace-text rounded-lg transition-all">Copy Result</button>
         </div>
       </div>

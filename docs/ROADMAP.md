@@ -63,15 +63,15 @@
 - [x] **Full 57-Route Sitemap:** Comprehensive `sitemap.xml` with zero redirect chains and clean URLs.
 - [x] **Streamlined Curated Landing Page:** Clean initial view displaying 8 popular suggested utilities with smooth "Browse All 50 Tools" toggle.
 
-## Phase 8: Future Milestones & Workflow Automation
-- [ ] **Tool Chaining 2.0:** Direct 1-click piping between complementary tools (e.g., CSV/Excel ➔ Markdown, JSON ➔ TypeScript).
-- [ ] **CSS & HTML Minifier:** Fast in-browser code minification and beautifier.
+## Phase 8: Workflow Automation & Advanced Utilities
+- [x] **Tool Chaining 2.0:** Direct 1-click piping between complementary tools (JSON ➔ TS, Markdown ➔ Minifier, CSV ➔ JSON) across both workbench and standalone tools.
+- [x] **CSS & HTML Minifier (`css-html-minifier`):** Fast in-browser code minification, comment stripper, and beautifier with real-time byte analytics.
+- [x] **PWA Shortcuts:** Native OS-level application shortcuts in `manifest.json` for rapid tool launching.
 - [ ] **Color Palette Generator:** Contrast ratios (WCAG AAA) and complementary palette builder.
-- [ ] **PWA Shortcuts:** Native OS-level application shortcuts for quick tool launches.
 
 ---
 
-## 📦 Total Tools in Registry: 50 Tools
+## 📦 Total Tools in Registry: 51 Tools
 
 ### 📄 Documents & PDF (11)
 1. `pdf-splitter` — Client-Side PDF Splitter & Page Remover
@@ -102,35 +102,36 @@
 24. `markdown-preview` — Markdown Live Editor & HTML Preview
 25. `text-diff-checker` — Text Diff Checker & Notepad
 
-### 💻 Developer & Code (7)
+### 💻 Developer & Code (8)
 26. `chmod-calculator` — Visual chmod Permissions Calculator
-27. `curl-converter` — cURL to Fetch / Axios / Python Converter
-28. `json-to-typescript` — JSON to TypeScript Interface Generator
-29. `jwt-decoder` — Client-Side JWT Token Decoder
-30. `regex-tester` — Real-Time Regular Expression Sandbox
-31. `sql-formatter` — SQL Query Beautifier & Indenter
-32. `uuid-generator` — Bulk UUID / GUID v4 Generator
+27. `css-html-minifier` — CSS & HTML Minifier & Beautifier
+28. `curl-converter` — cURL to Fetch / Axios / Python Converter
+29. `json-to-typescript` — JSON to TypeScript Interface Generator
+30. `jwt-decoder` — Client-Side JWT Token Decoder
+31. `regex-tester` — Real-Time Regular Expression Sandbox
+32. `sql-formatter` — SQL Query Beautifier & Indenter
+33. `uuid-generator` — Bulk UUID / GUID v4 Generator
 
 ### 🔒 Privacy & Security (5)
-33. `base64-encoder-decoder` — Base64 Encoder / Decoder
-34. `exif-metadata-stripper` — Photo EXIF & GPS Metadata Stripper
-35. `secure-password-generator` — Secure Password & PIN Generator
-36. `sha256-hash-generator` — SHA-256 / 384 / 512 Hash Generator
-37. `url-link-cleaner` — URL Tracking Link Cleaner
+34. `base64-encoder-decoder` — Base64 Encoder / Decoder
+35. `exif-metadata-stripper` — Photo EXIF & GPS Metadata Stripper
+36. `secure-password-generator` — Secure Password & PIN Generator
+37. `sha256-hash-generator` — SHA-256 / 384 / 512 Hash Generator
+38. `url-link-cleaner` — URL Tracking Link Cleaner
 
 ### 🎨 Media & Design (6)
-38. `hex-color-converter` — HEX to RGB / HSL Color Converter
-39. `image-compressor` — Client-Side Image Compressor & WebP
-40. `image-to-base64` — Image to Base64 (Data URI) Converter
-41. `qr-code-generator` — Free QR Code Generator
-42. `social-seo-previewer` — Social Media & Google SERP Previewer
-43. `svg-optimizer` — SVG Optimizer & React/CSS Exporter
+39. `hex-color-converter` — HEX to RGB / HSL Color Converter
+40. `image-compressor` — Client-Side Image Compressor & WebP
+41. `image-to-base64` — Image to Base64 (Data URI) Converter
+42. `qr-code-generator` — Free QR Code Generator
+43. `social-seo-previewer` — Social Media & Google SERP Previewer
+44. `svg-optimizer` — SVG Optimizer & React/CSS Exporter
 
 ### ⏱️ Productivity & Math (8)
-44. `date-calculator` — Days Between Dates Calculator
-45. `percentage-calculator` — Online Percentage Calculator
-46. `pomodoro-timer` — Offline Pomodoro Productivity Timer
-47. `random-name-picker` — Random Name & Decision Picker
-48. `time-zone-converter` — Global Time Zone Converter & Meeting Planner
-49. `unit-converter` — Universal Unit Converter
-50. `unix-timestamp-converter` — Unix Timestamp & Epoch Converter
+45. `date-calculator` — Days Between Dates Calculator
+46. `percentage-calculator` — Online Percentage Calculator
+47. `pomodoro-timer` — Offline Pomodoro Productivity Timer
+48. `random-name-picker` — Random Name & Decision Picker
+49. `time-zone-converter` — Global Time Zone Converter & Meeting Planner
+50. `unit-converter` — Universal Unit Converter
+51. `unix-timestamp-converter` — Unix Timestamp & Epoch Converter

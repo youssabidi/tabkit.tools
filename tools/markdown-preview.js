@@ -57,6 +57,17 @@ function copyMarkdownHtml(toolId) {
   }
 }
 
+function chainMarkdownHtmlTo(toolId, targetTool) {
+  const preview = document.getElementById(`${toolId}_preview`);
+  if (!preview || !preview.innerHTML.trim() || preview.innerHTML.includes('Formatted preview will appear here')) {
+    if (typeof showToast !== 'undefined') showToast('No HTML to send', 'error');
+    return;
+  }
+  if (typeof sendToTool === 'function') {
+    sendToTool(targetTool, preview.innerHTML);
+  }
+}
+
 window.TOOLS_REGISTRY = window.TOOLS_REGISTRY || {};
 window.TOOLS_REGISTRY['markdown-preview'] = Object.assign(window.TOOLS_REGISTRY['markdown-preview'] || {}, {
   id: 'markdown-preview',
@@ -76,6 +87,7 @@ window.TOOLS_REGISTRY['markdown-preview'] = Object.assign(window.TOOLS_REGISTRY[
       <div class="flex items-center justify-between pt-1 border-t border-workspace-border text-[11px] font-mono">
         <span class="text-workspace-muted text-[10px]">Live HTML Generator</span>
         <div class="flex items-center gap-1.5">
+          <button onclick="chainMarkdownHtmlTo('${toolId}', 'css-html-minifier')" title="Send rendered HTML to Minifier" class="px-2 py-1 bg-workspace-bg border border-workspace-border hover:border-workspace-accent hover:text-workspace-accent text-workspace-muted rounded-lg transition-all">&rarr; Minify</button>
           <button onclick="copyMarkdownHtml('${toolId}')" class="px-2.5 py-1 bg-workspace-accent/15 border border-workspace-accent/40 text-workspace-accent hover:bg-workspace-accent hover:text-black rounded-lg transition-all font-semibold">Copy HTML</button>
           <button onclick="copyTextTool('${toolId}')" class="px-2.5 py-1 bg-workspace-bg border border-workspace-border hover:border-workspace-borderLight text-workspace-text rounded-lg transition-all">Copy MD</button>
         </div>
