@@ -67,11 +67,11 @@
 - [x] **Tool Chaining 2.0:** Direct 1-click piping between complementary tools (JSON ➔ TS, Markdown ➔ Minifier, CSV ➔ JSON) across both workbench and standalone tools.
 - [x] **CSS & HTML Minifier (`css-html-minifier`):** Fast in-browser code minification, comment stripper, and beautifier with real-time byte analytics.
 - [x] **PWA Shortcuts:** Native OS-level application shortcuts in `manifest.json` for rapid tool launching.
-- [ ] **Color Palette Generator:** Contrast ratios (WCAG AAA) and complementary palette builder.
+- [x] **Color Palette Generator & Contrast Studio (`color-palette-contrast`):** Contrast ratios (WCAG AAA) and complementary palette builder.
 
 ---
 
-## 📦 Total Tools in Registry: 51 Tools
+## 📦 Total Tools in Registry: 52 Tools
 
 ### 📄 Documents & PDF (11)
 1. `pdf-splitter` — Client-Side PDF Splitter & Page Remover

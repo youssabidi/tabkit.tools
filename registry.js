@@ -56,6 +56,13 @@ window.TOOLS_REGISTRY = {
     "standaloneUrl": "/exif-metadata-stripper",
     "description": "Strip hidden GPS coordinates, camera serial numbers, and device metadata from photos before sharing."
   },
+    "color-palette-contrast": {
+    "id": "color-palette-contrast",
+    "name": "WCAG Color Contrast & Palette Studio",
+    "category": "Media & Design",
+    "standaloneUrl": "/color-palette-contrast",
+    "description": "Calculate WCAG 2.1 AA/AAA contrast ratios and test accessible foreground and background colors."
+  },
   "hex-color-converter": {
     "id": "hex-color-converter",
     "name": "HEX to RGB Color Converter",

@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>WCAG Color Contrast Checker & Palette Studio | TabKit Tools</title>
+  <link rel="manifest" href="/manifest.json" />
+  
+  <meta name="description" content="Free offline WCAG 2.1 color contrast checker and accessible palette generator. Check AA and AAA contrast ratios for normal and large text instantly." />
+  <meta name="keywords" content="color contrast checker, wcag contrast ratio, accessible color palette, wcag aaa compliance, text contrast ratio, web accessibility tool" />
+  <link rel="canonical" href="https://tabkit.tools/color-palette-contrast" />
+
+  <meta property="og:title" content="WCAG Color Contrast Checker & Palette Studio | TabKit Tools" />
+  <meta property="og:description" content="Calculate WCAG 2.1 contrast ratios and preview accessible text and UI colors locally in your browser." />
+  <meta property="og:url" content="https://tabkit.tools/color-palette-contrast" />
+  <meta property="og:type" content="website" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "WCAG Color Contrast Checker & Palette Studio",
+      "url": "https://tabkit.tools/color-palette-contrast",
+      "applicationCategory": "DesignApplication",
+      "operatingSystem": "Any",
+      "description": "Test foreground and background color combinations against WCAG 2.1 AA and AAA standards locally."
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://tabkit.tools/color-palette-contrast#breadcrumb",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "TabKit",
+          "item": "https://tabkit.tools/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Media & Design",
+          "item": "https://tabkit.tools/#media-design"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Color Contrast & Palette Studio",
+          "item": "https://tabkit.tools/color-palette-contrast"
+        }
+      ]
+    }
+  ]
+}
+  </script>
+  <script src="utils.js"></script>
+  <script src="components.js"></script>
+</head>
+
+<body class="bg-workspace-bg text-workspace-text font-sans antialiased min-h-screen flex flex-col selection:bg-workspace-accent selection:text-black">
+
+  <tool-header tool-name="color-palette-contrast"></tool-header>
+
+  <main class="flex-1 max-w-4xl w-full mx-auto px-4 py-8 md:py-12">
+    <!-- Header -->
+    <div class="mb-8 text-center sm:text-left">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-workspace-surface border border-workspace-border text-workspace-accent mb-3">
+        <span>🎨 WCAG 2.1 Contrast & Accessibility</span>
+      </div>
+      <h1 class="text-3xl sm:text-4xl font-extrabold text-workspace-text tracking-tight mb-2">
+        Color Contrast Checker & Palette Studio
+      </h1>
+      <p class="text-workspace-muted text-sm sm:text-base max-w-2xl">
+        Calculate WCAG 2.1 compliance ratios for foreground and background colors in real time. Features live typography previews, AA/AAA rating badges, and color harmony generators.
+      </p>
+    </div>
+
+    <!-- Main Card -->
+    <div class="bg-workspace-surface border border-workspace-border rounded-2xl p-6 sm:p-8 shadow-sm space-y-8">
+      
+      <!-- Color Pickers Row -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <!-- Foreground Color -->
+        <div class="space-y-3">
+          <label class="block text-xs font-bold uppercase tracking-wider text-workspace-muted">
+            Text / Foreground Color
+          </label>
+          <div class="flex items-center gap-3">
+            <input type="color" id="fgColorPicker" value="#FFFFFF" class="w-12 h-12 rounded-xl cursor-pointer bg-transparent border-0 p-0" oninput="syncColor('fg', this.value)" />
+            <div class="relative flex-1">
+              <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-workspace-muted font-mono text-sm">#</span>
+              <input type="text" id="fgHexInput" value="FFFFFF" maxlength="6" class="w-full pl-8 pr-3 py-2.5 bg-workspace-bg border border-workspace-border rounded-xl font-mono text-sm uppercase font-semibold focus:outline-none focus:border-workspace-accent" oninput="handleHexInput('fg', this.value)" />
+            </div>
+          </div>
+        </div>
+
+        <!-- Background Color -->
+        <div class="space-y-3">
+          <label class="block text-xs font-bold uppercase tracking-wider text-workspace-muted">
+            Background Color
+          </label>
+          <div class="flex items-center gap-3">
+            <input type="color" id="bgColorPicker" value="#0F172A" class="w-12 h-12 rounded-xl cursor-pointer bg-transparent border-0 p-0" oninput="syncColor('bg', this.value)" />
+            <div class="relative flex-1">
+              <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-workspace-muted font-mono text-sm">#</span>
+              <input type="text" id="bgHexInput" value="0F172A" maxlength="6" class="w-full pl-8 pr-3 py-2.5 bg-workspace-bg border border-workspace-border rounded-xl font-mono text-sm uppercase font-semibold focus:outline-none focus:border-workspace-accent" oninput="handleHexInput('bg', this.value)" />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Swap Button & Quick Presets -->
+      <div class="flex flex-wrap items-center justify-between gap-3 pt-2 border-t border-workspace-border">
+        <button type="button" onclick="swapColors()" class="px-3.5 py-1.5 rounded-xl border border-workspace-border bg-workspace-bg hover:bg-workspace-border/50 text-xs font-bold text-workspace-text transition flex items-center gap-1.5">
+          <span>⇄ Swap Colors</span>
+        </button>
+
+        <div class="flex items-center gap-2 text-xs font-semibold">
+          <span class="text-workspace-muted text-[11px]">Presets:</span>
+          <button type="button" onclick="setPreset('#0F172A', '#F8FAFC')" class="px-2 py-1 rounded bg-slate-100 text-slate-900 border text-[11px] font-bold">Dark / White</button>
+          <button type="button" onclick="setPreset('#FFFFFF', '#4F46E5')" class="px-2 py-1 rounded bg-indigo-600 text-white text-[11px] font-bold">Indigo / White</button>
+          <button type="button" onclick="setPreset('#10B981', '#064E3B')" class="px-2 py-1 rounded bg-emerald-950 text-emerald-400 border border-emerald-800 text-[11px] font-bold">Emerald</button>
+          <button type="button" onclick="setPreset('#F59E0B', '#1E293B')" class="px-2 py-1 rounded bg-slate-800 text-amber-400 text-[11px] font-bold">Amber / Slate</button>
+        </div>
+      </div>
+
+      <!-- Contrast Ratio Score Banner -->
+      <div class="p-6 rounded-2xl bg-workspace-bg border border-workspace-border flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div>
+          <span class="text-xs font-bold uppercase tracking-wider text-workspace-muted block mb-1">Contrast Ratio</span>
+          <div class="flex items-baseline gap-2">
+            <span id="contrastRatioVal" class="text-4xl sm:text-5xl font-black text-workspace-accent font-mono">16.14</span>
+            <span class="text-lg font-bold text-workspace-muted">: 1</span>
+          </div>
+        </div>
+
+        <div class="text-right flex flex-col items-end">
+          <span id="overallVerdictBadge" class="px-4 py-1.5 rounded-full text-xs font-extrabold uppercase tracking-wider bg-emerald-500/10 text-emerald-500 border border-emerald-500/20 mb-1">
+            Excellent Accessibility
+          </span>
+          <span id="overallVerdictSub" class="text-xs text-workspace-muted">Meets all WCAG 2.1 AAA requirements</span>
+        </div>
+      </div>
+
+      <!-- Compliance Matrix -->
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+        <div class="p-4 rounded-xl bg-workspace-bg border border-workspace-border text-center space-y-1">
+          <span class="text-[10px] font-bold uppercase text-workspace-muted block">Normal Text AA</span>
+          <span class="text-xs font-semibold text-workspace-muted block">&ge; 4.5:1</span>
+          <div id="badgeNormalAA" class="inline-block px-2.5 py-0.5 rounded text-xs font-black bg-emerald-500/10 text-emerald-500">PASS</div>
+        </div>
+        <div class="p-4 rounded-xl bg-workspace-bg border border-workspace-border text-center space-y-1">
+          <span class="text-[10px] font-bold uppercase text-workspace-muted block">Normal Text AAA</span>
+          <span class="text-xs font-semibold text-workspace-muted block">&ge; 7.0:1</span>
+          <div id="badgeNormalAAA" class="inline-block px-2.5 py-0.5 rounded text-xs font-black bg-emerald-500/10 text-emerald-500">PASS</div>
+        </div>
+        <div class="p-4 rounded-xl bg-workspace-bg border border-workspace-border text-center space-y-1">
+          <span class="text-[10px] font-bold uppercase text-workspace-muted block">Large Text AA</span>
+          <span class="text-xs font-semibold text-workspace-muted block">&ge; 3.0:1</span>
+          <div id="badgeLargeAA" class="inline-block px-2.5 py-0.5 rounded text-xs font-black bg-emerald-500/10 text-emerald-500">PASS</div>
+        </div>
+        <div class="p-4 rounded-xl bg-workspace-bg border border-workspace-border text-center space-y-1">
+          <span class="text-[10px] font-bold uppercase text-workspace-muted block">UI Elements AA</span>
+          <span class="text-xs font-semibold text-workspace-muted block">&ge; 3.0:1</span>
+          <div id="badgeUiAA" class="inline-block px-2.5 py-0.5 rounded text-xs font-black bg-emerald-500/10 text-emerald-500">PASS</div>
+        </div>
+      </div>
+
+      <!-- Live Interactive Preview Box -->
+      <div class="space-y-3">
+        <label class="block text-xs font-bold uppercase tracking-wider text-workspace-muted">
+          Live Interactive Typography & UI Preview
+        </label>
+        <div id="livePreviewContainer" class="p-6 sm:p-8 rounded-2xl transition-colors duration-150 border space-y-4 shadow-inner" style="background-color: #0F172A; color: #FFFFFF; border-color: rgba(255,255,255,0.15);">
+          <div class="flex items-center justify-between border-b pb-3" style="border-color: currentColor; opacity: 0.25;">
+            <span class="text-xs font-extrabold uppercase tracking-wider">Preview Component</span>
+            <span class="text-[11px] font-semibold opacity-75">18pt / 24px Bold Headline</span>
+          </div>
+          <h2 class="text-2xl sm:text-3xl font-black tracking-tight leading-tight">
+            The quick brown fox jumps over the lazy dog
+          </h2>
+          <p class="text-sm leading-relaxed opacity-90 max-w-xl">
+            Accessible digital interfaces ensure that readable copy and clear interactive controls can be perceived by people with visual impairments, color blindness, or low contrast monitors.
+          </p>
+          <div class="pt-2 flex flex-wrap items-center gap-3">
+            <button type="button" class="px-4 py-2 rounded-xl text-xs font-bold shadow transition" style="background-color: #FFFFFF; color: #0F172A;">
+              Interactive Button
+            </button>
+            <span class="text-xs font-semibold underline decoration-2 underline-offset-4 cursor-pointer">
+              Underlined Text Link
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Harmonic Palette Generator -->
+      <div class="space-y-3 pt-2 border-t border-workspace-border">
+        <div class="flex items-center justify-between">
+          <label class="block text-xs font-bold uppercase tracking-wider text-workspace-muted">
+            Generated Harmonious Shades
+          </label>
+          <span class="text-[11px] text-workspace-muted">Click any swatch to copy HEX</span>
+        </div>
+        <div id="paletteSwatches" class="grid grid-cols-2 sm:grid-cols-6 gap-2.5">
+          <!-- Swatches injected via JS -->
+        </div>
+      </div>
+
+    </div>
+
+    <!-- SEO / Documentation Section -->
+    <article class="mt-12 bg-workspace-surface border border-workspace-border rounded-xl p-6 md:p-8 space-y-6 text-sm text-workspace-muted leading-relaxed">
+      <h2 class="text-lg font-bold text-workspace-text">
+        Understanding WCAG 2.1 Color Contrast Standards
+      </h2>
+      <p>
+        The Web Content Accessibility Guidelines (WCAG 2.1) specify relative luminance ratios between text and background colors to ensure digital products are accessible to users with low vision or color perception deficiencies:
+      </p>
+      <ul class="list-disc pl-5 space-y-2">
+        <li><strong class="text-workspace-text">Level AA (Minimum):</strong> Requires a contrast ratio of at least <span class="font-mono text-workspace-accent font-semibold">4.5:1</span> for normal body text (under 18pt regular or 14pt bold) and at least <span class="font-mono text-workspace-accent font-semibold">3.0:1</span> for large text and interactive UI borders.</li>
+        <li><strong class="text-workspace-text">Level AAA (Enhanced):</strong> Requires a contrast ratio of at least <span class="font-mono text-workspace-accent font-semibold">7.0:1</span> for normal text and <span class="font-mono text-workspace-accent font-semibold">4.5:1</span> for large text headings.</li>
+        <li><strong class="text-workspace-text">Zero Cloud Uploads:</strong> TabKit calculates all relative luminance algorithms locally inside your browser using client-side JavaScript. None of your brand guidelines or color schemes are sent to external servers.</li>
+      </ul>
+    </article>
+  </main>
+
+  <tool-footer></tool-footer>
+
+  <script>
+    let currentFg = '#FFFFFF';
+    let currentBg = '#0F172A';
+
+    function hexToRgb(hex) {
+      hex = hex.replace('#', '');
+      if (hex.length === 3) {
+        hex = hex.split('').map(c => c + c).join('');
+      }
+      const num = parseInt(hex, 16);
+      return {
+        r: (num >> 16) & 255,
+        g: (num >> 8) & 255,
+        b: num & 255
+      };
+    }
+
+    function rgbToHex(r, g, b) {
+      const clamp = (v) => Math.max(0, Math.min(255, Math.round(v)));
+      return '#' + [clamp(r), clamp(g), clamp(b)].map(x => x.toString(16).padStart(2, '0')).join('').toUpperCase();
+    }
+
+    function getLuminance(r, g, b) {
+      const a = [r, g, b].map(v => {
+        v /= 255;
+        return v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4);
+      });
+      return 0.2126 * a[0] + 0.7152 * a[1] + 0.0722 * a[2];
+    }
+
+    function calcContrast(hex1, hex2) {
+      try {
+        const rgb1 = hexToRgb(hex1);
+        const rgb2 = hexToRgb(hex2);
+        const lum1 = getLuminance(rgb1.r, rgb1.g, rgb1.b);
+        const lum2 = getLuminance(rgb2.r, rgb2.g, rgb2.b);
+        const brightest = Math.max(lum1, lum2);
+        const darkest = Math.min(lum1, lum2);
+        return (brightest + 0.05) / (darkest + 0.05);
+      } catch (e) {
+        return 1.0;
+      }
+    }
+
+    function updateView() {
+      const ratio = calcContrast(currentFg, currentBg);
+      const ratioStr = ratio.toFixed(2);
+      document.getElementById('contrastRatioVal').textContent = ratioStr;
+
+      // Badges
+      const normalAA = ratio >= 4.5;
+      const normalAAA = ratio >= 7.0;
+      const largeAA = ratio >= 3.0;
+      const uiAA = ratio >= 3.0;
+
+      setBadge('badgeNormalAA', normalAA);
+      setBadge('badgeNormalAAA', normalAAA);
+      setBadge('badgeLargeAA', largeAA);
+      setBadge('badgeUiAA', uiAA);
+
+      // Overall verdict
+      const verdictEl = document.getElementById('overallVerdictBadge');
+      const verdictSub = document.getElementById('overallVerdictSub');
+      if (normalAAA) {
+        verdictEl.className = 'px-4 py-1.5 rounded-full text-xs font-extrabold uppercase tracking-wider bg-emerald-500/10 text-emerald-500 border border-emerald-500/20 mb-1';
+        verdictEl.textContent = 'Excellent (AAA)';
+        verdictSub.textContent = 'Passes all WCAG 2.1 enhanced standards';
+      } else if (normalAA) {
+        verdictEl.className = 'px-4 py-1.5 rounded-full text-xs font-extrabold uppercase tracking-wider bg-blue-500/10 text-blue-500 border border-blue-500/20 mb-1';
+        verdictEl.textContent = 'Good (AA)';
+        verdictSub.textContent = 'Passes minimum WCAG 2.1 requirements for text';
+      } else if (largeAA) {
+        verdictEl.className = 'px-4 py-1.5 rounded-full text-xs font-extrabold uppercase tracking-wider bg-amber-500/10 text-amber-500 border border-amber-500/20 mb-1';
+        verdictEl.textContent = 'Large Text Only';
+        verdictSub.textContent = 'Fails for normal text; only suitable for 18pt+ headings';
+      } else {
+        verdictEl.className = 'px-4 py-1.5 rounded-full text-xs font-extrabold uppercase tracking-wider bg-rose-500/10 text-rose-500 border border-rose-500/20 mb-1';
+        verdictEl.textContent = 'Fails WCAG';
+        verdictSub.textContent = 'Insufficient contrast; difficult to read';
+      }
+
+      // Live Preview Box
+      const container = document.getElementById('livePreviewContainer');
+      container.style.backgroundColor = currentBg;
+      container.style.color = currentFg;
+
+      // Update palette swatches
+      renderPaletteSwatches();
+    }
+
+    function setBadge(id, isPass) {
+      const el = document.getElementById(id);
+      if (!el) return;
+      if (isPass) {
+        el.className = 'inline-block px-2.5 py-0.5 rounded text-xs font-black bg-emerald-500/10 text-emerald-500';
+        el.textContent = 'PASS';
+      } else {
+        el.className = 'inline-block px-2.5 py-0.5 rounded text-xs font-black bg-rose-500/10 text-rose-500';
+        el.textContent = 'FAIL';
+      }
+    }
+
+    function syncColor(type, val) {
+      if (!val) return;
+      if (type === 'fg') {
+        currentFg = val.startsWith('#') ? val : '#' + val;
+        document.getElementById('fgColorPicker').value = currentFg;
+        document.getElementById('fgHexInput').value = currentFg.replace('#', '').toUpperCase();
+      } else {
+        currentBg = val.startsWith('#') ? val : '#' + val;
+        document.getElementById('bgColorPicker').value = currentBg;
+        document.getElementById('bgHexInput').value = currentBg.replace('#', '').toUpperCase();
+      }
+      updateView();
+    }
+
+    function handleHexInput(type, val) {
+      val = val.replace(/[^0-9A-Fa-f]/g, '');
+      if (val.length === 6) {
+        syncColor(type, '#' + val);
+      }
+    }
+
+    function swapColors() {
+      const temp = currentFg;
+      currentFg = currentBg;
+      currentBg = temp;
+      syncColor('fg', currentFg);
+      syncColor('bg', currentBg);
+    }
+
+    function setPreset(fg, bg) {
+      currentFg = fg;
+      currentBg = bg;
+      syncColor('fg', currentFg);
+      syncColor('bg', currentBg);
+    }
+
+    function renderPaletteSwatches() {
+      const wrap = document.getElementById('paletteSwatches');
+      if (!wrap) return;
+      wrap.innerHTML = '';
+
+      const rgb = hexToRgb(currentBg);
+      const steps = [0.3, 0.5, 0.7, 0.9, 1.1, 1.3];
+      
+      steps.forEach((mult, i) => {
+        const hex = rgbToHex(rgb.r * mult, rgb.g * mult, rgb.b * mult);
+        const swatch = document.createElement('div');
+        swatch.className = 'p-2.5 rounded-xl border border-workspace-border bg-workspace-bg text-center cursor-pointer hover:scale-105 transition shadow-xs';
+        swatch.onclick = () => {
+          navigator.clipboard.writeText(hex);
+          alert('Copied ' + hex + ' to clipboard!');
+        };
+        swatch.innerHTML = `
+          <div class="w-full h-8 rounded-lg mb-1.5 shadow-inner" style="background-color: ${hex}"></div>
+          <span class="text-[10px] font-mono font-bold text-workspace-text uppercase">${hex}</span>
+        `;
+        wrap.appendChild(swatch);
+      });
+    }
+
+    // Init on load
+    updateView();
+  </script>
+</body>
+</html>
