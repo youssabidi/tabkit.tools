@@ -68,10 +68,12 @@
 - [x] **CSS & HTML Minifier (`css-html-minifier`):** Fast in-browser code minification, comment stripper, and beautifier with real-time byte analytics.
 - [x] **PWA Shortcuts:** Native OS-level application shortcuts in `manifest.json` for rapid tool launching.
 - [x] **Color Palette Generator & Contrast Studio (`color-palette-contrast`):** Contrast ratios (WCAG AAA) and complementary palette builder.
+- [x] **JSON to CSV & TSV Converter (`json-to-csv`):** Tool #53 - Flatten nested JSON objects and arrays into structured CSV spreadsheets or TSV tables with UTF-8 BOM encoding.
+- [x] **Favicon & PWA App Icon Generator (`favicon-generator`):** Tool #54 - Generate multi-resolution favicons, Apple touch icons, and Android PWA manifest assets directly in your browser.
 
 ---
 
-## 📦 Total Tools in Registry: 52 Tools
+## 📦 Total Tools in Registry: 54 Tools
 
 ### 📄 Documents & PDF (11)
 1. `pdf-splitter` — Client-Side PDF Splitter & Page Remover
@@ -86,7 +88,7 @@
 10. `pdf-password-protect` — Client-Side PDF Password Protect
 11. `pdf-sign-stamp` — Client-Side PDF Signature & Stamp
 
-### 📊 Text & Data (13)
+### 📊 Text & Data (14)
 12. `case-converter` — Case Converter & Word Counter
 13. `csv-json-converter` — CSV ↔ JSON Converter
 14. `csv-to-excel` — CSV to Excel (.xlsx) Converter
@@ -99,6 +101,7 @@
 21. `excel-transpose` — Row & Column Transposer
 22. `json-formatter` — JSON Formatter & Validator
 23. `json-to-excel` — JSON to Excel Converter
+24. `json-to-csv` — JSON to CSV & TSV Converter
 24. `markdown-preview` — Markdown Live Editor & HTML Preview
 25. `text-diff-checker` — Text Diff Checker & Notepad
 
@@ -119,13 +122,14 @@
 37. `sha256-hash-generator` — SHA-256 / 384 / 512 Hash Generator
 38. `url-link-cleaner` — URL Tracking Link Cleaner
 
-### 🎨 Media & Design (6)
+### 🎨 Media & Design (7)
 39. `hex-color-converter` — HEX to RGB / HSL Color Converter
 40. `image-compressor` — Client-Side Image Compressor & WebP
 41. `image-to-base64` — Image to Base64 (Data URI) Converter
 42. `qr-code-generator` — Free QR Code Generator
 43. `social-seo-previewer` — Social Media & Google SERP Previewer
 44. `svg-optimizer` — SVG Optimizer & React/CSS Exporter
+45. `favicon-generator` — Favicon & PWA App Icon Generator
 
 ### ⏱️ Productivity & Math (8)
 45. `date-calculator` — Days Between Dates Calculator

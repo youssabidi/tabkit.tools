@@ -56,6 +56,13 @@ window.TOOLS_REGISTRY = {
     "standaloneUrl": "/exif-metadata-stripper",
     "description": "Strip hidden GPS coordinates, camera serial numbers, and device metadata from photos before sharing."
   },
+  "favicon-generator": {
+    "id": "favicon-generator",
+    "name": "Favicon & PWA App Icon Generator",
+    "category": "Media & Design",
+    "standaloneUrl": "/favicon-generator",
+    "description": "Generate multi-resolution favicons, Apple touch icons, and Android PWA manifest icons from any image in-browser."
+  },
     "color-palette-contrast": {
     "id": "color-palette-contrast",
     "name": "WCAG Color Contrast & Palette Studio",
@@ -314,6 +321,13 @@ window.TOOLS_REGISTRY = {
     "category": "Text & Data",
     "standaloneUrl": "/csv-to-excel",
     "description": "Convert raw CSV and TSV files or pasted text into styled Microsoft Excel (.xlsx) workbooks locally."
+  },
+  "json-to-csv": {
+    "id": "json-to-csv",
+    "name": "JSON to CSV & TSV Converter",
+    "category": "Text & Data",
+    "standaloneUrl": "/json-to-csv",
+    "description": "Convert JSON objects and nested arrays directly into clean CSV spreadsheets or TSV tables locally."
   },
   "json-to-excel": {
     "id": "json-to-excel",
