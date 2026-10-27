@@ -115,14 +115,15 @@
 32. `sql-formatter` — SQL Query Beautifier & Indenter
 33. `uuid-generator` — Bulk UUID / GUID v4 Generator
 
-### 🔒 Privacy & Security (5)
+### 🔒 Privacy & Security (6)
 34. `base64-encoder-decoder` — Base64 Encoder / Decoder
 35. `exif-metadata-stripper` — Photo EXIF & GPS Metadata Stripper
 36. `secure-password-generator` — Secure Password & PIN Generator
 37. `sha256-hash-generator` — SHA-256 / 384 / 512 Hash Generator
 38. `url-link-cleaner` — URL Tracking Link Cleaner
+39. `password-strength` — Real-Time Password Strength & Entropy Analyzer
 
-### 🎨 Media & Design (7)
+### 🎨 Media & Design (8)
 39. `hex-color-converter` — HEX to RGB / HSL Color Converter
 40. `image-compressor` — Client-Side Image Compressor & WebP
 41. `image-to-base64` — Image to Base64 (Data URI) Converter
@@ -130,6 +131,7 @@
 43. `social-seo-previewer` — Social Media & Google SERP Previewer
 44. `svg-optimizer` — SVG Optimizer & React/CSS Exporter
 45. `favicon-generator` — Favicon & PWA App Icon Generator
+46. `svg-to-png` — SVG to PNG & WebP Rasterizer Studio — Favicon & PWA App Icon Generator
 
 ### ⏱️ Productivity & Math (8)
 45. `date-calculator` — Days Between Dates Calculator

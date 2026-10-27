@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SVG to PNG &amp; WebP Converter | TabKit Tools</title>
+  <link rel="manifest" href="/manifest.json" />
+  <meta name="description" content="Convert vector SVG files and raw code into high-resolution PNG or WebP raster images locally. Scale up to 5x with transparent background support. 100% private." />
+  <meta name="keywords" content="svg to png converter, svg to webp, vector to raster, client side svg converter, high res svg export" />
+  <link rel="canonical" href="https://tabkit.tools/svg-to-png" />
+
+  <meta property="og:title" content="SVG to PNG &amp; WebP Converter | TabKit Tools" />
+  <meta property="og:description" content="Convert vector SVG files and raw code into high-resolution PNG or WebP raster images locally. Zero cloud uploads." />
+  <meta property="og:url" content="https://tabkit.tools/svg-to-png" />
+  <meta property="og:type" content="website" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+
+  <!-- Schema.org JSON-LD -->
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebApplication",
+      "name": "SVG to PNG & WebP Converter",
+      "url": "https://tabkit.tools/svg-to-png",
+      "applicationCategory": "DesignApplication",
+      "operatingSystem": "All modern browsers",
+      "description": "Rasterize SVG vector illustrations and icons to high-resolution PNG or WebP images in-browser."
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Why rasterize SVG to PNG or WebP?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "While SVG is resolution-independent, many legacy applications, social media platforms, presentation slides, and mobile notification icons require fixed-dimension raster bitmaps like PNG or WebP."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does scaling an SVG cause quality loss?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. Because SVG is based on mathematical vector paths, scaling up to 2x, 4x, or ultra-high resolutions before rasterization produces pixel-perfect, crisp results."
+          }
+        }
+      ]
+    }
+  ]
+}
+  </script>
+
+  <script src="header.js"></script>
+  <script src="footer.js"></script>
+  <script src="registry.js"></script>
+</head>
+<body class="bg-workspace-bg text-workspace-text min-h-screen flex flex-col font-sans antialiased selection:bg-workspace-accent selection:text-white">
+  <tabkit-header></tabkit-header>
+
+  <main class="flex-1 max-w-5xl w-full mx-auto px-4 sm:px-6 py-8 flex flex-col space-y-8">
+    <div class="space-y-2">
+      <div class="flex items-center gap-2">
+        <a href="/" class="text-xs font-mono text-workspace-accent hover:underline flex items-center gap-1">
+          <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+          </svg>
+          Back to Hub
+        </a>
+        <span class="text-xs text-workspace-muted font-mono">/</span>
+        <span class="text-xs text-workspace-muted font-mono">Media &amp; Design</span>
+      </div>
+      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+        <div>
+          <h1 class="text-2xl sm:text-3xl font-bold tracking-tight text-white flex items-center gap-3">
+            <span>SVG to PNG &amp; WebP Converter</span>
+            <span class="text-xs px-2.5 py-0.5 rounded-full font-mono font-medium bg-indigo-500/10 text-indigo-400 border border-indigo-500/20">Client-Side</span>
+          </h1>
+          <p class="text-sm text-workspace-muted mt-1">Convert SVG vectors and raw markup into crisp, high-DPI PNG or WebP raster images locally. Zero cloud uploads.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Active Tool Container -->
+    <div id="tool-container" class="bg-workspace-surface border border-workspace-border rounded-2xl p-4 sm:p-6 shadow-xl relative min-h-[500px] flex flex-col">
+      <div class="flex items-center justify-center flex-1 text-workspace-muted font-mono text-sm animate-pulse">
+        Initializing Vector Rasterizer...
+      </div>
+    </div>
+
+    <!-- Educational Content -->
+    <article class="prose prose-invert max-w-none border-t border-workspace-border pt-12 space-y-8 text-sm text-workspace-muted leading-relaxed">
+      <div>
+        <h2 class="text-xl font-bold text-white mb-3">High-DPI Vector to Bitmap Rasterization In-Browser</h2>
+        <p>
+          Vector graphics (.svg) provide infinite scalability for the modern web, but many design platforms, email clients, social sharing cards (OpenGraph), and document editors still mandate raster bitmaps. Converting SVG to PNG or WebP in legacy desktop software can be cumbersome, and online converters often upload your proprietary vector icons to untrusted servers.
+        </p>
+        <p class="mt-3">
+          TabKit Tools solves this by using the browser's native HTML5 Canvas hardware acceleration. When an SVG file or code block is imported, it is parsed as a local Blob object and drawn into an offscreen canvas at the exact scale multiplier you specify—allowing you to generate 1x, 2x Retina, 4x 4K, or custom dimension exports with true alpha transparency.
+        </p>
+      </div>
+
+      <div class="border-t border-workspace-border pt-8 space-y-4">
+        <h2 class="text-xl font-bold text-white mb-4">Frequently Asked Questions</h2>
+        <div class="space-y-3">
+          <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/60">
+            <h3 class="text-sm font-bold text-workspace-text mb-1">Are my vector graphics uploaded to any external server?</h3>
+            <p class="text-xs text-workspace-muted leading-relaxed">No. Everything happens client-side directly within your browser's V8 engine. Your SVGs never leave your device, ensuring maximum privacy for proprietary company logos and UI assets.</p>
+          </div>
+          <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/60">
+            <h3 class="text-sm font-bold text-workspace-text mb-1">Can I copy the converted image directly to my clipboard?</h3>
+            <p class="text-xs text-workspace-muted leading-relaxed">Yes! Simply click "Copy to Clipboard", and TabKit uses the modern Asynchronous Clipboard API to write a native PNG blob ready to paste into Figma, Photoshop, Slack, or Google Docs.</p>
+          </div>
+        </div>
+      </div>
+    </article>
+  </main>
+
+  <tabkit-footer></tabkit-footer>
+  <div id="toastContainer" class="fixed bottom-6 right-4 z-50 flex flex-col gap-2 pointer-events-none"></div>
+
+  <script>
+    window.addEventListener('DOMContentLoaded', async () => {
+      try {
+        const tool = await loadTool('svg-to-png');
+        const container = document.getElementById('tool-container');
+        container.innerHTML = tool.render('svg-to-png');
+        tool.init('svg-to-png');
+      } catch (e) {
+        console.error('Error loading tool:', e);
+      }
+    });
+  </script>
+</body>
+</html>

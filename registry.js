@@ -377,6 +377,20 @@ window.TOOLS_REGISTRY = {
     "category": "Documents & PDF",
     "standaloneUrl": "/pdf-sign-stamp",
     "description": "Draw or type your digital signature and stamp it onto any page of a PDF locally in your browser."
+  },
+  "svg-to-png": {
+    "id": "svg-to-png",
+    "name": "SVG to PNG & WebP Converter",
+    "category": "Media & Design",
+    "standaloneUrl": "/svg-to-png",
+    "description": "Convert SVG files and raw markup into crisp, high-DPI PNG or WebP raster images locally."
+  },
+  "password-strength": {
+    "id": "password-strength",
+    "name": "Password Strength & Entropy Meter",
+    "category": "Privacy & Security",
+    "standaloneUrl": "/password-strength",
+    "description": "Evaluate cryptographic password strength, entropy bits, and brute force crack duration locally."
   }
 };
 
