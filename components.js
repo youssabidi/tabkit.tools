@@ -6,6 +6,8 @@ class TabkitFooter extends HTMLElement {
         <div class="flex flex-wrap items-center justify-center gap-3 md:gap-4">
           <a href="/" class="hover:text-workspace-accent transition-colors">Workbench</a>
           <span>&bull;</span>
+          <a href="/guide" class="hover:text-workspace-accent transition-colors">Guides</a>
+          <span>&bull;</span>
           <a href="/about" class="hover:text-workspace-accent transition-colors">About</a>
           <span>&bull;</span>
           <a href="/faq" class="hover:text-workspace-accent transition-colors">FAQ</a>
@@ -43,6 +45,7 @@ class ToolHeader extends HTMLElement {
         </div>
         <div class="flex items-center gap-3 font-mono text-xs">
           <nav class="hidden md:flex items-center gap-3 text-workspace-muted text-[11px] pe-2">
+            <a href="/guide" class="hover:text-workspace-text transition-colors">Guide</a>
             <a href="/about" class="hover:text-workspace-text transition-colors">About</a>
             <a href="/privacy" class="hover:text-workspace-text transition-colors">Privacy</a>
             <a href="/faq" class="hover:text-workspace-text transition-colors">FAQ</a>
