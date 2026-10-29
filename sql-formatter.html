@@ -76,6 +76,9 @@
   <script src="utils.js"></script>
   <script src="components.js"></script>
   <script src="registry.js"></script>
+  <!-- Google AdSense -->
+  <meta name="google-adsense-account" content="ca-pub-2672870630543693" />
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2672870630543693" crossorigin="anonymous"></script>
 </head>
 <body class="bg-workspace-bg text-workspace-text font-sans antialiased min-h-screen flex flex-col selection:bg-workspace-accent selection:text-black">
   <tool-header tool-name="sql-formatter"></tool-header>
@@ -108,6 +111,25 @@
         <p class="mt-3">
           The formatting parser aligns SELECT statements, GROUP BY clauses, and ORDER BY directives with consistent column indentations for effortless team peer review.
         </p>
+      </div>
+
+      <!-- SQL Standards & Best Practices -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="p-5 rounded-xl border border-workspace-border bg-workspace-surface">
+          <h3 class="text-base font-bold text-white mb-2">Clean SQL Conventions</h3>
+          <ul class="text-xs space-y-1.5 font-mono text-workspace-muted">
+            <li><span class="text-workspace-accent font-bold">UPPERCASE Keywords:</span> SELECT, FROM, WHERE, GROUP BY, HAVING, ORDER BY, LIMIT</li>
+            <li><span class="text-workspace-accent font-bold">Leading Comma Style:</span> Simplifies line commenting and git diff review</li>
+            <li><span class="text-workspace-accent font-bold">Explicit JOIN Syntax:</span> Prefer INNER/LEFT JOIN over implicit WHERE table1, table2</li>
+            <li><span class="text-workspace-accent font-bold">CTE Readability:</span> Use WITH expressions over deeply nested inline subqueries</li>
+          </ul>
+        </div>
+        <div class="p-5 rounded-xl border border-workspace-border bg-workspace-surface">
+          <h3 class="text-base font-bold text-white mb-2">Multi-Dialect Compatibility</h3>
+          <p class="text-xs text-workspace-muted leading-relaxed">
+            The formatting engine handles dialect-specific clauses gracefully, including PostgreSQL <code class="text-workspace-text font-mono">ON CONFLICT DO UPDATE</code>, MySQL <code class="text-workspace-text font-mono">ON DUPLICATE KEY</code>, and SQLite upsert semantics without breaking valid syntax.
+          </p>
+        </div>
       </div>
       <div class="border-t border-workspace-border pt-8 space-y-4">
         <h2 class="text-xl font-bold text-white mb-4">Frequently Asked Questions</h2>

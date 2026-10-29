@@ -76,6 +76,9 @@
   <script src="utils.js"></script>
   <script src="components.js"></script>
   <script src="registry.js"></script>
+  <!-- Google AdSense -->
+  <meta name="google-adsense-account" content="ca-pub-2672870630543693" />
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2672870630543693" crossorigin="anonymous"></script>
 </head>
 <body class="bg-workspace-bg text-workspace-text font-sans antialiased min-h-screen flex flex-col selection:bg-workspace-accent selection:text-black">
   <tool-header tool-name="jwt-decoder"></tool-header>
@@ -100,11 +103,34 @@
       <div>
         <h2 class="text-xl font-bold text-white mb-3">Decode JSON Web Tokens (JWT) Privately In-Browser</h2>
         <p>
-          JSON Web Tokens (JWT) secure modern OAuth 2.0, OpenID Connect, and session authentication flows. Inspecting token claims (such as expiration dates, user IDs, and scopes) is an essential debugging task.
+          JSON Web Tokens (JWT, RFC 7519) secure modern OAuth 2.0, OpenID Connect, and distributed API microservice architectures. Inspecting token claims (such as expiration dates, user IDs, and assigned role scopes) is a routine debugging task for software engineers and security professionals.
         </p>
         <p class="mt-3">
-          Pasting production authorization tokens into online decoders poses a serious security risk, as active session credentials can be logged. TabKit decodes JWT header and payload segments locally using client-side Base64URL parsing. It displays formatted JSON claims and calculates expiration status without network requests.
+          Pasting production authorization tokens into online cloud decoders poses a serious data breach hazard, as active session credentials can be intercepted or stored in server access logs. TabKit decodes JWT header and payload segments locally using client-side Base64URL parsing. It displays formatted JSON claims and calculates expiration status without transmitting any data over the network.
         </p>
+      </div>
+
+      <!-- JWT Technical Architecture Breakdown -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="p-5 rounded-xl border border-workspace-border bg-workspace-surface">
+          <h3 class="text-base font-bold text-white mb-2">RFC 7519 Token Structure</h3>
+          <p class="text-xs text-workspace-muted mb-3">A JSON Web Token consists of three distinct segments separated by dots (<code class="text-workspace-accent font-mono">.</code>):</p>
+          <ul class="text-xs space-y-1.5 font-mono text-workspace-muted">
+            <li><span class="text-rose-400 font-bold">Header:</span> Defines the token type (<code class="text-workspace-text">JWT</code>) and cryptographic signing algorithm (e.g. <code class="text-workspace-text">RS256</code>, <code class="text-workspace-text">ES256</code>, <code class="text-workspace-text">HS256</code>).</li>
+            <li><span class="text-purple-400 font-bold">Payload:</span> Contains the identity claims, user attributes, permissions, and session timestamps.</li>
+            <li><span class="text-sky-400 font-bold">Signature:</span> Cryptographic hash ensuring token integrity against tampering.</li>
+          </ul>
+        </div>
+        <div class="p-5 rounded-xl border border-workspace-border bg-workspace-surface">
+          <h3 class="text-base font-bold text-white mb-2">Standard Registered Claims</h3>
+          <ul class="text-xs space-y-1.5 font-mono text-workspace-muted">
+            <li><span class="text-workspace-accent font-bold">exp:</span> Expiration Time (Unix timestamp after which token is rejected)</li>
+            <li><span class="text-workspace-accent font-bold">iat:</span> Issued At timestamp denoting token generation time</li>
+            <li><span class="text-workspace-accent font-bold">iss:</span> Principal issuer URI that created the token</li>
+            <li><span class="text-workspace-accent font-bold">sub:</span> Subject identifier (unique user ID or system principal)</li>
+            <li><span class="text-workspace-accent font-bold">aud:</span> Audience intended recipients for this token</li>
+          </ul>
+        </div>
       </div>
       <div class="border-t border-workspace-border pt-8 space-y-4">
         <h2 class="text-xl font-bold text-white mb-4">Frequently Asked Questions</h2>

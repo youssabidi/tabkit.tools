@@ -33,7 +33,7 @@
       "@id": "https://tabkit.tools/privacy#webpage",
       "url": "https://tabkit.tools/privacy",
       "name": "Privacy Policy & Data Security Commitment | TabKit Tools",
-      "description": "Comprehensive privacy policy detailing TabKit's local-first architecture and zero server tracking.",
+      "description": "Comprehensive privacy policy detailing TabKit's local-first architecture, zero server tracking, and transparent advertising disclosures.",
       "inLanguage": "en-US",
       "publisher": {
         "@type": "Organization",
@@ -62,6 +62,8 @@
   ]
 }
   </script>
+  <meta name="google-adsense-account" content="ca-pub-2672870630543693" />
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2672870630543693" crossorigin="anonymous"></script>
   <script src="utils.js"></script>
   <script src="components.js"></script>
 </head>
@@ -81,7 +83,7 @@
         Privacy &amp; Security Policy
       </h1>
       <p class="text-sm md:text-base text-workspace-muted leading-relaxed">
-        Last updated: October 15, 2026. TabKit Tools is engineered from the ground up to protect your privacy through mathematical isolation: your files, data, and passwords never leave your browser.
+        Last updated: October 29, 2026. TabKit Tools is engineered from the ground up to protect your privacy through mathematical isolation: your files, data, and passwords never leave your browser.
       </p>
     </div>
 
@@ -99,8 +101,8 @@
         <div class="w-10 h-10 rounded-xl bg-sky-400/10 border border-sky-400/25 text-sky-400 flex items-center justify-center mb-3">
           <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
         </div>
-        <h2 class="text-sm font-bold text-workspace-text mb-1">Zero Telemetry &amp; Ads</h2>
-        <p class="text-xs text-workspace-muted leading-relaxed">No tracking scripts, no Google Analytics, no Facebook pixels, and no fingerprinting. Your usage is strictly private.</p>
+        <h2 class="text-sm font-bold text-workspace-text mb-1">Zero Data Mining</h2>
+        <p class="text-xs text-workspace-muted leading-relaxed">No tracking of your file contents or input payloads. Your calculations and documents stay strictly confidential.</p>
       </div>
 
       <div class="p-5 rounded-2xl bg-workspace-surface border border-workspace-border flex flex-col justify-between">
@@ -147,11 +149,37 @@
       <section class="p-6 md:p-8 rounded-2xl bg-workspace-surface/50 border border-workspace-border space-y-4">
         <h2 class="text-lg font-bold text-workspace-text font-mono flex items-center gap-2">
           <span class="text-workspace-accent font-mono text-base">03.</span>
-          Browser Storage &amp; Cookies
+          Third-Party Advertising &amp; Google AdSense
         </h2>
         <p>
-          TabKit Tools does not use third-party tracking cookies or advertising cookies.
+          To keep TabKit Tools 100% free and continuously maintained without requiring subscriptions or paywalls, we display digital advertisements served by <strong class="text-workspace-text">Google AdSense</strong> and Google-certified ad networks.
         </p>
+        <div class="space-y-3">
+          <p>
+            In accordance with Google publisher policies, we provide the following mandatory disclosures regarding advertising cookies:
+          </p>
+          <ul class="list-disc pl-5 space-y-2">
+            <li>
+              <strong>Third-Party Vendor Cookies:</strong> Third-party vendors, including Google, use cookies (such as the DoubleClick DART cookie) to serve ads based on a user's prior visits to TabKit Tools or other websites on the Internet.
+            </li>
+            <li>
+              <strong>Personalized Advertising:</strong> Google's use of advertising cookies enables it and its partners to serve ads to our visitors based on their visit to our site and/or other sites on the web.
+            </li>
+            <li>
+              <strong>User Choice &amp; Opt-Out Options:</strong> Users may opt out of personalized advertising at any time by visiting <a href="https://www.google.com/settings/ads" target="_blank" rel="noopener noreferrer" class="text-workspace-accent underline hover:text-white">Google Ads Settings</a>. You may also opt out of third-party vendor cookies for personalized advertising by visiting <a href="https://www.aboutads.info/choices/" target="_blank" rel="noopener noreferrer" class="text-workspace-accent underline hover:text-white">AboutAds.info Choices</a> or the <a href="https://www.youronlinechoices.com/" target="_blank" rel="noopener noreferrer" class="text-workspace-accent underline hover:text-white">European Interactive Digital Advertising Alliance (EDAA)</a>.
+            </li>
+            <li>
+              <strong>Isolation from Tool Data:</strong> Google AdSense runs strictly within sandboxed iframes. Advertisers and advertising scripts have zero access to the data, text payloads, tokens, passwords, or files you process inside TabKit's local client-side tools.
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="p-6 md:p-8 rounded-2xl bg-workspace-surface/50 border border-workspace-border space-y-4">
+        <h2 class="text-lg font-bold text-workspace-text font-mono flex items-center gap-2">
+          <span class="text-workspace-accent font-mono text-base">04.</span>
+          Browser Storage &amp; Cookies
+        </h2>
         <p>
           We utilize standard browser Web Storage (<code class="text-workspace-accent font-mono text-xs">localStorage</code>) strictly for functional user preferences:
         </p>
@@ -166,7 +194,7 @@
 
       <section class="p-6 md:p-8 rounded-2xl bg-workspace-surface/50 border border-workspace-border space-y-4">
         <h2 class="text-lg font-bold text-workspace-text font-mono flex items-center gap-2">
-          <span class="text-workspace-accent font-mono text-base">04.</span>
+          <span class="text-workspace-accent font-mono text-base">05.</span>
           Content Security Policy &amp; External Assets
         </h2>
         <p>
@@ -181,7 +209,7 @@
 
       <section class="p-6 md:p-8 rounded-2xl bg-workspace-surface/50 border border-workspace-border space-y-4">
         <h2 class="text-lg font-bold text-workspace-text font-mono flex items-center gap-2">
-          <span class="text-workspace-accent font-mono text-base">05.</span>
+          <span class="text-workspace-accent font-mono text-base">06.</span>
           Contact &amp; Open Audits
         </h2>
         <p>

@@ -96,6 +96,9 @@
   </script>
   <script src="utils.js"></script>
   <script src="components.js"></script>
+  <!-- Google AdSense -->
+  <meta name="google-adsense-account" content="ca-pub-2672870630543693" />
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2672870630543693" crossorigin="anonymous"></script>
 </head>
 
 <body class="bg-workspace-bg text-workspace-text font-sans antialiased min-h-screen flex flex-col selection:bg-workspace-accent selection:text-black">
@@ -148,8 +151,34 @@
           Base64 is a common format used to encode binary data or complex strings (like JSON Web Tokens, API Keys, or email attachments) into safe, printable ASCII text.
         </p>
         <p class="mt-2">
-          Because developers frequently deal with API secrets or sensitive user data that happens to be Base64-encoded, pasting those strings into a remote, cloud-hosted decoder is a massive security risk. This utility uses native browser functions (<code class="text-workspace-accent">btoa()</code> and <code class="text-workspace-accent">atob()</code>) to guarantee your data never leaves your current tab.
+          Because developers frequently deal with API secrets or sensitive user data that happens to be Base64-encoded, pasting those strings into a remote, cloud-hosted decoder is a massive security risk. This utility uses native browser functions (<code class="text-workspace-accent font-mono">btoa()</code> and <code class="text-workspace-accent font-mono">atob()</code>) to guarantee your data never leaves your current tab.
         </p>
+      </div>
+
+      <!-- RFC 4648 Technical Deep Dive -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="p-5 rounded-xl border border-workspace-border bg-workspace-surface">
+          <h3 class="text-base font-bold text-white mb-2">RFC 4648 Conversion Logic</h3>
+          <p class="text-xs text-workspace-muted mb-3 leading-relaxed">
+            Base64 groups binary data into 24-bit chunks (three 8-bit bytes) and splits them into four 6-bit units. Each 6-bit unit maps to one of 64 characters in the index table (<code class="text-workspace-text font-mono">A-Z, a-z, 0-9, +, /</code>):
+          </p>
+          <ul class="text-xs space-y-1.5 font-mono text-workspace-muted">
+            <li><strong>Input:</strong> 3 bytes = 24 bits</li>
+            <li><strong>Output:</strong> 4 ASCII characters (33% size expansion)</li>
+            <li><strong>Padding (<code class="text-workspace-accent">=</code>):</strong> Appended when byte length is not divisible by 3</li>
+          </ul>
+        </div>
+        <div class="p-5 rounded-xl border border-workspace-border bg-workspace-surface">
+          <h3 class="text-base font-bold text-white mb-2">Standard Base64 vs Base64URL</h3>
+          <p class="text-xs text-workspace-muted leading-relaxed mb-2">
+            In URL query strings and JWT headers, the standard <code class="text-workspace-text font-mono">+</code> and <code class="text-workspace-text font-mono">/</code> characters cause encoding conflicts. The Base64URL standard replaces them:
+          </p>
+          <ul class="text-xs space-y-1 font-mono text-workspace-muted">
+            <li><span class="text-workspace-accent font-bold">+</span> is replaced with <span class="text-sky-400 font-bold">-</span> (minus)</li>
+            <li><span class="text-workspace-accent font-bold">/</span> is replaced with <span class="text-sky-400 font-bold">_</span> (underscore)</li>
+            <li>Padding <code class="text-workspace-text font-mono">=</code> is typically stripped</li>
+          </ul>
+        </div>
       </div>
 
       <!-- FAQ Accordion -->
