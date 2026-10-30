@@ -1,6 +1,17 @@
 class TabkitFooter extends HTMLElement {
   connectedCallback() {
     this.innerHTML = `
+      <div class="tabkit-ad-slot max-w-4xl mx-auto px-4 py-6 w-full text-center">
+        <div class="text-[10px] uppercase font-mono tracking-wider text-workspace-muted mb-1.5 opacity-60">Advertisement</div>
+        <div class="min-h-[90px] sm:min-h-[100px] flex items-center justify-center rounded-xl border border-workspace-border/60 bg-workspace-surface/40 overflow-hidden">
+          <ins class="adsbygoogle"
+               style="display:block"
+               data-ad-client="ca-pub-6634555517108396"
+               data-ad-slot="default"
+               data-ad-format="auto"
+               data-full-width-responsive="true"></ins>
+        </div>
+      </div>
       <footer class="border-t border-workspace-border bg-workspace-surface/90 px-4 py-4 md:py-3 flex flex-col md:flex-row items-center justify-between gap-3 text-xs font-mono text-workspace-muted">
         <div>&copy; 2026 TabKit Tools &bull; 100% Client-side local privacy workbench.</div>
         <div class="flex flex-wrap items-center justify-center gap-3 md:gap-4">
