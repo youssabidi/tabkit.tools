@@ -355,3 +355,17 @@ function sanitizeSpreadsheetCell(val) {
   }
   return val;
 }
+
+// Developer Ergonomics: Ctrl+Enter / Cmd+Enter to execute primary action
+if (typeof document !== 'undefined') {
+  document.addEventListener('keydown', function(e) {
+    if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
+      const primaryBtn = document.querySelector('button[onclick*="format"], button[onclick*="convert"], button[onclick*="process"], button[onclick*="encode"], button[onclick*="generate"], button[onclick*="run"], button[onclick*="execute"], #btnFormat, #btnConvert, #btnProcess, #btnGenerate, .btn-primary');
+      if (primaryBtn && !primaryBtn.disabled && primaryBtn.offsetParent !== null) {
+        e.preventDefault();
+        primaryBtn.click();
+      }
+    }
+  });
+}
+

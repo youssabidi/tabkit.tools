@@ -53,6 +53,7 @@ class ToolHeader extends HTMLElement {
           </a>
           <span class="text-workspace-muted text-xs hidden sm:inline">/</span>
           <span class="text-xs font-mono text-workspace-muted hidden sm:inline">${toolName}</span>
+          <span class="hidden lg:inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 text-[10px] font-mono"><span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>100% Client-Side Private</span>
         </div>
         <div class="flex items-center gap-3 font-mono text-xs">
           <nav class="hidden md:flex items-center gap-3 text-workspace-muted text-[11px] pe-2">
