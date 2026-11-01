@@ -1,5 +1,9 @@
 User-agent: *
 Allow: /
 
+# LLM & AI Discoverability
+# Machine-readable tools catalog for Perplexity, ChatGPT Search, Claude, Cursor, Copilot
+# https://tabkit.tools/llms.txt
+
 # Sitemaps
 Sitemap: https://tabkit.tools/sitemap.xml
