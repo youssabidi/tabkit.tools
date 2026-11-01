@@ -56,7 +56,7 @@ class ToolHeader extends HTMLElement {
           <span class="hidden lg:inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 text-[10px] font-mono"><span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>100% Client-Side Private</span>
         </div>
         <div class="flex items-center gap-3 font-mono text-xs">
-          <button onclick="copyCitation('${toolName}')" class="hidden sm:inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg border border-workspace-border/80 hover:border-workspace-accent/60 bg-workspace-surface/60 text-workspace-muted hover:text-workspace-accent transition-all text-[11px]" title="Copy Markdown citation to embed in GitHub README or documentation">
+          <button onclick="copyCitation()" class="hidden sm:inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg border border-workspace-border/80 hover:border-workspace-accent/60 bg-workspace-surface/60 text-workspace-muted hover:text-workspace-accent transition-all text-[11px]" title="Copy Markdown citation to embed in GitHub README or documentation">
             <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
             <span>Cite Tool</span>
           </button>
