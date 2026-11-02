@@ -1,5 +1,27 @@
 // TabKit Tools - Lightweight Registry & Dynamic Loader
 window.TOOLS_REGISTRY = {
+  "bank-statement-to-excel": {
+    "id": "bank-statement-to-excel",
+    "name": "PDF Bank Statement to Excel Converter",
+    "category": "Documents & PDF",
+    "standaloneUrl": "/bank-statement-to-excel",
+    "description": "Convert PDF bank statements into structured Excel (.xlsx) and CSV spreadsheets locally with zero server uploads."
+  },
+  "invoice-generator": {
+    "id": "invoice-generator",
+    "name": "Free Invoice Generator & Excel Exporter",
+    "category": "Productivity & Math",
+    "standaloneUrl": "/invoice-generator",
+    "description": "Generate professional invoices locally with live calculations, active formula Excel (.xlsx) workbooks, and print-ready PDF export."
+  },
+  "excel-shortcuts": {
+    "id": "excel-shortcuts",
+    "name": "Excel & Google Sheets Shortcuts Studio",
+    "category": "Productivity & Math",
+    "standaloneUrl": "/excel-shortcuts",
+    "description": "Interactive keyboard shortcuts reference and modern formula playground for Microsoft Excel and Google Sheets."
+  },
+
   "base64-encoder-decoder": {
     "id": "base64-encoder-decoder",
     "name": "Base64 Encoder / Decoder",

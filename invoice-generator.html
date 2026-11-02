@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Free Invoice Generator &amp; Excel Exporter | TabKit Tools</title>
+  <link rel="manifest" href="/manifest.json" />
+  <meta name="description" content="Create professional invoices locally with live calculations, active formula Excel (.xlsx) workbooks, and print-ready PDF export. 100% free &amp; private." />
+  <link rel="canonical" href="https://tabkit.tools/invoice-generator" />
+  <!-- OpenGraph SEO -->
+  <meta property="og:title" content="Free Invoice Generator &amp; Excel Exporter | TabKit Tools" />
+  <meta property="og:description" content="Create professional invoices locally with live calculations, active formula Excel (.xlsx) workbooks, and print-ready PDF export. 100% free &amp; private." />
+  <meta property="og:url" content="https://tabkit.tools/invoice-generator" />
+  <meta property="og:type" content="website" />
+  <link rel="stylesheet" href="styles.css" />
+  <script src="components.js"></script>
+  <script src="utils.js"></script>
+  <script src="registry.js"></script>
+  <!-- Google AdSense -->
+  <meta name="google-adsense-account" content="ca-pub-6634555517108396" />
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6634555517108396" crossorigin="anonymous"></script>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="apple-touch-icon" href="/icon-192.png" />
+  <!-- Social & OpenGraph Meta -->
+  <meta property="og:image" content="https://tabkit.tools/og-image.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://tabkit.tools/og-image.png" />
+
+  <!-- Schema.org Article Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "SoftwareApplication",
+        "@id": "https://tabkit.tools/invoice-generator#software",
+        "name": "Free Invoice Generator & Excel Exporter",
+        "applicationCategory": "BusinessApplication",
+        "operatingSystem": "All",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        },
+        "description": "Generate clean freelance and business invoices with live tax calculations, active formula Excel (.xlsx) workbooks, and print-to-PDF export."
+      },
+      {
+        "@type": "WebPage",
+        "@id": "https://tabkit.tools/invoice-generator#webpage",
+        "url": "https://tabkit.tools/invoice-generator",
+        "name": "Free Invoice Generator & Excel Exporter | TabKit Tools",
+        "isPartOf": {
+          "@id": "https://tabkit.tools/#website"
+        }
+      }
+    ]
+  }
+  </script>
+</head>
+<body class="bg-workspace-bg text-workspace-text font-sans antialiased min-h-screen flex flex-col selection:bg-workspace-accent selection:text-black">
+  <tool-header tool-name="invoice-generator"></tool-header>
+
+  <main class="flex-1 max-w-4xl w-full mx-auto px-4 py-8 md:py-12">
+    <div class="mb-8 text-center max-w-2xl mx-auto">
+      <div class="inline-flex items-center gap-2 px-2.5 py-1 rounded-full bg-workspace-accent/10 border border-workspace-accent/30 text-workspace-accent text-xs font-mono mb-3">
+        <span class="w-2 h-2 rounded-full bg-workspace-accent animate-pulse"></span>
+        100% Client-Side • Formula-Backed Excel • Clean Print PDF
+      </div>
+      <h1 class="text-3xl md:text-4xl font-extrabold tracking-tight text-white mb-3">Free Invoice Generator &amp; Excel Exporter</h1>
+      <p class="text-sm text-workspace-muted leading-relaxed">
+        Build and download professional invoices in seconds. Exports genuinely formula-backed Microsoft Excel (<code class="text-workspace-accent font-mono">.xlsx</code>) spreadsheets and print-ready PDF formats without login walls.
+      </p>
+    </div>
+
+    <div class="rounded-2xl border border-workspace-border bg-workspace-surface shadow-2xl p-6 mb-16 max-w-2xl mx-auto min-h-[460px] flex flex-col">
+      <div id="tool-container" class="flex-1 w-full relative"></div>
+    </div>
+
+    <!-- SEO Educational Content -->
+    <article class="prose prose-invert max-w-none border-t border-workspace-border pt-12 space-y-8 text-sm text-workspace-muted leading-relaxed">
+      <div>
+        <h2 class="text-xl font-bold text-white mb-3">Generate Professional Invoices Offline in Your Browser</h2>
+        <div class="p-4 rounded-xl bg-slate-800/80 border border-slate-700/80 text-sm text-slate-200 leading-relaxed mb-4">
+          <strong class="text-white">How does client-side invoice generation work?</strong>
+          Client-side invoice generation calculates line item subtotals, VAT or regional sales tax, and balance totals directly in browser memory without sending customer billing records to a web server. When exporting to Microsoft Excel, the tool embeds active spreadsheet formulas (such as <code class="text-workspace-accent">=SUM()</code> and multiplication operators) directly into the generated <code class="text-workspace-accent">.xlsx</code> file for effortless future adjustments.
+        </div>
+        <p>
+          Freelancers, independent contractors, and agency founders frequently need to issue quick, professional billing invoices without subscribing to expensive accounting SaaS platforms or exposing client rates to third-party databases. Traditional invoice generators often place watermarks on documents, demand account registration, or store sensitive business numbers on external servers.
+        </p>
+        <p class="mt-3">
+          TabKit Tools provides an open, private alternative. Enter your business details, bill-to client credentials, line item hours or project deliverables, and applicable taxes. You can immediately print to PDF or download an editable Excel sheet ready for corporate accounting records.
+        </p>
+      </div>
+
+      <div class="border-t border-workspace-border pt-8 space-y-4">
+        <h2 class="text-xl font-bold text-white mb-4">Frequently Asked Questions</h2>
+        <div class="space-y-3">
+          <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/60">
+            <h3 class="text-sm font-bold text-workspace-text mb-1">Does the downloaded Excel file contain active formulas?</h3>
+            <p class="text-xs text-workspace-muted leading-relaxed">Yes. Unlike converters that only output static numerical strings, TabKit exports valid spreadsheet formulas so that modifying quantity or unit rate values inside Excel automatically recalculates the line totals and final balance due.</p>
+          </div>
+          <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/60">
+            <h3 class="text-sm font-bold text-workspace-text mb-1">Are my client addresses or invoice amounts saved to a database?</h3>
+            <p class="text-xs text-workspace-muted leading-relaxed">No. TabKit is strictly client-side. No customer names, tax IDs, or invoice figures ever leave your local computer. All rendering is performed directly in your browser.</p>
+          </div>
+          <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/60">
+            <h3 class="text-sm font-bold text-workspace-text mb-1">How can I save the invoice as a PDF file?</h3>
+            <p class="text-xs text-workspace-muted leading-relaxed">Click the "Print / PDF" button. In your browser's print dialog, select "Save as PDF" as the destination printer. The document includes dedicated print CSS to remove UI buttons and output a clean, single-page business invoice.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="border-t border-workspace-border pt-8">
+        <h3 class="text-xs font-bold uppercase tracking-wider text-workspace-muted mb-3 font-mono">Related Business &amp; Spreadsheet Utilities</h3>
+        <div class="flex flex-wrap gap-2 text-xs font-mono">
+          <a href="/bank-statement-to-excel" class="px-3 py-1.5 rounded-lg border border-workspace-border bg-workspace-surface hover:border-workspace-accent hover:text-workspace-accent transition-all">Bank Statement to Excel &rarr;</a>
+          <a href="/csv-to-excel" class="px-3 py-1.5 rounded-lg border border-workspace-border bg-workspace-surface hover:border-workspace-accent hover:text-workspace-accent transition-all">CSV to Excel &rarr;</a>
+          <a href="/excel-to-csv" class="px-3 py-1.5 rounded-lg border border-workspace-border bg-workspace-surface hover:border-workspace-accent hover:text-workspace-accent transition-all">Excel to CSV &rarr;</a>
+          <a href="/percentage-calculator" class="px-3 py-1.5 rounded-lg border border-workspace-border bg-workspace-surface hover:border-workspace-accent hover:text-workspace-accent transition-all">Percentage Calculator &rarr;</a>
+        </div>
+      </div>
+    </article>
+  </main>
+
+  <tabkit-footer></tabkit-footer>
+  <div id="toastContainer" class="fixed bottom-6 right-4 z-50 flex flex-col gap-2 pointer-events-none"></div>
+
+  <script>
+    window.addEventListener('DOMContentLoaded', async () => {
+      try {
+        const tool = await loadTool('invoice-generator');
+        const container = document.getElementById('tool-container');
+        container.innerHTML = tool.render('invoice-generator');
+        tool.init('invoice-generator');
+      } catch (e) {
+        console.error('Error loading tool:', e);
+      }
+    });
+  </script>
+</body>
+</html>

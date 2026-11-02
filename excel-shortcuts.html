@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Excel &amp; Sheets Keyboard Shortcuts Studio | TabKit Tools</title>
+  <link rel="manifest" href="/manifest.json" />
+  <meta name="description" content="Interactive keyboard shortcuts reference and modern formula playground for Microsoft Excel and Google Sheets. Windows and Mac shortcuts with live filtering." />
+  <link rel="canonical" href="https://tabkit.tools/excel-shortcuts" />
+  <!-- OpenGraph SEO -->
+  <meta property="og:title" content="Excel &amp; Sheets Keyboard Shortcuts Studio | TabKit Tools" />
+  <meta property="og:description" content="Interactive keyboard shortcuts reference and modern formula playground for Microsoft Excel and Google Sheets. Windows and Mac shortcuts with live filtering." />
+  <meta property="og:url" content="https://tabkit.tools/excel-shortcuts" />
+  <meta property="og:type" content="website" />
+  <link rel="stylesheet" href="styles.css" />
+  <script src="components.js"></script>
+  <script src="utils.js"></script>
+  <script src="registry.js"></script>
+  <!-- Google AdSense -->
+  <meta name="google-adsense-account" content="ca-pub-6634555517108396" />
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6634555517108396" crossorigin="anonymous"></script>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="apple-touch-icon" href="/icon-192.png" />
+  <!-- Social & OpenGraph Meta -->
+  <meta property="og:image" content="https://tabkit.tools/og-image.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://tabkit.tools/og-image.png" />
+
+  <!-- Schema.org Article Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "SoftwareApplication",
+        "@id": "https://tabkit.tools/excel-shortcuts#software",
+        "name": "Excel & Google Sheets Shortcuts Studio",
+        "applicationCategory": "EducationalApplication",
+        "operatingSystem": "All",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        },
+        "description": "Interactive keyboard shortcuts cheatsheet and modern formula simulator for Microsoft Excel and Google Sheets on Windows and Mac."
+      },
+      {
+        "@type": "WebPage",
+        "@id": "https://tabkit.tools/excel-shortcuts#webpage",
+        "url": "https://tabkit.tools/excel-shortcuts",
+        "name": "Excel & Sheets Keyboard Shortcuts Studio | TabKit Tools",
+        "isPartOf": {
+          "@id": "https://tabkit.tools/#website"
+        }
+      }
+    ]
+  }
+  </script>
+</head>
+<body class="bg-workspace-bg text-workspace-text font-sans antialiased min-h-screen flex flex-col selection:bg-workspace-accent selection:text-black">
+  <tool-header tool-name="excel-shortcuts"></tool-header>
+
+  <main class="flex-1 max-w-4xl w-full mx-auto px-4 py-8 md:py-12">
+    <div class="mb-8 text-center max-w-2xl mx-auto">
+      <div class="inline-flex items-center gap-2 px-2.5 py-1 rounded-full bg-workspace-accent/10 border border-workspace-accent/30 text-workspace-accent text-xs font-mono mb-3">
+        <span class="w-2 h-2 rounded-full bg-workspace-accent animate-pulse"></span>
+        Interactive Cheat Sheet • Windows &amp; Mac • Modern Formulas
+      </div>
+      <h1 class="text-3xl md:text-4xl font-extrabold tracking-tight text-white mb-3">Excel &amp; Google Sheets Shortcuts Studio</h1>
+      <p class="text-sm text-workspace-muted leading-relaxed">
+        Master essential spreadsheet keyboard shortcuts for Windows and macOS. Includes instant fuzzy search and live sandboxes for modern formulas like XLOOKUP, INDEX/MATCH, and TEXTSPLIT.
+      </p>
+    </div>
+
+    <div class="rounded-2xl border border-workspace-border bg-workspace-surface shadow-2xl p-6 mb-16 max-w-2xl mx-auto min-h-[460px] flex flex-col">
+      <div id="tool-container" class="flex-1 w-full relative"></div>
+    </div>
+
+    <!-- SEO Educational Content -->
+    <article class="prose prose-invert max-w-none border-t border-workspace-border pt-12 space-y-8 text-sm text-workspace-muted leading-relaxed">
+      <div>
+        <h2 class="text-xl font-bold text-white mb-3">Speed Up Spreadsheet Modeling with Keyboard Shortcuts</h2>
+        <div class="p-4 rounded-xl bg-slate-800/80 border border-slate-700/80 text-sm text-slate-200 leading-relaxed mb-4">
+          <strong class="text-white">Why are keyboard shortcuts essential in spreadsheet modeling?</strong>
+          Using keyboard shortcuts in Microsoft Excel and Google Sheets eliminates repetitive mouse navigation, speeding up financial modeling, data wrangling, and formula debugging by over 40%. Critical shortcuts include <code class="text-workspace-accent font-bold">F4 / Cmd+T</code> to cycle absolute cell references ($A$1), <code class="text-workspace-accent font-bold">Ctrl+E</code> for Flash Fill, and <code class="text-workspace-accent font-bold">Alt+= / Cmd+Shift+T</code> for instant AutoSum.
+        </div>
+        <p>
+          Financial analysts, accountants, data scientists, and project managers work within spreadsheets daily. Navigating ribbons, selecting ranges across thousands of rows, and manually formatting decimal places with a mouse introduces friction and wrist fatigue.
+        </p>
+        <p class="mt-3">
+          TabKit Tools provides an interactive, searchable cheatsheet tailored for both Windows PC and Apple macOS keyboards. Whether you are transitioning to modern lookup functions or preparing for financial modeling interviews, this studio accelerates your proficiency.
+        </p>
+      </div>
+
+      <div class="border-t border-workspace-border pt-8 space-y-4">
+        <h2 class="text-xl font-bold text-white mb-4">Frequently Asked Questions</h2>
+        <div class="space-y-3">
+          <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/60">
+            <h3 class="text-sm font-bold text-workspace-text mb-1">What is the difference between VLOOKUP and XLOOKUP?</h3>
+            <p class="text-xs text-workspace-muted leading-relaxed">VLOOKUP only searches from left to right and breaks if new columns are inserted into the source range. XLOOKUP can search in any direction (left, right, up, down), defaults to exact match mode without requiring FALSE, and includes built-in fallback values for missing records.</p>
+          </div>
+          <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/60">
+            <h3 class="text-sm font-bold text-workspace-text mb-1">Do these shortcuts work in Google Sheets as well as Excel?</h3>
+            <p class="text-xs text-workspace-muted leading-relaxed">Yes. Major core navigation shortcuts (such as Ctrl/Cmd+Arrow for region jumping, Ctrl+Z, Ctrl+D for fill down, and Shift+Space for row selection) are identical between Microsoft Excel and Google Sheets in modern web browsers.</p>
+          </div>
+          <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/60">
+            <h3 class="text-sm font-bold text-workspace-text mb-1">How do I toggle between Windows and Mac keys?</h3>
+            <p class="text-xs text-workspace-muted leading-relaxed">Click the "macOS ⌘" button at the top of the studio to instantly convert all PC keys (Control, Alt, Enter) into native Apple keyboard modifiers (Command ⌘, Option ⌥, Return).</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="border-t border-workspace-border pt-8">
+        <h3 class="text-xs font-bold uppercase tracking-wider text-workspace-muted mb-3 font-mono">Related Spreadsheet Utilities</h3>
+        <div class="flex flex-wrap gap-2 text-xs font-mono">
+          <a href="/csv-to-excel" class="px-3 py-1.5 rounded-lg border border-workspace-border bg-workspace-surface hover:border-workspace-accent hover:text-workspace-accent transition-all">CSV to Excel &rarr;</a>
+          <a href="/bank-statement-to-excel" class="px-3 py-1.5 rounded-lg border border-workspace-border bg-workspace-surface hover:border-workspace-accent hover:text-workspace-accent transition-all">Bank Statement to Excel &rarr;</a>
+          <a href="/excel-formula-builder" class="px-3 py-1.5 rounded-lg border border-workspace-border bg-workspace-surface hover:border-workspace-accent hover:text-workspace-accent transition-all">Excel Formula Builder &rarr;</a>
+          <a href="/excel-transpose" class="px-3 py-1.5 rounded-lg border border-workspace-border bg-workspace-surface hover:border-workspace-accent hover:text-workspace-accent transition-all">Transpose Excel &rarr;</a>
+        </div>
+      </div>
+    </article>
+  </main>
+
+  <tabkit-footer></tabkit-footer>
+  <div id="toastContainer" class="fixed bottom-6 right-4 z-50 flex flex-col gap-2 pointer-events-none"></div>
+
+  <script>
+    window.addEventListener('DOMContentLoaded', async () => {
+      try {
+        const tool = await loadTool('excel-shortcuts');
+        const container = document.getElementById('tool-container');
+        container.innerHTML = tool.render('excel-shortcuts');
+        tool.init('excel-shortcuts');
+      } catch (e) {
+        console.error('Error loading tool:', e);
+      }
+    });
+  </script>
+</body>
+</html>
