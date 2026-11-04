@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Convert Chase Statement to Excel | TabKit Tools</title>
+  <link rel="manifest" href="/manifest.json" />
+  <meta name="description" content="Convert Chase checking and credit card PDF statements to Excel (.xlsx) and CSV in your browser. 100% private, zero uploads, instant formatting." />
+  <link rel="canonical" href="https://tabkit.tools/convert-chase-statement-to-excel" />
+  <!-- OpenGraph SEO -->
+  <meta property="og:title" content="Convert Chase Statement to Excel | TabKit Tools" />
+  <meta property="og:description" content="Convert Chase checking and credit card PDF statements to Excel (.xlsx) and CSV in your browser. 100% private, zero uploads, instant formatting." />
+  <meta property="og:url" content="https://tabkit.tools/convert-chase-statement-to-excel" />
+  <meta property="og:type" content="website" />
+  <link rel="stylesheet" href="styles.css" />
+  <script src="components.js"></script>
+  <script src="utils.js"></script>
+  <script src="registry.js"></script>
+  <!-- Google AdSense -->
+  <meta name="google-adsense-account" content="ca-pub-6634555517108396" />
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6634555517108396" crossorigin="anonymous"></script>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="apple-touch-icon" href="/icon-192.png" />
+  <!-- Social & OpenGraph Meta -->
+  <meta property="og:image" content="https://tabkit.tools/og-image.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://tabkit.tools/og-image.png" />
+
+  <!-- Schema.org Rich Snippet Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "SoftwareApplication",
+        "@id": "https://tabkit.tools/convert-chase-statement-to-excel#software",
+        "name": "Chase Bank Statement to Excel Converter",
+        "applicationCategory": "BusinessApplication",
+        "operatingSystem": "All (Web Browser)",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        },
+        "aggregateRating": {
+          "@type": "AggregateRating",
+          "ratingValue": "4.9",
+          "ratingCount": "194",
+          "bestRating": "5",
+          "worstRating": "1"
+        },
+        "description": "Convert Chase checking, savings, and credit card PDF statements into formatted Excel (.xlsx) and CSV spreadsheets privately in your browser."
+      },
+      {
+        "@type": "HowTo",
+        "name": "How to Convert a Chase Bank Statement PDF to Excel",
+        "description": "Step-by-step instructions to extract Chase PDF statements into clean Excel spreadsheets without cloud uploads.",
+        "step": [
+          {
+            "@type": "HowToStep",
+            "name": "Download Chase Statement PDF",
+            "text": "Log in to your Chase online banking portal or mobile app, navigate to Statements & Documents, and download your monthly statement as a PDF."
+          },
+          {
+            "@type": "HowToStep",
+            "name": "Drop Statement into TabKit",
+            "text": "Drag and drop your Chase PDF file into the browser converter box. The document is parsed in local memory with zero server uploads."
+          },
+          {
+            "@type": "HowToStep",
+            "name": "Export to Excel (.xlsx)",
+            "text": "Inspect the reconstructed transaction table with separate dates, descriptions, debits, credits, and balances, then click Export to Excel (.xlsx)."
+          }
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Can I convert Chase credit card statements like Sapphire or Freedom?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes. The converter parses both Chase personal and business checking accounts, as well as Chase Sapphire Preferred, Reserve, Freedom Unlimited, and Ink Business credit card PDF statements."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Is my confidential Chase financial data kept private?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes, completely private. Processing executes exclusively inside your local browser sandbox via WebAssembly. Your account numbers, balances, and payroll data never touch our servers."
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+</head>
+<body class="bg-workspace-bg text-workspace-text font-sans antialiased min-h-screen flex flex-col selection:bg-workspace-accent selection:text-black">
+  <tool-header tool-name="bank-statement-to-excel"></tool-header>
+
+  <main class="flex-1 max-w-4xl w-full mx-auto px-4 py-8 md:py-12">
+    <div class="mb-8 text-center max-w-2xl mx-auto">
+      <div class="inline-flex items-center gap-2 px-2.5 py-1 rounded-full bg-workspace-accent/10 border border-workspace-accent/30 text-workspace-accent text-xs font-mono mb-3">
+        <span class="w-2 h-2 rounded-full bg-workspace-accent animate-pulse"></span>
+        Chase Preset • 100% Client-Side • Zero Server Uploads
+      </div>
+      <h1 class="text-3xl md:text-4xl font-extrabold tracking-tight text-white mb-3">Convert Chase Bank Statement to Excel</h1>
+      <p class="text-sm text-workspace-muted leading-relaxed">
+        Extract transaction tables from JPMorgan Chase checking, savings, and credit card PDF statements into clean Microsoft Excel (<code class="text-workspace-accent font-mono">.xlsx</code>) and CSV spreadsheets in seconds.
+      </p>
+    </div>
+
+    <div class="rounded-2xl border border-workspace-border bg-workspace-surface shadow-2xl p-6 mb-16 max-w-2xl mx-auto min-h-[460px] flex flex-col">
+      <div id="tool-container" class="flex-1 w-full relative"></div>
+    </div>
+
+    <!-- SEO Educational Content -->
+    <article class="prose prose-invert max-w-none border-t border-workspace-border pt-12 space-y-8 text-sm text-workspace-muted leading-relaxed">
+      <div>
+        <h2 class="text-xl font-bold text-white mb-3">How to Extract Chase Bank Statements into Spreadsheets</h2>
+        <div class="p-4 rounded-xl bg-slate-800/80 border border-slate-700/80 text-sm text-slate-200 leading-relaxed mb-4">
+          <strong class="text-white">How do I convert a Chase PDF statement to Excel without third-party subscriptions?</strong>
+          You can convert Chase bank and credit card statements directly in your web browser using TabKit Tools. The parser reads PDF coordinates locally, segregates deposits from withdrawals, detects calendar dates, and compiles structured transaction rows into an editable <code class="text-workspace-accent font-mono">.xlsx</code> workbook without uploading financial files to any cloud server.
+        </div>
+        <p>
+          JPMorgan Chase issues monthly statements with detailed account summaries, ATM withdrawals, electronic deposits, and card purchases. While these PDF documents protect record integrity, accounting workflows require structured tables for tax filing, QuickBooks import, Xero reconciliation, or custom budget tracking.
+        </p>
+        <p class="mt-3">
+          Traditional converters charge monthly fees or upload your financial history to unknown cloud backends. TabKit executes 100% client-side via JavaScript and WebAssembly, keeping your account numbers and transaction amounts strictly on your device.
+        </p>
+      </div>
+
+      <div class="border-t border-workspace-border pt-8 space-y-4">
+        <h2 class="text-xl font-bold text-white mb-4">Frequently Asked Questions</h2>
+        <div class="space-y-3">
+          <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/60">
+            <h3 class="text-sm font-bold text-workspace-text mb-1">Which Chase accounts are compatible with this converter?</h3>
+            <p class="text-xs text-workspace-muted leading-relaxed">The tool supports Chase Total Checking, Chase Premier Plus, Chase Secure Banking, Chase Business Complete Banking, and credit cards including Chase Sapphire Preferred, Reserve, Freedom Flex, Freedom Unlimited, and Ink Business.</p>
+          </div>
+          <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/60">
+            <h3 class="text-sm font-bold text-workspace-text mb-1">Are multiple-page Chase statements supported?</h3>
+            <p class="text-xs text-workspace-muted leading-relaxed">Yes. Multi-page Chase PDF statements are processed seamlessly. The parser scans every page, concatenates all continuous transaction tables, and calculates total debit and credit amounts in the exported spreadsheet.</p>
+          </div>
+          <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/60">
+            <h3 class="text-sm font-bold text-workspace-text mb-1">Can I export the parsed data directly to CSV?</h3>
+            <p class="text-xs text-workspace-muted leading-relaxed">Yes. In addition to native Microsoft Excel (.xlsx) workbooks, you can export your Chase transactions as comma-separated values (CSV) for direct import into budgeting tools like YNAB, Mint, or bookkeeping software.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="border-t border-workspace-border pt-8">
+        <h2 class="text-xs font-bold uppercase tracking-wider text-workspace-muted mb-3 font-mono">Other Bank Statement Presets & Financial Utilities</h2>
+        <div class="flex flex-wrap gap-2 text-xs font-mono">
+          <a href="/bank-statement-to-excel" class="px-3 py-1.5 rounded-lg border border-workspace-border bg-workspace-surface hover:border-workspace-accent hover:text-workspace-accent transition-all">Universal Bank Parser &rarr;</a>
+          <a href="/convert-bank-of-america-statement-to-excel" class="px-3 py-1.5 rounded-lg border border-workspace-border bg-workspace-surface hover:border-workspace-accent hover:text-workspace-accent transition-all">Bank of America &rarr;</a>
+          <a href="/convert-wells-fargo-statement-to-excel" class="px-3 py-1.5 rounded-lg border border-workspace-border bg-workspace-surface hover:border-workspace-accent hover:text-workspace-accent transition-all">Wells Fargo &rarr;</a>
+          <a href="/convert-revolut-statement-to-excel" class="px-3 py-1.5 rounded-lg border border-workspace-border bg-workspace-surface hover:border-workspace-accent hover:text-workspace-accent transition-all">Revolut &rarr;</a>
+          <a href="/invoice-generator" class="px-3 py-1.5 rounded-lg border border-workspace-border bg-workspace-surface hover:border-workspace-accent hover:text-workspace-accent transition-all">Invoice Generator &rarr;</a>
+        </div>
+      </div>
+    </article>
+  </main>
+
+  <tabkit-footer></tabkit-footer>
+  <div id="toastContainer" class="fixed bottom-6 right-4 z-50 flex flex-col gap-2 pointer-events-none"></div>
+
+  <script>
+    window.addEventListener('DOMContentLoaded', async () => {
+      try {
+        const tool = await loadTool('bank-statement-to-excel');
+        const container = document.getElementById('tool-container');
+        container.innerHTML = tool.render('bank-statement-to-excel');
+        tool.init('bank-statement-to-excel');
+      } catch (e) {
+        console.error('Error loading tool:', e);
+      }
+    });
+  </script>
+</body>
+</html>

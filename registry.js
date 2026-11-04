@@ -7,6 +7,41 @@ window.TOOLS_REGISTRY = {
     "standaloneUrl": "/bank-statement-to-excel",
     "description": "Convert PDF bank statements into structured Excel (.xlsx) and CSV spreadsheets locally with zero server uploads."
   },
+  "convert-chase-statement-to-excel": {
+    "id": "convert-chase-statement-to-excel",
+    "name": "Convert Chase Statement to Excel",
+    "category": "Documents & PDF",
+    "standaloneUrl": "/convert-chase-statement-to-excel",
+    "description": "Extract transaction tables from Chase checking and credit card PDF statements into Excel (.xlsx) and CSV."
+  },
+  "convert-bank-of-america-statement-to-excel": {
+    "id": "convert-bank-of-america-statement-to-excel",
+    "name": "Convert Bank of America Statement to Excel",
+    "category": "Documents & PDF",
+    "standaloneUrl": "/convert-bank-of-america-statement-to-excel",
+    "description": "Extract Bank of America PDF statements into formatted Excel (.xlsx) and CSV workbooks locally."
+  },
+  "convert-wells-fargo-statement-to-excel": {
+    "id": "convert-wells-fargo-statement-to-excel",
+    "name": "Convert Wells Fargo Statement to Excel",
+    "category": "Documents & PDF",
+    "standaloneUrl": "/convert-wells-fargo-statement-to-excel",
+    "description": "Convert Wells Fargo checking, savings, and credit card PDF statements into Excel (.xlsx) and CSV."
+  },
+  "convert-revolut-statement-to-excel": {
+    "id": "convert-revolut-statement-to-excel",
+    "name": "Convert Revolut Statement to Excel",
+    "category": "Documents & PDF",
+    "standaloneUrl": "/convert-revolut-statement-to-excel",
+    "description": "Export Revolut multi-currency statements into structured Excel (.xlsx) and CSV workbooks locally."
+  },
+  "convert-barclays-statement-to-excel": {
+    "id": "convert-barclays-statement-to-excel",
+    "name": "Convert Barclays Statement to Excel",
+    "category": "Documents & PDF",
+    "standaloneUrl": "/convert-barclays-statement-to-excel",
+    "description": "Convert Barclays UK current and business account PDF statements to Excel (.xlsx) and CSV files."
+  },
   "invoice-generator": {
     "id": "invoice-generator",
     "name": "Free Invoice Generator & Excel Exporter",
@@ -418,32 +453,52 @@ window.TOOLS_REGISTRY = {
 
 // Dynamic Tool Loader
 const _loadedToolScripts = new Set();
+const _toolAliases = {
+  'convert-chase-statement-to-excel': 'bank-statement-to-excel',
+  'convert-bank-of-america-statement-to-excel': 'bank-statement-to-excel',
+  'convert-wells-fargo-statement-to-excel': 'bank-statement-to-excel',
+  'convert-revolut-statement-to-excel': 'bank-statement-to-excel',
+  'convert-barclays-statement-to-excel': 'bank-statement-to-excel'
+};
+
 window.loadTool = function(toolId) {
   return new Promise((resolve, reject) => {
     if (!window.TOOLS_REGISTRY[toolId]) {
       return reject(new Error('Unknown tool: ' + toolId));
     }
+    const targetScript = _toolAliases[toolId] || toolId;
     if (window.TOOLS_REGISTRY[toolId].render) {
       return resolve(window.TOOLS_REGISTRY[toolId]);
     }
-    if (_loadedToolScripts.has(toolId)) {
+    if (window.TOOLS_REGISTRY[targetScript] && window.TOOLS_REGISTRY[targetScript].render) {
+      window.TOOLS_REGISTRY[toolId].render = window.TOOLS_REGISTRY[targetScript].render;
+      window.TOOLS_REGISTRY[toolId].init = window.TOOLS_REGISTRY[targetScript].init;
+      return resolve(window.TOOLS_REGISTRY[toolId]);
+    }
+    if (_loadedToolScripts.has(targetScript)) {
       const check = setInterval(() => {
-        if (window.TOOLS_REGISTRY[toolId].render) {
+        if (window.TOOLS_REGISTRY[targetScript] && window.TOOLS_REGISTRY[targetScript].render) {
           clearInterval(check);
+          window.TOOLS_REGISTRY[toolId].render = window.TOOLS_REGISTRY[targetScript].render;
+          window.TOOLS_REGISTRY[toolId].init = window.TOOLS_REGISTRY[targetScript].init;
           resolve(window.TOOLS_REGISTRY[toolId]);
         }
       }, 10);
       return;
     }
-    _loadedToolScripts.add(toolId);
+    _loadedToolScripts.add(targetScript);
     const script = document.createElement('script');
-    script.src = '/tools/' + toolId + '.js';
+    script.src = '/tools/' + targetScript + '.js';
     script.async = true;
     script.onload = () => {
+      if (window.TOOLS_REGISTRY[targetScript]) {
+        window.TOOLS_REGISTRY[toolId].render = window.TOOLS_REGISTRY[targetScript].render;
+        window.TOOLS_REGISTRY[toolId].init = window.TOOLS_REGISTRY[targetScript].init;
+      }
       resolve(window.TOOLS_REGISTRY[toolId]);
     };
     script.onerror = (err) => {
-      _loadedToolScripts.delete(toolId);
+      _loadedToolScripts.delete(targetScript);
       reject(err);
     };
     document.head.appendChild(script);
