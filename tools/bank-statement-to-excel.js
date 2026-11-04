@@ -18,6 +18,15 @@ window.TOOLS_REGISTRY['bank-statement-to-excel'] = Object.assign(window.TOOLS_RE
         <p class="text-[11px] text-workspace-muted">Supports Chase, Bank of America, Wells Fargo, PayPal, Barclays, QNB & standard statements</p>
       </div>
 
+      <!-- OCR Toggle Banner -->
+      <div class="flex items-center justify-between px-2 py-2 rounded-xl bg-workspace-surface/50 border border-workspace-border text-[11px] font-mono">
+        <label class="flex items-center gap-2 cursor-pointer text-workspace-text hover:text-workspace-accent transition-colors">
+          <input type="checkbox" id="${toolId}_chkOcr" class="rounded text-workspace-accent focus:ring-0">
+          <span class="font-semibold">Auto-Detect Scanned Photocopies (WebAssembly OCR)</span>
+        </label>
+        <span class="text-[10px] text-emerald-400 font-mono">🔒 100% In-Browser Privacy</span>
+      </div>
+
       <!-- File Details & Parsing Controls -->
       <div id="${toolId}_fileDetails" class="hidden flex items-center justify-between p-3 rounded-xl border border-workspace-border bg-workspace-bg/80">
         <div class="flex items-center space-x-2 truncate">
@@ -109,9 +118,11 @@ window.TOOLS_REGISTRY['bank-statement-to-excel'] = Object.assign(window.TOOLS_RE
     const tableBody = document.getElementById(`${toolId}_tableBody`);
     const btnDownloadXlsx = document.getElementById(`${toolId}_btnDownloadXlsx`);
     const btnDownloadCsv = document.getElementById(`${toolId}_btnDownloadCsv`);
+    const chkOcr = document.getElementById(`${toolId}_chkOcr`);
 
     let currentTransactions = [];
     let originalBaseName = 'statement';
+    let loadedPdfDoc = null;
 
     function ensurePdfJs() {
       return new Promise((resolve, reject) => {
@@ -138,6 +149,86 @@ window.TOOLS_REGISTRY['bank-statement-to-excel'] = Object.assign(window.TOOLS_RE
       });
     }
 
+    function ensureTesseract() {
+      return new Promise((resolve, reject) => {
+        if (window.Tesseract) return resolve(window.Tesseract);
+        const script = document.createElement('script');
+        script.src = 'https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js';
+        script.onload = () => resolve(window.Tesseract);
+        script.onerror = () => reject(new Error('Failed to load WebAssembly OCR engine.'));
+        document.head.appendChild(script);
+      });
+    }
+
+    async function runWebAssemblyOcr(pdf) {
+      status.classList.remove('hidden');
+      status.innerHTML = `<span class="inline-block animate-spin mr-2">⟳</span> Initializing in-browser WebAssembly OCR engine (Tesseract.js)...`;
+      
+      const tesseract = await ensureTesseract();
+      const worker = await tesseract.createWorker('eng');
+      const ocrRows = [];
+
+      for (let pageNum = 1; pageNum <= pdf.numPages; pageNum++) {
+        status.innerHTML = `<span class="inline-block animate-spin mr-2">⟳</span> Running WebAssembly OCR on Page ${pageNum}/${pdf.numPages}...`;
+        const page = await pdf.getPage(pageNum);
+        const viewport = page.getViewport({ scale: 2.0 });
+        const canvas = document.createElement('canvas');
+        canvas.width = viewport.width;
+        canvas.height = viewport.height;
+        const ctx = canvas.getContext('2d');
+        await page.render({ canvasContext: ctx, viewport }).promise;
+
+        const { data } = await worker.recognize(canvas);
+        if (data && data.lines) {
+          data.lines.forEach(line => {
+            const fullLine = line.text.trim();
+            const dateRegex = /\b(\d{1,2}[\/\-\.]\d{1,2}(?:[\/\-\.]\d{2,4})?|\d{4}[\/\-\.]\d{1,2}[\/\-\.]\d{1,2}|(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)[a-z]*\s+\d{1,2})\b/i;
+            const dateMatch = fullLine.match(dateRegex);
+            const amountMatches = fullLine.match(/[\$\€\£]?\s*\(?-?\d{1,3}(?:,\d{3})*\.\d{2}\)?/g);
+
+            if (dateMatch && amountMatches && amountMatches.length >= 1) {
+              const dateStr = dateMatch[0];
+              let desc = fullLine.replace(dateStr, '').trim();
+              amountMatches.forEach(am => { desc = desc.replace(am, ''); });
+              desc = desc.replace(/\s+/g, ' ').trim();
+
+              const amounts = amountMatches.map(a => {
+                const isNeg = a.includes('(') || a.includes('-');
+                const clean = parseFloat(a.replace(/[^0-9.]/g, ''));
+                return isNeg ? -clean : clean;
+              });
+
+              let debit = '';
+              let credit = '';
+              let balance = '';
+
+              if (amounts.length === 1) {
+                if (amounts[0] < 0) debit = Math.abs(amounts[0]); else credit = amounts[0];
+              } else if (amounts.length === 2) {
+                if (amounts[0] < 0) debit = Math.abs(amounts[0]); else credit = amounts[0];
+                balance = amounts[1];
+              } else if (amounts.length >= 3) {
+                debit = amounts[0] < 0 ? Math.abs(amounts[0]) : '';
+                credit = amounts[1] > 0 ? amounts[1] : '';
+                balance = amounts[amounts.length - 1];
+              }
+
+              ocrRows.push({
+                date: dateStr,
+                description: desc || 'Scanned Transaction',
+                debit: debit !== '' ? Number(debit) : '',
+                credit: credit !== '' ? Number(credit) : '',
+                balance: balance !== '' ? Number(balance) : ''
+              });
+            }
+          });
+        }
+      }
+
+      await worker.terminate();
+      return ocrRows;
+    }
+
     dropzone.addEventListener('click', () => fileInput.click());
     dropzone.addEventListener('dragover', (e) => { e.preventDefault(); dropzone.classList.add('border-workspace-accent'); });
     dropzone.addEventListener('dragleave', () => dropzone.classList.remove('border-workspace-accent'));
@@ -153,6 +244,7 @@ window.TOOLS_REGISTRY['bank-statement-to-excel'] = Object.assign(window.TOOLS_RE
     btnRemove.addEventListener('click', () => {
       fileInput.value = '';
       currentTransactions = [];
+      loadedPdfDoc = null;
       fileDetails.classList.add('hidden');
       resultsContainer.classList.add('hidden');
       status.classList.add('hidden');
@@ -176,93 +268,97 @@ window.TOOLS_REGISTRY['bank-statement-to-excel'] = Object.assign(window.TOOLS_RE
         const pdfjs = await ensurePdfJs();
         const arrayBuffer = await file.arrayBuffer();
         const pdf = await pdfjs.getDocument({ data: arrayBuffer }).promise;
+        loadedPdfDoc = pdf;
         fileInfo.textContent = `${pdf.numPages} Page(s) • ${(file.size / 1024).toFixed(1)} KB`;
 
-        const parsedRows = [];
-        for (let pageNum = 1; pageNum <= pdf.numPages; pageNum++) {
-          const page = await pdf.getPage(pageNum);
-          const textContent = await page.getTextContent();
-          const items = textContent.items.map(item => ({
-            str: item.str.trim(),
-            x: Math.round(item.transform[4]),
-            y: Math.round(item.transform[5])
-          })).filter(i => i.str.length > 0);
+        let parsedRows = [];
 
-          // Group by Y line (within 3px tolerance)
-          const lines = {};
-          items.forEach(item => {
-            const yKey = Object.keys(lines).find(y => Math.abs(Number(y) - item.y) <= 3);
-            if (yKey) {
-              lines[yKey].push(item);
-            } else {
-              lines[item.y] = [item];
-            }
-          });
+        // Check if user forced OCR or if we should try digital text first
+        if (!chkOcr.checked) {
+          status.innerHTML = `<span class="inline-block animate-spin mr-2">⟳</span> Parsing digital text coordinates locally...`;
+          for (let pageNum = 1; pageNum <= pdf.numPages; pageNum++) {
+            const page = await pdf.getPage(pageNum);
+            const textContent = await page.getTextContent();
+            const items = textContent.items.map(item => ({
+              str: item.str.trim(),
+              x: Math.round(item.transform[4]),
+              y: Math.round(item.transform[5])
+            })).filter(i => i.str.length > 0);
 
-          // Sort lines from top to bottom
-          const sortedY = Object.keys(lines).map(Number).sort((a, b) => b - a);
-          sortedY.forEach(y => {
-            const lineItems = lines[y].sort((a, b) => a.x - b.x);
-            const fullLine = lineItems.map(i => i.str).join(' ');
-
-            // Check if line starts with a date pattern (MM/DD/YYYY, DD/MM/YYYY, YYYY-MM-DD, or Month DD)
-            const dateRegex = /\b(\d{1,2}[\/\-\.]\d{1,2}(?:[\/\-\.]\d{2,4})?|\d{4}[\/\-\.]\d{1,2}[\/\-\.]\d{1,2}|(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)[a-z]*\s+\d{1,2})\b/i;
-            const dateMatch = fullLine.match(dateRegex);
-
-            // Find monetary amounts ($123.45, -123.45, 1,234.56, (123.45))
-            const amountMatches = fullLine.match(/[\$\€\£]?\s*\(?-?\d{1,3}(?:,\d{3})*\.\d{2}\)?/g);
-
-            if (dateMatch && amountMatches && amountMatches.length >= 1) {
-              const dateStr = dateMatch[0];
-              const remaining = fullLine.replace(dateStr, '').trim();
-
-              // Parse amounts
-              const amounts = amountMatches.map(a => {
-                const isNeg = a.includes('(') || a.includes('-');
-                const clean = parseFloat(a.replace(/[^0-9.]/g, ''));
-                return isNeg ? -clean : clean;
-              });
-
-              let debit = '';
-              let credit = '';
-              let balance = '';
-
-              if (amounts.length === 1) {
-                if (amounts[0] < 0) {
-                  debit = Math.abs(amounts[0]);
-                } else {
-                  credit = amounts[0];
-                }
-              } else if (amounts.length === 2) {
-                if (amounts[0] < 0) debit = Math.abs(amounts[0]); else credit = amounts[0];
-                balance = amounts[1];
-              } else if (amounts.length >= 3) {
-                debit = amounts[0] < 0 ? Math.abs(amounts[0]) : '';
-                credit = amounts[1] > 0 ? amounts[1] : '';
-                balance = amounts[amounts.length - 1];
+            const lines = {};
+            items.forEach(item => {
+              const yKey = Object.keys(lines).find(y => Math.abs(Number(y) - item.y) <= 3);
+              if (yKey) {
+                lines[yKey].push(item);
+              } else {
+                lines[item.y] = [item];
               }
+            });
 
-              // Extract description
-              let desc = remaining;
-              amountMatches.forEach(am => { desc = desc.replace(am, ''); });
-              desc = desc.replace(/\s+/g, ' ').trim();
+            const sortedY = Object.keys(lines).map(Number).sort((a, b) => b - a);
+            sortedY.forEach(y => {
+              const lineItems = lines[y].sort((a, b) => a.x - b.x);
+              const fullLine = lineItems.map(i => i.str).join(' ');
 
-              parsedRows.push({
-                date: dateStr,
-                description: desc || 'Transaction',
-                debit: debit !== '' ? Number(debit) : '',
-                credit: credit !== '' ? Number(credit) : '',
-                balance: balance !== '' ? Number(balance) : ''
-              });
-            }
-          });
+              const dateRegex = /\b(\d{1,2}[\/\-\.]\d{1,2}(?:[\/\-\.]\d{2,4})?|\d{4}[\/\-\.]\d{1,2}[\/\-\.]\d{1,2}|(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)[a-z]*\s+\d{1,2})\b/i;
+              const dateMatch = fullLine.match(dateRegex);
+              const amountMatches = fullLine.match(/[\$\€\£]?\s*\(?-?\d{1,3}(?:,\d{3})*\.\d{2}\)?/g);
+
+              if (dateMatch && amountMatches && amountMatches.length >= 1) {
+                const dateStr = dateMatch[0];
+                const remaining = fullLine.replace(dateStr, '').trim();
+
+                const amounts = amountMatches.map(a => {
+                  const isNeg = a.includes('(') || a.includes('-');
+                  const clean = parseFloat(a.replace(/[^0-9.]/g, ''));
+                  return isNeg ? -clean : clean;
+                });
+
+                let debit = '';
+                let credit = '';
+                let balance = '';
+
+                if (amounts.length === 1) {
+                  if (amounts[0] < 0) debit = Math.abs(amounts[0]); else credit = amounts[0];
+                } else if (amounts.length === 2) {
+                  if (amounts[0] < 0) debit = Math.abs(amounts[0]); else credit = amounts[0];
+                  balance = amounts[1];
+                } else if (amounts.length >= 3) {
+                  debit = amounts[0] < 0 ? Math.abs(amounts[0]) : '';
+                  credit = amounts[1] > 0 ? amounts[1] : '';
+                  balance = amounts[amounts.length - 1];
+                }
+
+                let desc = remaining;
+                amountMatches.forEach(am => { desc = desc.replace(am, ''); });
+                desc = desc.replace(/\s+/g, ' ').trim();
+
+                parsedRows.push({
+                  date: dateStr,
+                  description: desc || 'Transaction',
+                  debit: debit !== '' ? Number(debit) : '',
+                  credit: credit !== '' ? Number(credit) : '',
+                  balance: balance !== '' ? Number(balance) : ''
+                });
+              }
+            });
+          }
+        }
+
+        // Auto-fallback to WebAssembly OCR if digital text yielded 0 rows or if OCR was checked
+        if (parsedRows.length === 0) {
+          try {
+            parsedRows = await runWebAssemblyOcr(pdf);
+          } catch(ocrErr) {
+            console.warn('OCR processing fallback encountered issue:', ocrErr);
+          }
         }
 
         currentTransactions = parsedRows;
         renderResults(parsedRows);
       } catch (err) {
         console.error('PDF parsing error:', err);
-        status.innerHTML = `<span class="text-red-400 font-bold">Error parsing PDF:</span> ${err.message || 'Could not parse text table. Make sure statement is not an un-scanned pure image.'}`;
+        status.innerHTML = `<span class="text-red-400 font-bold">Error parsing PDF:</span> ${err.message || 'Could not parse text table.'}`;
       }
     }
 
@@ -285,7 +381,25 @@ window.TOOLS_REGISTRY['bank-statement-to-excel'] = Object.assign(window.TOOLS_RE
 
       tableBody.innerHTML = '';
       if (rows.length === 0) {
-        tableBody.innerHTML = `<tr><td colspan="5" class="py-6 text-center text-workspace-muted font-mono">No structured transaction rows detected. If this is a scanned image, standard text PDF extraction requires digital text.</td></tr>`;
+        tableBody.innerHTML = `
+          <tr>
+            <td colspan="5" class="py-6 text-center text-workspace-muted font-mono space-y-2">
+              <p>No transactions detected via text layer.</p>
+              <button id="${toolId}_btnManualOcr" class="mt-2 bg-workspace-accent/20 hover:bg-workspace-accent text-workspace-accent hover:text-black border border-workspace-accent/50 px-3 py-1.5 rounded-lg font-bold transition-all text-xs font-mono">
+                🔍 Run WebAssembly OCR (Scan Page Images)
+              </button>
+            </td>
+          </tr>
+        `;
+        const btnManualOcr = document.getElementById(`${toolId}_btnManualOcr`);
+        if (btnManualOcr && loadedPdfDoc) {
+          btnManualOcr.addEventListener('click', async () => {
+            resultsContainer.classList.add('hidden');
+            const ocrRows = await runWebAssemblyOcr(loadedPdfDoc);
+            currentTransactions = ocrRows;
+            renderResults(ocrRows);
+          });
+        }
         return;
       }
 
@@ -318,25 +432,29 @@ window.TOOLS_REGISTRY['bank-statement-to-excel'] = Object.assign(window.TOOLS_RE
         ws['!cols'] = [{ wch: 14 }, { wch: 40 }, { wch: 18 }, { wch: 18 }, { wch: 16 }];
         const wb = XLSX.utils.book_new();
         XLSX.utils.book_append_sheet(wb, ws, 'Transactions');
-        XLSX.writeFile(wb, `${originalBaseName}_transactions.xlsx`);
-      } catch (e) {
-        alert('Error generating Excel: ' + e.message);
+        XLSX.writeFile(wb, `${originalBaseName}_converted.xlsx`);
+      } catch (err) {
+        alert('Failed to generate Excel file: ' + err.message);
       }
     });
 
     btnDownloadCsv.addEventListener('click', () => {
       if (currentTransactions.length === 0) return;
-      let csv = 'Date,Description,Debit,Credit,Balance\n';
-      currentTransactions.forEach(t => {
-        const safeDesc = `"${(t.description || '').replace(/"/g, '""')}"`;
-        csv += `${t.date},${safeDesc},${t.debit || ''},${t.credit || ''},${t.balance || ''}\n`;
-      });
-      const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+      const headers = ['Date', 'Description', 'Debit', 'Credit', 'Balance'];
+      const rows = currentTransactions.map(t => [
+        `"${t.date}"`,
+        `"${(t.description || '').replace(/"/g, '""')}"`,
+        t.debit || '',
+        t.credit || '',
+        t.balance || ''
+      ]);
+      const csvContent = [headers.join(','), ...rows.map(r => r.join(','))].join('\n');
+      const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
       const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = `${originalBaseName}_transactions.csv`;
-      a.click();
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = `${originalBaseName}_transactions.csv`;
+      link.click();
       URL.revokeObjectURL(url);
     });
   }

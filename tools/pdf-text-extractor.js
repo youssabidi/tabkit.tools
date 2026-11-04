@@ -1,4 +1,4 @@
-// Tool: pdf-text-extractor (Client-Side PDF Text & Markdown Extractor)
+// Tool: pdf-text-extractor (Client-Side PDF Text & Markdown Extractor with WebAssembly OCR)
 window.TOOLS_REGISTRY = window.TOOLS_REGISTRY || {};
 window.TOOLS_REGISTRY['pdf-text-extractor'] = Object.assign(window.TOOLS_REGISTRY['pdf-text-extractor'] || {}, {
   id: 'pdf-text-extractor',
@@ -20,10 +20,14 @@ window.TOOLS_REGISTRY['pdf-text-extractor'] = Object.assign(window.TOOLS_REGISTR
 
       <!-- Controls -->
       <div class="space-y-2 bg-workspace-bg/60 p-2 rounded-xl border border-workspace-border">
-        <div class="flex items-center justify-between text-[10px] font-mono">
+        <div class="flex flex-wrap items-center justify-between gap-2 text-[10px] font-mono">
           <label class="flex items-center gap-1.5 text-workspace-text cursor-pointer">
             <input type="checkbox" id="${toolId}_chkHeaders" checked class="rounded text-workspace-accent focus:ring-0">
-            <span>Include Page Separators (--- Page X ---)</span>
+            <span>Page Separators</span>
+          </label>
+          <label class="flex items-center gap-1.5 text-workspace-text cursor-pointer text-workspace-accent">
+            <input type="checkbox" id="${toolId}_chkOcr" class="rounded text-workspace-accent focus:ring-0">
+            <span>Auto-OCR Scanned Pages (WebAssembly)</span>
           </label>
           <div class="flex items-center gap-2">
             <span id="${toolId}_statsBadge" class="text-workspace-muted">0 pages • 0 words</span>
@@ -55,6 +59,7 @@ window.TOOLS_REGISTRY['pdf-text-extractor'] = Object.assign(window.TOOLS_REGISTR
     const fileInput = document.getElementById(`${toolId}_fileInput`);
     const fileName = document.getElementById(`${toolId}_fileName`);
     const chkHeaders = document.getElementById(`${toolId}_chkHeaders`);
+    const chkOcr = document.getElementById(`${toolId}_chkOcr`);
     const statsBadge = document.getElementById(`${toolId}_statsBadge`);
     const output = document.getElementById(`${toolId}_output`);
     const btnCopy = document.getElementById(`${toolId}_btnCopy`);
@@ -75,6 +80,17 @@ window.TOOLS_REGISTRY['pdf-text-extractor'] = Object.assign(window.TOOLS_REGISTR
           resolve(window.pdfjsLib);
         };
         script.onerror = () => reject(new Error('Failed to load PDF engine.'));
+        document.head.appendChild(script);
+      });
+    }
+
+    function ensureTesseract() {
+      return new Promise((resolve, reject) => {
+        if (window.Tesseract) return resolve(window.Tesseract);
+        const script = document.createElement('script');
+        script.src = 'https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js';
+        script.onload = () => resolve(window.Tesseract);
+        script.onerror = () => reject(new Error('Failed to load WebAssembly OCR engine.'));
         document.head.appendChild(script);
       });
     }
@@ -104,6 +120,8 @@ window.TOOLS_REGISTRY['pdf-text-extractor'] = Object.assign(window.TOOLS_REGISTR
         const pdf = await loadingTask.promise;
 
         extractedPages = [];
+        let ocrWorker = null;
+
         for (let i = 1; i <= pdf.numPages; i++) {
           status.textContent = `Extracting page ${i} of ${pdf.numPages}...`;
           const page = await pdf.getPage(i);
@@ -119,7 +137,36 @@ window.TOOLS_REGISTRY['pdf-text-extractor'] = Object.assign(window.TOOLS_REGISTR
             pageText += item.str;
             lastY = item.transform[5];
           }
+
+          // If page has no text layer or user requested OCR
+          if ((!pageText.trim() || chkOcr.checked) && typeof window !== 'undefined') {
+            try {
+              status.textContent = `Running WebAssembly OCR on page ${i} of ${pdf.numPages}...`;
+              if (!ocrWorker) {
+                const tesseract = await ensureTesseract();
+                ocrWorker = await tesseract.createWorker('eng');
+              }
+              const viewport = page.getViewport({ scale: 2.0 });
+              const canvas = document.createElement('canvas');
+              canvas.width = viewport.width;
+              canvas.height = viewport.height;
+              const ctx = canvas.getContext('2d');
+              await page.render({ canvasContext: ctx, viewport }).promise;
+
+              const { data } = await ocrWorker.recognize(canvas);
+              if (data && data.text) {
+                pageText = data.text;
+              }
+            } catch(ocrErr) {
+              console.warn('OCR error on page ' + i, ocrErr);
+            }
+          }
+
           extractedPages.push(pageText.trim());
+        }
+
+        if (ocrWorker) {
+          await ocrWorker.terminate();
         }
 
         renderOutput();
@@ -139,7 +186,7 @@ window.TOOLS_REGISTRY['pdf-text-extractor'] = Object.assign(window.TOOLS_REGISTR
         if (withHeaders) {
           fullText += `--- Page ${idx + 1} ---\n\n`;
         }
-        fullText += pText + '\n\n';
+        fullText += (pText || '[Empty or Unscanned Page]') + '\n\n';
       });
 
       output.value = fullText.trim();
