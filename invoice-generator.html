@@ -34,33 +34,73 @@
     "@context": "https://schema.org",
     "@graph": [
       {
-        "@type": "SoftwareApplication",
-        "@id": "https://tabkit.tools/invoice-generator#software",
+        "@type": "WebApplication",
+        "@id": "https://tabkit.tools/invoice-generator#app",
         "name": "Free Invoice Generator & Excel Exporter",
-        "applicationCategory": "BusinessApplication",
+        "url": "https://tabkit.tools/invoice-generator",
+        "applicationCategory": "UtilitiesApplication",
         "operatingSystem": "All",
+        "browserRequirements": "Requires JavaScript. Requires HTML5.",
         "offers": {
           "@type": "Offer",
           "price": "0",
           "priceCurrency": "USD"
         },
-        "aggregateRating": {
-          "@type": "AggregateRating",
-          "ratingValue": "4.9",
-          "ratingCount": "218",
-          "bestRating": "5",
-          "worstRating": "1"
-        },
-        "description": "Generate clean freelance and business invoices with live tax calculations, active formula Excel (.xlsx) workbooks, and print-to-PDF export."
+        "description": "Create professional invoices locally with live calculations, active formula Excel (.xlsx) workbooks, and print-ready PDF export. 100% free &amp; private."
       },
       {
-        "@type": "WebPage",
-        "@id": "https://tabkit.tools/invoice-generator#webpage",
-        "url": "https://tabkit.tools/invoice-generator",
-        "name": "Free Invoice Generator & Excel Exporter | TabKit Tools",
-        "isPartOf": {
-          "@id": "https://tabkit.tools/#website"
-        }
+        "@type": "BreadcrumbList",
+        "@id": "https://tabkit.tools/invoice-generator#breadcrumb",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "TabKit",
+            "item": "https://tabkit.tools/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Productivity & Math",
+            "item": "https://tabkit.tools/#productivity-math"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "Free Invoice Generator & Excel Exporter",
+            "item": "https://tabkit.tools/invoice-generator"
+          }
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "@id": "https://tabkit.tools/invoice-generator#faq",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Does the downloaded Excel file contain active formulas?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes. Unlike converters that only output static numerical strings, TabKit exports valid spreadsheet formulas so that modifying quantity or unit rate values inside Excel automatically recalculates the line totals and final balance due."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Are my client addresses or invoice amounts saved to a database?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "No. TabKit is strictly client-side. No customer names, tax IDs, or invoice figures ever leave your local computer. All rendering is performed directly in your browser."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How can I save the invoice as a PDF file?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Click the \"Print / PDF\" button. In your browser's print dialog, select \"Save as PDF\" as the destination printer. The document includes dedicated print CSS to remove UI buttons and output a clean, single-page business invoice."
+            }
+          }
+        ]
       }
     ]
   }
@@ -99,6 +139,34 @@
         <p class="mt-3">
           TabKit Tools provides an open, private alternative. Enter your business details, bill-to client credentials, line item hours or project deliverables, and applicable taxes. You can immediately print to PDF or download an editable Excel sheet ready for corporate accounting records.
         </p>
+      </div>
+
+      
+      <div class="border-t border-workspace-border pt-8 space-y-4">
+        <h2 class="text-xl font-bold text-white mb-3">How to Use the Free Free Invoice Generator & Excel Exporter</h2>
+        <ol class="list-decimal pl-5 space-y-2 text-sm text-workspace-muted">
+          <li><strong class="text-workspace-text">Enter Inputs & Parameters:</strong> Input date intervals, percentages, invoice line items, or meeting times into clean interactive form fields.</li>
+          <li><strong class="text-workspace-text">View Dynamic Real-Time Calculations:</strong> Observe instant calculations, tax breakdowns, timezone comparisons, or focus intervals calculated at 60fps.</li>
+          <li><strong class="text-workspace-text">Export or Copy Computed Results:</strong> Copy calculated values, print formatted PDF invoices, or save custom settings locally for future sessions.</li>
+        </ol>
+      </div>
+
+      <div class="border-t border-workspace-border pt-8 space-y-4">
+        <h2 class="text-xl font-bold text-white mb-3">Why Client-Side Privacy Matters</h2>
+        <p>
+          Calculating billable client rates, preparing proprietary invoices, or coordinating multi-city corporate meetings should not be monitored by third-party tracking cookies or ad networks. TabKit operates 100% offline with zero server telemetry and instant computation speed.
+        </p>
+      </div>
+
+      
+      <div class="border-t border-workspace-border pt-8 space-y-4">
+        <h2 class="text-xl font-bold text-white mb-3">Core Features &amp; Privacy Architecture</h2>
+        <ul class="list-disc pl-5 space-y-2 text-sm text-workspace-muted">
+          <li><strong class="text-workspace-text">Zero Server Transmissions:</strong> Every byte of data is processed locally inside your browser sandbox. No input strings, credentials, or file bytes are ever uploaded to remote servers.</li>
+          <li><strong class="text-workspace-text">Offline PWA Installation:</strong> Add TabKit to your desktop, iPhone, or Android device as a standalone Progressive Web App (PWA) to work completely air-gapped without an active internet connection.</li>
+          <li><strong class="text-workspace-text">Zero Limits or Paywalls:</strong> Enjoy unlimited file conversions, code formatting, and cryptographic operations without account logins, subscriptions, or artificial file size restrictions.</li>
+          <li><strong class="text-workspace-text">High-Speed Local Execution:</strong> Take advantage of multi-threaded Web Workers and hardware-accelerated WebAssembly for instant processing speeds directly on your device.</li>
+        </ul>
       </div>
 
       <div class="border-t border-workspace-border pt-8 space-y-4">

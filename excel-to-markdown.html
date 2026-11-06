@@ -27,6 +27,82 @@
   <meta property="og:image:height" content="630" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:image" content="https://tabkit.tools/og-image.png" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebApplication",
+        "@id": "https://tabkit.tools/excel-to-markdown#app",
+        "name": "Excel to Markdown Table Generator",
+        "url": "https://tabkit.tools/excel-to-markdown",
+        "applicationCategory": "BusinessApplication",
+        "operatingSystem": "All",
+        "browserRequirements": "Requires JavaScript. Requires HTML5.",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        },
+        "description": "Convert Excel and CSV spreadsheets into formatted GitHub-flavored Markdown tables locally. 100% private, zero server uploads."
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": "https://tabkit.tools/excel-to-markdown#breadcrumb",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "TabKit",
+            "item": "https://tabkit.tools/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Text & Data",
+            "item": "https://tabkit.tools/#text-data"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "Excel to Markdown Table Generator",
+            "item": "https://tabkit.tools/excel-to-markdown"
+          }
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "@id": "https://tabkit.tools/excel-to-markdown#faq",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Can I copy and paste directly from Google Sheets?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes. Simply highlight your cells in Google Sheets, copy them to your clipboard, and paste them into the input area. The tool parses tab-separated clipboard data and formats it into Markdown instantly."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How are multi-line cells and special characters handled in Markdown?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Line breaks inside spreadsheet cells are converted into HTML break tags (&lt;br&gt;), and pipe symbols are escaped with backslashes to maintain table structural integrity."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Does this tool require an active internet connection?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "No. As a local Progressive Web App (PWA), TabKit executes all conversion logic entirely in your browser cache. No data ever leaves your computer."
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
 </head>
 <body class="bg-workspace-bg text-workspace-text font-sans antialiased min-h-screen flex flex-col selection:bg-workspace-accent selection:text-black">
   <tool-header tool-name="excel-to-markdown"></tool-header>
@@ -57,6 +133,34 @@
         <p class="mt-3">
           This converter allows you to copy cells directly from Microsoft Excel, Google Sheets, or Apple Numbers and paste them into the editor, or upload an <code class="text-workspace-accent font-mono font-bold">.xlsx</code> spreadsheet. It immediately converts your tabular data into clean, aligned GitHub Flavored Markdown (GFM) tables ready for READMEs, documentation wikis, and PR descriptions.
         </p>
+      </div>
+
+      
+      <div class="border-t border-workspace-border pt-8 space-y-4">
+        <h2 class="text-xl font-bold text-white mb-3">How to Use the Free Excel to Markdown Table Generator</h2>
+        <ol class="list-decimal pl-5 space-y-2 text-sm text-workspace-muted">
+          <li><strong class="text-workspace-text">Paste or Upload Spreadsheet Data:</strong> Import your CSV, TSV, JSON, or Excel files into the editor, or paste raw tabular text directly from your clipboard.</li>
+          <li><strong class="text-workspace-text">Select Parsing & Transformation Rules:</strong> Customize delimiters, toggle deduplication keys, map nested object hierarchies, or select target spreadsheet formats (.xlsx, .csv, .json, .md).</li>
+          <li><strong class="text-workspace-text">Export Clean Data Immediately:</strong> Download your formatted spreadsheet workbook or copy clean text directly to your clipboard with zero formatting loss.</li>
+        </ol>
+      </div>
+
+      <div class="border-t border-workspace-border pt-8 space-y-4">
+        <h2 class="text-xl font-bold text-white mb-3">Why Client-Side Privacy Matters</h2>
+        <p>
+          Corporate security policies and non-disclosure agreements strictly prohibit uploading customer records, proprietary sales pipelines, or employee payroll files to public converter websites. TabKit processes all tabular datasets locally in browser RAM, ensuring zero data leakage, zero telemetry, and full compliance with enterprise air-gapped guidelines.
+        </p>
+      </div>
+
+      
+      <div class="border-t border-workspace-border pt-8 space-y-4">
+        <h2 class="text-xl font-bold text-white mb-3">Core Features &amp; Privacy Architecture</h2>
+        <ul class="list-disc pl-5 space-y-2 text-sm text-workspace-muted">
+          <li><strong class="text-workspace-text">Zero Server Transmissions:</strong> Every byte of data is processed locally inside your browser sandbox. No input strings, credentials, or file bytes are ever uploaded to remote servers.</li>
+          <li><strong class="text-workspace-text">Offline PWA Installation:</strong> Add TabKit to your desktop, iPhone, or Android device as a standalone Progressive Web App (PWA) to work completely air-gapped without an active internet connection.</li>
+          <li><strong class="text-workspace-text">Zero Limits or Paywalls:</strong> Enjoy unlimited file conversions, code formatting, and cryptographic operations without account logins, subscriptions, or artificial file size restrictions.</li>
+          <li><strong class="text-workspace-text">High-Speed Local Execution:</strong> Take advantage of multi-threaded Web Workers and hardware-accelerated WebAssembly for instant processing speeds directly on your device.</li>
+        </ul>
       </div>
 
       <div class="border-t border-workspace-border pt-8 space-y-4">

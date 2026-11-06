@@ -21,56 +21,80 @@
 
   <!-- Schema.org JSON-LD -->
   <script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@graph": [
-    {
-      "@type": "WebApplication",
-      "name": "Image to Base64 (Data URI) Generator",
-      "url": "https://tabkit.tools/image-to-base64",
-      "applicationCategory": "DeveloperApplication",
-      "operatingSystem": "All modern browsers",
-      "description": "Convert PNG, JPG, or SVG images into copy-pasteable Base64 Data URIs, HTML tags, and CSS snippets."
-    },
-    {
-      "@type": "FAQPage",
-      "mainEntity": [
-        {
-          "@type": "Question",
-          "name": "What is a Base64 Data URI?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "A Base64 Data URI allows you to embed image files directly into HTML or CSS code without needing a separate image file or HTTP request. TabKit uses HTML5 FileReader API to encode files locally in milliseconds."
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebApplication",
+        "@id": "https://tabkit.tools/image-to-base64#app",
+        "name": "Image to Base64 (Data URI) Generator",
+        "url": "https://tabkit.tools/image-to-base64",
+        "applicationCategory": "DesignApplication",
+        "operatingSystem": "All",
+        "browserRequirements": "Requires JavaScript. Requires HTML5.",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        },
+        "description": "Convert PNG, JPG, or SVG images into copy-pasteable Base64 Data URIs, HTML tags, and CSS snippets. 100% offline and private. Zero server uploads."
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": "https://tabkit.tools/image-to-base64#breadcrumb",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "TabKit",
+            "item": "https://tabkit.tools/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Media & Design",
+            "item": "https://tabkit.tools/#media-design"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "Image to Base64 (Data URI) Generator",
+            "item": "https://tabkit.tools/image-to-base64"
           }
-        }
-      ]
-    },
-    {
-      "@type": "BreadcrumbList",
-      "@id": "https://tabkit.tools/image-to-base64#breadcrumb",
-      "itemListElement": [
-        {
-          "@type": "ListItem",
-          "position": 1,
-          "name": "TabKit",
-          "item": "https://tabkit.tools/"
-        },
-        {
-          "@type": "ListItem",
-          "position": 2,
-          "name": "Media & Design",
-          "item": "https://tabkit.tools/#media-design"
-        },
-        {
-          "@type": "ListItem",
-          "position": 3,
-          "name": "Image to Base64 (Data URI) Generator",
-          "item": "https://tabkit.tools/image-to-base64"
-        }
-      ]
-    }
-  ]
-}
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "@id": "https://tabkit.tools/image-to-base64#faq",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "When should I use Base64 images instead of image files?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Base64 is ideal for small UI icons, self-contained email templates, and PWA offline assets where eliminating additional HTTP roundtrips speeds up rendering."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Does Base64 encoding increase file size?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes. Base64 encoding typically increases binary file size by approximately 33%, which is why it is best suited for assets under 50 KB."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Are my images uploaded to external servers?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "No. Conversion occurs 100% locally in your web browser memory using FileReader. Zero data is transmitted over the network."
+            }
+          }
+        ]
+      }
+    ]
+  }
   </script>
 
   <script src="utils.js"></script>
@@ -117,6 +141,34 @@
           TabKit converts PNG, JPEG, SVG, and WebP graphics into clean Base64 data strings using native browser FileReader APIs. You can copy the raw Base64 string, CSS <code class="text-workspace-accent font-mono">url(...)</code> syntax, or HTML <code class="text-workspace-accent font-mono">&lt;img src="..."&gt;</code> tag with zero cloud uploads.
         </p>
       </div>
+      
+      <div class="border-t border-workspace-border pt-8 space-y-4">
+        <h2 class="text-xl font-bold text-white mb-3">How to Use the Free Image to Base64 (Data URI) Generator</h2>
+        <ol class="list-decimal pl-5 space-y-2 text-sm text-workspace-muted">
+          <li><strong class="text-workspace-text">Import Vector or Raster Media:</strong> Drop PNG, JPEG, SVG files, or select foreground and background colors to evaluate accessibility and optimize assets.</li>
+          <li><strong class="text-workspace-text">Fine-Tune Dimensions & Quality:</strong> Adjust compression ratios, preview high-DPI scaling, test WCAG 2.1 AA/AAA contrast scores, or generate multi-resolution icon sizes.</li>
+          <li><strong class="text-workspace-text">Download Production Media Assets:</strong> Export rasterized PNG/WebP files, download compressed icon packages, or copy optimized SVG and CSS code snippets with zero loss.</li>
+        </ol>
+      </div>
+
+      <div class="border-t border-workspace-border pt-8 space-y-4">
+        <h2 class="text-xl font-bold text-white mb-3">Why Client-Side Privacy Matters</h2>
+        <p>
+          Asset optimization frequently exposes unreleased product screenshots, copyrighted vector illustrations, and brand identities to public cloud image servers. TabKit renders all transformations inside local HTML5 Canvas and OffscreenCanvas contexts without ever transmitting a single byte over the network.
+        </p>
+      </div>
+
+      
+      <div class="border-t border-workspace-border pt-8 space-y-4">
+        <h2 class="text-xl font-bold text-white mb-3">Core Features &amp; Privacy Architecture</h2>
+        <ul class="list-disc pl-5 space-y-2 text-sm text-workspace-muted">
+          <li><strong class="text-workspace-text">Zero Server Transmissions:</strong> Every byte of data is processed locally inside your browser sandbox. No input strings, credentials, or file bytes are ever uploaded to remote servers.</li>
+          <li><strong class="text-workspace-text">Offline PWA Installation:</strong> Add TabKit to your desktop, iPhone, or Android device as a standalone Progressive Web App (PWA) to work completely air-gapped without an active internet connection.</li>
+          <li><strong class="text-workspace-text">Zero Limits or Paywalls:</strong> Enjoy unlimited file conversions, code formatting, and cryptographic operations without account logins, subscriptions, or artificial file size restrictions.</li>
+          <li><strong class="text-workspace-text">High-Speed Local Execution:</strong> Take advantage of multi-threaded Web Workers and hardware-accelerated WebAssembly for instant processing speeds directly on your device.</li>
+        </ul>
+      </div>
+
       <div class="border-t border-workspace-border pt-8 space-y-4">
         <h2 class="text-xl font-bold text-white mb-4">Frequently Asked Questions</h2>
         <div class="space-y-3">

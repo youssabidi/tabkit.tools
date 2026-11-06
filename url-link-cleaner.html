@@ -23,35 +23,80 @@
   <script src="components.js"></script>
   <!-- Schema.org BreadcrumbList JSON-LD -->
   <script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@graph": [
-    {
-      "@type": "BreadcrumbList",
-      "@id": "https://tabkit.tools/url-link-cleaner#breadcrumb",
-      "itemListElement": [
-        {
-          "@type": "ListItem",
-          "position": 1,
-          "name": "TabKit",
-          "item": "https://tabkit.tools/"
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebApplication",
+        "@id": "https://tabkit.tools/url-link-cleaner#app",
+        "name": "URL Tracking Link Cleaner",
+        "url": "https://tabkit.tools/url-link-cleaner",
+        "applicationCategory": "SecurityApplication",
+        "operatingSystem": "All",
+        "browserRequirements": "Requires JavaScript. Requires HTML5.",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
         },
-        {
-          "@type": "ListItem",
-          "position": 2,
-          "name": "Privacy & Security",
-          "item": "https://tabkit.tools/#privacy-security"
-        },
-        {
-          "@type": "ListItem",
-          "position": 3,
-          "name": "URL Tracking Link Cleaner",
-          "item": "https://tabkit.tools/url-link-cleaner"
-        }
-      ]
-    }
-  ]
-}
+        "description": "Bulk remove tracking parameters (UTM, fbclid, gclid) from URLs instantly. Protect your privacy and share clean links."
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": "https://tabkit.tools/url-link-cleaner#breadcrumb",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "TabKit",
+            "item": "https://tabkit.tools/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Privacy & Security",
+            "item": "https://tabkit.tools/#privacy-security"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "URL Tracking Link Cleaner",
+            "item": "https://tabkit.tools/url-link-cleaner"
+          }
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "@id": "https://tabkit.tools/url-link-cleaner#faq",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Which tracking parameters are removed?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "It strips UTM tags (utm_source, utm_medium, utm_campaign), Facebook fbclid, Google gclid/gclsrc, Mailchimp mc_eid, Instagram igshid, and numerous ad identifiers."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Will stripping parameters break the target website?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "No. Essential query parameters required for page functionality are preserved, while only non-essential advertising and analytics trackers are safely deleted."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Are my links logged or monitored?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "No. Everything executes in client-side JavaScript memory using the browser native URL API. Zero outbound network requests are made."
+            }
+          }
+        ]
+      }
+    ]
+  }
   </script>
   <!-- Google AdSense -->
   <meta name="google-adsense-account" content="ca-pub-6634555517108396" />
@@ -118,6 +163,34 @@
           TabKit URL Cleaner strips tracking parameters and marketing telemetry in local browser memory. Paste any text or list of links, and the tool automatically extracts valid URLs, strips over 30 common tracking keys, removes duplicate links, and produces clean, canonical URLs with zero server logging.
         </p>
       </div>
+      
+      <div class="border-t border-workspace-border pt-8 space-y-4">
+        <h2 class="text-xl font-bold text-white mb-3">How to Use the Free URL Tracking Link Cleaner</h2>
+        <ol class="list-decimal pl-5 space-y-2 text-sm text-workspace-muted">
+          <li><strong class="text-workspace-text">Enter Text, Password, or Image:</strong> Type target strings, generate random password credentials, or select photos to inspect and sanitize hidden metadata.</li>
+          <li><strong class="text-workspace-text">Analyze Cryptographic Metrics:</strong> Evaluate real-time entropy bit calculations, SHA hash digests, brute force crack duration, or stripped EXIF GPS coordinates.</li>
+          <li><strong class="text-workspace-text">Copy Secure Credentials Safely:</strong> Transfer clean URLs, cryptographically secure passwords, or cryptographic digests directly into your password manager or application.</li>
+        </ol>
+      </div>
+
+      <div class="border-t border-workspace-border pt-8 space-y-4">
+        <h2 class="text-xl font-bold text-white mb-3">Why Client-Side Privacy Matters</h2>
+        <p>
+          Generating passwords or hashing credentials on remote servers introduces interception risks and centralized storage vulnerabilities. TabKit leverages the browser-native Web Crypto API (window.crypto.subtle) for cryptographically strong pseudorandom number generation and digest computation entirely on your local machine.
+        </p>
+      </div>
+
+      
+      <div class="border-t border-workspace-border pt-8 space-y-4">
+        <h2 class="text-xl font-bold text-white mb-3">Core Features &amp; Privacy Architecture</h2>
+        <ul class="list-disc pl-5 space-y-2 text-sm text-workspace-muted">
+          <li><strong class="text-workspace-text">Zero Server Transmissions:</strong> Every byte of data is processed locally inside your browser sandbox. No input strings, credentials, or file bytes are ever uploaded to remote servers.</li>
+          <li><strong class="text-workspace-text">Offline PWA Installation:</strong> Add TabKit to your desktop, iPhone, or Android device as a standalone Progressive Web App (PWA) to work completely air-gapped without an active internet connection.</li>
+          <li><strong class="text-workspace-text">Zero Limits or Paywalls:</strong> Enjoy unlimited file conversions, code formatting, and cryptographic operations without account logins, subscriptions, or artificial file size restrictions.</li>
+          <li><strong class="text-workspace-text">High-Speed Local Execution:</strong> Take advantage of multi-threaded Web Workers and hardware-accelerated WebAssembly for instant processing speeds directly on your device.</li>
+        </ul>
+      </div>
+
       <div class="border-t border-workspace-border pt-8 space-y-4">
         <h2 class="text-xl font-bold text-white mb-4">Frequently Asked Questions</h2>
         <div class="space-y-3">

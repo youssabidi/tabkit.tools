@@ -27,6 +27,82 @@
   <meta property="og:image:height" content="630" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:image" content="https://tabkit.tools/og-image.png" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebApplication",
+        "@id": "https://tabkit.tools/excel-transpose#app",
+        "name": "Spreadsheet Row & Column Transposer",
+        "url": "https://tabkit.tools/excel-transpose",
+        "applicationCategory": "BusinessApplication",
+        "operatingSystem": "All",
+        "browserRequirements": "Requires JavaScript. Requires HTML5.",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        },
+        "description": "Flip rows to columns and columns to rows in Excel and CSV files instantly in your browser. 100% private, zero server uploads."
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": "https://tabkit.tools/excel-transpose#breadcrumb",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "TabKit",
+            "item": "https://tabkit.tools/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Text & Data",
+            "item": "https://tabkit.tools/#text-data"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "Spreadsheet Row & Column Transposer",
+            "item": "https://tabkit.tools/excel-transpose"
+          }
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "@id": "https://tabkit.tools/excel-transpose#faq",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "What is the difference between Transposing and Sorting?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Sorting rearranges the chronological or numerical sequence of rows within existing columns. Transposing changes the underlying structure of the table by rotating axes 90 degrees so that horizontal records become vertical columns."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What happens if rows have uneven lengths?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "The algorithm calculates the maximum column width across all rows and pads shorter rows with clean empty cells, ensuring the rotated grid remains rectangular and well-formed."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Can I download the transposed output directly as an Excel file?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes. Once rotated, you can export your transformed data directly as a native .xlsx spreadsheet or copy the results as CSV text."
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
 </head>
 <body class="bg-workspace-bg text-workspace-text font-sans antialiased min-h-screen flex flex-col selection:bg-workspace-accent selection:text-black">
   <tool-header tool-name="excel-transpose"></tool-header>
@@ -57,6 +133,34 @@
         <p class="mt-3">
           TabKit's Excel Transpose tool handles the geometric rotation of cells entirely in client memory. It preserves cell values and headers without corrupting data alignments. Because processing happens locally, you avoid uploading sensitive company forecasts, trade secrets, or client rosters to unverified cloud conversion services.
         </p>
+      </div>
+
+      
+      <div class="border-t border-workspace-border pt-8 space-y-4">
+        <h2 class="text-xl font-bold text-white mb-3">How to Use the Free Spreadsheet Row & Column Transposer</h2>
+        <ol class="list-decimal pl-5 space-y-2 text-sm text-workspace-muted">
+          <li><strong class="text-workspace-text">Paste or Upload Spreadsheet Data:</strong> Import your CSV, TSV, JSON, or Excel files into the editor, or paste raw tabular text directly from your clipboard.</li>
+          <li><strong class="text-workspace-text">Select Parsing & Transformation Rules:</strong> Customize delimiters, toggle deduplication keys, map nested object hierarchies, or select target spreadsheet formats (.xlsx, .csv, .json, .md).</li>
+          <li><strong class="text-workspace-text">Export Clean Data Immediately:</strong> Download your formatted spreadsheet workbook or copy clean text directly to your clipboard with zero formatting loss.</li>
+        </ol>
+      </div>
+
+      <div class="border-t border-workspace-border pt-8 space-y-4">
+        <h2 class="text-xl font-bold text-white mb-3">Why Client-Side Privacy Matters</h2>
+        <p>
+          Corporate security policies and non-disclosure agreements strictly prohibit uploading customer records, proprietary sales pipelines, or employee payroll files to public converter websites. TabKit processes all tabular datasets locally in browser RAM, ensuring zero data leakage, zero telemetry, and full compliance with enterprise air-gapped guidelines.
+        </p>
+      </div>
+
+      
+      <div class="border-t border-workspace-border pt-8 space-y-4">
+        <h2 class="text-xl font-bold text-white mb-3">Core Features &amp; Privacy Architecture</h2>
+        <ul class="list-disc pl-5 space-y-2 text-sm text-workspace-muted">
+          <li><strong class="text-workspace-text">Zero Server Transmissions:</strong> Every byte of data is processed locally inside your browser sandbox. No input strings, credentials, or file bytes are ever uploaded to remote servers.</li>
+          <li><strong class="text-workspace-text">Offline PWA Installation:</strong> Add TabKit to your desktop, iPhone, or Android device as a standalone Progressive Web App (PWA) to work completely air-gapped without an active internet connection.</li>
+          <li><strong class="text-workspace-text">Zero Limits or Paywalls:</strong> Enjoy unlimited file conversions, code formatting, and cryptographic operations without account logins, subscriptions, or artificial file size restrictions.</li>
+          <li><strong class="text-workspace-text">High-Speed Local Execution:</strong> Take advantage of multi-threaded Web Workers and hardware-accelerated WebAssembly for instant processing speeds directly on your device.</li>
+        </ul>
       </div>
 
       <div class="border-t border-workspace-border pt-8 space-y-4">

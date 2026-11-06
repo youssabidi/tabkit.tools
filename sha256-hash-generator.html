@@ -21,78 +21,80 @@
   <link rel="stylesheet" href="styles.css" />
   <!-- Structured Data: WebApplication & FAQPage JSON-LD -->
   <script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@graph": [
-    {
-      "@type": "WebApplication",
-      "@id": "https://tabkit.tools/sha256-hash-generator#app",
-      "name": "TabKit SHA-256 Hash Generator",
-      "url": "https://tabkit.tools/sha256-hash-generator",
-      "applicationCategory": "DeveloperApplication",
-      "operatingSystem": "All",
-      "offers": {
-        "@type": "Offer",
-        "price": "0",
-        "priceCurrency": "USD"
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebApplication",
+        "@id": "https://tabkit.tools/sha256-hash-generator#app",
+        "name": "SHA-256 Hash Generator",
+        "url": "https://tabkit.tools/sha256-hash-generator",
+        "applicationCategory": "SecurityApplication",
+        "operatingSystem": "All",
+        "browserRequirements": "Requires JavaScript. Requires HTML5.",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        },
+        "description": "Generate SHA-256, SHA-384, and SHA-512 hashes instantly from any text string. 100% local, offline, and secure."
       },
-      "description": "Generate SHA-256, SHA-384, and SHA-512 cryptographic hashes in real-time with zero server uploads."
-    },
-    {
-      "@type": "FAQPage",
-      "mainEntity": [
-        {
-          "@type": "Question",
-          "name": "Is it safe to generate hashes for sensitive passwords or API keys here?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Yes. This tool computes cryptographic hashes strictly client-side using the browser Web Crypto API (crypto.subtle.digest). No strings or hashes are ever transmitted across the internet."
+      {
+        "@type": "BreadcrumbList",
+        "@id": "https://tabkit.tools/sha256-hash-generator#breadcrumb",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "TabKit",
+            "item": "https://tabkit.tools/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Privacy & Security",
+            "item": "https://tabkit.tools/#privacy-security"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "SHA-256 Hash Generator",
+            "item": "https://tabkit.tools/sha256-hash-generator"
           }
-        },
-        {
-          "@type": "Question",
-          "name": "What is the difference between SHA-256, SHA-384, and SHA-512?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "All three belong to the SHA-2 family. SHA-256 produces a 256-bit (64 hex character) hash, SHA-384 produces a 384-bit (96 hex character) hash, and SHA-512 produces a 512-bit (128 hex character) hash offering higher collision resistance."
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "@id": "https://tabkit.tools/sha256-hash-generator#faq",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Is it safe to generate hashes for sensitive passwords or API keys here?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes. This tool computes cryptographic hashes strictly client-side using the browser Web Crypto API (crypto.subtle.digest). No strings or hashes are ever transmitted across the internet."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What is the difference between SHA-256, SHA-384, and SHA-512?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "All three belong to the SHA-2 family. SHA-256 produces a 256-bit (64 hex character) hash, SHA-384 produces a 384-bit (96 hex character) hash, and SHA-512 produces a 512-bit (128 hex character) hash offering higher collision resistance."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Can a SHA-256 hash be decrypted back to the original text?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "No. Cryptographic hash functions are one-way mathematical algorithms designed to be irreversible."
+            }
           }
-        },
-        {
-          "@type": "Question",
-          "name": "Can a SHA-256 hash be decrypted back to the original text?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "No. Cryptographic hash functions are one-way mathematical algorithms designed to be irreversible."
-          }
-        }
-      ]
-    },
-    {
-      "@type": "BreadcrumbList",
-      "@id": "https://tabkit.tools/sha256-hash-generator#breadcrumb",
-      "itemListElement": [
-        {
-          "@type": "ListItem",
-          "position": 1,
-          "name": "TabKit",
-          "item": "https://tabkit.tools/"
-        },
-        {
-          "@type": "ListItem",
-          "position": 2,
-          "name": "Privacy & Security",
-          "item": "https://tabkit.tools/#privacy-security"
-        },
-        {
-          "@type": "ListItem",
-          "position": 3,
-          "name": "SHA-256 Hash Generator",
-          "item": "https://tabkit.tools/sha256-hash-generator"
-        }
-      ]
-    }
-  ]
-}
+        ]
+      }
+    ]
+  }
   </script>
   <script src="utils.js"></script>
   <script src="components.js"></script>
@@ -182,6 +184,34 @@
       </div>
 
       <!-- FAQ Accordion -->
+      
+      <div class="border-t border-workspace-border pt-8 space-y-4">
+        <h2 class="text-xl font-bold text-white mb-3">How to Use the Free SHA-256 Hash Generator</h2>
+        <ol class="list-decimal pl-5 space-y-2 text-sm text-workspace-muted">
+          <li><strong class="text-workspace-text">Enter Text, Password, or Image:</strong> Type target strings, generate random password credentials, or select photos to inspect and sanitize hidden metadata.</li>
+          <li><strong class="text-workspace-text">Analyze Cryptographic Metrics:</strong> Evaluate real-time entropy bit calculations, SHA hash digests, brute force crack duration, or stripped EXIF GPS coordinates.</li>
+          <li><strong class="text-workspace-text">Copy Secure Credentials Safely:</strong> Transfer clean URLs, cryptographically secure passwords, or cryptographic digests directly into your password manager or application.</li>
+        </ol>
+      </div>
+
+      <div class="border-t border-workspace-border pt-8 space-y-4">
+        <h2 class="text-xl font-bold text-white mb-3">Why Client-Side Privacy Matters</h2>
+        <p>
+          Generating passwords or hashing credentials on remote servers introduces interception risks and centralized storage vulnerabilities. TabKit leverages the browser-native Web Crypto API (window.crypto.subtle) for cryptographically strong pseudorandom number generation and digest computation entirely on your local machine.
+        </p>
+      </div>
+
+      
+      <div class="border-t border-workspace-border pt-8 space-y-4">
+        <h2 class="text-xl font-bold text-white mb-3">Core Features &amp; Privacy Architecture</h2>
+        <ul class="list-disc pl-5 space-y-2 text-sm text-workspace-muted">
+          <li><strong class="text-workspace-text">Zero Server Transmissions:</strong> Every byte of data is processed locally inside your browser sandbox. No input strings, credentials, or file bytes are ever uploaded to remote servers.</li>
+          <li><strong class="text-workspace-text">Offline PWA Installation:</strong> Add TabKit to your desktop, iPhone, or Android device as a standalone Progressive Web App (PWA) to work completely air-gapped without an active internet connection.</li>
+          <li><strong class="text-workspace-text">Zero Limits or Paywalls:</strong> Enjoy unlimited file conversions, code formatting, and cryptographic operations without account logins, subscriptions, or artificial file size restrictions.</li>
+          <li><strong class="text-workspace-text">High-Speed Local Execution:</strong> Take advantage of multi-threaded Web Workers and hardware-accelerated WebAssembly for instant processing speeds directly on your device.</li>
+        </ul>
+      </div>
+
       <div class="border-t border-workspace-border pt-8 space-y-4">
         <h2 class="text-xl font-bold text-white mb-4">Frequently Asked Questions</h2>
         <div class="space-y-3">

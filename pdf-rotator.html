@@ -18,35 +18,80 @@
   <script src="registry.js"></script>
   <!-- Schema.org BreadcrumbList JSON-LD -->
   <script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@graph": [
-    {
-      "@type": "BreadcrumbList",
-      "@id": "https://tabkit.tools/pdf-rotator#breadcrumb",
-      "itemListElement": [
-        {
-          "@type": "ListItem",
-          "position": 1,
-          "name": "TabKit",
-          "item": "https://tabkit.tools/"
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebApplication",
+        "@id": "https://tabkit.tools/pdf-rotator#app",
+        "name": "Client-Side PDF Page Rotator",
+        "url": "https://tabkit.tools/pdf-rotator",
+        "applicationCategory": "UtilitiesApplication",
+        "operatingSystem": "All",
+        "browserRequirements": "Requires JavaScript. Requires HTML5.",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
         },
-        {
-          "@type": "ListItem",
-          "position": 2,
-          "name": "Documents & PDF",
-          "item": "https://tabkit.tools/#documents-pdf"
-        },
-        {
-          "@type": "ListItem",
-          "position": 3,
-          "name": "Client-Side PDF Page Rotator",
-          "item": "https://tabkit.tools/pdf-rotator"
-        }
-      ]
-    }
-  ]
-}
+        "description": "Rotate PDF pages 90 degrees, 180 degrees, or 270 degrees locally in your browser. Fix scanned orientations with zero cloud uploads."
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": "https://tabkit.tools/pdf-rotator#breadcrumb",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "TabKit",
+            "item": "https://tabkit.tools/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Documents & PDF",
+            "item": "https://tabkit.tools/#documents-pdf"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "Client-Side PDF Page Rotator",
+            "item": "https://tabkit.tools/pdf-rotator"
+          }
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "@id": "https://tabkit.tools/pdf-rotator#faq",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Is page rotation permanent when downloaded?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes. The rotation updates the internal PDF page dictionary, ensuring correct orientation in Adobe Acrobat, Apple Preview, and mobile viewers."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Can I rotate only specific pages in a document?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes. You can rotate individual sideways pages without modifying the rest of your document."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Are my confidential PDF documents safe?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes. Everything executes strictly on your device CPU. No files are uploaded to external servers."
+            }
+          }
+        ]
+      }
+    ]
+  }
   </script>
   <!-- Google AdSense -->
   <meta name="google-adsense-account" content="ca-pub-6634555517108396" />
@@ -93,6 +138,34 @@
           Unlike online PDF services that convert your document to raster images during rotation, TabKit modifies the native rotation flag within the PDF dictionary, preserving 100% of the original text searchability and vector fidelity.
         </p>
       </div>
+      
+      <div class="border-t border-workspace-border pt-8 space-y-4">
+        <h2 class="text-xl font-bold text-white mb-3">How to Use the Free Client-Side PDF Page Rotator</h2>
+        <ol class="list-decimal pl-5 space-y-2 text-sm text-workspace-muted">
+          <li><strong class="text-workspace-text">Select or Drag Your Document:</strong> Drop your PDF or image files into the workspace container. Your document streams directly into local memory via the HTML5 File API without uploading to any remote server.</li>
+          <li><strong class="text-workspace-text">Configure Custom Settings:</strong> Select specific page ranges, adjust orientation, apply watermarks, or configure document encryption and export formatting with real-time browser preview.</li>
+          <li><strong class="text-workspace-text">Save & Download Instantly:</strong> Click to process and download your compiled, lossless PDF file directly from browser memory with zero waiting queues and complete privacy.</li>
+        </ol>
+      </div>
+
+      <div class="border-t border-workspace-border pt-8 space-y-4">
+        <h2 class="text-xl font-bold text-white mb-3">Why Client-Side Privacy Matters</h2>
+        <p>
+          Traditional online document converters upload private files to third-party cloud servers where they are queued, processed, and stored indefinitely. TabKit utilizes WebAssembly and native browser memory streams to execute 100% of PDF byte manipulation locally inside your browser sandbox. Your confidential business agreements, financial statements, medical records, and personal documents never touch the cloud.
+        </p>
+      </div>
+
+      
+      <div class="border-t border-workspace-border pt-8 space-y-4">
+        <h2 class="text-xl font-bold text-white mb-3">Core Features &amp; Privacy Architecture</h2>
+        <ul class="list-disc pl-5 space-y-2 text-sm text-workspace-muted">
+          <li><strong class="text-workspace-text">Zero Server Transmissions:</strong> Every byte of data is processed locally inside your browser sandbox. No input strings, credentials, or file bytes are ever uploaded to remote servers.</li>
+          <li><strong class="text-workspace-text">Offline PWA Installation:</strong> Add TabKit to your desktop, iPhone, or Android device as a standalone Progressive Web App (PWA) to work completely air-gapped without an active internet connection.</li>
+          <li><strong class="text-workspace-text">Zero Limits or Paywalls:</strong> Enjoy unlimited file conversions, code formatting, and cryptographic operations without account logins, subscriptions, or artificial file size restrictions.</li>
+          <li><strong class="text-workspace-text">High-Speed Local Execution:</strong> Take advantage of multi-threaded Web Workers and hardware-accelerated WebAssembly for instant processing speeds directly on your device.</li>
+        </ul>
+      </div>
+
       <div class="border-t border-workspace-border pt-8 space-y-4">
         <h2 class="text-xl font-bold text-white mb-4">Frequently Asked Questions</h2>
         <div class="space-y-3">

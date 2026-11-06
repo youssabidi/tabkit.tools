@@ -20,44 +20,80 @@
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
   <script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@graph": [
-    {
-      "@context": "https://schema.org",
-      "@type": "WebApplication",
-      "name": "WCAG Color Contrast Checker & Palette Studio",
-      "url": "https://tabkit.tools/color-palette-contrast",
-      "applicationCategory": "DesignApplication",
-      "operatingSystem": "Any",
-      "description": "Test foreground and background color combinations against WCAG 2.1 AA and AAA standards locally."
-    },
-    {
-      "@type": "BreadcrumbList",
-      "@id": "https://tabkit.tools/color-palette-contrast#breadcrumb",
-      "itemListElement": [
-        {
-          "@type": "ListItem",
-          "position": 1,
-          "name": "TabKit",
-          "item": "https://tabkit.tools/"
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebApplication",
+        "@id": "https://tabkit.tools/color-palette-contrast#app",
+        "name": "WCAG Color Contrast & Palette Studio",
+        "url": "https://tabkit.tools/color-palette-contrast",
+        "applicationCategory": "DesignApplication",
+        "operatingSystem": "All",
+        "browserRequirements": "Requires JavaScript. Requires HTML5.",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
         },
-        {
-          "@type": "ListItem",
-          "position": 2,
-          "name": "Media & Design",
-          "item": "https://tabkit.tools/#media-design"
-        },
-        {
-          "@type": "ListItem",
-          "position": 3,
-          "name": "Color Contrast & Palette Studio",
-          "item": "https://tabkit.tools/color-palette-contrast"
-        }
-      ]
-    }
-  ]
-}
+        "description": "Free offline WCAG 2.1 color contrast checker and accessible palette generator. Check AA and AAA contrast ratios for normal and large text instantly."
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": "https://tabkit.tools/color-palette-contrast#breadcrumb",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "TabKit",
+            "item": "https://tabkit.tools/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Media & Design",
+            "item": "https://tabkit.tools/#media-design"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "WCAG Color Contrast & Palette Studio",
+            "item": "https://tabkit.tools/color-palette-contrast"
+          }
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "@id": "https://tabkit.tools/color-palette-contrast#faq",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "What is the minimum WCAG contrast ratio for body text?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "WCAG 2.1 Level AA requires a minimum contrast ratio of 4.5:1 for normal body text (under 18pt regular or 14pt bold). For enhanced accessibility (Level AAA), a 7:1 contrast ratio is required."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How is the contrast ratio mathematically calculated?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Contrast is calculated using the relative luminance of both colors: (L1 + 0.05) / (L2 + 0.05), where L1 is the relative luminance of the lighter color and L2 is the relative luminance of the darker color."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Are my brand colors or custom palettes uploaded to any server?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "No. All relative luminance equations, hex conversions, and harmonious shade generations are executed strictly client-side inside your browser memory."
+            }
+          }
+        ]
+      }
+    ]
+  }
   </script>
   <script src="utils.js"></script>
   <script src="components.js"></script>
@@ -238,6 +274,52 @@
         <li><strong class="text-workspace-text">Level AAA (Enhanced):</strong> Requires a contrast ratio of at least <span class="font-mono text-workspace-accent font-semibold">7.0:1</span> for normal text and <span class="font-mono text-workspace-accent font-semibold">4.5:1</span> for large text headings.</li>
         <li><strong class="text-workspace-text">Zero Cloud Uploads:</strong> TabKit calculates all relative luminance algorithms locally inside your browser using client-side JavaScript. None of your brand guidelines or color schemes are sent to external servers.</li>
       </ul>
+
+      
+      <div class="border-t border-workspace-border pt-8 space-y-4">
+        <h2 class="text-xl font-bold text-white mb-3">How to Use the Free WCAG Color Contrast & Palette Studio</h2>
+        <ol class="list-decimal pl-5 space-y-2 text-sm text-workspace-muted">
+          <li><strong class="text-workspace-text">Import Vector or Raster Media:</strong> Drop PNG, JPEG, SVG files, or select foreground and background colors to evaluate accessibility and optimize assets.</li>
+          <li><strong class="text-workspace-text">Fine-Tune Dimensions & Quality:</strong> Adjust compression ratios, preview high-DPI scaling, test WCAG 2.1 AA/AAA contrast scores, or generate multi-resolution icon sizes.</li>
+          <li><strong class="text-workspace-text">Download Production Media Assets:</strong> Export rasterized PNG/WebP files, download compressed icon packages, or copy optimized SVG and CSS code snippets with zero loss.</li>
+        </ol>
+      </div>
+
+      <div class="border-t border-workspace-border pt-8 space-y-4">
+        <h2 class="text-xl font-bold text-white mb-3">Why Client-Side Privacy Matters</h2>
+        <p>
+          Asset optimization frequently exposes unreleased product screenshots, copyrighted vector illustrations, and brand identities to public cloud image servers. TabKit renders all transformations inside local HTML5 Canvas and OffscreenCanvas contexts without ever transmitting a single byte over the network.
+        </p>
+      </div>
+
+      
+      <div class="border-t border-workspace-border pt-8 space-y-4">
+        <h2 class="text-xl font-bold text-white mb-3">Core Features &amp; Privacy Architecture</h2>
+        <ul class="list-disc pl-5 space-y-2 text-sm text-workspace-muted">
+          <li><strong class="text-workspace-text">Zero Server Transmissions:</strong> Every byte of data is processed locally inside your browser sandbox. No input strings, credentials, or file bytes are ever uploaded to remote servers.</li>
+          <li><strong class="text-workspace-text">Offline PWA Installation:</strong> Add TabKit to your desktop, iPhone, or Android device as a standalone Progressive Web App (PWA) to work completely air-gapped without an active internet connection.</li>
+          <li><strong class="text-workspace-text">Zero Limits or Paywalls:</strong> Enjoy unlimited file conversions, code formatting, and cryptographic operations without account logins, subscriptions, or artificial file size restrictions.</li>
+          <li><strong class="text-workspace-text">High-Speed Local Execution:</strong> Take advantage of multi-threaded Web Workers and hardware-accelerated WebAssembly for instant processing speeds directly on your device.</li>
+        </ul>
+      </div>
+
+      <div class="border-t border-workspace-border pt-6 space-y-4">
+        <h2 class="text-lg font-bold text-workspace-text">Frequently Asked Questions</h2>
+        <div class="space-y-3">
+          <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/60">
+            <h3 class="text-sm font-bold text-workspace-text mb-1">What is the minimum WCAG contrast ratio for body text?</h3>
+            <p class="text-xs text-workspace-muted leading-relaxed">WCAG 2.1 Level AA requires a minimum contrast ratio of 4.5:1 for normal body text (under 18pt regular or 14pt bold). For enhanced accessibility (Level AAA), a 7:1 contrast ratio is required.</p>
+          </div>
+          <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/60">
+            <h3 class="text-sm font-bold text-workspace-text mb-1">How is the contrast ratio mathematically calculated?</h3>
+            <p class="text-xs text-workspace-muted leading-relaxed">Contrast is calculated using the relative luminance of both colors: (L1 + 0.05) / (L2 + 0.05), where L1 is the relative luminance of the lighter color and L2 is the relative luminance of the darker color.</p>
+          </div>
+          <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/60">
+            <h3 class="text-sm font-bold text-workspace-text mb-1">Are my brand colors or custom palettes uploaded to any server?</h3>
+            <p class="text-xs text-workspace-muted leading-relaxed">No. All relative luminance equations, hex conversions, and harmonious shade generations are executed strictly client-side inside your browser memory.</p>
+          </div>
+        </div>
+      </div>
     </article>
   </main>
 

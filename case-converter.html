@@ -23,35 +23,80 @@
   <script src="components.js"></script>
   <!-- Schema.org BreadcrumbList JSON-LD -->
   <script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@graph": [
-    {
-      "@type": "BreadcrumbList",
-      "@id": "https://tabkit.tools/case-converter#breadcrumb",
-      "itemListElement": [
-        {
-          "@type": "ListItem",
-          "position": 1,
-          "name": "TabKit",
-          "item": "https://tabkit.tools/"
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebApplication",
+        "@id": "https://tabkit.tools/case-converter#app",
+        "name": "Case Converter & Word Counter",
+        "url": "https://tabkit.tools/case-converter",
+        "applicationCategory": "BusinessApplication",
+        "operatingSystem": "All",
+        "browserRequirements": "Requires JavaScript. Requires HTML5.",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
         },
-        {
-          "@type": "ListItem",
-          "position": 2,
-          "name": "Text & Data",
-          "item": "https://tabkit.tools/#text-data"
-        },
-        {
-          "@type": "ListItem",
-          "position": 3,
-          "name": "Case Converter & Word Counter",
-          "item": "https://tabkit.tools/case-converter"
-        }
-      ]
-    }
-  ]
-}
+        "description": "Instantly convert text to UPPERCASE, lowercase, Title Case, deduplicate lines, and count words and characters offline."
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": "https://tabkit.tools/case-converter#breadcrumb",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "TabKit",
+            "item": "https://tabkit.tools/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Text & Data",
+            "item": "https://tabkit.tools/#text-data"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "Case Converter & Word Counter",
+            "item": "https://tabkit.tools/case-converter"
+          }
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "@id": "https://tabkit.tools/case-converter#faq",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "What is the difference between camelCase and PascalCase?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "camelCase starts with a lowercase letter and capitalizes subsequent words (e.g. userProfileData), whereas PascalCase capitalizes the initial letter as well (e.g. UserProfileData), commonly used for classes and components."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Does this converter preserve acronyms and numeric prefixes?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes. The engine intelligently tokenizes numbers and multi-letter acronyms (such as HTML or API) so that transformed strings remain syntactically valid in code."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Is my text stored or sent over the network?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "No. Everything runs strictly in your browser session using native regular expressions. Zero network requests are made."
+            }
+          }
+        ]
+      }
+    ]
+  }
   </script>
   <!-- Google AdSense -->
   <meta name="google-adsense-account" content="ca-pub-6634555517108396" />
@@ -119,6 +164,34 @@
           TabKit Case Converter transforms text strings instantly in local memory. It supports title case capitalization (conforming to AP and Chicago Manual of Style rules), sentence case, screaming snake case for constants, and alternating case. Processing runs 100% client-side, ensuring private credentials, schema definitions, and draft manuscripts are never exposed.
         </p>
       </div>
+      
+      <div class="border-t border-workspace-border pt-8 space-y-4">
+        <h2 class="text-xl font-bold text-white mb-3">How to Use the Free Case Converter & Word Counter</h2>
+        <ol class="list-decimal pl-5 space-y-2 text-sm text-workspace-muted">
+          <li><strong class="text-workspace-text">Paste or Upload Spreadsheet Data:</strong> Import your CSV, TSV, JSON, or Excel files into the editor, or paste raw tabular text directly from your clipboard.</li>
+          <li><strong class="text-workspace-text">Select Parsing & Transformation Rules:</strong> Customize delimiters, toggle deduplication keys, map nested object hierarchies, or select target spreadsheet formats (.xlsx, .csv, .json, .md).</li>
+          <li><strong class="text-workspace-text">Export Clean Data Immediately:</strong> Download your formatted spreadsheet workbook or copy clean text directly to your clipboard with zero formatting loss.</li>
+        </ol>
+      </div>
+
+      <div class="border-t border-workspace-border pt-8 space-y-4">
+        <h2 class="text-xl font-bold text-white mb-3">Why Client-Side Privacy Matters</h2>
+        <p>
+          Corporate security policies and non-disclosure agreements strictly prohibit uploading customer records, proprietary sales pipelines, or employee payroll files to public converter websites. TabKit processes all tabular datasets locally in browser RAM, ensuring zero data leakage, zero telemetry, and full compliance with enterprise air-gapped guidelines.
+        </p>
+      </div>
+
+      
+      <div class="border-t border-workspace-border pt-8 space-y-4">
+        <h2 class="text-xl font-bold text-white mb-3">Core Features &amp; Privacy Architecture</h2>
+        <ul class="list-disc pl-5 space-y-2 text-sm text-workspace-muted">
+          <li><strong class="text-workspace-text">Zero Server Transmissions:</strong> Every byte of data is processed locally inside your browser sandbox. No input strings, credentials, or file bytes are ever uploaded to remote servers.</li>
+          <li><strong class="text-workspace-text">Offline PWA Installation:</strong> Add TabKit to your desktop, iPhone, or Android device as a standalone Progressive Web App (PWA) to work completely air-gapped without an active internet connection.</li>
+          <li><strong class="text-workspace-text">Zero Limits or Paywalls:</strong> Enjoy unlimited file conversions, code formatting, and cryptographic operations without account logins, subscriptions, or artificial file size restrictions.</li>
+          <li><strong class="text-workspace-text">High-Speed Local Execution:</strong> Take advantage of multi-threaded Web Workers and hardware-accelerated WebAssembly for instant processing speeds directly on your device.</li>
+        </ul>
+      </div>
+
       <div class="border-t border-workspace-border pt-8 space-y-4">
         <h2 class="text-xl font-bold text-white mb-4">Frequently Asked Questions</h2>
         <div class="space-y-3">

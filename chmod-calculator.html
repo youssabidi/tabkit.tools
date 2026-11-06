@@ -18,35 +18,80 @@
   <script src="registry.js"></script>
   <!-- Schema.org BreadcrumbList JSON-LD -->
   <script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@graph": [
-    {
-      "@type": "BreadcrumbList",
-      "@id": "https://tabkit.tools/chmod-calculator#breadcrumb",
-      "itemListElement": [
-        {
-          "@type": "ListItem",
-          "position": 1,
-          "name": "TabKit",
-          "item": "https://tabkit.tools/"
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebApplication",
+        "@id": "https://tabkit.tools/chmod-calculator#app",
+        "name": "Visual chmod Permissions Calculator",
+        "url": "https://tabkit.tools/chmod-calculator",
+        "applicationCategory": "DeveloperApplication",
+        "operatingSystem": "All",
+        "browserRequirements": "Requires JavaScript. Requires HTML5.",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
         },
-        {
-          "@type": "ListItem",
-          "position": 2,
-          "name": "Developer & Code",
-          "item": "https://tabkit.tools/#developer-code"
-        },
-        {
-          "@type": "ListItem",
-          "position": 3,
-          "name": "Visual chmod Permissions Calculator",
-          "item": "https://tabkit.tools/chmod-calculator"
-        }
-      ]
-    }
-  ]
-}
+        "description": "Interactive visual permission calculator for Linux/Unix file permissions with octal and symbolic modes."
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": "https://tabkit.tools/chmod-calculator#breadcrumb",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "TabKit",
+            "item": "https://tabkit.tools/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Developer & Code",
+            "item": "https://tabkit.tools/#developer-code"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "Visual chmod Permissions Calculator",
+            "item": "https://tabkit.tools/chmod-calculator"
+          }
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "@id": "https://tabkit.tools/chmod-calculator#faq",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "What is the difference between 755 and 644 permissions?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Permission 644 grants read and write access to the file owner, and read-only access to everyone else, making it the industry standard for public web server files like HTML and images. Permission 755 adds execute rights for everyone, which is required for directories and executable binaries or scripts."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Why is chmod 777 dangerous in production?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Assigning 777 grants full read, write, and execute permissions to every user on the system, including anonymous or compromised service accounts. Any compromised process can overwrite, alter, or inject malicious shell code directly into the file."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How can I apply permissions recursively in the terminal?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "To apply a permission set across an entire directory and all nested child files, use the recursive flag: chmod -R 755 /path/to/directory. Be cautious when applying recursive flags to avoid accidentally exposing sensitive configuration files."
+            }
+          }
+        ]
+      }
+    ]
+  }
   </script>
   <!-- Google AdSense -->
   <meta name="google-adsense-account" content="ca-pub-6634555517108396" />
@@ -108,6 +153,34 @@
             <li><code class="text-sky-400">chmod a+r file</code> — Grant read permission to all users</li>
           </ul>
         </div>
+      </div>
+
+      
+      <div class="border-t border-workspace-border pt-8 space-y-4">
+        <h2 class="text-xl font-bold text-white mb-3">How to Use the Free Visual chmod Permissions Calculator</h2>
+        <ol class="list-decimal pl-5 space-y-2 text-sm text-workspace-muted">
+          <li><strong class="text-workspace-text">Input Code, Payload, or Command:</strong> Paste your raw JSON strings, SQL queries, regular expressions, cURL requests, or Unix timestamps into the code editor.</li>
+          <li><strong class="text-workspace-text">Inspect Real-Time Formatted Output:</strong> View beautified syntax highlighting, capture group matches, decoded JWT claim expiration, or converted code snippets across languages.</li>
+          <li><strong class="text-workspace-text">Copy Production-Ready Code:</strong> Use one-click copy buttons to transfer validated TypeScript interfaces, optimized SQL clauses, or minified assets directly into your IDE.</li>
+        </ol>
+      </div>
+
+      <div class="border-t border-workspace-border pt-8 space-y-4">
+        <h2 class="text-xl font-bold text-white mb-3">Why Client-Side Privacy Matters</h2>
+        <p>
+          Pasting production authorization headers, internal database queries, or proprietary API payloads into cloud-based developer tools risks leaking sensitive keys and user secrets to access logs. TabKit executes all formatting, parsing, and regex engines exclusively in your browser session with zero backend calls.
+        </p>
+      </div>
+
+      
+      <div class="border-t border-workspace-border pt-8 space-y-4">
+        <h2 class="text-xl font-bold text-white mb-3">Core Features &amp; Privacy Architecture</h2>
+        <ul class="list-disc pl-5 space-y-2 text-sm text-workspace-muted">
+          <li><strong class="text-workspace-text">Zero Server Transmissions:</strong> Every byte of data is processed locally inside your browser sandbox. No input strings, credentials, or file bytes are ever uploaded to remote servers.</li>
+          <li><strong class="text-workspace-text">Offline PWA Installation:</strong> Add TabKit to your desktop, iPhone, or Android device as a standalone Progressive Web App (PWA) to work completely air-gapped without an active internet connection.</li>
+          <li><strong class="text-workspace-text">Zero Limits or Paywalls:</strong> Enjoy unlimited file conversions, code formatting, and cryptographic operations without account logins, subscriptions, or artificial file size restrictions.</li>
+          <li><strong class="text-workspace-text">High-Speed Local Execution:</strong> Take advantage of multi-threaded Web Workers and hardware-accelerated WebAssembly for instant processing speeds directly on your device.</li>
+        </ul>
       </div>
 
       <div class="border-t border-workspace-border pt-8 space-y-4">

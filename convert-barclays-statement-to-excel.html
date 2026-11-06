@@ -34,64 +34,70 @@
     "@context": "https://schema.org",
     "@graph": [
       {
-        "@type": "SoftwareApplication",
-        "@id": "https://tabkit.tools/convert-barclays-statement-to-excel#software",
-        "name": "Barclays Bank Statement to Excel Converter",
-        "applicationCategory": "BusinessApplication",
-        "operatingSystem": "All (Web Browser)",
+        "@type": "WebApplication",
+        "@id": "https://tabkit.tools/convert-barclays-statement-to-excel#app",
+        "name": "Convert Barclays Statement to Excel",
+        "url": "https://tabkit.tools/convert-barclays-statement-to-excel",
+        "applicationCategory": "UtilitiesApplication",
+        "operatingSystem": "All",
+        "browserRequirements": "Requires JavaScript. Requires HTML5.",
         "offers": {
           "@type": "Offer",
           "price": "0",
-          "priceCurrency": "GBP"
+          "priceCurrency": "USD"
         },
-        "aggregateRating": {
-          "@type": "AggregateRating",
-          "ratingValue": "4.9",
-          "ratingCount": "153",
-          "bestRating": "5",
-          "worstRating": "1"
-        },
-        "description": "Convert Barclays UK current and business account PDF statements into formatted Excel (.xlsx) and CSV spreadsheets privately in your browser."
+        "description": "Convert Barclays UK PDF bank statements to Excel (.xlsx) and CSV files in your browser. Air-gapped privacy, zero server uploads, 100% free."
       },
       {
-        "@type": "HowTo",
-        "name": "How to Convert a Barclays Bank Statement to Excel",
-        "description": "Step-by-step instructions to extract Barclays PDF statements into clean Excel spreadsheets without cloud uploads.",
-        "step": [
+        "@type": "BreadcrumbList",
+        "@id": "https://tabkit.tools/convert-barclays-statement-to-excel#breadcrumb",
+        "itemListElement": [
           {
-            "@type": "HowToStep",
-            "name": "Download Barclays PDF Statement",
-            "text": "Sign in to Barclays Online Banking or Barclays app, select your account, navigate to Statements, and download your statement PDF."
+            "@type": "ListItem",
+            "position": 1,
+            "name": "TabKit",
+            "item": "https://tabkit.tools/"
           },
           {
-            "@type": "HowToStep",
-            "name": "Drop Statement into TabKit",
-            "text": "Drag and drop the Barclays statement file into the browser box. The parser extracts transactions directly in your local browser sandbox."
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Documents & PDF",
+            "item": "https://tabkit.tools/#documents-pdf"
           },
           {
-            "@type": "HowToStep",
-            "name": "Export to Excel (.xlsx) or CSV",
-            "text": "Review the money-in, money-out, and balance columns, then click Export to Excel (.xlsx) to save your clean spreadsheet."
+            "@type": "ListItem",
+            "position": 3,
+            "name": "Convert Barclays Statement to Excel",
+            "item": "https://tabkit.tools/convert-barclays-statement-to-excel"
           }
         ]
       },
       {
         "@type": "FAQPage",
+        "@id": "https://tabkit.tools/convert-barclays-statement-to-excel#faq",
         "mainEntity": [
           {
             "@type": "Question",
-            "name": "Does this tool work with Barclays UK Barclaycard statements?",
+            "name": "Does the parser recognize UK date formats (DD/MM/YYYY)?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "Yes. It supports Barclays Bank current accounts, savings accounts, and Barclaycard credit card PDF statements."
+              "text": "Yes. The parser recognizes standard UK calendar date sequences used by Barclays, ensuring dates display correctly in your spreadsheet."
             }
           },
           {
             "@type": "Question",
-            "name": "Is my Barclays account number or sort code transmitted online?",
+            "name": "Does it support Barclays Business current accounts?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "No. The entire conversion process executes locally using browser WebAssembly. Your sort code, account number, and transaction details never leave your computer."
+              "text": "Yes. Barclays Business and corporate current account PDF statements with high transaction densities parse smoothly."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Can I import the CSV output into FreeAgent or Xero?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes. The exported CSV file includes Date, Description, and Amount columns formatted for immediate upload to UK accounting platforms."
             }
           }
         ]
@@ -133,6 +139,34 @@
         <p class="mt-3">
           TabKit Tools automates this with local browser processing. Because all calculations and coordinate alignments execute on your local device, your sort codes, account numbers, and financial details stay 100% private.
         </p>
+      </div>
+
+      
+      <div class="border-t border-workspace-border pt-8 space-y-4">
+        <h2 class="text-xl font-bold text-white mb-3">How to Use the Free Convert Barclays Statement to Excel</h2>
+        <ol class="list-decimal pl-5 space-y-2 text-sm text-workspace-muted">
+          <li><strong class="text-workspace-text">Select or Drag Your Document:</strong> Drop your PDF or image files into the workspace container. Your document streams directly into local memory via the HTML5 File API without uploading to any remote server.</li>
+          <li><strong class="text-workspace-text">Configure Custom Settings:</strong> Select specific page ranges, adjust orientation, apply watermarks, or configure document encryption and export formatting with real-time browser preview.</li>
+          <li><strong class="text-workspace-text">Save & Download Instantly:</strong> Click to process and download your compiled, lossless PDF file directly from browser memory with zero waiting queues and complete privacy.</li>
+        </ol>
+      </div>
+
+      <div class="border-t border-workspace-border pt-8 space-y-4">
+        <h2 class="text-xl font-bold text-white mb-3">Why Client-Side Privacy Matters</h2>
+        <p>
+          Traditional online document converters upload private files to third-party cloud servers where they are queued, processed, and stored indefinitely. TabKit utilizes WebAssembly and native browser memory streams to execute 100% of PDF byte manipulation locally inside your browser sandbox. Your confidential business agreements, financial statements, medical records, and personal documents never touch the cloud.
+        </p>
+      </div>
+
+      
+      <div class="border-t border-workspace-border pt-8 space-y-4">
+        <h2 class="text-xl font-bold text-white mb-3">Core Features &amp; Privacy Architecture</h2>
+        <ul class="list-disc pl-5 space-y-2 text-sm text-workspace-muted">
+          <li><strong class="text-workspace-text">Zero Server Transmissions:</strong> Every byte of data is processed locally inside your browser sandbox. No input strings, credentials, or file bytes are ever uploaded to remote servers.</li>
+          <li><strong class="text-workspace-text">Offline PWA Installation:</strong> Add TabKit to your desktop, iPhone, or Android device as a standalone Progressive Web App (PWA) to work completely air-gapped without an active internet connection.</li>
+          <li><strong class="text-workspace-text">Zero Limits or Paywalls:</strong> Enjoy unlimited file conversions, code formatting, and cryptographic operations without account logins, subscriptions, or artificial file size restrictions.</li>
+          <li><strong class="text-workspace-text">High-Speed Local Execution:</strong> Take advantage of multi-threaded Web Workers and hardware-accelerated WebAssembly for instant processing speeds directly on your device.</li>
+        </ul>
       </div>
 
       <div class="border-t border-workspace-border pt-8 space-y-4">

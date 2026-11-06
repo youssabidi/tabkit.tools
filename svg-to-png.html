@@ -21,40 +21,72 @@
 
   <!-- Schema.org JSON-LD -->
   <script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@graph": [
-    {
-      "@type": "WebApplication",
-      "name": "SVG to PNG & WebP Converter",
-      "url": "https://tabkit.tools/svg-to-png",
-      "applicationCategory": "DesignApplication",
-      "operatingSystem": "All modern browsers",
-      "description": "Rasterize SVG vector illustrations and icons to high-resolution PNG or WebP images in-browser."
-    },
-    {
-      "@type": "FAQPage",
-      "mainEntity": [
-        {
-          "@type": "Question",
-          "name": "Why rasterize SVG to PNG or WebP?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "While SVG is resolution-independent, many legacy applications, social media platforms, presentation slides, and mobile notification icons require fixed-dimension raster bitmaps like PNG or WebP."
-          }
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebApplication",
+        "@id": "https://tabkit.tools/svg-to-png#app",
+        "name": "SVG to PNG & WebP Converter",
+        "url": "https://tabkit.tools/svg-to-png",
+        "applicationCategory": "DesignApplication",
+        "operatingSystem": "All",
+        "browserRequirements": "Requires JavaScript. Requires HTML5.",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
         },
-        {
-          "@type": "Question",
-          "name": "Does scaling an SVG cause quality loss?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "No. Because SVG is based on mathematical vector paths, scaling up to 2x, 4x, or ultra-high resolutions before rasterization produces pixel-perfect, crisp results."
+        "description": "Convert vector SVG files and raw code into high-resolution PNG or WebP raster images locally. Scale up to 5x with transparent background support. 100% private."
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": "https://tabkit.tools/svg-to-png#breadcrumb",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "TabKit",
+            "item": "https://tabkit.tools/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Media & Design",
+            "item": "https://tabkit.tools/#media-design"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "SVG to PNG & WebP Converter",
+            "item": "https://tabkit.tools/svg-to-png"
           }
-        }
-      ]
-    }
-  ]
-}
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "@id": "https://tabkit.tools/svg-to-png#faq",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Are my vector graphics uploaded to any external server?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "No. Everything happens client-side directly within your browser's V8 engine. Your SVGs never leave your device, ensuring maximum privacy for proprietary company logos and UI assets."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Can I copy the converted image directly to my clipboard?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes! Simply click \"Copy to Clipboard\", and TabKit uses the modern Asynchronous Clipboard API to write a native PNG blob ready to paste into Figma, Photoshop, Slack, or Google Docs."
+            }
+          }
+        ]
+      }
+    ]
+  }
   </script>
 
   <script src="components.js"></script>
@@ -115,6 +147,34 @@
         <p class="mt-3">
           TabKit Tools solves this by using the browser's native HTML5 Canvas hardware acceleration. When an SVG file or code block is imported, it is parsed as a local Blob object and drawn into an offscreen canvas at the exact scale multiplier you specify—allowing you to generate 1x, 2x Retina, 4x 4K, or custom dimension exports with true alpha transparency.
         </p>
+      </div>
+
+      
+      <div class="border-t border-workspace-border pt-8 space-y-4">
+        <h2 class="text-xl font-bold text-white mb-3">How to Use the Free SVG to PNG & WebP Converter</h2>
+        <ol class="list-decimal pl-5 space-y-2 text-sm text-workspace-muted">
+          <li><strong class="text-workspace-text">Import Vector or Raster Media:</strong> Drop PNG, JPEG, SVG files, or select foreground and background colors to evaluate accessibility and optimize assets.</li>
+          <li><strong class="text-workspace-text">Fine-Tune Dimensions & Quality:</strong> Adjust compression ratios, preview high-DPI scaling, test WCAG 2.1 AA/AAA contrast scores, or generate multi-resolution icon sizes.</li>
+          <li><strong class="text-workspace-text">Download Production Media Assets:</strong> Export rasterized PNG/WebP files, download compressed icon packages, or copy optimized SVG and CSS code snippets with zero loss.</li>
+        </ol>
+      </div>
+
+      <div class="border-t border-workspace-border pt-8 space-y-4">
+        <h2 class="text-xl font-bold text-white mb-3">Why Client-Side Privacy Matters</h2>
+        <p>
+          Asset optimization frequently exposes unreleased product screenshots, copyrighted vector illustrations, and brand identities to public cloud image servers. TabKit renders all transformations inside local HTML5 Canvas and OffscreenCanvas contexts without ever transmitting a single byte over the network.
+        </p>
+      </div>
+
+      
+      <div class="border-t border-workspace-border pt-8 space-y-4">
+        <h2 class="text-xl font-bold text-white mb-3">Core Features &amp; Privacy Architecture</h2>
+        <ul class="list-disc pl-5 space-y-2 text-sm text-workspace-muted">
+          <li><strong class="text-workspace-text">Zero Server Transmissions:</strong> Every byte of data is processed locally inside your browser sandbox. No input strings, credentials, or file bytes are ever uploaded to remote servers.</li>
+          <li><strong class="text-workspace-text">Offline PWA Installation:</strong> Add TabKit to your desktop, iPhone, or Android device as a standalone Progressive Web App (PWA) to work completely air-gapped without an active internet connection.</li>
+          <li><strong class="text-workspace-text">Zero Limits or Paywalls:</strong> Enjoy unlimited file conversions, code formatting, and cryptographic operations without account logins, subscriptions, or artificial file size restrictions.</li>
+          <li><strong class="text-workspace-text">High-Speed Local Execution:</strong> Take advantage of multi-threaded Web Workers and hardware-accelerated WebAssembly for instant processing speeds directly on your device.</li>
+        </ul>
       </div>
 
       <div class="border-t border-workspace-border pt-8 space-y-4">

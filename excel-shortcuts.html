@@ -34,33 +34,73 @@
     "@context": "https://schema.org",
     "@graph": [
       {
-        "@type": "SoftwareApplication",
-        "@id": "https://tabkit.tools/excel-shortcuts#software",
+        "@type": "WebApplication",
+        "@id": "https://tabkit.tools/excel-shortcuts#app",
         "name": "Excel & Google Sheets Shortcuts Studio",
-        "applicationCategory": "EducationalApplication",
+        "url": "https://tabkit.tools/excel-shortcuts",
+        "applicationCategory": "UtilitiesApplication",
         "operatingSystem": "All",
+        "browserRequirements": "Requires JavaScript. Requires HTML5.",
         "offers": {
           "@type": "Offer",
           "price": "0",
           "priceCurrency": "USD"
         },
-        "aggregateRating": {
-          "@type": "AggregateRating",
-          "ratingValue": "4.9",
-          "ratingCount": "165",
-          "bestRating": "5",
-          "worstRating": "1"
-        },
-        "description": "Interactive keyboard shortcuts cheatsheet and modern formula simulator for Microsoft Excel and Google Sheets on Windows and Mac."
+        "description": "Interactive keyboard shortcuts reference and modern formula playground for Microsoft Excel and Google Sheets. Windows and Mac shortcuts with live filtering."
       },
       {
-        "@type": "WebPage",
-        "@id": "https://tabkit.tools/excel-shortcuts#webpage",
-        "url": "https://tabkit.tools/excel-shortcuts",
-        "name": "Excel & Sheets Keyboard Shortcuts Studio | TabKit Tools",
-        "isPartOf": {
-          "@id": "https://tabkit.tools/#website"
-        }
+        "@type": "BreadcrumbList",
+        "@id": "https://tabkit.tools/excel-shortcuts#breadcrumb",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "TabKit",
+            "item": "https://tabkit.tools/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Productivity & Math",
+            "item": "https://tabkit.tools/#productivity-math"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "Excel & Google Sheets Shortcuts Studio",
+            "item": "https://tabkit.tools/excel-shortcuts"
+          }
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "@id": "https://tabkit.tools/excel-shortcuts#faq",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "What is the difference between VLOOKUP and XLOOKUP?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "VLOOKUP only searches from left to right and breaks if new columns are inserted into the source range. XLOOKUP can search in any direction (left, right, up, down), defaults to exact match mode without requiring FALSE, and includes built-in fallback values for missing records."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Do these shortcuts work in Google Sheets as well as Excel?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes. Major core navigation shortcuts (such as Ctrl/Cmd+Arrow for region jumping, Ctrl+Z, Ctrl+D for fill down, and Shift+Space for row selection) are identical between Microsoft Excel and Google Sheets in modern web browsers."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How do I toggle between Windows and Mac keys?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Click the \"macOS ⌘\" button at the top of the studio to instantly convert all PC keys (Control, Alt, Enter) into native Apple keyboard modifiers (Command ⌘, Option ⌥, Return)."
+            }
+          }
+        ]
       }
     ]
   }
@@ -99,6 +139,34 @@
         <p class="mt-3">
           TabKit Tools provides an interactive, searchable cheatsheet tailored for both Windows PC and Apple macOS keyboards. Whether you are transitioning to modern lookup functions or preparing for financial modeling interviews, this studio accelerates your proficiency.
         </p>
+      </div>
+
+      
+      <div class="border-t border-workspace-border pt-8 space-y-4">
+        <h2 class="text-xl font-bold text-white mb-3">How to Use the Free Excel & Google Sheets Shortcuts Studio</h2>
+        <ol class="list-decimal pl-5 space-y-2 text-sm text-workspace-muted">
+          <li><strong class="text-workspace-text">Enter Inputs & Parameters:</strong> Input date intervals, percentages, invoice line items, or meeting times into clean interactive form fields.</li>
+          <li><strong class="text-workspace-text">View Dynamic Real-Time Calculations:</strong> Observe instant calculations, tax breakdowns, timezone comparisons, or focus intervals calculated at 60fps.</li>
+          <li><strong class="text-workspace-text">Export or Copy Computed Results:</strong> Copy calculated values, print formatted PDF invoices, or save custom settings locally for future sessions.</li>
+        </ol>
+      </div>
+
+      <div class="border-t border-workspace-border pt-8 space-y-4">
+        <h2 class="text-xl font-bold text-white mb-3">Why Client-Side Privacy Matters</h2>
+        <p>
+          Calculating billable client rates, preparing proprietary invoices, or coordinating multi-city corporate meetings should not be monitored by third-party tracking cookies or ad networks. TabKit operates 100% offline with zero server telemetry and instant computation speed.
+        </p>
+      </div>
+
+      
+      <div class="border-t border-workspace-border pt-8 space-y-4">
+        <h2 class="text-xl font-bold text-white mb-3">Core Features &amp; Privacy Architecture</h2>
+        <ul class="list-disc pl-5 space-y-2 text-sm text-workspace-muted">
+          <li><strong class="text-workspace-text">Zero Server Transmissions:</strong> Every byte of data is processed locally inside your browser sandbox. No input strings, credentials, or file bytes are ever uploaded to remote servers.</li>
+          <li><strong class="text-workspace-text">Offline PWA Installation:</strong> Add TabKit to your desktop, iPhone, or Android device as a standalone Progressive Web App (PWA) to work completely air-gapped without an active internet connection.</li>
+          <li><strong class="text-workspace-text">Zero Limits or Paywalls:</strong> Enjoy unlimited file conversions, code formatting, and cryptographic operations without account logins, subscriptions, or artificial file size restrictions.</li>
+          <li><strong class="text-workspace-text">High-Speed Local Execution:</strong> Take advantage of multi-threaded Web Workers and hardware-accelerated WebAssembly for instant processing speeds directly on your device.</li>
+        </ul>
       </div>
 
       <div class="border-t border-workspace-border pt-8 space-y-4">

@@ -21,56 +21,80 @@
 
   <!-- Schema.org JSON-LD -->
   <script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@graph": [
-    {
-      "@type": "WebApplication",
-      "name": "Regular Expression (Regex) Live Tester",
-      "url": "https://tabkit.tools/regex-tester",
-      "applicationCategory": "DeveloperApplication",
-      "operatingSystem": "All modern browsers",
-      "description": "Test, debug, and highlight regular expressions against sample text with live capture badges and cheatsheets."
-    },
-    {
-      "@type": "FAQPage",
-      "mainEntity": [
-        {
-          "@type": "Question",
-          "name": "Can I test sensitive log files or credentials with this Regex tool?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Absolutely. Most online regex testers send your sample text to backend servers for analysis. TabKit executes the JavaScript RegExp engine locally in your browser sandbox with zero telemetry."
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebApplication",
+        "@id": "https://tabkit.tools/regex-tester#app",
+        "name": "Regular Expression (Regex) Live Tester",
+        "url": "https://tabkit.tools/regex-tester",
+        "applicationCategory": "DeveloperApplication",
+        "operatingSystem": "All",
+        "browserRequirements": "Requires JavaScript. Requires HTML5.",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        },
+        "description": "Test, debug, and highlight regular expressions against sample text with live capture badges and cheatsheets. 100% offline and private. Zero server uploads."
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": "https://tabkit.tools/regex-tester#breadcrumb",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "TabKit",
+            "item": "https://tabkit.tools/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Developer & Code",
+            "item": "https://tabkit.tools/#developer-code"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "Regular Expression (Regex) Live Tester",
+            "item": "https://tabkit.tools/regex-tester"
           }
-        }
-      ]
-    },
-    {
-      "@type": "BreadcrumbList",
-      "@id": "https://tabkit.tools/regex-tester#breadcrumb",
-      "itemListElement": [
-        {
-          "@type": "ListItem",
-          "position": 1,
-          "name": "TabKit",
-          "item": "https://tabkit.tools/"
-        },
-        {
-          "@type": "ListItem",
-          "position": 2,
-          "name": "Developer & Code",
-          "item": "https://tabkit.tools/#developer-code"
-        },
-        {
-          "@type": "ListItem",
-          "position": 3,
-          "name": "Regular Expression (Regex) Live Tester",
-          "item": "https://tabkit.tools/regex-tester"
-        }
-      ]
-    }
-  ]
-}
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "@id": "https://tabkit.tools/regex-tester#faq",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Which regex engine powers this tool?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "The tool utilizes modern ECMAScript RegExp specifications implemented directly by your browser engine, supporting lookaheads, lookbehinds, and named capture groups."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Does the tester protect against infinite loop regex execution?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes. Regex evaluations are guarded by execution boundaries to prevent catastrophic backtracking from freezing your browser window."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Is my test data uploaded to external servers?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "No. All pattern evaluation runs strictly in client-side JavaScript memory on your computer."
+            }
+          }
+        ]
+      }
+    ]
+  }
   </script>
 
   <script src="utils.js"></script>
@@ -141,6 +165,34 @@
           </ul>
         </div>
       </div>
+      
+      <div class="border-t border-workspace-border pt-8 space-y-4">
+        <h2 class="text-xl font-bold text-white mb-3">How to Use the Free Regular Expression (Regex) Live Tester</h2>
+        <ol class="list-decimal pl-5 space-y-2 text-sm text-workspace-muted">
+          <li><strong class="text-workspace-text">Input Code, Payload, or Command:</strong> Paste your raw JSON strings, SQL queries, regular expressions, cURL requests, or Unix timestamps into the code editor.</li>
+          <li><strong class="text-workspace-text">Inspect Real-Time Formatted Output:</strong> View beautified syntax highlighting, capture group matches, decoded JWT claim expiration, or converted code snippets across languages.</li>
+          <li><strong class="text-workspace-text">Copy Production-Ready Code:</strong> Use one-click copy buttons to transfer validated TypeScript interfaces, optimized SQL clauses, or minified assets directly into your IDE.</li>
+        </ol>
+      </div>
+
+      <div class="border-t border-workspace-border pt-8 space-y-4">
+        <h2 class="text-xl font-bold text-white mb-3">Why Client-Side Privacy Matters</h2>
+        <p>
+          Pasting production authorization headers, internal database queries, or proprietary API payloads into cloud-based developer tools risks leaking sensitive keys and user secrets to access logs. TabKit executes all formatting, parsing, and regex engines exclusively in your browser session with zero backend calls.
+        </p>
+      </div>
+
+      
+      <div class="border-t border-workspace-border pt-8 space-y-4">
+        <h2 class="text-xl font-bold text-white mb-3">Core Features &amp; Privacy Architecture</h2>
+        <ul class="list-disc pl-5 space-y-2 text-sm text-workspace-muted">
+          <li><strong class="text-workspace-text">Zero Server Transmissions:</strong> Every byte of data is processed locally inside your browser sandbox. No input strings, credentials, or file bytes are ever uploaded to remote servers.</li>
+          <li><strong class="text-workspace-text">Offline PWA Installation:</strong> Add TabKit to your desktop, iPhone, or Android device as a standalone Progressive Web App (PWA) to work completely air-gapped without an active internet connection.</li>
+          <li><strong class="text-workspace-text">Zero Limits or Paywalls:</strong> Enjoy unlimited file conversions, code formatting, and cryptographic operations without account logins, subscriptions, or artificial file size restrictions.</li>
+          <li><strong class="text-workspace-text">High-Speed Local Execution:</strong> Take advantage of multi-threaded Web Workers and hardware-accelerated WebAssembly for instant processing speeds directly on your device.</li>
+        </ul>
+      </div>
+
       <div class="border-t border-workspace-border pt-8 space-y-4">
         <h2 class="text-xl font-bold text-white mb-4">Frequently Asked Questions</h2>
         <div class="space-y-3">
