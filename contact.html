@@ -48,9 +48,39 @@
             "position": 2,
             "name": "Contact Us",
             "item": "https://tabkit.tools/contact"
+          },
+      {
+        "@type": "FAQPage",
+        "@id": "https://tabkit.tools/contact#faq",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "How quickly does the TabKit Tools team respond to inquiries?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Our engineering and support team reviews all incoming inquiries within 24 to 48 business hours. Critical bug reports affecting data accuracy receive immediate priority triage."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Can I request a new offline browser tool or converter?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes! We actively welcome community requests for new client-side utilities. Please provide input and output format specifications and any relevant ISO or RFC standards."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How should I report a security vulnerability or CSP issue?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Security disclosures should be emailed to support@tabkit.tools with the subject '[Security Audit]' along with reproducible steps. We coordinate prompt remediation."
+            }
           }
         ]
       }
+    ]
+  }
     ]
   }
   </script>
@@ -214,6 +244,63 @@
         </div>
       </div>
     </div>
+  
+    <!-- FAQ Section -->
+    <div class="border-t border-workspace-border pt-12 space-y-6">
+      <div class="max-w-2xl">
+        <h2 class="text-xl font-bold text-white mb-2">Frequently Asked Inquiries</h2>
+        <p class="text-xs text-workspace-muted leading-relaxed">
+          Common questions regarding communication, technical assistance, tool suggestions, and privacy commitments.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="p-5 rounded-2xl bg-workspace-surface/60 border border-workspace-border space-y-2">
+          <h3 class="text-sm font-bold text-white">How quickly do you reply?</h3>
+          <p class="text-xs text-workspace-muted leading-relaxed">
+            Inquiries are processed by our core development team within 24–48 hours. Feature suggestions and converter requests are logged directly onto our public engineering roadmap.
+          </p>
+        </div>
+
+        <div class="p-5 rounded-2xl bg-workspace-surface/60 border border-workspace-border space-y-2">
+          <h3 class="text-sm font-bold text-white">Can I suggest new features?</h3>
+          <p class="text-xs text-workspace-muted leading-relaxed">
+            Absolutely. If you regularly use a repetitive data formatting, conversion, or PDF manipulation workflow that can run client-side, let us know and we will evaluate building it.
+          </p>
+        </div>
+
+        <div class="p-5 rounded-2xl bg-workspace-surface/60 border border-workspace-border space-y-2">
+          <h3 class="text-sm font-bold text-white">Responsible disclosure policy?</h3>
+          <p class="text-xs text-workspace-muted leading-relaxed">
+            We take browser security and CSP sandboxing seriously. Please send vulnerability reports with reproduction steps to support@tabkit.tools for prioritized same-day review.
+          </p>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 pt-2">
+        <div class="p-5 rounded-2xl bg-workspace-surface/40 border border-workspace-border space-y-2">
+          <h3 class="text-sm font-bold text-white">Enterprise Compliance &amp; Auditing</h3>
+          <p class="text-xs text-workspace-muted leading-relaxed">
+            Organizations seeking verification of zero-telemetry architecture for corporate compliance (such as HIPAA, GDPR, or internal security audits) are welcome to request technical whitepapers or schedule architectural Q&amp;A sessions with our maintainers.
+          </p>
+        </div>
+
+        <div class="p-5 rounded-2xl bg-workspace-surface/40 border border-workspace-border space-y-2">
+          <h3 class="text-sm font-bold text-white">Educational &amp; Non-Profit Inquiries</h3>
+          <p class="text-xs text-workspace-muted leading-relaxed">
+            TabKit is completely free for universities, schools, coding bootcamps, and non-profit organizations. If you are integrating our offline calculators or utilities into coursework or classroom environments, we are happy to assist with curriculum onboarding.
+          </p>
+        </div>
+
+        <div class="p-5 rounded-2xl bg-workspace-surface/40 border border-workspace-border space-y-2">
+          <h3 class="text-sm font-bold text-white">Media &amp; Press Questions</h3>
+          <p class="text-xs text-workspace-muted leading-relaxed">
+            Journalists and technology writers covering browser privacy, WebAssembly, and local-first computing can reach our communications team directly for high-resolution brand assets, product roadmaps, and creator interviews.
+          </p>
+        </div>
+      </div>
+    </div>
+
   </main>
 
   <script>

@@ -42,9 +42,40 @@ function extractFaq(html) {
   return faqs;
 }
 
+function extractHowTo(html, toolName, toolId) {
+  const match = html.match(/<h2[^>]*>([^<]*?How to Use[^<]*?)<\/h2>\s*<ol[^>]*>([\s\S]*?)<\/ol>/i);
+  if (!match) return null;
+  const rawTitle = match[1].replace(/<[^>]+>/g, '').trim();
+  const olContent = match[2];
+  const liRegex = /<li><strong[^>]*>([\s\S]*?)<\/strong>\s*:?\s*([\s\S]*?)<\/li>/gi;
+  const steps = [];
+  let m;
+  let pos = 1;
+  while ((m = liRegex.exec(olContent)) !== null) {
+    const name = m[1].replace(/<[^>]+>/g, '').replace(/:$/, '').trim();
+    const text = m[2].replace(/<[^>]+>/g, '').trim();
+    if (name && text) {
+      steps.push({
+        "@type": "HowToStep",
+        "position": pos++,
+        "name": name,
+        "text": text
+      });
+    }
+  }
+  if (steps.length === 0) return null;
+  return {
+    "@type": "HowTo",
+    "@id": `https://tabkit.tools/${toolId}#howto`,
+    "name": rawTitle || `How to Use ${toolName}`,
+    "step": steps
+  };
+}
+
 const files = fs.readdirSync('.').filter(f => f.endsWith('.html') && !['about.html','privacy.html','terms.html','contact.html','report-issue.html','index.html','faq.html','guide.html'].includes(f));
 
 let upgraded = 0;
+let howToCount = 0;
 
 files.forEach(file => {
   const toolId = file.replace('.html', '');
@@ -68,6 +99,7 @@ files.forEach(file => {
   const categorySlug = CATEGORY_SLUGS[category] || 'tools';
   const appCategory = APP_CATEGORIES[category] || 'UtilitiesApplication';
   const faqs = extractFaq(html);
+  const howTo = extractHowTo(html, tool.name, toolId);
 
   // Build clean graph
   const graph = [
@@ -112,6 +144,11 @@ files.forEach(file => {
     }
   ];
 
+  if (howTo) {
+    graph.push(howTo);
+    howToCount++;
+  }
+
   if (faqs.length > 0) {
     graph.push({
       "@type": "FAQPage",
@@ -140,4 +177,4 @@ files.forEach(file => {
   upgraded++;
 });
 
-console.log(`Successfully synced Schema.org JSON-LD across ${upgraded} tool pages!`);
+console.log(`Successfully synced Schema.org JSON-LD across ${upgraded} tool pages! (Injected HowTo schema into ${howToCount} pages)`);

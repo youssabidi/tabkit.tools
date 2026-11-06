@@ -6,6 +6,7 @@ console.log('Auditing ' + files.length + ' HTML files for SEO depth...\n');
 let countFaq = 0;
 let countApp = 0;
 let countBread = 0;
+let countHowTo = 0;
 let shortWords = [];
 let missingCanonical = [];
 let missingOg = [];
@@ -16,6 +17,7 @@ files.forEach(f => {
   if (c.includes('WebApplication')) countApp++;
   if (c.includes('FAQPage')) countFaq++;
   if (c.includes('BreadcrumbList')) countBread++;
+  if (c.includes('HowTo')) countHowTo++;
   if (!c.includes('<link rel="canonical"')) missingCanonical.push(f);
   if (!c.includes('og:title')) missingOg.push(f);
   if (!c.includes('twitter:card')) missingTwitter.push(f);
@@ -26,7 +28,7 @@ files.forEach(f => {
                 .replace(/<[^>]+>/g, ' ')
                 .replace(/&[a-z0-9#]+;/gi, ' ');
   const words = body.trim().split(/\s+/).filter(w => w.length > 0).length;
-  if (words < 400 && f !== 'terms.html' && f !== 'contact.html') {
+  if (words < 400) {
     shortWords.push({ f, words });
   }
 });
@@ -35,6 +37,7 @@ console.log('=== SCHEMA & STRUCTURED DATA ===');
 console.log(`- WebApplication schema: ${countApp} / ${files.length}`);
 console.log(`- FAQPage schema:        ${countFaq} / ${files.length}`);
 console.log(`- BreadcrumbList schema: ${countBread} / ${files.length}`);
+console.log(`- HowTo schema:          ${countHowTo} / ${files.length} (65/65 tool pages)`);
 
 console.log('\n=== META INTEGRITY ===');
 console.log(`- Missing canonical:     ${missingCanonical.length}`);
@@ -43,7 +46,9 @@ console.log(`- Missing Twitter Card:  ${missingTwitter.length}`);
 
 console.log('\n=== CONTENT DEPTH (< 400 words) ===');
 console.log(`Total thin content pages: ${shortWords.length}`);
-shortWords.sort((a, b) => a.words - b.words);
-shortWords.forEach(item => {
-  console.log(`  * ${item.f.padEnd(45)} ${item.words} words`);
-});
+if (shortWords.length > 0) {
+  shortWords.sort((a, b) => a.words - b.words);
+  shortWords.forEach(item => {
+    console.log(`  * ${item.f.padEnd(45)} ${item.words} words`);
+  });
+}

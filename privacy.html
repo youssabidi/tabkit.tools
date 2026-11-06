@@ -56,9 +56,39 @@
           "position": 2,
           "name": "Privacy Policy",
           "item": "https://tabkit.tools/privacy"
+        },
+    {
+      "@type": "FAQPage",
+      "@id": "https://tabkit.tools/privacy#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Are my uploaded files, PDFs, or data ever stored on TabKit servers?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Never. TabKit Tools operates strictly on a client-side architecture. All documents, images, financial statements, and passwords reside exclusively in your browser memory and are wiped when the tab closes."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does TabKit use tracking cookies or session telemetry?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No tracking cookies or analytics telemetry scripts are used. Browser localStorage is utilized solely for functional preferences such as pinned workbench tools and visual settings."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can third-party advertisers access data processed inside TabKit?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. Google AdSense scripts run inside isolated iframes that have no access to the application DOM, input forms, or memory buffers of your tools."
+          }
         }
       ]
     }
+  ]
+}
   ]
 }
   </script>

@@ -56,9 +56,39 @@
           "position": 2,
           "name": "Terms of Service",
           "item": "https://tabkit.tools/terms"
+        },
+    {
+      "@type": "FAQPage",
+      "@id": "https://tabkit.tools/terms#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Is TabKit Tools free for commercial and business use?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. TabKit Tools is 100% free for commercial, professional, academic, and personal workflows. There are no licensing fees, account creation requirements, or usage quotas."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can our enterprise use TabKit for confidential data and financial audits?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. Because TabKit executes 100% client-side in the browser V8 engine without transmitting data over the network, organizations can process confidential bank statements and spreadsheets without violating data sovereignty or compliance policies."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Are there daily conversion or file size quotas?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No server quotas or daily limits exist. Processing capacity is governed solely by your local device hardware and browser memory capabilities."
+          }
         }
       ]
     }
+  ]
+}
   ]
 }
   </script>
@@ -156,6 +186,55 @@
       </section>
 
     </div>
+  
+      <section class="p-6 md:p-8 rounded-2xl bg-workspace-surface/50 border border-workspace-border space-y-4">
+        <h2 class="text-lg font-bold text-workspace-text font-mono flex items-center gap-2">
+          <span class="text-workspace-accent font-mono text-base">06.</span>
+          Commercial Use &amp; Enterprise Compliance
+        </h2>
+        <p>
+          Enterprises, accounting firms, software engineering teams, and academic institutions are granted unrestricted rights to integrate TabKit into their operational workflows. 
+        </p>
+        <p>
+          Because our tools are architected without backend data endpoints, your organization maintains complete data sovereignty under GDPR, CCPA, and SOC 2 guidelines without requiring custom vendor data processing addendums (DPAs).
+        </p>
+      </section>
+
+      <section class="p-6 md:p-8 rounded-2xl bg-workspace-surface/50 border border-workspace-border space-y-4">
+        <h2 class="text-lg font-bold text-workspace-text font-mono flex items-center gap-2">
+          <span class="text-workspace-accent font-mono text-base">07.</span>
+          Open Web Standards &amp; Attribution
+        </h2>
+        <p>
+          TabKit Tools is built upon open web specifications including HTML5 Web Workers, Web Cryptography API, WebAssembly, and standard ECMAScript modules. You are encouraged to inspect our unminified client-side source code to audit security protocols and calculation algorithms.
+        </p>
+      </section>
+
+      <!-- Terms & Usage FAQ -->
+      <section class="p-6 md:p-8 rounded-2xl bg-workspace-surface/50 border border-workspace-border space-y-6">
+        <div class="border-b border-workspace-border pb-4">
+          <h2 class="text-xl font-bold text-white mb-1">Terms of Service &amp; Licensing FAQ</h2>
+          <p class="text-xs text-workspace-muted leading-relaxed">Common legal, commercial, and operational questions regarding TabKit Tools usage.</p>
+        </div>
+
+        <div class="space-y-4 text-xs">
+          <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/60 space-y-1.5">
+            <h3 class="font-bold text-white text-sm">Is TabKit free for commercial and organizational use?</h3>
+            <p class="text-workspace-muted leading-relaxed">Yes. You may freely use all 64 tools for commercial work, internal business processes, tax reconciliation, and client deliverables with zero subscription costs.</p>
+          </div>
+
+          <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/60 space-y-1.5">
+            <h3 class="font-bold text-white text-sm">Can we process confidential customer or financial data?</h3>
+            <p class="text-workspace-muted leading-relaxed">Yes. Because all operations execute locally in your browser memory, data never leaves your computer. No cloud servers, databases, or third-party APIs receive your files.</p>
+          </div>
+
+          <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/60 space-y-1.5">
+            <h3 class="font-bold text-white text-sm">Are there file size or daily conversion limits?</h3>
+            <p class="text-workspace-muted leading-relaxed">There are no server rate limits or paywalls. Conversion limits depend entirely on your computer's RAM and browser capabilities.</p>
+          </div>
+        </div>
+      </section>
+
   </main>
 
   <tabkit-footer></tabkit-footer>

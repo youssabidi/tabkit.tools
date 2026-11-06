@@ -48,9 +48,39 @@
             "position": 2,
             "name": "Report Issue",
             "item": "https://tabkit.tools/report-issue"
+          },
+      {
+        "@type": "FAQPage",
+        "@id": "https://tabkit.tools/report-issue#faq",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "What details should I include in a bug report?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Providing your browser name and version, operating system (Windows, macOS, Linux, iOS, Android), the tool name, and the specific steps or sample text that triggered the error helps us reproduce and resolve the issue immediately."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Can I request a brand new offline productivity tool?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes! If there is a calculation, conversion, or formatting workflow you find yourself performing frequently that could run privately in a browser, submit a Tool Request through this form."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How is my feedback submitted without tracking?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "The feedback form formats your submission cleanly into a standardized markdown template that you can copy or send directly via email, ensuring no third-party tracking scripts monitor your actions."
+            }
           }
         ]
       }
+    ]
+  }
     ]
   }
   </script>
@@ -168,6 +198,33 @@
       </div>
     </div>
   
+    
+      <!-- Bug Diagnostic Checklist & Environment Table -->
+      <div class="border-t border-workspace-border pt-8 space-y-4">
+        <h2 class="text-xl font-bold text-white mb-2">Bug Diagnostic &amp; Reproduction Checklist</h2>
+        <p class="text-xs text-workspace-muted leading-relaxed">
+          Because TabKit Tools executes entirely inside your client browser, environmental factors such as browser extensions, strict Content Security Policies, or device memory limits can occasionally affect performance. When filing an issue, including the items below accelerates resolution:
+        </p>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+          <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/40 space-y-1.5">
+            <h3 class="font-bold text-white">Browser &amp; OS Information</h3>
+            <p class="text-workspace-muted leading-relaxed">Specify Chrome, Firefox, Safari, Edge, or Brave, along with whether you are running on desktop (Windows, macOS, Linux) or mobile (iOS, Android).</p>
+          </div>
+          <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/40 space-y-1.5">
+            <h3 class="font-bold text-white">Console Logs &amp; Error Messages</h3>
+            <p class="text-workspace-muted leading-relaxed">Open DevTools (F12 or Ctrl+Shift+I), check the Console tab for red error messages, and paste non-sensitive stack traces into the description.</p>
+          </div>
+          <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/40 space-y-1.5">
+            <h3 class="font-bold text-white">Input File Size &amp; Format</h3>
+            <p class="text-workspace-muted leading-relaxed">For PDF or spreadsheet converters, mention the approximate file size (e.g. 5 MB) and whether the file contains complex vector graphics or scanned raster images.</p>
+          </div>
+          <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/40 space-y-1.5">
+            <h3 class="font-bold text-white">Reproduction Steps</h3>
+            <p class="text-workspace-muted leading-relaxed">List sequential steps: e.g., 1. Drop file -> 2. Select page 1-3 -> 3. Click Convert -> 4. Unexpected blank output observed.</p>
+          </div>
+        </div>
+      </div>
+
     <!-- SEO Educational Content -->
     <article class="prose prose-invert max-w-none border-t border-workspace-border pt-12 space-y-8 text-sm text-workspace-muted leading-relaxed">
       <div>
