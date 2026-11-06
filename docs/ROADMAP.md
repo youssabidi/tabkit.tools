@@ -59,85 +59,103 @@
 *Goal: Industry-standard security posture, transparent legal compliance, and SEO optimization.*
 - [x] **Hardened CSP & Permissions Policy:** Configured `object-src 'none'`, `frame-ancestors 'none'`, `base-uri 'self'`, and `interest-cohort=()` (FLoC disabled).
 - [x] **Transparent Legal Commitments:** Comprehensive dedicated `privacy.html` and `terms.html` pages linked across all tool footers.
-- [x] **Clean Canonical & OpenGraph Uniformity:** Standardized canonical tags, OpenGraph metadata, and structured data across all 50 tools.
-- [x] **Full 57-Route Sitemap:** Comprehensive `sitemap.xml` with zero redirect chains and clean URLs.
-- [x] **Streamlined Curated Landing Page:** Clean initial view displaying 8 popular suggested utilities with smooth "Browse All 50 Tools" toggle.
+- [x] **Clean Canonical & OpenGraph Uniformity:** Standardized canonical tags, OpenGraph metadata, and structured data across all tools.
+- [x] **Full Clean Sitemap:** Comprehensive `sitemap.xml` with zero redirect chains and clean URLs.
+- [x] **Streamlined Curated Landing Page:** Clean initial view displaying 8 popular suggested utilities with smooth "Browse All Tools" toggle.
 
 ## Phase 8: Workflow Automation & Advanced Utilities
 - [x] **Tool Chaining 2.0:** Direct 1-click piping between complementary tools (JSON ➔ TS, Markdown ➔ Minifier, CSV ➔ JSON) across both workbench and standalone tools.
 - [x] **CSS & HTML Minifier (`css-html-minifier`):** Fast in-browser code minification, comment stripper, and beautifier with real-time byte analytics.
 - [x] **PWA Shortcuts:** Native OS-level application shortcuts in `manifest.json` for rapid tool launching.
 - [x] **Color Palette Generator & Contrast Studio (`color-palette-contrast`):** Contrast ratios (WCAG AAA) and complementary palette builder.
-- [x] **JSON to CSV & TSV Converter (`json-to-csv`):** Tool #53 - Flatten nested JSON objects and arrays into structured CSV spreadsheets or TSV tables with UTF-8 BOM encoding.
-- [x] **Favicon & PWA App Icon Generator (`favicon-generator`):** Tool #54 - Generate multi-resolution favicons, Apple touch icons, and Android PWA manifest assets directly in your browser.
+- [x] **JSON to CSV & TSV Converter (`json-to-csv`):** Flatten nested JSON objects and arrays into structured CSV spreadsheets or TSV tables with UTF-8 BOM encoding.
+- [x] **Favicon & PWA App Icon Generator (`favicon-generator`):** Generate multi-resolution favicons, Apple touch icons, and Android PWA manifest assets directly in your browser.
+- [x] **SVG to PNG & WebP Converter (`svg-to-png`):** High-DPI client-side rasterizer for vector graphics.
+- [x] **Password Strength & Entropy Meter (`password-strength`):** Real-time cryptographic entropy analyzer and brute force crack duration estimator.
+
+## Phase 9: High-Intent Financial & Spreadsheet Expansion
+- [x] **PDF Bank Statement to Excel Converter (`bank-statement-to-excel`):** Convert PDF bank statements into structured Excel (.xlsx) and CSV spreadsheets locally with zero server uploads.
+- [x] **Bank-Specific Programmatic Parsers:** Dedicated high-converting pages for Chase, Bank of America, Wells Fargo, Revolut, and Barclays.
+- [x] **Client-Side WebAssembly OCR:** In-browser OCR fallback for scanned statements via Tesseract.js WASM.
+- [x] **Invoice Generator & Excel Exporter (`invoice-generator`):** Professional invoice generator with live calculations, active formula Excel (.xlsx) workbooks, and print-ready PDF export.
+- [x] **Excel & Google Sheets Shortcuts Studio (`excel-shortcuts`):** Interactive keyboard shortcuts reference and modern formula playground for Excel & Google Sheets.
 
 ---
 
-## 📦 Total Tools in Registry: 54 Tools
+## 📦 Total Tools in Registry: 64 Tools
 
-### 📄 Documents & PDF (11)
-1. `pdf-splitter` — Client-Side PDF Splitter & Page Remover
-2. `pdf-merger` — Client-Side PDF Merger & Combiner
-3. `pdf-rotator` — Client-Side PDF Page Rotator
-4. `images-to-pdf` — Client-Side Images to PDF Converter
-5. `pdf-watermarker` — Client-Side PDF Watermark & Stamp
-6. `pdf-metadata-editor` — PDF Metadata Inspector & Stripper
-7. `pdf-page-numberer` — Client-Side PDF Page Numberer
-8. `pdf-text-extractor` — PDF Text & Markdown Extractor
-9. `pdf-to-images` — Client-Side PDF to Images (PNG/JPG)
-10. `pdf-password-protect` — Client-Side PDF Password Protect
-11. `pdf-sign-stamp` — Client-Side PDF Signature & Stamp
+### 📄 Documents & PDF (17)
+1. `bank-statement-to-excel` — PDF Bank Statement to Excel Converter
+2. `convert-chase-statement-to-excel` — Convert Chase Statement to Excel
+3. `convert-bank-of-america-statement-to-excel` — Convert Bank of America Statement to Excel
+4. `convert-wells-fargo-statement-to-excel` — Convert Wells Fargo Statement to Excel
+5. `convert-revolut-statement-to-excel` — Convert Revolut Statement to Excel
+6. `convert-barclays-statement-to-excel` — Convert Barclays Statement to Excel
+7. `pdf-splitter` — Client-Side PDF Splitter & Page Remover
+8. `pdf-merger` — Client-Side PDF Merger & Combiner
+9. `pdf-rotator` — Client-Side PDF Page Rotator
+10. `images-to-pdf` — Client-Side Images to PDF Converter
+11. `pdf-watermarker` — Client-Side PDF Watermark & Stamp
+12. `pdf-metadata-editor` — PDF Metadata Inspector & Stripper
+13. `pdf-page-numberer` — Client-Side PDF Page Numberer
+14. `pdf-text-extractor` — PDF Text & Markdown Extractor
+15. `pdf-to-images` — Client-Side PDF to Images (PNG/JPG)
+16. `pdf-password-protect` — Client-Side PDF Password Protect
+17. `pdf-sign-stamp` — Client-Side PDF Signature & Stamp
 
-### 📊 Text & Data (14)
-12. `case-converter` — Case Converter & Word Counter
-13. `csv-json-converter` — CSV ↔ JSON Converter
-14. `csv-to-excel` — CSV to Excel (.xlsx) Converter
-15. `excel-deduplicator` — Spreadsheet Row Deduplicator
-16. `excel-empty-cleaner` — Empty Rows & Whitespace Stripper
-17. `excel-formula-builder` — Excel Formula Builder Cheat Sheet
-18. `excel-to-csv` — Excel to CSV Converter
-19. `excel-to-json` — Excel to JSON Converter
-20. `excel-to-markdown` — Excel to Markdown Table Converter
-21. `excel-transpose` — Row & Column Transposer
-22. `json-formatter` — JSON Formatter & Validator
-23. `json-to-excel` — JSON to Excel Converter
-24. `json-to-csv` — JSON to CSV & TSV Converter
-24. `markdown-preview` — Markdown Live Editor & HTML Preview
-25. `text-diff-checker` — Text Diff Checker & Notepad
+### 📊 Text & Data (15)
+18. `case-converter` — Case Converter & Word Counter
+19. `excel-formula-builder` — Excel Formula Builder Cheat Sheet
+20. `json-formatter` — JSON Formatter & Validator
+21. `text-diff-checker` — Text Diff Checker & Notepad
+22. `markdown-preview` — Markdown Live Editor & HTML Preview
+23. `csv-json-converter` — CSV ↔ JSON Converter
+24. `excel-to-csv` — Excel to CSV Converter
+25. `excel-to-json` — Excel to JSON Converter
+26. `excel-deduplicator` — Spreadsheet Row Deduplicator
+27. `csv-to-excel` — CSV to Excel (.xlsx) Converter
+28. `json-to-csv` — JSON to CSV & TSV Converter
+29. `json-to-excel` — JSON to Excel (.xlsx) Converter
+30. `excel-to-markdown` — Excel to Markdown Table Generator
+31. `excel-transpose` — Spreadsheet Row & Column Transposer
+32. `excel-empty-cleaner` — Empty Rows & Whitespace Stripper
 
 ### 💻 Developer & Code (8)
-26. `chmod-calculator` — Visual chmod Permissions Calculator
-27. `css-html-minifier` — CSS & HTML Minifier & Beautifier
-28. `curl-converter` — cURL to Fetch / Axios / Python Converter
-29. `json-to-typescript` — JSON to TypeScript Interface Generator
-30. `jwt-decoder` — Client-Side JWT Token Decoder
-31. `regex-tester` — Real-Time Regular Expression Sandbox
-32. `sql-formatter` — SQL Query Beautifier & Indenter
-33. `uuid-generator` — Bulk UUID / GUID v4 Generator
+33. `chmod-calculator` — Visual chmod Permissions Calculator
+34. `css-html-minifier` — CSS & HTML Minifier & Beautifier
+35. `curl-converter` — cURL to Fetch / Axios / Python Converter
+36. `json-to-typescript` — JSON to TypeScript Interface Generator
+37. `unix-timestamp-converter` — Unix Timestamp & Epoch Converter
+38. `regex-tester` — Real-Time Regular Expression Sandbox
+39. `jwt-decoder` — Client-Side JWT Token Decoder
+40. `sql-formatter` — SQL Query Beautifier & Indenter
 
 ### 🔒 Privacy & Security (6)
-34. `base64-encoder-decoder` — Base64 Encoder / Decoder
-35. `exif-metadata-stripper` — Photo EXIF & GPS Metadata Stripper
-36. `secure-password-generator` — Secure Password & PIN Generator
-37. `sha256-hash-generator` — SHA-256 / 384 / 512 Hash Generator
-38. `url-link-cleaner` — URL Tracking Link Cleaner
-39. `password-strength` — Real-Time Password Strength & Entropy Analyzer
+41. `base64-encoder-decoder` — Base64 Encoder / Decoder
+42. `exif-metadata-stripper` — Photo EXIF & GPS Metadata Stripper
+43. `secure-password-generator` — Secure Password & PIN Generator
+44. `sha256-hash-generator` — SHA-256 / 384 / 512 Hash Generator
+45. `url-link-cleaner` — URL Tracking Link Cleaner
+46. `password-strength` — Real-Time Password Strength & Entropy Analyzer
 
-### 🎨 Media & Design (8)
-39. `hex-color-converter` — HEX to RGB / HSL Color Converter
-40. `image-compressor` — Client-Side Image Compressor & WebP
-41. `image-to-base64` — Image to Base64 (Data URI) Converter
-42. `qr-code-generator` — Free QR Code Generator
-43. `social-seo-previewer` — Social Media & Google SERP Previewer
-44. `svg-optimizer` — SVG Optimizer & React/CSS Exporter
-45. `favicon-generator` — Favicon & PWA App Icon Generator
-46. `svg-to-png` — SVG to PNG & WebP Rasterizer Studio — Favicon & PWA App Icon Generator
+### 🎨 Media & Design (9)
+47. `favicon-generator` — Favicon & PWA App Icon Generator
+48. `color-palette-contrast` — WCAG Color Contrast & Palette Studio
+49. `hex-color-converter` — HEX to RGB / HSL Color Converter
+50. `image-compressor` — Client-Side Image Compressor & WebP
+51. `qr-code-generator` — Free QR Code Generator
+52. `social-seo-previewer` — Social Media & Google SERP Previewer
+53. `svg-optimizer` — SVG Optimizer & React/CSS Exporter
+54. `image-to-base64` — Image to Base64 (Data URI) Converter
+55. `svg-to-png` — SVG to PNG & WebP Rasterizer Studio
 
-### ⏱️ Productivity & Math (8)
-45. `date-calculator` — Days Between Dates Calculator
-46. `percentage-calculator` — Online Percentage Calculator
-47. `pomodoro-timer` — Offline Pomodoro Productivity Timer
-48. `random-name-picker` — Random Name & Decision Picker
-49. `time-zone-converter` — Global Time Zone Converter & Meeting Planner
-50. `unit-converter` — Universal Unit Converter
-51. `unix-timestamp-converter` — Unix Timestamp & Epoch Converter
+### ⏱️ Productivity & Math (9)
+56. `invoice-generator` — Free Invoice Generator & Excel Exporter
+57. `excel-shortcuts` — Excel & Google Sheets Shortcuts Studio
+58. `date-calculator` — Days Between Dates Calculator
+59. `percentage-calculator` — Online Percentage Calculator
+60. `pomodoro-timer` — Offline Pomodoro Productivity Timer
+61. `random-name-picker` — Random Name & Decision Picker
+62. `time-zone-converter` — Global Time Zone Converter & Meeting Planner
+63. `unit-converter` — Universal Unit Converter
+64. `uuid-generator` — Bulk UUID / GUID v4 Generator

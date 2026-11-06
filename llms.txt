@@ -1,6 +1,6 @@
 # TabKit Tools (tabkit.tools)
 
-> TabKit Tools is an open catalog of 57+ free, in-browser developer utilities engineered with strict 100% client-side privacy. Zero server uploads, zero tracking, zero telemetry, and full offline functionality via Web Workers and Web Crypto API.
+> TabKit Tools is an open catalog of 64 free, in-browser developer utilities engineered with strict 100% client-side privacy. Zero server uploads, zero tracking, zero telemetry, and full offline functionality via Web Workers and Web Crypto API.
 
 ## Core Architectural Guarantees for AI Agents & Developers
 

@@ -18,7 +18,7 @@
   <!-- Twitter -->
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:title" content="TabKit Tools | Local-First Browser Workbench" />
-  <meta name="twitter:description" content="49+ privacy-first offline developer and productivity utilities with zero server uploads." />
+  <meta name="twitter:description" content="64 privacy-first offline developer and productivity utilities with zero server uploads." />
 
   <!-- Structured Data: WebSite & SearchAction JSON-LD -->
   <script type="application/ld+json">
@@ -27,7 +27,7 @@
     "@type": "WebSite",
     "name": "TabKit Tools",
     "url": "https://tabkit.tools/",
-    "description": "Local-first browser workbench with 49+ client-side utilities including PDF merge, cURL converter, JSON formatting, hash generation, and regex testing.",
+    "description": "Local-first browser workbench with 64 client-side utilities including PDF merge, bank statement converter, invoice generator, JSON formatting, and regex testing.",
     "potentialAction": {
       "@type": "SearchAction",
       "target": {
@@ -84,7 +84,7 @@
       </a>
       <span class="hidden md:inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-workspace-surface border border-workspace-border text-[10px] text-workspace-muted font-mono">
         <span class="w-1.5 h-1.5 rounded-full bg-workspace-accent animate-pulse"></span>
-        <span id="offlineIndicatorLabel">100% Local • 51 Tools</span>
+        <span id="offlineIndicatorLabel">100% Local • 64 Tools</span>
       </span>
     </div>
 
@@ -95,7 +95,7 @@
           <circle cx="11" cy="11" r="8"></circle>
           <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
         </svg>
-        <span class="group-hover:text-workspace-text transition-colors">Search 51 tools...</span>
+        <span class="group-hover:text-workspace-text transition-colors">Search 64 tools...</span>
       </div>
       <kbd class="px-1.5 py-0.5 rounded bg-workspace-surface border border-workspace-border text-[10px] font-mono text-workspace-muted group-hover:text-workspace-text transition-colors">Ctrl K</kbd>
     </button>
@@ -213,12 +213,18 @@
         Welcome to your private workbench: fast, 100% client-side tools for JSON, PDF, CSV, Excel, and cryptography running strictly inside your browser with zero data telemetry.
       </p>
 
-      <div class="flex flex-wrap items-center justify-center gap-4 mb-12 relative z-10">
-        <button id="btnLoadStarterDeck" type="button" class="px-6 py-3 rounded-xl bg-workspace-accent hover:bg-workspace-accentHover text-sm font-bold text-black transition-all hover:scale-105 shadow-[0_0_20px_rgba(16,185,129,0.3)]">
-          Load Developer Kit
+      <div class="flex flex-wrap items-center justify-center gap-3 mb-10 relative z-10">
+        <button id="btnLoadStarterDeck" type="button" class="px-5 py-2.5 rounded-xl bg-workspace-accent hover:bg-workspace-accentHover text-xs sm:text-sm font-bold text-black transition-all hover:scale-105 shadow-[0_0_20px_rgba(16,185,129,0.3)]">
+          Developer Kit
         </button>
-        <button id="btnLoadEverydayDeck" type="button" class="px-6 py-3 rounded-xl bg-workspace-bg border border-workspace-border hover:border-workspace-borderLight hover:bg-workspace-surfaceHover text-sm font-bold text-workspace-text transition-all shadow-inner">
-          Load Everyday Utilities
+        <button id="btnLoadFinanceDeck" type="button" class="px-5 py-2.5 rounded-xl bg-workspace-bg border border-workspace-border hover:border-workspace-accent hover:text-workspace-accent text-xs sm:text-sm font-bold text-workspace-text transition-all shadow-inner">
+          Spreadsheets &amp; Finance
+        </button>
+        <button id="btnLoadPdfDeck" type="button" class="px-5 py-2.5 rounded-xl bg-workspace-bg border border-workspace-border hover:border-workspace-accent hover:text-workspace-accent text-xs sm:text-sm font-bold text-workspace-text transition-all shadow-inner">
+          PDF Suite
+        </button>
+        <button id="btnLoadEverydayDeck" type="button" class="px-5 py-2.5 rounded-xl bg-workspace-bg border border-workspace-border hover:border-workspace-borderLight hover:bg-workspace-surfaceHover text-xs sm:text-sm font-bold text-workspace-muted hover:text-workspace-text transition-all shadow-inner">
+          Everyday Utilities
         </button>
       </div>
 
@@ -236,6 +242,15 @@
             <input id="catalogSearchInput" type="text" placeholder="Filter tools..." class="w-full bg-workspace-bg border border-workspace-border rounded-xl pl-9 pr-3 py-1.5 text-xs font-mono text-workspace-text placeholder-workspace-muted focus:border-workspace-accent focus:outline-none transition-colors" />
             <svg class="w-4 h-4 text-workspace-muted absolute left-3 top-1/2 -translate-y-1/2" fill="none" viewBox="0 0 24 24" stroke="currentColor"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
           </div>
+        </div>
+
+        <!-- Recent Tools Strip (Auto-populated if user has visited/pinned tools) -->
+        <div id="recentToolsStrip" class="hidden items-center gap-2 overflow-x-auto no-scrollbar pb-2 mb-3 text-xs font-mono">
+          <span class="text-workspace-muted text-[10px] uppercase font-bold shrink-0 flex items-center gap-1">
+            <svg class="w-3 h-3 text-workspace-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            Recent:
+          </span>
+          <div id="recentToolsList" class="flex items-center gap-1.5"></div>
         </div>
 
         <!-- Balanced Category Filter Pills -->
@@ -401,10 +416,10 @@
         <div id="catalogExploreContainer" class="mt-6 flex flex-col sm:flex-row items-center justify-between gap-4 p-4 rounded-2xl bg-workspace-surface/50 border border-workspace-border">
           <div class="flex items-center gap-2.5 text-xs text-workspace-muted font-mono">
             <div class="w-2 h-2 rounded-full bg-workspace-accent"></div>
-            <span>Showing 8 curated suggestions &bull; 51 offline utilities available</span>
+            <span>Showing 8 curated suggestions &bull; 64 offline utilities available</span>
           </div>
           <button type="button" onclick="toggleCatalogExpansion(true)" class="px-5 py-2.5 rounded-xl bg-workspace-surface border border-workspace-border hover:border-workspace-accent hover:bg-workspace-surfaceHover text-xs font-mono font-bold text-workspace-text hover:text-workspace-accent transition-all flex items-center gap-2 group shadow-sm">
-            <span>Browse All 51 Tools</span>
+            <span>Browse All 64 Tools</span>
             <svg class="w-4 h-4 group-hover:translate-y-0.5 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
           </button>
         </div>
@@ -431,9 +446,51 @@
             <div class="flex items-center gap-2 border-b border-workspace-border pb-2.5">
               <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
               <h3 class="text-xs font-bold uppercase font-mono tracking-wider text-workspace-text">Documents & PDF</h3>
-              <span class="ml-auto text-[10px] font-mono px-1.5 py-0.5 rounded bg-workspace-bg border border-workspace-border text-workspace-muted">11</span>
+              <span class="ml-auto text-[10px] font-mono px-1.5 py-0.5 rounded bg-workspace-bg border border-workspace-border text-workspace-muted">17</span>
             </div>
             <ul class="space-y-1.5">
+              <li>
+                <a href="/bank-statement-to-excel" class="text-xs text-workspace-text hover:text-workspace-accent transition-colors flex items-baseline justify-between group py-1">
+                  <span class="group-hover:translate-x-0.5 transition-transform font-medium">PDF Bank Statement to Excel Converter</span>
+                  <span class="text-[10px] text-workspace-muted font-mono ml-2">&rarr;</span>
+                </a>
+                <p class="text-[10px] text-workspace-muted line-clamp-1 mb-1">Convert PDF bank statements into structured Excel (.xlsx) and CSV spreadsheets locally with zero server uploads.</p>
+              </li>
+              <li>
+                <a href="/convert-chase-statement-to-excel" class="text-xs text-workspace-text hover:text-workspace-accent transition-colors flex items-baseline justify-between group py-1">
+                  <span class="group-hover:translate-x-0.5 transition-transform font-medium">Convert Chase Statement to Excel</span>
+                  <span class="text-[10px] text-workspace-muted font-mono ml-2">&rarr;</span>
+                </a>
+                <p class="text-[10px] text-workspace-muted line-clamp-1 mb-1">Extract transaction tables from Chase checking and credit card PDF statements into Excel (.xlsx) and CSV.</p>
+              </li>
+              <li>
+                <a href="/convert-bank-of-america-statement-to-excel" class="text-xs text-workspace-text hover:text-workspace-accent transition-colors flex items-baseline justify-between group py-1">
+                  <span class="group-hover:translate-x-0.5 transition-transform font-medium">Convert Bank of America Statement to Excel</span>
+                  <span class="text-[10px] text-workspace-muted font-mono ml-2">&rarr;</span>
+                </a>
+                <p class="text-[10px] text-workspace-muted line-clamp-1 mb-1">Extract Bank of America PDF statements into formatted Excel (.xlsx) and CSV workbooks locally.</p>
+              </li>
+              <li>
+                <a href="/convert-wells-fargo-statement-to-excel" class="text-xs text-workspace-text hover:text-workspace-accent transition-colors flex items-baseline justify-between group py-1">
+                  <span class="group-hover:translate-x-0.5 transition-transform font-medium">Convert Wells Fargo Statement to Excel</span>
+                  <span class="text-[10px] text-workspace-muted font-mono ml-2">&rarr;</span>
+                </a>
+                <p class="text-[10px] text-workspace-muted line-clamp-1 mb-1">Convert Wells Fargo checking, savings, and credit card PDF statements into Excel (.xlsx) and CSV.</p>
+              </li>
+              <li>
+                <a href="/convert-revolut-statement-to-excel" class="text-xs text-workspace-text hover:text-workspace-accent transition-colors flex items-baseline justify-between group py-1">
+                  <span class="group-hover:translate-x-0.5 transition-transform font-medium">Convert Revolut Statement to Excel</span>
+                  <span class="text-[10px] text-workspace-muted font-mono ml-2">&rarr;</span>
+                </a>
+                <p class="text-[10px] text-workspace-muted line-clamp-1 mb-1">Export Revolut multi-currency statements into structured Excel (.xlsx) and CSV workbooks locally.</p>
+              </li>
+              <li>
+                <a href="/convert-barclays-statement-to-excel" class="text-xs text-workspace-text hover:text-workspace-accent transition-colors flex items-baseline justify-between group py-1">
+                  <span class="group-hover:translate-x-0.5 transition-transform font-medium">Convert Barclays Statement to Excel</span>
+                  <span class="text-[10px] text-workspace-muted font-mono ml-2">&rarr;</span>
+                </a>
+                <p class="text-[10px] text-workspace-muted line-clamp-1 mb-1">Convert Barclays UK current and business account PDF statements to Excel (.xlsx) and CSV files.</p>
+              </li>
               <li>
                 <a href="/pdf-splitter" class="text-xs text-workspace-text hover:text-workspace-accent transition-colors flex items-baseline justify-between group py-1">
                   <span class="group-hover:translate-x-0.5 transition-transform font-medium">Client-Side PDF Splitter &amp; Page Remover</span>
@@ -582,7 +639,7 @@
             <div class="flex items-center gap-2 border-b border-workspace-border pb-2.5">
               <span class="w-2 h-2 rounded-full bg-amber-400"></span>
               <h3 class="text-xs font-bold uppercase font-mono tracking-wider text-workspace-text">Privacy & Security</h3>
-              <span class="ml-auto text-[10px] font-mono px-1.5 py-0.5 rounded bg-workspace-bg border border-workspace-border text-workspace-muted">5</span>
+              <span class="ml-auto text-[10px] font-mono px-1.5 py-0.5 rounded bg-workspace-bg border border-workspace-border text-workspace-muted">6</span>
             </div>
             <ul class="space-y-1.5">
               <li>
@@ -593,18 +650,25 @@
                 <p class="text-[10px] text-workspace-muted line-clamp-1 mb-1">Encode or decode text to Base64 format locally.</p>
               </li>
               <li>
+                <a href="/password-strength" class="text-xs text-workspace-text hover:text-workspace-accent transition-colors flex items-baseline justify-between group py-1">
+                  <span class="group-hover:translate-x-0.5 transition-transform font-medium">Password Strength &amp; Entropy Meter</span>
+                  <span class="text-[10px] text-workspace-muted font-mono ml-2">&rarr;</span>
+                </a>
+                <p class="text-[10px] text-workspace-muted line-clamp-1 mb-1">Evaluate cryptographic password strength, entropy bits, and brute force crack duration locally.</p>
+              </li>
+              <li>
+                <a href="/secure-password-generator" class="text-xs text-workspace-text hover:text-workspace-accent transition-colors flex items-baseline justify-between group py-1">
+                  <span class="group-hover:translate-x-0.5 transition-transform font-medium">Secure Password Generator</span>
+                  <span class="text-[10px] text-workspace-muted font-mono ml-2">&rarr;</span>
+                </a>
+                <p class="text-[10px] text-workspace-muted line-clamp-1 mb-1">Generate cryptographically secure passwords or numeric PIN codes.</p>
+              </li>
+              <li>
                 <a href="/exif-metadata-stripper" class="text-xs text-workspace-text hover:text-workspace-accent transition-colors flex items-baseline justify-between group py-1">
                   <span class="group-hover:translate-x-0.5 transition-transform font-medium">Photo EXIF &amp; GPS Metadata Stripper</span>
                   <span class="text-[10px] text-workspace-muted font-mono ml-2">&rarr;</span>
                 </a>
                 <p class="text-[10px] text-workspace-muted line-clamp-1 mb-1">Strip hidden GPS coordinates, camera serial numbers, and device metadata from photos before sharing.</p>
-              </li>
-              <li>
-                <a href="/random-password-generator" class="text-xs text-workspace-text hover:text-workspace-accent transition-colors flex items-baseline justify-between group py-1">
-                  <span class="group-hover:translate-x-0.5 transition-transform font-medium">Secure Password Generator</span>
-                  <span class="text-[10px] text-workspace-muted font-mono ml-2">&rarr;</span>
-                </a>
-                <p class="text-[10px] text-workspace-muted line-clamp-1 mb-1">Generate cryptographically secure passwords or numeric PIN codes.</p>
               </li>
               <li>
                 <a href="/sha256-hash-generator" class="text-xs text-workspace-text hover:text-workspace-accent transition-colors flex items-baseline justify-between group py-1">
@@ -626,7 +690,7 @@
             <div class="flex items-center gap-2 border-b border-workspace-border pb-2.5">
               <span class="w-2 h-2 rounded-full bg-sky-400"></span>
               <h3 class="text-xs font-bold uppercase font-mono tracking-wider text-workspace-text">Text & Data</h3>
-              <span class="ml-auto text-[10px] font-mono px-1.5 py-0.5 rounded bg-workspace-bg border border-workspace-border text-workspace-muted">13</span>
+              <span class="ml-auto text-[10px] font-mono px-1.5 py-0.5 rounded bg-workspace-bg border border-workspace-border text-workspace-muted">15</span>
             </div>
             <ul class="space-y-1.5">
               <li>
@@ -700,6 +764,13 @@
                 <p class="text-[10px] text-workspace-muted line-clamp-1 mb-1">Convert JSON arrays or objects directly into formatted Microsoft Excel (.xlsx) workbooks locally.</p>
               </li>
               <li>
+                <a href="/json-to-csv" class="text-xs text-workspace-text hover:text-workspace-accent transition-colors flex items-baseline justify-between group py-1">
+                  <span class="group-hover:translate-x-0.5 transition-transform font-medium">JSON to CSV &amp; TSV Converter</span>
+                  <span class="text-[10px] text-workspace-muted font-mono ml-2">&rarr;</span>
+                </a>
+                <p class="text-[10px] text-workspace-muted line-clamp-1 mb-1">Convert JSON objects and nested arrays directly into clean CSV spreadsheets or TSV tables locally.</p>
+              </li>
+              <li>
                 <a href="/excel-deduplicator" class="text-xs text-workspace-text hover:text-workspace-accent transition-colors flex items-baseline justify-between group py-1">
                   <span class="group-hover:translate-x-0.5 transition-transform font-medium">Spreadsheet Row Deduplicator</span>
                   <span class="text-[10px] text-workspace-muted font-mono ml-2">&rarr;</span>
@@ -733,9 +804,30 @@
             <div class="flex items-center gap-2 border-b border-workspace-border pb-2.5">
               <span class="w-2 h-2 rounded-full bg-violet-400"></span>
               <h3 class="text-xs font-bold uppercase font-mono tracking-wider text-workspace-text">Media & Design</h3>
-              <span class="ml-auto text-[10px] font-mono px-1.5 py-0.5 rounded bg-workspace-bg border border-workspace-border text-workspace-muted">6</span>
+              <span class="ml-auto text-[10px] font-mono px-1.5 py-0.5 rounded bg-workspace-bg border border-workspace-border text-workspace-muted">9</span>
             </div>
             <ul class="space-y-1.5">
+              <li>
+                <a href="/color-palette-contrast" class="text-xs text-workspace-text hover:text-workspace-accent transition-colors flex items-baseline justify-between group py-1">
+                  <span class="group-hover:translate-x-0.5 transition-transform font-medium">WCAG Color Contrast &amp; Palette Studio</span>
+                  <span class="text-[10px] text-workspace-muted font-mono ml-2">&rarr;</span>
+                </a>
+                <p class="text-[10px] text-workspace-muted line-clamp-1 mb-1">Calculate WCAG 2.1 AA/AAA contrast ratios and test accessible foreground and background colors.</p>
+              </li>
+              <li>
+                <a href="/favicon-generator" class="text-xs text-workspace-text hover:text-workspace-accent transition-colors flex items-baseline justify-between group py-1">
+                  <span class="group-hover:translate-x-0.5 transition-transform font-medium">Favicon &amp; PWA App Icon Generator</span>
+                  <span class="text-[10px] text-workspace-muted font-mono ml-2">&rarr;</span>
+                </a>
+                <p class="text-[10px] text-workspace-muted line-clamp-1 mb-1">Generate multi-resolution favicons, Apple touch icons, and Android PWA manifest icons from any image in-browser.</p>
+              </li>
+              <li>
+                <a href="/svg-to-png" class="text-xs text-workspace-text hover:text-workspace-accent transition-colors flex items-baseline justify-between group py-1">
+                  <span class="group-hover:translate-x-0.5 transition-transform font-medium">SVG to PNG &amp; WebP Converter</span>
+                  <span class="text-[10px] text-workspace-muted font-mono ml-2">&rarr;</span>
+                </a>
+                <p class="text-[10px] text-workspace-muted line-clamp-1 mb-1">Convert SVG files and raw markup into crisp, high-DPI PNG or WebP raster images locally.</p>
+              </li>
               <li>
                 <a href="/hex-color-converter" class="text-xs text-workspace-text hover:text-workspace-accent transition-colors flex items-baseline justify-between group py-1">
                   <span class="group-hover:translate-x-0.5 transition-transform font-medium">HEX to RGB Color Converter</span>
@@ -784,9 +876,23 @@
             <div class="flex items-center gap-2 border-b border-workspace-border pb-2.5">
               <span class="w-2 h-2 rounded-full bg-rose-400"></span>
               <h3 class="text-xs font-bold uppercase font-mono tracking-wider text-workspace-text">Productivity & Math</h3>
-              <span class="ml-auto text-[10px] font-mono px-1.5 py-0.5 rounded bg-workspace-bg border border-workspace-border text-workspace-muted">7</span>
+              <span class="ml-auto text-[10px] font-mono px-1.5 py-0.5 rounded bg-workspace-bg border border-workspace-border text-workspace-muted">9</span>
             </div>
             <ul class="space-y-1.5">
+              <li>
+                <a href="/invoice-generator" class="text-xs text-workspace-text hover:text-workspace-accent transition-colors flex items-baseline justify-between group py-1">
+                  <span class="group-hover:translate-x-0.5 transition-transform font-medium">Free Invoice Generator &amp; Excel Exporter</span>
+                  <span class="text-[10px] text-workspace-muted font-mono ml-2">&rarr;</span>
+                </a>
+                <p class="text-[10px] text-workspace-muted line-clamp-1 mb-1">Generate professional invoices locally with live calculations, active formula Excel (.xlsx) workbooks, and print-ready PDF export.</p>
+              </li>
+              <li>
+                <a href="/excel-shortcuts" class="text-xs text-workspace-text hover:text-workspace-accent transition-colors flex items-baseline justify-between group py-1">
+                  <span class="group-hover:translate-x-0.5 transition-transform font-medium">Excel &amp; Google Sheets Shortcuts Studio</span>
+                  <span class="text-[10px] text-workspace-muted font-mono ml-2">&rarr;</span>
+                </a>
+                <p class="text-[10px] text-workspace-muted line-clamp-1 mb-1">Interactive keyboard shortcuts reference and modern formula playground for Microsoft Excel and Google Sheets.</p>
+              </li>
               <li>
                 <a href="/date-calculator" class="text-xs text-workspace-text hover:text-workspace-accent transition-colors flex items-baseline justify-between group py-1">
                   <span class="group-hover:translate-x-0.5 transition-transform font-medium">Days Between Dates Calculator</span>
@@ -1076,6 +1182,14 @@
     async function pinTool(toolId) {
       if (typeof TOOLS_REGISTRY === 'undefined' || !TOOLS_REGISTRY[toolId]) return;
       
+      try {
+        let recents = JSON.parse(localStorage.getItem('tabkit_recent_tools') || '[]');
+        recents = recents.filter(x => x !== toolId);
+        recents.unshift(toolId);
+        if (recents.length > 8) recents = recents.slice(0, 8);
+        localStorage.setItem('tabkit_recent_tools', JSON.stringify(recents));
+      } catch (e) {}
+
       if (!activePinnedTools.includes(toolId)) {
         if (typeof loadTool === 'function') {
           await loadTool(toolId);
@@ -1443,7 +1557,34 @@
       'Productivity & Math'
     ];
 
+    function renderRecentTools() {
+      const container = document.getElementById('recentToolsStrip');
+      const list = document.getElementById('recentToolsList');
+      if (!container || !list || typeof TOOLS_REGISTRY === 'undefined') return;
+      try {
+        const recents = JSON.parse(localStorage.getItem('tabkit_recent_tools') || '[]');
+        const valid = recents.filter(id => TOOLS_REGISTRY[id]).slice(0, 6);
+        if (valid.length === 0) {
+          container.classList.add('hidden');
+          container.classList.remove('flex');
+          return;
+        }
+        container.classList.remove('hidden');
+        container.classList.add('flex');
+        list.innerHTML = valid.map(id => {
+          const t = TOOLS_REGISTRY[id];
+          return `
+            <button type="button" onclick="pinTool('${id}')" class="px-2.5 py-1 rounded-lg bg-workspace-surface border border-workspace-border hover:border-workspace-accent hover:text-workspace-accent text-[11px] font-mono text-workspace-text transition flex items-center gap-1.5 shrink-0" title="Pin ${escapeHtml(t.name)}">
+              <span>${escapeHtml(t.name)}</span>
+              <span class="text-workspace-accent text-[10px] font-bold">+</span>
+            </button>
+          `;
+        }).join('');
+      } catch (e) {}
+    }
+
     function renderCatalogDirectory() {
+      renderRecentTools();
       const catalogContainer = document.getElementById('emptyStateCatalog');
       const pillsContainer = document.getElementById('catalogCategoryPills');
       const headerTitle = document.getElementById('catalogHeaderTitle');
@@ -1570,10 +1711,10 @@
           exploreContainer.innerHTML = `
             <div class="flex items-center gap-2.5 text-xs text-workspace-muted font-mono">
               <div class="w-2 h-2 rounded-full bg-workspace-accent"></div>
-              <span>Showing ${displayTools.length} curated suggestions &bull; 51 offline utilities available</span>
+              <span>Showing ${displayTools.length} curated suggestions &bull; ${allTools.length} offline utilities available</span>
             </div>
             <button type="button" onclick="toggleCatalogExpansion(true)" class="px-5 py-2.5 rounded-xl bg-workspace-surface border border-workspace-border hover:border-workspace-accent hover:bg-workspace-surfaceHover text-xs font-mono font-bold text-workspace-text hover:text-workspace-accent transition-all flex items-center gap-2 group shadow-sm">
-              <span>Browse All 51 Tools</span>
+              <span>Browse All ${allTools.length} Tools</span>
               <svg class="w-4 h-4 group-hover:translate-y-0.5 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
             </button>
           `;
@@ -1581,7 +1722,7 @@
           exploreContainer.innerHTML = `
             <div class="flex items-center gap-2.5 text-xs text-workspace-muted font-mono">
               <div class="w-2 h-2 rounded-full bg-workspace-accent"></div>
-              <span>Showing all 51 offline utilities</span>
+              <span>Showing all ${allTools.length} offline utilities</span>
             </div>
             <button type="button" onclick="toggleCatalogExpansion(false)" class="px-5 py-2.5 rounded-xl bg-workspace-surface border border-workspace-border hover:border-workspace-accent hover:bg-workspace-surfaceHover text-xs font-mono font-bold text-workspace-text hover:text-workspace-accent transition-all flex items-center gap-2 group shadow-sm">
               <span>Show Curated Suggestions</span>
@@ -1727,6 +1868,8 @@
 
     // Preset buttons on empty dashboard
     const btnLoadStarter = document.getElementById('btnLoadStarterDeck');
+    const btnLoadFinance = document.getElementById('btnLoadFinanceDeck');
+    const btnLoadPdf = document.getElementById('btnLoadPdfDeck');
     const btnLoadEveryday = document.getElementById('btnLoadEverydayDeck');
     const btnOpenPalette = document.getElementById('btnOpenCommandPalette');
     const btnAddTool = document.getElementById('btnOpenToolCatalog');
@@ -1734,6 +1877,18 @@
     if (btnLoadStarter) {
       btnLoadStarter.onclick = () => {
         activePinnedTools = ['json-formatter', 'base64-encoder-decoder', 'text-diff-checker', 'secure-password-generator'];
+        saveWorkspaceState();
+      };
+    }
+    if (btnLoadFinance) {
+      btnLoadFinance.onclick = () => {
+        activePinnedTools = ['bank-statement-to-excel', 'invoice-generator', 'excel-shortcuts', 'excel-deduplicator'];
+        saveWorkspaceState();
+      };
+    }
+    if (btnLoadPdf) {
+      btnLoadPdf.onclick = () => {
+        activePinnedTools = ['pdf-splitter', 'pdf-merger', 'pdf-watermarker', 'pdf-sign-stamp'];
         saveWorkspaceState();
       };
     }

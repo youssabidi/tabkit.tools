@@ -1,9 +1,132 @@
+// TabKit Tools - Shared Web Components & Navigation
+const TABKIT_TOOLS_MAP = {
+  "bank-statement-to-excel": { n: "PDF Bank Statement to Excel", c: "Documents & PDF" },
+  "convert-chase-statement-to-excel": { n: "Chase Statement to Excel", c: "Documents & PDF" },
+  "convert-bank-of-america-statement-to-excel": { n: "Bank of America to Excel", c: "Documents & PDF" },
+  "convert-wells-fargo-statement-to-excel": { n: "Wells Fargo to Excel", c: "Documents & PDF" },
+  "convert-revolut-statement-to-excel": { n: "Revolut Statement to Excel", c: "Documents & PDF" },
+  "convert-barclays-statement-to-excel": { n: "Barclays Statement to Excel", c: "Documents & PDF" },
+  "invoice-generator": { n: "Invoice Generator & Excel Export", c: "Productivity & Math" },
+  "excel-shortcuts": { n: "Excel & Sheets Shortcuts Studio", c: "Productivity & Math" },
+  "base64-encoder-decoder": { n: "Base64 Encoder / Decoder", c: "Privacy & Security" },
+  "case-converter": { n: "Case Converter & Word Counter", c: "Text & Data" },
+  "chmod-calculator": { n: "Visual chmod Permissions Calculator", c: "Developer & Code" },
+  "curl-converter": { n: "cURL to Fetch / Axios / Python", c: "Developer & Code" },
+  "css-html-minifier": { n: "CSS & HTML Minifier & Beautifier", c: "Developer & Code" },
+  "date-calculator": { n: "Days Between Dates Calculator", c: "Productivity & Math" },
+  "excel-formula-builder": { n: "Excel Formula Builder Cheat Sheet", c: "Text & Data" },
+  "exif-metadata-stripper": { n: "Photo EXIF & GPS Metadata Stripper", c: "Privacy & Security" },
+  "favicon-generator": { n: "Favicon & PWA App Icon Generator", c: "Media & Design" },
+  "color-palette-contrast": { n: "WCAG Color Contrast & Palette Studio", c: "Media & Design" },
+  "hex-color-converter": { n: "HEX to RGB Color Converter", c: "Media & Design" },
+  "image-compressor": { n: "Client-Side Image Compressor", c: "Media & Design" },
+  "json-formatter": { n: "JSON Formatter & Validator", c: "Text & Data" },
+  "json-to-typescript": { n: "JSON to TypeScript & Zod Schema", c: "Developer & Code" },
+  "pdf-splitter": { n: "Client-Side PDF Splitter", c: "Documents & PDF" },
+  "percentage-calculator": { n: "Online Percentage Calculator", c: "Productivity & Math" },
+  "pomodoro-timer": { n: "Pomodoro Timer Online", c: "Productivity & Math" },
+  "qr-code-generator": { n: "Free QR Code Generator", c: "Media & Design" },
+  "random-name-picker": { n: "Random Name Picker & Wheel", c: "Productivity & Math" },
+  "secure-password-generator": { n: "Secure Password Generator", c: "Privacy & Security" },
+  "sha256-hash-generator": { n: "SHA-256 Hash Generator", c: "Privacy & Security" },
+  "social-seo-previewer": { n: "Social Media & SERP Previewer", c: "Media & Design" },
+  "svg-optimizer": { n: "SVG Optimizer & CSS Exporter", c: "Media & Design" },
+  "text-diff-checker": { n: "Text Diff Checker & Notepad", c: "Text & Data" },
+  "time-zone-converter": { n: "World Time Zone Converter", c: "Productivity & Math" },
+  "unit-converter": { n: "Universal Unit Converter", c: "Productivity & Math" },
+  "unix-timestamp-converter": { n: "Unix Timestamp & Epoch Converter", c: "Developer & Code" },
+  "url-link-cleaner": { n: "URL Tracking Link Cleaner", c: "Privacy & Security" },
+  "markdown-preview": { n: "Markdown Live Editor & HTML", c: "Text & Data" },
+  "csv-json-converter": { n: "CSV ↔ JSON Converter", c: "Text & Data" },
+  "regex-tester": { n: "Regular Expression (Regex) Live Tester", c: "Developer & Code" },
+  "jwt-decoder": { n: "JSON Web Token (JWT) Decoder", c: "Developer & Code" },
+  "image-to-base64": { n: "Image to Base64 (Data URI)", c: "Media & Design" },
+  "uuid-generator": { n: "Bulk UUID / GUID v4 Generator", c: "Productivity & Math" },
+  "sql-formatter": { n: "SQL Query Beautifier & Formatter", c: "Developer & Code" },
+  "pdf-merger": { n: "Client-Side PDF Merger & Combiner", c: "Documents & PDF" },
+  "pdf-rotator": { n: "Client-Side PDF Page Rotator", c: "Documents & PDF" },
+  "images-to-pdf": { n: "Client-Side Images to PDF Converter", c: "Documents & PDF" },
+  "pdf-watermarker": { n: "Client-Side PDF Watermark & Stamp", c: "Documents & PDF" },
+  "pdf-metadata-editor": { n: "PDF Metadata Inspector & Stripper", c: "Documents & PDF" },
+  "pdf-page-numberer": { n: "Client-Side PDF Page Numberer", c: "Documents & PDF" },
+  "excel-to-csv": { n: "Excel to CSV Converter", c: "Text & Data" },
+  "excel-to-json": { n: "Excel to JSON Converter", c: "Text & Data" },
+  "excel-deduplicator": { n: "Spreadsheet Row Deduplicator", c: "Text & Data" },
+  "pdf-text-extractor": { n: "PDF Text & Markdown Extractor", c: "Documents & PDF" },
+  "csv-to-excel": { n: "CSV to Excel (.xlsx) Converter", c: "Text & Data" },
+  "json-to-csv": { n: "JSON to CSV & TSV Converter", c: "Text & Data" },
+  "json-to-excel": { n: "JSON to Excel (.xlsx) Converter", c: "Text & Data" },
+  "excel-to-markdown": { n: "Excel to Markdown Table Generator", c: "Text & Data" },
+  "excel-transpose": { n: "Row & Column Transposer", c: "Text & Data" },
+  "excel-empty-cleaner": { n: "Empty Rows & Whitespace Stripper", c: "Text & Data" },
+  "pdf-to-images": { n: "Client-Side PDF to Images", c: "Documents & PDF" },
+  "pdf-password-protect": { n: "Client-Side PDF Password Protect", c: "Documents & PDF" },
+  "pdf-sign-stamp": { n: "Client-Side PDF Signature & Stamp", c: "Documents & PDF" },
+  "svg-to-png": { n: "SVG to PNG & WebP Converter", c: "Media & Design" },
+  "password-strength": { n: "Password Strength & Entropy Meter", c: "Privacy & Security" }
+};
+
+function recordRecentTool(toolId) {
+  if (!toolId || !TABKIT_TOOLS_MAP[toolId]) return;
+  try {
+    let recents = JSON.parse(localStorage.getItem('tabkit_recent_tools') || '[]');
+    recents = recents.filter(x => x !== toolId);
+    recents.unshift(toolId);
+    if (recents.length > 8) recents = recents.slice(0, 8);
+    localStorage.setItem('tabkit_recent_tools', JSON.stringify(recents));
+  } catch (e) {}
+}
+
 class TabkitFooter extends HTMLElement {
   connectedCallback() {
+    const rawPath = window.location.pathname.replace(/^\/|\.html$/g, '');
+    const currentId = rawPath === 'random-password-generator' ? 'secure-password-generator' : rawPath;
+    const currentTool = TABKIT_TOOLS_MAP[currentId];
+
+    let relatedHtml = '';
+    if (currentTool) {
+      const sameCategory = Object.keys(TABKIT_TOOLS_MAP).filter(id => id !== currentId && TABKIT_TOOLS_MAP[id].c === currentTool.c);
+      const fallbackTools = ['json-formatter', 'bank-statement-to-excel', 'pdf-merger', 'secure-password-generator'];
+      const chosenIds = sameCategory.length >= 4 
+        ? sameCategory.slice(0, 4) 
+        : [...sameCategory, ...fallbackTools.filter(id => id !== currentId && !sameCategory.includes(id))].slice(0, 4);
+
+      relatedHtml = `
+        <div class="tabkit-related-tools max-w-4xl mx-auto px-4 pt-6 pb-2 w-full text-left">
+          <div class="flex items-center justify-between gap-2 mb-3 pb-2 border-b border-workspace-border/50 text-xs font-mono">
+            <div class="flex items-center gap-2">
+              <span class="w-2 h-2 rounded-full bg-workspace-accent animate-pulse"></span>
+              <span class="font-bold text-workspace-text uppercase tracking-wider text-[11px]">Related Offline Utilities</span>
+              <span class="text-[10px] text-workspace-muted hidden sm:inline">(${currentTool.c})</span>
+            </div>
+            <a href="/" class="text-workspace-muted hover:text-workspace-accent text-[11px] transition-colors flex items-center gap-1 group">
+              <span>All 64 tools</span>
+              <span class="group-hover:translate-x-0.5 transition-transform">&rarr;</span>
+            </a>
+          </div>
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
+            ${chosenIds.map(id => {
+              const t = TABKIT_TOOLS_MAP[id];
+              return `
+                <a href="/${id}" class="p-3 rounded-xl bg-workspace-surface/70 border border-workspace-border/80 hover:border-workspace-accent/60 hover:bg-workspace-surfaceHover transition-all flex flex-col justify-between group shadow-xs">
+                  <div class="text-xs font-bold text-workspace-text group-hover:text-workspace-accent transition-colors line-clamp-1">${t.n}</div>
+                  <div class="text-[10px] font-mono text-workspace-muted mt-2 flex items-center justify-between">
+                    <span>100% Private</span>
+                    <span class="group-hover:translate-x-0.5 transition-transform">&rarr;</span>
+                  </div>
+                </a>
+              `;
+            }).join('')}
+          </div>
+        </div>
+      `;
+    }
+
     this.innerHTML = `
-      <div class="tabkit-ad-slot max-w-4xl mx-auto px-4 py-6 w-full text-center">
-        <div class="text-[10px] uppercase font-mono tracking-wider text-workspace-muted mb-1.5 opacity-60">Advertisement</div>
-        <div class="min-h-[90px] sm:min-h-[100px] flex items-center justify-center rounded-xl border border-workspace-border/60 bg-workspace-surface/40 overflow-hidden">
+      ${relatedHtml}
+      <div class="tabkit-ad-slot max-w-4xl mx-auto px-4 py-4 w-full text-center" style="contain: layout style;">
+        <div class="text-[9px] uppercase font-mono tracking-wider text-workspace-muted mb-1 opacity-50">Advertisement</div>
+        <div class="min-h-[100px] flex items-center justify-center rounded-xl border border-workspace-border/60 bg-workspace-surface/40 overflow-hidden">
           <ins class="adsbygoogle"
                style="display:block"
                data-ad-client="ca-pub-6634555517108396"
@@ -13,7 +136,7 @@ class TabkitFooter extends HTMLElement {
         </div>
       </div>
       <footer class="border-t border-workspace-border bg-workspace-surface/90 px-4 py-4 md:py-3 flex flex-col md:flex-row items-center justify-between gap-3 text-xs font-mono text-workspace-muted">
-        <div>&copy; 2026 TabKit Tools &bull; 100% Client-side local privacy workbench.</div>
+        <div>&copy; 2026 TabKit Tools &bull; 100% Client-side local privacy workbench (64 tools).</div>
         <div class="flex flex-wrap items-center justify-center gap-3 md:gap-4">
           <a href="/" class="hover:text-workspace-accent transition-colors">Workbench</a>
           <span>&bull;</span>
@@ -39,6 +162,9 @@ class TabkitFooter extends HTMLElement {
 class ToolHeader extends HTMLElement {
   connectedCallback() {
     const toolName = this.getAttribute('tool-name') || 'Tool';
+    const rawPath = window.location.pathname.replace(/^\/|\.html$/g, '');
+    const currentId = rawPath === 'random-password-generator' ? 'secure-password-generator' : rawPath;
+    recordRecentTool(currentId);
     
     this.innerHTML = `
       <header class="h-12 border-b border-workspace-border bg-workspace-surface/80 backdrop-blur-md px-4 flex items-center justify-between sticky top-0 z-40">
@@ -104,4 +230,5 @@ function copyCitation(toolName) {
 }
 
 customElements.define('tabkit-footer', TabkitFooter);
+customElements.define('tool-footer', TabkitFooter);
 customElements.define('tool-header', ToolHeader);
