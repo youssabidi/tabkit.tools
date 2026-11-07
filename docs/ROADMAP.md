@@ -80,6 +80,29 @@
 - [x] **Invoice Generator & Excel Exporter (`invoice-generator`):** Professional invoice generator with live calculations, active formula Excel (.xlsx) workbooks, and print-ready PDF export.
 - [x] **Excel & Google Sheets Shortcuts Studio (`excel-shortcuts`):** Interactive keyboard shortcuts reference and modern formula playground for Excel & Google Sheets.
 
+## Phase 10: Complete Site-Wide SEO & Schema Dominance
+- [x] **Full Schema.org Graph:** Injected `WebApplication`, `BreadcrumbList`, `HowTo`, and `FAQPage` across 100% of all 73 pages.
+- [x] **Zero Thin Content:** Expanded legal, support SLA, and educational copy so every page exceeds 400 words (avg: 540 words).
+- [x] **Category Anchor Resolution:** Injected matching IDs (`#documents-pdf`, etc.) in `index.html` with scroll padding to resolve all breadcrumb anchors.
+- [x] **AI Agent Discoverability:** Deployed `llms.txt` and `llms-full.txt` catalogs for Perplexity, ChatGPT Search, and Claude citations.
+
+## Phase 11: Studio Design Overhaul & Micro-Interactions
+- [x] **Dynamic Cursor Spotlight Glow:** Cursor-following radial lighting effect on borders across workbench and category cards (`spotlight-card`).
+- [x] **Tactile Spring Physics:** Physical micro-compression (`active:scale-[0.97]`), 1px specular top highlights, and tabular numerals.
+- [x] **Ambient Air-Gap Canvas Grid:** Interactive hardware-accelerated particle canvas with battery and `prefers-reduced-motion` guards.
+- [x] **Raycast-Grade Command Palette:** Quick category filter pills, dual-action items (Pin to Deck / Open Standalone), and keyboard navigation.
+- [x] **Universal Header & Footer:** Standalone tool telemetry pill, 1-click Pin to Deck button, and companion bento recommendations.
+
+## Phase 12: Architecture Automation & Single Source of Truth
+- [x] **Automated Sitemap Generation:** Script crawls canonical URLs, excludes aliases, and timestamps fresh XML sitemap.
+- [x] **Single Source of Truth:** `registry.js` dynamically syncs `components.js`, `llms.txt`, and DOM tool counts on `index.html`.
+- [x] **Unified Sync Pipeline:** 1-command build automation (`node scripts/sync-all.js`) running all syncs and SEO verifications.
+
+## Phase 13: Launch, Indexation & Distribution (Current Active Stage)
+- [ ] **Google Search Console Crawl Monitoring:** Tracking indexation across the 72 submitted URLs and monitoring the new green Rich Results tabs (FAQs, Breadcrumbs, How-To, WebApps).
+- [ ] **Community & Product Launch:** Show HN, Product Hunt, Reddit (r/webdev, r/privacy, r/excel) distribution campaigns.
+- [ ] **Continuous Tool Expansion:** Adding new offline tools based on user feedback and search trends.
+
 ---
 
 ## 📦 Total Tools in Registry: 64 Tools
