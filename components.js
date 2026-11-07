@@ -219,7 +219,11 @@ function copyCitation(toolName) {
       if (typeof showToast === 'function') {
         showToast('📋 Markdown citation copied for README or Docs!');
       } else {
-        alert('Copied citation to clipboard:\n' + md);
+        const fallbackToast = document.createElement('div');
+        fallbackToast.className = 'fixed bottom-6 right-6 z-50 bg-emerald-600 text-white text-xs font-medium px-4 py-2.5 rounded-xl shadow-lg border border-emerald-400';
+        fallbackToast.textContent = '📋 Citation copied to clipboard!';
+        document.body.appendChild(fallbackToast);
+        setTimeout(() => fallbackToast.remove(), 2500);
       }
     }).catch(() => {
       prompt('Copy Markdown link:', md);
