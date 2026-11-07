@@ -448,6 +448,13 @@ window.TOOLS_REGISTRY = {
     "category": "Privacy & Security",
     "standaloneUrl": "/password-strength",
     "description": "Evaluate cryptographic password strength, entropy bits, and brute force crack duration locally."
+  },
+  "cron-expression-generator": {
+    "id": "cron-expression-generator",
+    "name": "Cron Expression Generator & Explainer",
+    "category": "Developer & Code",
+    "standaloneUrl": "/cron-expression-generator",
+    "description": "Interactive visual crontab generator and human-readable cron expression explainer with upcoming run schedule preview. 100% offline."
   }
 };
 

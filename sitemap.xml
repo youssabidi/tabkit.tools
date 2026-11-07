@@ -109,6 +109,12 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://tabkit.tools/cron-expression-generator</loc>
+    <lastmod>2026-11-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://tabkit.tools/css-html-minifier</loc>
     <lastmod>2026-11-07</lastmod>
     <changefreq>weekly</changefreq>

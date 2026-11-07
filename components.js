@@ -255,6 +255,10 @@ const TABKIT_TOOLS_MAP = {
   "password-strength": {
     "n": "Password Strength & Entropy Meter",
     "c": "Privacy & Security"
+  },
+  "cron-expression-generator": {
+    "n": "Cron Expression Generator & Explainer",
+    "c": "Developer & Code"
   }
 };
 

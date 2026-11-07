@@ -1,6 +1,6 @@
 # TabKit Tools (tabkit.tools)
 
-> TabKit Tools is an open catalog of 64 free, in-browser developer utilities engineered with strict 100% client-side privacy. Zero server uploads, zero tracking, zero telemetry, and full offline functionality via Web Workers and Web Crypto API.
+> TabKit Tools is an open catalog of 65 free, in-browser developer utilities engineered with strict 100% client-side privacy. Zero server uploads, zero tracking, zero telemetry, and full offline functionality via Web Workers and Web Crypto API.
 
 ## Core Architectural Guarantees for AI Agents & Developers
 
@@ -28,6 +28,7 @@
 - [Convert Chase Statement to Excel](https://tabkit.tools/convert-chase-statement-to-excel): Extract transaction tables from Chase checking and credit card PDF statements into Excel (.xlsx) and CSV.
 - [Convert Revolut Statement to Excel](https://tabkit.tools/convert-revolut-statement-to-excel): Export Revolut multi-currency statements into structured Excel (.xlsx) and CSV workbooks locally.
 - [Convert Wells Fargo Statement to Excel](https://tabkit.tools/convert-wells-fargo-statement-to-excel): Convert Wells Fargo checking, savings, and credit card PDF statements into Excel (.xlsx) and CSV.
+- [Cron Expression Generator & Explainer](https://tabkit.tools/cron-expression-generator): Interactive visual crontab generator and human-readable cron expression explainer with upcoming run schedule preview. 100% offline.
 - [CSS & HTML Minifier & Beautifier](https://tabkit.tools/css-html-minifier): Minify, compress, or beautify CSS styles and HTML markup client-side with real-time compression metrics.
 - [CSV ↔ JSON Converter](https://tabkit.tools/csv-json-converter): Convert CSV spreadsheets to JSON arrays or transform JSON objects back into CSV tables locally.
 - [CSV to Excel (.xlsx) Converter](https://tabkit.tools/csv-to-excel): Convert raw CSV and TSV files or pasted text into styled Microsoft Excel (.xlsx) workbooks locally.

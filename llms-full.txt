@@ -468,6 +468,14 @@
 - **Privacy Guarantee**: 100% In-Browser. No data or file payloads leave the local device.
 - **Browser Technologies**: HTML5 File API, Modern ECMAScript, Web Workers, Canvas, or Web Cryptography API.
 
+#### Cron Expression Generator & Explainer
+- **URL**: https://tabkit.tools/cron-expression-generator
+- **Category**: Developer & Code
+- **Description**: Interactive visual crontab generator and human-readable cron expression explainer with upcoming run schedule preview. 100% offline.
+- **Tags & Keywords**: 
+- **Privacy Guarantee**: 100% In-Browser. No data or file payloads leave the local device.
+- **Browser Technologies**: HTML5 File API, Modern ECMAScript, Web Workers, Canvas, or Web Cryptography API.
+
 
 ### Category: Media & Design
 

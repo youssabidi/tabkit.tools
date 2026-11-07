@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cron Expression Generator | TabKit Tools</title>
+  <link rel="manifest" href="/manifest.json" />
+  <meta name="description" content="Interactive visual crontab generator and human-readable cron expression explainer with upcoming run preview. Fast, offline, and private." />
+  <link rel="canonical" href="https://tabkit.tools/cron-expression-generator" />
+  <!-- OpenGraph SEO -->
+  <meta property="og:title" content="Cron Expression Generator | TabKit Tools" />
+  <meta property="og:description" content="Interactive visual crontab generator and human-readable cron expression explainer with upcoming run preview. Fast, offline, and private." />
+  <meta property="og:url" content="https://tabkit.tools/cron-expression-generator" />
+  <meta property="og:type" content="website" />
+  <link rel="stylesheet" href="styles.css" />
+  <script src="components.js"></script>
+  <script src="utils.js"></script>
+  <script src="registry.js"></script>
+  <!-- Google AdSense -->
+  <meta name="google-adsense-account" content="ca-pub-6634555517108396" />
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6634555517108396" crossorigin="anonymous"></script>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="apple-touch-icon" href="/icon-192.png" />
+  <!-- Social & OpenGraph Meta -->
+  <meta property="og:image" content="https://tabkit.tools/og-image.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://tabkit.tools/og-image.png" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebApplication",
+        "@id": "https://tabkit.tools/cron-expression-generator#app",
+        "name": "Cron Expression Generator & Explainer",
+        "url": "https://tabkit.tools/cron-expression-generator",
+        "applicationCategory": "DeveloperApplication",
+        "operatingSystem": "All",
+        "browserRequirements": "Requires JavaScript. Requires HTML5.",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        },
+        "description": "Interactive visual crontab generator and human-readable cron expression explainer with upcoming run preview. Fast, offline, and private."
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": "https://tabkit.tools/cron-expression-generator#breadcrumb",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "TabKit",
+            "item": "https://tabkit.tools/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Developer & Code",
+            "item": "https://tabkit.tools/#developer-code"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "Cron Expression Generator & Explainer",
+            "item": "https://tabkit.tools/cron-expression-generator"
+          }
+        ]
+      },
+      {
+        "@type": "HowTo",
+        "@id": "https://tabkit.tools/cron-expression-generator#howto",
+        "name": "How to Use the Free Cron Expression Generator",
+        "step": [
+          {
+            "@type": "HowToStep",
+            "position": 1,
+            "name": "Choose a Quick Preset or Input Custom Values",
+            "text": "Select a standard schedule from the presets dropdown or type custom numbers, asterisks, step values (*/n), or ranges into the five positional field boxes."
+          },
+          {
+            "@type": "HowToStep",
+            "position": 2,
+            "name": "Review the Real-Time Plain English Explanation",
+            "text": "Read the translated schedule description below the inputs to verify that the schedule executes exactly as intended without unexpected execution bursts."
+          },
+          {
+            "@type": "HowToStep",
+            "position": 3,
+            "name": "Inspect Upcoming Run Times &amp; Copy",
+            "text": "Confirm the next three calculated schedule timestamps and click Copy to immediately paste the production-ready crontab string into Linux crontab, GitHub Actions, AWS EventBridge, or Kubernetes CronJob YAML."
+          }
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "@id": "https://tabkit.tools/cron-expression-generator#faq",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "What does */5 mean in crontab syntax?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "The slash operator indicates a step value. When used in the minute field as */5, it evaluates to every 5th minute throughout the hour (0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55)."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Does crontab support seconds by default?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Standard Unix and Linux crontab uses 5 fields (minute, hour, day of month, month, day of week) and does not evaluate seconds. Schedulers like Quartz or Spring Framework support an optional 6th field for seconds, but classic system crontab intervals resolve to one minute minimum."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How do timezones affect cron jobs in Docker and Kubernetes?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Most container base images default system time to UTC. If you configure a cron job for 0 9 * * * expecting 9:00 AM local time, it will trigger at 9:00 AM UTC unless you explicitly pass the TZ environment variable or set the timeZone property in Kubernetes CronJob specs."
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+</head>
+<body class="bg-workspace-bg text-workspace-text font-sans antialiased min-h-screen flex flex-col selection:bg-workspace-accent selection:text-black">
+  <tool-header tool-name="cron-expression-generator"></tool-header>
+  <main class="flex-1 max-w-4xl w-full mx-auto px-4 py-8 md:py-12">
+    <div class="mb-8 text-center max-w-2xl mx-auto">
+      <h1 class="text-3xl md:text-4xl font-extrabold tracking-tight text-white mb-3">Cron Expression Generator &amp; Explainer</h1>
+      <p class="text-sm text-workspace-muted leading-relaxed">Interactive visual crontab generator and human-readable cron expression explainer with upcoming run schedule preview.</p>
+    </div>
+
+    <!-- Tool Card -->
+    <div class="rounded-2xl border border-workspace-border bg-workspace-surface shadow-2xl p-6 mb-16 max-w-2xl mx-auto min-h-[500px] flex flex-col">
+      <div id="tool-container" class="flex-1 w-full relative"></div>
+    </div>
+  
+    <!-- SEO Educational Content -->
+    <article class="prose prose-invert max-w-none border-t border-workspace-border pt-12 space-y-8 text-sm text-workspace-muted leading-relaxed">
+      <div>
+        <h2 class="text-xl font-bold text-white mb-3">Understanding Crontab Syntax &amp; Expressions</h2>
+        <div class="p-4 rounded-xl bg-slate-800/80 border border-slate-700/80 text-sm text-slate-200 leading-relaxed mb-4">
+          <strong class="text-white">What is a cron expression?</strong>
+          A cron expression is a string of five space-separated fields used in Unix, Linux, Kubernetes, and cloud schedulers to define automated task execution intervals. The five standard fields correspond to: Minute (0-59), Hour (0-23), Day of Month (1-31), Month (1-12), and Day of Week (0-6, where 0 represents Sunday).
+        </div>
+        <p>
+          Automating recurring background tasks, database backups, cache invalidations, and batch scripts is a cornerstone of modern system administration and cloud engineering. The standard Unix crontab daemon interprets five positional arguments to determine the exact minute a scheduled job triggers.
+        </p>
+        <p class="mt-3">
+          While cron expressions are compact and versatile, complex schedules combining step values (e.g. <code class="text-workspace-accent font-mono font-bold">*/15</code>), comma-separated lists, and weekday ranges can lead to unintended execution frequencies. TabKit's Cron Expression Generator translates raw five-field syntax into plain, unambiguous English in real time and calculates the next three scheduled execution timestamps directly in your browser.
+        </p>
+      </div>
+
+      <!-- Quick Reference Matrix -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="p-5 rounded-xl border border-workspace-border bg-workspace-surface">
+          <h3 class="text-base font-bold text-white mb-2">Standard Five-Field Syntax</h3>
+          <ul class="text-xs space-y-1.5 font-mono text-workspace-muted">
+            <li><span class="text-workspace-accent font-bold">Field 1 (Minute):</span> 0-59 (supports *, */n, n-m, n,m)</li>
+            <li><span class="text-workspace-accent font-bold">Field 2 (Hour):</span> 0-23 (24-hour UTC or local time)</li>
+            <li><span class="text-workspace-accent font-bold">Field 3 (Day of Month):</span> 1-31 (calendar day)</li>
+            <li><span class="text-workspace-accent font-bold">Field 4 (Month):</span> 1-12 (January through December)</li>
+            <li><span class="text-workspace-accent font-bold">Field 5 (Day of Week):</span> 0-6 (0=Sun, 1=Mon, 6=Sat)</li>
+          </ul>
+        </div>
+        <div class="p-5 rounded-xl border border-workspace-border bg-workspace-surface">
+          <h3 class="text-base font-bold text-white mb-2">Popular Crontab Recipes</h3>
+          <ul class="text-xs space-y-1.5 font-mono text-workspace-muted">
+            <li><code class="text-sky-400">*/15 * * * *</code> — Runs every 15 minutes</li>
+            <li><code class="text-sky-400">0 0 * * *</code> — Runs every midnight (daily rollup)</li>
+            <li><code class="text-sky-400">0 9 * * 1-5</code> — Runs Mon-Fri at 9:00 AM (workday trigger)</li>
+            <li><code class="text-sky-400">0 0 1 * *</code> — Runs on the 1st of every month at 00:00</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="border-t border-workspace-border pt-8 space-y-4">
+        <h2 class="text-xl font-bold text-white mb-3">How to Use the Free Cron Expression Generator</h2>
+        <ol class="list-decimal pl-5 space-y-2 text-sm text-workspace-muted">
+          <li><strong class="text-workspace-text">Choose a Quick Preset or Input Custom Values:</strong> Select a standard schedule from the presets dropdown or type custom numbers, asterisks, step values (*/n), or ranges into the five positional field boxes.</li>
+          <li><strong class="text-workspace-text">Review the Real-Time Plain English Explanation:</strong> Read the translated schedule description below the inputs to verify that the schedule executes exactly as intended without unexpected execution bursts.</li>
+          <li><strong class="text-workspace-text">Inspect Upcoming Run Times &amp; Copy:</strong> Confirm the next three calculated schedule timestamps and click Copy to immediately paste the production-ready crontab string into Linux crontab, GitHub Actions, AWS EventBridge, or Kubernetes CronJob YAML.</li>
+        </ol>
+      </div>
+
+      <div class="border-t border-workspace-border pt-8 space-y-4">
+        <h2 class="text-xl font-bold text-white mb-3">Why Client-Side Privacy Matters</h2>
+        <p>
+          System administration workflows frequently involve scheduling sensitive proprietary batch jobs, payment reconciliations, and internal database migrations. Cloud-based developer converters transmit your crontab expressions and query parameters across third-party networks where access logs, CDN proxies, and tracking scripts can log your operational cadence. TabKit evaluates, parses, and translates cron expressions 100% locally inside your browser sandbox with zero network telemetry.
+        </p>
+      </div>
+
+      <div class="border-t border-workspace-border pt-8 space-y-4">
+        <h2 class="text-xl font-bold text-white mb-3">Core Features &amp; Privacy Architecture</h2>
+        <ul class="list-disc pl-5 space-y-2 text-sm text-workspace-muted">
+          <li><strong class="text-workspace-text">Zero Server Transmissions:</strong> Every parsing routine and upcoming run simulation runs purely client-side with native JavaScript date calculation.</li>
+          <li><strong class="text-workspace-text">Offline PWA Capability:</strong> Install TabKit Tools onto your workstation or MacBook as an offline Progressive Web App to edit cron schedules in secure, air-gapped production environments.</li>
+          <li><strong class="text-workspace-text">Next 3 Scheduled Run Dates:</strong> Inspect the concrete local date and time of the subsequent three execution events to avoid midnight timezone surprises.</li>
+          <li><strong class="text-workspace-text">1-Click Clipboard Integration:</strong> Seamlessly copy formatted five-part crontab expressions directly into your terminal or configuration files.</li>
+        </ul>
+      </div>
+
+      <div class="border-t border-workspace-border pt-8 space-y-4">
+        <h2 class="text-xl font-bold text-white mb-4">Frequently Asked Questions</h2>
+        <div class="space-y-3">
+          <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/60">
+            <h3 class="text-sm font-bold text-workspace-text mb-1">What does */5 mean in crontab syntax?</h3>
+            <p class="text-xs text-workspace-muted leading-relaxed">The slash operator indicates a step value. When used in the minute field as */5, it evaluates to every 5th minute throughout the hour (0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55).</p>
+          </div>
+          <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/60">
+            <h3 class="text-sm font-bold text-workspace-text mb-1">Does crontab support seconds by default?</h3>
+            <p class="text-xs text-workspace-muted leading-relaxed">Standard Unix and Linux crontab uses 5 fields (minute, hour, day of month, month, day of week) and does not evaluate seconds. Schedulers like Quartz or Spring Framework support an optional 6th field for seconds, but classic system crontab intervals resolve to one minute minimum.</p>
+          </div>
+          <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/60">
+            <h3 class="text-sm font-bold text-workspace-text mb-1">How do timezones affect cron jobs in Docker and Kubernetes?</h3>
+            <p class="text-xs text-workspace-muted leading-relaxed">Most container base images default system time to UTC. If you configure a cron job for 0 9 * * * expecting 9:00 AM local time, it will trigger at 9:00 AM UTC unless you explicitly pass the TZ environment variable or set the timeZone property in Kubernetes CronJob specs.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="border-t border-workspace-border pt-8">
+        <h3 class="text-xs font-bold uppercase tracking-wider text-workspace-muted mb-3 font-mono">Related Developer Utilities</h3>
+        <div class="flex flex-wrap gap-2 text-xs font-mono">
+          <a href="/unix-timestamp-converter" class="px-3 py-1.5 rounded-lg border border-workspace-border bg-workspace-surface hover:border-workspace-accent hover:text-workspace-accent transition-all">Unix Timestamp &rarr;</a>
+          <a href="/chmod-calculator" class="px-3 py-1.5 rounded-lg border border-workspace-border bg-workspace-surface hover:border-workspace-accent hover:text-workspace-accent transition-all">chmod Calculator &rarr;</a>
+          <a href="/curl-converter" class="px-3 py-1.5 rounded-lg border border-workspace-border bg-workspace-surface hover:border-workspace-accent hover:text-workspace-accent transition-all">cURL Converter &rarr;</a>
+          <a href="/regex-tester" class="px-3 py-1.5 rounded-lg border border-workspace-border bg-workspace-surface hover:border-workspace-accent hover:text-workspace-accent transition-all">Regex Tester &rarr;</a>
+        </div>
+      </div>
+    </article>
+  </main>
+  <tabkit-footer></tabkit-footer>
+  <div id="toastContainer" class="fixed bottom-6 right-4 z-50 flex flex-col gap-2 pointer-events-none"></div>
+  <script>
+    window.addEventListener('DOMContentLoaded', async () => {
+      try {
+        const tool = await loadTool('cron-expression-generator');
+        const container = document.getElementById('tool-container');
+        container.innerHTML = tool.render('cron-expression-generator');
+        tool.init('cron-expression-generator');
+      } catch (e) {
+        console.error('Error loading tool:', e);
+      }
+    });
+  </script>
+</body>
+</html>
