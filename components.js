@@ -1,69 +1,261 @@
 // TabKit Tools - Shared Web Components & Agency-Grade Navigation
 const TABKIT_TOOLS_MAP = {
-  "bank-statement-to-excel": { n: "PDF Bank Statement to Excel", c: "Documents & PDF" },
-  "convert-chase-statement-to-excel": { n: "Chase Statement to Excel", c: "Documents & PDF" },
-  "convert-bank-of-america-statement-to-excel": { n: "Bank of America to Excel", c: "Documents & PDF" },
-  "convert-wells-fargo-statement-to-excel": { n: "Wells Fargo to Excel", c: "Documents & PDF" },
-  "convert-revolut-statement-to-excel": { n: "Revolut Statement to Excel", c: "Documents & PDF" },
-  "convert-barclays-statement-to-excel": { n: "Barclays Statement to Excel", c: "Documents & PDF" },
-  "invoice-generator": { n: "Invoice Generator & Excel Export", c: "Productivity & Math" },
-  "excel-shortcuts": { n: "Excel & Sheets Shortcuts Studio", c: "Productivity & Math" },
-  "base64-encoder-decoder": { n: "Base64 Encoder / Decoder", c: "Privacy & Security" },
-  "case-converter": { n: "Case Converter & Word Counter", c: "Text & Data" },
-  "chmod-calculator": { n: "Visual chmod Permissions Calculator", c: "Developer & Code" },
-  "curl-converter": { n: "cURL to Fetch / Axios / Python", c: "Developer & Code" },
-  "css-html-minifier": { n: "CSS & HTML Minifier & Beautifier", c: "Developer & Code" },
-  "date-calculator": { n: "Days Between Dates Calculator", c: "Productivity & Math" },
-  "excel-formula-builder": { n: "Excel Formula Builder Cheat Sheet", c: "Text & Data" },
-  "exif-metadata-stripper": { n: "Photo EXIF & GPS Metadata Stripper", c: "Privacy & Security" },
-  "favicon-generator": { n: "Favicon & PWA App Icon Generator", c: "Media & Design" },
-  "color-palette-contrast": { n: "WCAG Color Contrast & Palette Studio", c: "Media & Design" },
-  "hex-color-converter": { n: "HEX to RGB Color Converter", c: "Media & Design" },
-  "image-compressor": { n: "Client-Side Image Compressor", c: "Media & Design" },
-  "json-formatter": { n: "JSON Formatter & Validator", c: "Text & Data" },
-  "json-to-typescript": { n: "JSON to TypeScript & Zod Schema", c: "Developer & Code" },
-  "pdf-splitter": { n: "Client-Side PDF Splitter", c: "Documents & PDF" },
-  "percentage-calculator": { n: "Online Percentage Calculator", c: "Productivity & Math" },
-  "pomodoro-timer": { n: "Pomodoro Timer Online", c: "Productivity & Math" },
-  "qr-code-generator": { n: "Free QR Code Generator", c: "Media & Design" },
-  "random-name-picker": { n: "Random Name Picker & Wheel", c: "Productivity & Math" },
-  "secure-password-generator": { n: "Secure Password Generator", c: "Privacy & Security" },
-  "sha256-hash-generator": { n: "SHA-256 Hash Generator", c: "Privacy & Security" },
-  "social-seo-previewer": { n: "Social Media & SERP Previewer", c: "Media & Design" },
-  "svg-optimizer": { n: "SVG Optimizer & CSS Exporter", c: "Media & Design" },
-  "text-diff-checker": { n: "Text Diff Checker & Notepad", c: "Text & Data" },
-  "time-zone-converter": { n: "World Time Zone Converter", c: "Productivity & Math" },
-  "unit-converter": { n: "Universal Unit Converter", c: "Productivity & Math" },
-  "unix-timestamp-converter": { n: "Unix Timestamp & Epoch Converter", c: "Developer & Code" },
-  "url-link-cleaner": { n: "URL Tracking Link Cleaner", c: "Privacy & Security" },
-  "markdown-preview": { n: "Markdown Live Editor & HTML", c: "Text & Data" },
-  "csv-json-converter": { n: "CSV ↔ JSON Converter", c: "Text & Data" },
-  "regex-tester": { n: "Regular Expression (Regex) Live Tester", c: "Developer & Code" },
-  "jwt-decoder": { n: "JSON Web Token (JWT) Decoder", c: "Developer & Code" },
-  "image-to-base64": { n: "Image to Base64 (Data URI)", c: "Media & Design" },
-  "uuid-generator": { n: "Bulk UUID / GUID v4 Generator", c: "Productivity & Math" },
-  "sql-formatter": { n: "SQL Query Beautifier & Formatter", c: "Developer & Code" },
-  "pdf-merger": { n: "Client-Side PDF Merger & Combiner", c: "Documents & PDF" },
-  "pdf-rotator": { n: "Client-Side PDF Page Rotator", c: "Documents & PDF" },
-  "images-to-pdf": { n: "Client-Side Images to PDF Converter", c: "Documents & PDF" },
-  "pdf-watermarker": { n: "Client-Side PDF Watermark & Stamp", c: "Documents & PDF" },
-  "pdf-metadata-editor": { n: "PDF Metadata Inspector & Stripper", c: "Documents & PDF" },
-  "pdf-page-numberer": { n: "Client-Side PDF Page Numberer", c: "Documents & PDF" },
-  "excel-to-csv": { n: "Excel to CSV Converter", c: "Text & Data" },
-  "excel-to-json": { n: "Excel to JSON Converter", c: "Text & Data" },
-  "excel-deduplicator": { n: "Spreadsheet Row Deduplicator", c: "Text & Data" },
-  "pdf-text-extractor": { n: "PDF Text & Markdown Extractor", c: "Documents & PDF" },
-  "csv-to-excel": { n: "CSV to Excel (.xlsx) Converter", c: "Text & Data" },
-  "json-to-csv": { n: "JSON to CSV & TSV Converter", c: "Text & Data" },
-  "json-to-excel": { n: "JSON to Excel (.xlsx) Converter", c: "Text & Data" },
-  "excel-to-markdown": { n: "Excel to Markdown Table Generator", c: "Text & Data" },
-  "excel-transpose": { n: "Row & Column Transposer", c: "Text & Data" },
-  "excel-empty-cleaner": { n: "Empty Rows & Whitespace Stripper", c: "Text & Data" },
-  "pdf-to-images": { n: "Client-Side PDF to Images", c: "Documents & PDF" },
-  "pdf-password-protect": { n: "Client-Side PDF Password Protect", c: "Documents & PDF" },
-  "pdf-sign-stamp": { n: "Client-Side PDF Signature & Stamp", c: "Documents & PDF" },
-  "svg-to-png": { n: "SVG to PNG & WebP Converter", c: "Media & Design" },
-  "password-strength": { n: "Password Strength & Entropy Meter", c: "Privacy & Security" }
+  "bank-statement-to-excel": {
+    "n": "PDF Bank Statement to Excel Converter",
+    "c": "Documents & PDF"
+  },
+  "convert-chase-statement-to-excel": {
+    "n": "Convert Chase Statement to Excel",
+    "c": "Documents & PDF"
+  },
+  "convert-bank-of-america-statement-to-excel": {
+    "n": "Convert Bank of America Statement to Excel",
+    "c": "Documents & PDF"
+  },
+  "convert-wells-fargo-statement-to-excel": {
+    "n": "Convert Wells Fargo Statement to Excel",
+    "c": "Documents & PDF"
+  },
+  "convert-revolut-statement-to-excel": {
+    "n": "Convert Revolut Statement to Excel",
+    "c": "Documents & PDF"
+  },
+  "convert-barclays-statement-to-excel": {
+    "n": "Convert Barclays Statement to Excel",
+    "c": "Documents & PDF"
+  },
+  "invoice-generator": {
+    "n": "Free Invoice Generator & Excel Exporter",
+    "c": "Productivity & Math"
+  },
+  "excel-shortcuts": {
+    "n": "Excel & Google Sheets Shortcuts Studio",
+    "c": "Productivity & Math"
+  },
+  "base64-encoder-decoder": {
+    "n": "Base64 Encoder / Decoder",
+    "c": "Privacy & Security"
+  },
+  "case-converter": {
+    "n": "Case Converter & Word Counter",
+    "c": "Text & Data"
+  },
+  "chmod-calculator": {
+    "n": "Visual chmod Permissions Calculator",
+    "c": "Developer & Code"
+  },
+  "curl-converter": {
+    "n": "cURL to Fetch / Axios / Python Converter",
+    "c": "Developer & Code"
+  },
+  "css-html-minifier": {
+    "n": "CSS & HTML Minifier & Beautifier",
+    "c": "Developer & Code"
+  },
+  "date-calculator": {
+    "n": "Days Between Dates Calculator",
+    "c": "Productivity & Math"
+  },
+  "excel-formula-builder": {
+    "n": "Excel Formula Builder Cheat Sheet",
+    "c": "Text & Data"
+  },
+  "exif-metadata-stripper": {
+    "n": "Photo EXIF & GPS Metadata Stripper",
+    "c": "Privacy & Security"
+  },
+  "favicon-generator": {
+    "n": "Favicon & PWA App Icon Generator",
+    "c": "Media & Design"
+  },
+  "color-palette-contrast": {
+    "n": "WCAG Color Contrast & Palette Studio",
+    "c": "Media & Design"
+  },
+  "hex-color-converter": {
+    "n": "HEX to RGB Color Converter",
+    "c": "Media & Design"
+  },
+  "image-compressor": {
+    "n": "Client-Side Image Compressor & WebP",
+    "c": "Media & Design"
+  },
+  "json-formatter": {
+    "n": "JSON Formatter & Validator",
+    "c": "Text & Data"
+  },
+  "json-to-typescript": {
+    "n": "JSON to TypeScript & Zod Schema",
+    "c": "Developer & Code"
+  },
+  "pdf-splitter": {
+    "n": "Client-Side PDF Splitter & Page Remover",
+    "c": "Documents & PDF"
+  },
+  "percentage-calculator": {
+    "n": "Online Percentage Calculator",
+    "c": "Productivity & Math"
+  },
+  "pomodoro-timer": {
+    "n": "Pomodoro Timer Online",
+    "c": "Productivity & Math"
+  },
+  "qr-code-generator": {
+    "n": "Free QR Code Generator",
+    "c": "Media & Design"
+  },
+  "random-name-picker": {
+    "n": "Random Name Picker & Wheel",
+    "c": "Productivity & Math"
+  },
+  "secure-password-generator": {
+    "n": "Secure Password Generator",
+    "c": "Privacy & Security"
+  },
+  "sha256-hash-generator": {
+    "n": "SHA-256 Hash Generator",
+    "c": "Privacy & Security"
+  },
+  "social-seo-previewer": {
+    "n": "Social Media & Google SERP Previewer",
+    "c": "Media & Design"
+  },
+  "svg-optimizer": {
+    "n": "SVG Optimizer & React / CSS Exporter",
+    "c": "Media & Design"
+  },
+  "text-diff-checker": {
+    "n": "Text Diff Checker & Notepad",
+    "c": "Text & Data"
+  },
+  "time-zone-converter": {
+    "n": "World Time Zone Converter",
+    "c": "Productivity & Math"
+  },
+  "unit-converter": {
+    "n": "Universal Unit Converter",
+    "c": "Productivity & Math"
+  },
+  "unix-timestamp-converter": {
+    "n": "Unix Timestamp & Epoch Converter",
+    "c": "Developer & Code"
+  },
+  "url-link-cleaner": {
+    "n": "URL Tracking Link Cleaner",
+    "c": "Privacy & Security"
+  },
+  "markdown-preview": {
+    "n": "Markdown Live Editor & HTML Preview",
+    "c": "Text & Data"
+  },
+  "csv-json-converter": {
+    "n": "CSV ↔ JSON Converter",
+    "c": "Text & Data"
+  },
+  "regex-tester": {
+    "n": "Regular Expression (Regex) Live Tester",
+    "c": "Developer & Code"
+  },
+  "jwt-decoder": {
+    "n": "JSON Web Token (JWT) Decoder",
+    "c": "Developer & Code"
+  },
+  "image-to-base64": {
+    "n": "Image to Base64 (Data URI) Generator",
+    "c": "Media & Design"
+  },
+  "uuid-generator": {
+    "n": "Bulk UUID / GUID v4 Generator",
+    "c": "Productivity & Math"
+  },
+  "sql-formatter": {
+    "n": "SQL Query Beautifier & Formatter",
+    "c": "Developer & Code"
+  },
+  "pdf-merger": {
+    "n": "Client-Side PDF Merger & Combiner",
+    "c": "Documents & PDF"
+  },
+  "pdf-rotator": {
+    "n": "Client-Side PDF Page Rotator",
+    "c": "Documents & PDF"
+  },
+  "images-to-pdf": {
+    "n": "Client-Side Images to PDF Converter",
+    "c": "Documents & PDF"
+  },
+  "pdf-watermarker": {
+    "n": "Client-Side PDF Watermark & Stamp",
+    "c": "Documents & PDF"
+  },
+  "pdf-metadata-editor": {
+    "n": "PDF Metadata Inspector & Stripper",
+    "c": "Documents & PDF"
+  },
+  "pdf-page-numberer": {
+    "n": "Client-Side PDF Page Numberer",
+    "c": "Documents & PDF"
+  },
+  "excel-to-csv": {
+    "n": "Excel to CSV Converter",
+    "c": "Text & Data"
+  },
+  "excel-to-json": {
+    "n": "Excel to JSON Converter",
+    "c": "Text & Data"
+  },
+  "excel-deduplicator": {
+    "n": "Spreadsheet Row Deduplicator",
+    "c": "Text & Data"
+  },
+  "pdf-text-extractor": {
+    "n": "PDF Text & Markdown Extractor",
+    "c": "Documents & PDF"
+  },
+  "csv-to-excel": {
+    "n": "CSV to Excel (.xlsx) Converter",
+    "c": "Text & Data"
+  },
+  "json-to-csv": {
+    "n": "JSON to CSV & TSV Converter",
+    "c": "Text & Data"
+  },
+  "json-to-excel": {
+    "n": "JSON to Excel (.xlsx) Converter",
+    "c": "Text & Data"
+  },
+  "excel-to-markdown": {
+    "n": "Excel to Markdown Table Generator",
+    "c": "Text & Data"
+  },
+  "excel-transpose": {
+    "n": "Spreadsheet Row & Column Transposer",
+    "c": "Text & Data"
+  },
+  "excel-empty-cleaner": {
+    "n": "Empty Rows & Whitespace Stripper",
+    "c": "Text & Data"
+  },
+  "pdf-to-images": {
+    "n": "Client-Side PDF to Images (PNG/JPG)",
+    "c": "Documents & PDF"
+  },
+  "pdf-password-protect": {
+    "n": "Client-Side PDF Password Protect",
+    "c": "Documents & PDF"
+  },
+  "pdf-sign-stamp": {
+    "n": "Client-Side PDF Signature & Stamp",
+    "c": "Documents & PDF"
+  },
+  "svg-to-png": {
+    "n": "SVG to PNG & WebP Converter",
+    "c": "Media & Design"
+  },
+  "password-strength": {
+    "n": "Password Strength & Entropy Meter",
+    "c": "Privacy & Security"
+  }
 };
 
 const CATEGORY_SLUGS_MAP = {
@@ -167,7 +359,7 @@ class TabkitFooter extends HTMLElement {
       <footer class="border-t border-workspace-border bg-workspace-surface/90 backdrop-blur-md px-4 py-4 md:py-3.5 flex flex-col md:flex-row items-center justify-between gap-3 text-xs font-mono text-workspace-muted relative z-20">
         <div class="flex items-center gap-2">
           <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
-          <span>&copy; 2026 TabKit Tools &bull; Local-first browser workbench (64 tools).</span>
+          <span>&copy; ${new Date().getFullYear()} TabKit Tools &bull; Local-first browser workbench (${Object.keys(TABKIT_TOOLS_MAP).length} tools).</span>
         </div>
         <div class="flex flex-wrap items-center justify-center gap-3 md:gap-4">
           <a href="/" class="hover:text-workspace-accent transition-colors">Workbench</a>

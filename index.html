@@ -516,7 +516,7 @@
             <div class="flex items-center gap-2 border-b border-workspace-border pb-2.5">
               <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
               <h3 class="text-xs font-bold uppercase font-mono tracking-wider text-workspace-text">Documents & PDF</h3>
-              <span class="ml-auto text-[10px] font-mono px-1.5 py-0.5 rounded bg-workspace-bg border border-workspace-border text-workspace-muted">17</span>
+              <span data-category-badge="Documents & PDF" class="ml-auto text-[10px] font-mono px-1.5 py-0.5 rounded bg-workspace-bg border border-workspace-border text-workspace-muted">17</span>
             </div>
             <ul class="space-y-1.5">
               <li>
@@ -644,7 +644,7 @@
             <div class="flex items-center gap-2 border-b border-workspace-border pb-2.5">
               <span class="w-2 h-2 rounded-full bg-cyan-400"></span>
               <h3 class="text-xs font-bold uppercase font-mono tracking-wider text-workspace-text">Developer & Code</h3>
-              <span class="ml-auto text-[10px] font-mono px-1.5 py-0.5 rounded bg-workspace-bg border border-workspace-border text-workspace-muted">8</span>
+              <span data-category-badge="Developer & Code" class="ml-auto text-[10px] font-mono px-1.5 py-0.5 rounded bg-workspace-bg border border-workspace-border text-workspace-muted">8</span>
             </div>
             <ul class="space-y-1.5">
               <li>
@@ -709,7 +709,7 @@
             <div class="flex items-center gap-2 border-b border-workspace-border pb-2.5">
               <span class="w-2 h-2 rounded-full bg-amber-400"></span>
               <h3 class="text-xs font-bold uppercase font-mono tracking-wider text-workspace-text">Privacy & Security</h3>
-              <span class="ml-auto text-[10px] font-mono px-1.5 py-0.5 rounded bg-workspace-bg border border-workspace-border text-workspace-muted">6</span>
+              <span data-category-badge="Privacy & Security" class="ml-auto text-[10px] font-mono px-1.5 py-0.5 rounded bg-workspace-bg border border-workspace-border text-workspace-muted">6</span>
             </div>
             <ul class="space-y-1.5">
               <li>
@@ -760,7 +760,7 @@
             <div class="flex items-center gap-2 border-b border-workspace-border pb-2.5">
               <span class="w-2 h-2 rounded-full bg-sky-400"></span>
               <h3 class="text-xs font-bold uppercase font-mono tracking-wider text-workspace-text">Text & Data</h3>
-              <span class="ml-auto text-[10px] font-mono px-1.5 py-0.5 rounded bg-workspace-bg border border-workspace-border text-workspace-muted">15</span>
+              <span data-category-badge="Text & Data" class="ml-auto text-[10px] font-mono px-1.5 py-0.5 rounded bg-workspace-bg border border-workspace-border text-workspace-muted">15</span>
             </div>
             <ul class="space-y-1.5">
               <li>
@@ -874,7 +874,7 @@
             <div class="flex items-center gap-2 border-b border-workspace-border pb-2.5">
               <span class="w-2 h-2 rounded-full bg-violet-400"></span>
               <h3 class="text-xs font-bold uppercase font-mono tracking-wider text-workspace-text">Media & Design</h3>
-              <span class="ml-auto text-[10px] font-mono px-1.5 py-0.5 rounded bg-workspace-bg border border-workspace-border text-workspace-muted">9</span>
+              <span data-category-badge="Media & Design" class="ml-auto text-[10px] font-mono px-1.5 py-0.5 rounded bg-workspace-bg border border-workspace-border text-workspace-muted">9</span>
             </div>
             <ul class="space-y-1.5">
               <li>
@@ -946,7 +946,7 @@
             <div class="flex items-center gap-2 border-b border-workspace-border pb-2.5">
               <span class="w-2 h-2 rounded-full bg-rose-400"></span>
               <h3 class="text-xs font-bold uppercase font-mono tracking-wider text-workspace-text">Productivity & Math</h3>
-              <span class="ml-auto text-[10px] font-mono px-1.5 py-0.5 rounded bg-workspace-bg border border-workspace-border text-workspace-muted">9</span>
+              <span data-category-badge="Productivity & Math" class="ml-auto text-[10px] font-mono px-1.5 py-0.5 rounded bg-workspace-bg border border-workspace-border text-workspace-muted">9</span>
             </div>
             <ul class="space-y-1.5">
               <li>
@@ -2073,7 +2073,42 @@
     }
 
     // Initialize workbench
+    
+    function updateDynamicToolCounts() {
+      if (typeof TOOLS_REGISTRY === 'undefined') return;
+      const tools = Object.values(TOOLS_REGISTRY);
+      const total = tools.length;
+      
+      const navLabel = document.getElementById('offlineIndicatorLabel');
+      if (navLabel) navLabel.textContent = `100% Local • ${total} Tools`;
+
+      const searchBtnText = document.querySelector('#btnOpenCommandPalette span.group-hover\\:text-workspace-text');
+      if (searchBtnText) searchBtnText.textContent = `Search ${total} tools...`;
+
+      const allFilterBtn = document.querySelector('.cmd-cat-btn');
+      if (allFilterBtn && allFilterBtn.textContent.startsWith('All')) {
+        allFilterBtn.textContent = `All (${total})`;
+      }
+
+      const cmdInput = document.getElementById('commandInput');
+      if (cmdInput) cmdInput.placeholder = `Search ${total} tools or filter by name...`;
+
+      const categoryCounts = {};
+      tools.forEach(t => {
+        const cat = t.category || 'Utilities';
+        categoryCounts[cat] = (categoryCounts[cat] || 0) + 1;
+      });
+
+      document.querySelectorAll('[data-category-badge]').forEach(el => {
+        const cat = el.getAttribute('data-category-badge');
+        if (categoryCounts[cat]) {
+          el.textContent = categoryCounts[cat];
+        }
+      });
+    }
+
     document.addEventListener('DOMContentLoaded', () => {
+      updateDynamicToolCounts();
       renderWorkspaceTabs();
       renderWorkbench();
       updateStorageIndicator();

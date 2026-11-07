@@ -10,74 +10,67 @@
 
 ## Developer Utilities Directory
 
-- [Base64 Encoder / Decoder](https://tabkit.tools/base64-encoder-decoder.html): Encode text to Base64 or decode Base64 strings back to plain text securely in your browser. 100% offline, zero server uploads.
-- [Bulk UUID / GUID v4 Generator](https://tabkit.tools/uuid-generator.html): Generate bulk cryptographically secure UUID v4 identifiers locally with custom formatting and uppercase toggles. 100% offline and private. Zero server uploads.
-- [Case Converter & Word Counter](https://tabkit.tools/case-converter.html): Instantly convert text to UPPERCASE, lowercase, Title Case, deduplicate lines, and count words and characters offline.
-- [Client-Side Image Compressor & WebP](https://tabkit.tools/image-compressor.html): Compress PNG, JPEG, and WebP images locally inside your browser with zero server uploads.
-- [Client-Side Images to PDF Converter](https://tabkit.tools/images-to-pdf.html): Convert JPG, PNG, and WebP images, receipts, and scans into a multi-page PDF document locally in your browser. 100% private, zero server uploads.
-- [Client-Side PDF Merger & Combiner](https://tabkit.tools/pdf-merger.html): Merge and combine multiple PDF files into one document locally in your browser. 100% private with zero server uploads and complete client-side security.
-- [Client-Side PDF Page Numberer](https://tabkit.tools/pdf-page-numberer.html): Add page numbers and footer pagination to PDF documents locally in your browser. 100% private with zero cloud uploads.
-- [Client-Side PDF Page Rotator](https://tabkit.tools/pdf-rotator.html): Rotate PDF pages 90 degrees, 180 degrees, or 270 degrees locally in your browser. Fix scanned orientations with zero cloud uploads.
-- [Client-Side PDF Signature & Stamp](https://tabkit.tools/pdf-sign-stamp.html): Draw or stamp your digital signature onto any page of a PDF locally in your browser. 100% private, zero server uploads.
-- [Client-Side PDF Splitter & Page Remover](https://tabkit.tools/pdf-splitter.html): Extract specific pages, delete unwanted pages, or split multi-page PDF documents locally in your browser. 100% private, free, and secure.
-- [Client-Side PDF Watermark & Stamp Tool](https://tabkit.tools/pdf-watermarker.html): Stamp diagonal watermark text or confidential stamps onto PDF pages locally in your browser. 100% private with zero cloud uploads.
-- [CSS & HTML Minifier & Beautifier](https://tabkit.tools/css-html-minifier.html): Minify, compress, or beautify CSS stylesheets and HTML markup offline in your browser. Real-time byte metrics, zero server uploads, 100% private.
-- [CSV ↔ JSON Converter](https://tabkit.tools/csv-json-converter.html): Convert CSV spreadsheets to JSON arrays or transform JSON objects back into CSV tables locally. 100% offline and private. Zero server uploads.
-- [CSV to Excel (.xlsx) Converter](https://tabkit.tools/csv-to-excel.html): Convert CSV and TSV files or raw text into formatted Microsoft Excel (.xlsx) workbooks locally in your browser. 100% private, zero server uploads.
-- [cURL to Fetch / Axios / Python Converter](https://tabkit.tools/curl-converter.html): Convert cURL commands to JavaScript fetch, Node.js axios, and Python requests instantly in your browser. 100% offline developer tool with zero API tracking.
-- [Days Between Dates Calculator](https://tabkit.tools/date-calculator.html): Calculate the exact number of days between two dates, or add/subtract days from a specific date offline.
-- [Empty Rows & Whitespace Stripper](https://tabkit.tools/excel-empty-cleaner.html): Clean messy spreadsheets by removing blank rows, empty columns, and phantom whitespace in Excel and CSV files. 100% private, zero uploads.
-- [Excel & Sheets Keyboard Shortcuts Studio](https://tabkit.tools/excel-shortcuts.html): Interactive keyboard shortcuts reference and modern formula playground for Microsoft Excel and Google Sheets. Windows and Mac shortcuts with live filtering.
-- [Excel Formula Builder & Generator](https://tabkit.tools/excel-formula-builder.html): Free, 100% private, offline Excel and Google Sheets formula generator. Build XLOOKUP, INDEX/MATCH, SUMIFS, and 90+ formulas with fill-in-the-blank builders.
-- [Excel to CSV Converter](https://tabkit.tools/excel-to-csv.html): Convert Excel (.xlsx, .xls) spreadsheets to clean UTF-8 CSV locally in your browser. Select sheets, customize delimiters, and export without server uploads.
-- [Excel to JSON Converter](https://tabkit.tools/excel-to-json.html): Convert Excel (.xlsx, .xls) and CSV spreadsheets into structured JSON arrays and objects locally. 100% private, zero server uploads.
-- [Excel to Markdown Table Generator](https://tabkit.tools/excel-to-markdown.html): Convert Excel and CSV spreadsheets into formatted GitHub-flavored Markdown tables locally. 100% private, zero server uploads.
-- [Favicon & PWA App Icon Generator](https://tabkit.tools/favicon-generator.html): Generate favicons, Apple touch icons, and Android PWA manifest assets directly in your browser. 100% client-side Canvas rendering. Zero cloud uploads.
-- [Free Invoice Generator & Excel Exporter](https://tabkit.tools/invoice-generator.html): Create professional invoices locally with live calculations, active formula Excel (.xlsx) workbooks, and print-ready PDF export. 100% free & private.
-- [Free QR Code Generator](https://tabkit.tools/qr-code-generator.html): Generate high-contrast QR codes for links, text, and phone numbers instantly in your browser. 100% offline and private. Zero tracking.
-- [HEX to RGB Color Converter](https://tabkit.tools/hex-color-converter.html): Convert colors instantly between HEX, RGB, and HSL formats. Features a visual color picker and offline processing.
-- [Image to Base64 (Data URI) Generator](https://tabkit.tools/image-to-base64.html): Convert PNG, JPG, or SVG images into copy-pasteable Base64 Data URIs, HTML tags, and CSS snippets. 100% offline and private. Zero server uploads.
-- [JSON Formatter & Validator](https://tabkit.tools/json-formatter.html): Format, validate, and minify JSON strings securely in your browser. A 100% offline, privacy-first developer tool.
-- [JSON to CSV & TSV Converter](https://tabkit.tools/json-to-csv.html): Flatten nested JSON objects and arrays into structured CSV spreadsheets or TSV tables locally. 100% private, client-side, zero cloud uploads.
-- [JSON to Excel (.xlsx) Converter](https://tabkit.tools/json-to-excel.html): Convert JSON arrays and objects directly into formatted Microsoft Excel (.xlsx) spreadsheets locally in your browser. 100% private, zero server uploads.
-- [JSON to TypeScript & Zod Schema](https://tabkit.tools/json-to-typescript.html): Convert JSON payloads into clean TypeScript interfaces, types, and Zod validation schemas.
-- [JSON Web Token (JWT) Decoder](https://tabkit.tools/jwt-decoder.html): Decode and inspect JWT header and payload claims securely in your browser with expiration validation. 100% offline and private. Zero server uploads.
-- [Markdown Live Editor & HTML Preview](https://tabkit.tools/markdown-preview.html): Write, preview, and convert GitHub-flavored Markdown into clean HTML with live dual-view rendering. 100% offline and private. Zero server uploads.
-- [Online Percentage Calculator](https://tabkit.tools/percentage-calculator.html): Calculate percentages, discounts, tax, and fractions instantly. A fast, offline-ready percentage calculator that respects your privacy.
-- [Password Strength & Entropy Meter](https://tabkit.tools/password-strength.html): Calculate real-time password entropy bits, brute-force crack time estimates, and NIST SP 800-63B security compliance. 100% offline, zero data transmitted.
-- [PDF Bank Statement to Excel Converter](https://tabkit.tools/bank-statement-to-excel.html): Convert PDF bank statements to structured Excel (.xlsx) and CSV files locally in your browser. 100% private, zero uploads, zero tracking.
-- [Convert Chase Statement to Excel](https://tabkit.tools/convert-chase-statement-to-excel.html): Convert Chase checking, savings, and credit card PDF statements to Excel (.xlsx) and CSV locally. 100% private, zero server uploads.
-- [Convert Bank of America Statement to Excel](https://tabkit.tools/convert-bank-of-america-statement-to-excel.html): Extract Bank of America checking and credit card PDF statements into formatted Excel (.xlsx) and CSV workbooks locally.
-- [Convert Wells Fargo Statement to Excel](https://tabkit.tools/convert-wells-fargo-statement-to-excel.html): Convert Wells Fargo PDF statements into structured Excel workbooks locally with client-side privacy.
-- [Convert Revolut Statement to Excel](https://tabkit.tools/convert-revolut-statement-to-excel.html): Export Revolut personal and business multi-currency PDF statements into structured Excel (.xlsx) and CSV spreadsheets.
-- [Convert Barclays Statement to Excel](https://tabkit.tools/convert-barclays-statement-to-excel.html): Convert Barclays UK current and business account PDF statements into formatted Excel (.xlsx) and CSV spreadsheets.
-- [PDF Metadata Inspector & Stripper](https://tabkit.tools/pdf-metadata-editor.html): Inspect, edit, or wipe author, producer, title, and creation metadata from PDF documents locally in your browser. 100% private, zero uploads.
-- [PDF Password Protect & Encrypt](https://tabkit.tools/pdf-password-protect.html): Encrypt and password protect sensitive PDF documents locally in your browser. 100% private, zero server uploads.
-- [PDF Text & Markdown Extractor](https://tabkit.tools/pdf-text-extractor.html): Extract raw text, paragraphs, and formatted markdown from PDF files locally in your browser. 100% private, zero server uploads.
-- [PDF to Images (PNG/JPG)](https://tabkit.tools/pdf-to-images.html): Convert every page of a PDF document into high-resolution PNG or JPG images locally in your browser. 100% private, zero server uploads.
-- [Photo EXIF & GPS Metadata Stripper](https://tabkit.tools/exif-metadata-stripper.html): Strip hidden GPS coordinates, camera serial numbers, and device metadata from photos before sharing.
-- [Pomodoro Timer Online](https://tabkit.tools/pomodoro-timer.html): A simple, minimalist Pomodoro focus timer to track work sprints and breaks. 100% offline-ready inside your browser.
-- [Random Name Picker & Wheel](https://tabkit.tools/random-name-picker.html): Randomly pick a name from a list or generate a random number within a range. Clean, free, and works offline.
-- [Regular Expression (Regex) Live Tester](https://tabkit.tools/regex-tester.html): Test, debug, and highlight regular expressions against sample text with live capture badges and cheatsheets. 100% offline and private. Zero server uploads.
-- [Secure Password & PIN Generator](https://tabkit.tools/random-password-generator.html): Generate cryptographically secure passwords and numeric PIN codes completely offline. Uses browser-native APIs for absolute privacy.
-- [Secure Password & PIN Generator](https://tabkit.tools/secure-password-generator.html): Generate cryptographically secure passwords and numeric PIN codes completely offline. Uses browser-native APIs for absolute privacy.
-- [SHA-256 Hash Generator](https://tabkit.tools/sha256-hash-generator.html): Generate SHA-256, SHA-384, and SHA-512 hashes instantly from any text string. 100% local, offline, and secure.
-- [Social Media & Google SERP Previewer](https://tabkit.tools/social-seo-previewer.html): Simulate how your meta tags, title, and description will look on Google Search and X (Twitter).
-- [Spreadsheet Row & Column Transposer](https://tabkit.tools/excel-transpose.html): Flip rows to columns and columns to rows in Excel and CSV files instantly in your browser. 100% private, zero server uploads.
-- [Spreadsheet Row Deduplicator](https://tabkit.tools/excel-deduplicator.html): Detect and remove duplicate rows in Excel (.xlsx) and CSV files by specific columns or full rows locally. Fast, private, zero server uploads.
-- [SQL Query Beautifier & Formatter](https://tabkit.tools/sql-formatter.html): Format, beautify, and capitalize SQL queries offline with clean clause indentation and minification. 100% offline and private. Zero server uploads.
-- [SVG Optimizer & React / CSS Exporter](https://tabkit.tools/svg-optimizer.html): Clean and minify SVG markup, convert to CSS Data URIs, and export to React JSX components.
-- [SVG to PNG & WebP Converter](https://tabkit.tools/svg-to-png.html): Convert vector SVG files and raw code into high-resolution PNG or WebP raster images locally. Scale up to 5x with transparent background support. 100% private.
-- [Text Diff Checker & Notepad](https://tabkit.tools/text-diff-checker.html): Compare two text snippets side-by-side or write notes. 100% offline text difference checker and auto-saving browser scratchpad.
-- [Universal Unit Converter](https://tabkit.tools/unit-converter.html): Offline universal unit converter. Easily convert between digital storage, length, weight, temperature, speed, volume, and time units.
-- [Unix Timestamp & Epoch Converter](https://tabkit.tools/unix-timestamp-converter.html): Convert between Unix timestamps (seconds & milliseconds), UTC dates, local timezones, and relative time.
-- [URL Tracking Link Cleaner](https://tabkit.tools/url-link-cleaner.html): Bulk remove tracking parameters (UTM, fbclid, gclid) from URLs instantly. Protect your privacy and share clean links.
-- [Visual chmod Permissions Calculator](https://tabkit.tools/chmod-calculator.html): Interactive visual permission calculator for Linux/Unix file permissions with octal and symbolic modes.
-- [WCAG Color Contrast Checker & Palette Studio](https://tabkit.tools/color-palette-contrast.html): Free offline WCAG 2.1 color contrast checker and accessible palette generator. Check AA and AAA contrast ratios for normal and large text instantly.
-- [World Time Zone Converter](https://tabkit.tools/time-zone-converter.html): Interactive world clock and time zone converter. Search 25,000+ cities and coordinate international meetings offline.
-
-## Citations & Knowledge Graph
-
-- **Publisher**: TabKit Tools (https://tabkit.tools/#organization)
-- **Primary Source Code & Offline License**: MIT / Client-Side Web Application
-- **Canonical URL**: https://tabkit.tools/
+- [Base64 Encoder / Decoder](https://tabkit.tools/base64-encoder-decoder): Encode or decode text to Base64 format locally.
+- [Bulk UUID / GUID v4 Generator](https://tabkit.tools/uuid-generator): Generate bulk cryptographically secure UUID v4 identifiers locally with custom formatting and uppercase toggles.
+- [Case Converter & Word Counter](https://tabkit.tools/case-converter): Deduplicate lines, toggle cases, and count words and characters without uploads.
+- [Client-Side Image Compressor & WebP](https://tabkit.tools/image-compressor): Compress PNG, JPEG, and WebP images locally inside your browser with zero server uploads.
+- [Client-Side Images to PDF Converter](https://tabkit.tools/images-to-pdf): Convert JPG, PNG, and WebP photos or scans into a clean multi-page PDF document with zero uploads.
+- [Client-Side PDF Merger & Combiner](https://tabkit.tools/pdf-merger): Combine multiple PDF documents into a single file locally in your browser with zero server uploads.
+- [Client-Side PDF Page Numberer](https://tabkit.tools/pdf-page-numberer): Add page numbers, pagination headers, or footers to PDF documents locally in your browser with zero server uploads.
+- [Client-Side PDF Page Rotator](https://tabkit.tools/pdf-rotator): Rotate upside-down or sideways PDF pages by 90°, 180°, or 270° locally in your browser.
+- [Client-Side PDF Password Protect](https://tabkit.tools/pdf-password-protect): Encrypt and lock sensitive PDF documents with custom passwords locally in your browser with zero uploads.
+- [Client-Side PDF Signature & Stamp](https://tabkit.tools/pdf-sign-stamp): Draw or type your digital signature and stamp it onto any page of a PDF locally in your browser.
+- [Client-Side PDF Splitter & Page Remover](https://tabkit.tools/pdf-splitter): Extract specific pages or split multi-page PDF documents locally in your browser with zero server uploads.
+- [Client-Side PDF to Images (PNG/JPG)](https://tabkit.tools/pdf-to-images): Convert every page of a PDF document into high-resolution PNG or JPG images locally in your browser.
+- [Client-Side PDF Watermark & Stamp](https://tabkit.tools/pdf-watermarker): Stamp custom text or diagonal watermark overlays onto every page of a PDF document with zero uploads.
+- [Convert Bank of America Statement to Excel](https://tabkit.tools/convert-bank-of-america-statement-to-excel): Extract Bank of America PDF statements into formatted Excel (.xlsx) and CSV workbooks locally.
+- [Convert Barclays Statement to Excel](https://tabkit.tools/convert-barclays-statement-to-excel): Convert Barclays UK current and business account PDF statements to Excel (.xlsx) and CSV files.
+- [Convert Chase Statement to Excel](https://tabkit.tools/convert-chase-statement-to-excel): Extract transaction tables from Chase checking and credit card PDF statements into Excel (.xlsx) and CSV.
+- [Convert Revolut Statement to Excel](https://tabkit.tools/convert-revolut-statement-to-excel): Export Revolut multi-currency statements into structured Excel (.xlsx) and CSV workbooks locally.
+- [Convert Wells Fargo Statement to Excel](https://tabkit.tools/convert-wells-fargo-statement-to-excel): Convert Wells Fargo checking, savings, and credit card PDF statements into Excel (.xlsx) and CSV.
+- [CSS & HTML Minifier & Beautifier](https://tabkit.tools/css-html-minifier): Minify, compress, or beautify CSS styles and HTML markup client-side with real-time compression metrics.
+- [CSV ↔ JSON Converter](https://tabkit.tools/csv-json-converter): Convert CSV spreadsheets to JSON arrays or transform JSON objects back into CSV tables locally.
+- [CSV to Excel (.xlsx) Converter](https://tabkit.tools/csv-to-excel): Convert raw CSV and TSV files or pasted text into styled Microsoft Excel (.xlsx) workbooks locally.
+- [cURL to Fetch / Axios / Python Converter](https://tabkit.tools/curl-converter): Convert cURL requests into copy-pasteable JavaScript fetch, Node.js axios, and Python requests code.
+- [Days Between Dates Calculator](https://tabkit.tools/date-calculator): Calculate days between dates or add/subtract days from a date.
+- [Empty Rows & Whitespace Stripper](https://tabkit.tools/excel-empty-cleaner): Clean messy spreadsheets by removing blank rows, empty columns, and phantom whitespace in Excel & CSV files.
+- [Excel & Google Sheets Shortcuts Studio](https://tabkit.tools/excel-shortcuts): Interactive keyboard shortcuts reference and modern formula playground for Microsoft Excel and Google Sheets.
+- [Excel Formula Builder Cheat Sheet](https://tabkit.tools/excel-formula-builder): Massive offline registry of Excel/Sheets formulas with a fill-in-the-blanks builder.
+- [Excel to CSV Converter](https://tabkit.tools/excel-to-csv): Convert Excel (.xlsx, .xls) spreadsheets to clean UTF-8 CSV locally in your browser with zero uploads.
+- [Excel to JSON Converter](https://tabkit.tools/excel-to-json): Convert Excel (.xlsx, .xls) spreadsheets to clean JSON objects or arrays locally with zero uploads.
+- [Excel to Markdown Table Generator](https://tabkit.tools/excel-to-markdown): Convert Excel and CSV spreadsheets into clean GitHub-flavored Markdown tables locally.
+- [Favicon & PWA App Icon Generator](https://tabkit.tools/favicon-generator): Generate multi-resolution favicons, Apple touch icons, and Android PWA manifest icons from any image in-browser.
+- [Free Invoice Generator & Excel Exporter](https://tabkit.tools/invoice-generator): Generate professional invoices locally with live calculations, active formula Excel (.xlsx) workbooks, and print-ready PDF export.
+- [Free QR Code Generator](https://tabkit.tools/qr-code-generator): Generate high-contrast QR codes for links, phone dialer numbers, or plain text.
+- [HEX to RGB Color Converter](https://tabkit.tools/hex-color-converter): Convert colors between HEX, RGB, and HSL formats.
+- [Image to Base64 (Data URI) Generator](https://tabkit.tools/image-to-base64): Convert PNG, JPG, or SVG images into copy-pasteable Base64 Data URIs, HTML tags, and CSS snippets.
+- [JSON Formatter & Validator](https://tabkit.tools/json-formatter): Format, validate, and minify JSON strings instantly.
+- [JSON to CSV & TSV Converter](https://tabkit.tools/json-to-csv): Convert JSON objects and nested arrays directly into clean CSV spreadsheets or TSV tables locally.
+- [JSON to Excel (.xlsx) Converter](https://tabkit.tools/json-to-excel): Convert JSON arrays or objects directly into formatted Microsoft Excel (.xlsx) workbooks locally.
+- [JSON to TypeScript & Zod Schema](https://tabkit.tools/json-to-typescript): Convert JSON payloads into clean TypeScript interfaces, types, and Zod validation schemas.
+- [JSON Web Token (JWT) Decoder](https://tabkit.tools/jwt-decoder): Decode and inspect JWT header and payload claims securely in your browser with expiration validation.
+- [Markdown Live Editor & HTML Preview](https://tabkit.tools/markdown-preview): Write, preview, and convert GitHub-flavored Markdown into clean HTML with live dual-view rendering.
+- [Online Percentage Calculator](https://tabkit.tools/percentage-calculator): Everyday percentage calculator for discounts, tips, and fractions.
+- [Password Strength & Entropy Meter](https://tabkit.tools/password-strength): Evaluate cryptographic password strength, entropy bits, and brute force crack duration locally.
+- [PDF Bank Statement to Excel Converter](https://tabkit.tools/bank-statement-to-excel): Convert PDF bank statements into structured Excel (.xlsx) and CSV spreadsheets locally with zero server uploads.
+- [PDF Metadata Inspector & Stripper](https://tabkit.tools/pdf-metadata-editor): View, edit, or completely wipe author, producer, and title metadata from PDF files locally for total privacy.
+- [PDF Text & Markdown Extractor](https://tabkit.tools/pdf-text-extractor): Extract raw text, paragraphs, and formatted markdown from PDF files locally with zero server uploads.
+- [Photo EXIF & GPS Metadata Stripper](https://tabkit.tools/exif-metadata-stripper): Strip hidden GPS coordinates, camera serial numbers, and device metadata from photos before sharing.
+- [Pomodoro Timer Online](https://tabkit.tools/pomodoro-timer): A simple Pomodoro countdown timer for focused work sessions.
+- [Random Name Picker & Wheel](https://tabkit.tools/random-name-picker): Pick a random name from a list or generate a random number.
+- [Regular Expression (Regex) Live Tester](https://tabkit.tools/regex-tester): Test, debug, and highlight regular expressions against sample text with live capture badges and cheatsheets.
+- [Secure Password Generator](https://tabkit.tools/secure-password-generator): Generate cryptographically secure passwords or numeric PIN codes.
+- [SHA-256 Hash Generator](https://tabkit.tools/sha256-hash-generator): Generate SHA-256, SHA-384, and SHA-512 hashes instantly.
+- [Social Media & Google SERP Previewer](https://tabkit.tools/social-seo-previewer): Simulate how your meta tags, title, and description will look on Google Search and X (Twitter).
+- [Spreadsheet Row & Column Transposer](https://tabkit.tools/excel-transpose): Flip spreadsheet rows to columns and columns to rows in Excel and CSV files instantly in your browser.
+- [Spreadsheet Row Deduplicator](https://tabkit.tools/excel-deduplicator): Detect and purge duplicate rows in Excel and CSV files by specific columns or entire rows locally.
+- [SQL Query Beautifier & Formatter](https://tabkit.tools/sql-formatter): Format, beautify, and capitalize SQL queries offline with clean clause indentation and minification.
+- [SVG Optimizer & React / CSS Exporter](https://tabkit.tools/svg-optimizer): Clean and minify SVG markup, convert to CSS Data URIs, and export to React JSX components.
+- [SVG to PNG & WebP Converter](https://tabkit.tools/svg-to-png): Convert SVG files and raw markup into crisp, high-DPI PNG or WebP raster images locally.
+- [Text Diff Checker & Notepad](https://tabkit.tools/text-diff-checker): Auto-saving local notes and true line-by-line diff comparison.
+- [Universal Unit Converter](https://tabkit.tools/unit-converter): Multi-category converter for data, length, mass, temperature, speed, volume, and time.
+- [Unix Timestamp & Epoch Converter](https://tabkit.tools/unix-timestamp-converter): Convert between Unix timestamps (seconds & milliseconds), UTC dates, local timezones, and relative time.
+- [URL Tracking Link Cleaner](https://tabkit.tools/url-link-cleaner): Extract URLs, strip tracking tags (UTM, fbclid, gclid), and copy clean links.
+- [Visual chmod Permissions Calculator](https://tabkit.tools/chmod-calculator): Interactive visual permission calculator for Linux/Unix file permissions with octal and symbolic modes.
+- [WCAG Color Contrast & Palette Studio](https://tabkit.tools/color-palette-contrast): Calculate WCAG 2.1 AA/AAA contrast ratios and test accessible foreground and background colors.
+- [World Time Zone Converter](https://tabkit.tools/time-zone-converter): Interactive world clock with 25,000+ searchable cities and synchronized hour slider.
