@@ -361,9 +361,13 @@ class TabkitFooter extends HTMLElement {
         </div>
       </div>
       <footer class="border-t border-workspace-border bg-workspace-surface/90 backdrop-blur-md px-4 py-4 md:py-3.5 flex flex-col md:flex-row items-center justify-between gap-3 text-xs font-mono text-workspace-muted relative z-20">
-        <div class="flex items-center gap-2">
-          <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
-          <span>&copy; ${new Date().getFullYear()} TabKit Tools &bull; Local-first browser workbench (${Object.keys(TABKIT_TOOLS_MAP).length} tools).</span>
+        <div class="flex flex-col sm:flex-row items-center gap-2">
+          <div class="flex items-center gap-2">
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+            <span>&copy; ${new Date().getFullYear()} TabKit Tools &bull; Local-first browser workbench (${Object.keys(TABKIT_TOOLS_MAP).length} tools).</span>
+          </div>
+          <span class="hidden sm:inline text-workspace-border">&bull;</span>
+          <span class="text-[10px] text-workspace-muted/80">As an Amazon Associate I earn from qualifying purchases.</span>
         </div>
         <div class="flex flex-wrap items-center justify-center gap-3 md:gap-4">
           <a href="/" class="hover:text-workspace-accent transition-colors">Workbench</a>
