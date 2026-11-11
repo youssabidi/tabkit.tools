@@ -11,7 +11,7 @@ const registryKeys = Object.keys(registry);
 console.log('=== 1. REGISTRY & FILE PARITY AUDIT ===');
 console.log(`Tools registered in registry.js: ${registryKeys.length}`);
 
-const htmlFiles = fs.readdirSync('.').filter(f => f.endsWith('.html'));
+const htmlFiles = fs.readdirSync('.').filter(f => f.endsWith('.html') && f !== '404.html');
 const metaPages = ['index.html', 'about.html', 'faq.html', 'guide.html', 'contact.html', 'report-issue.html', 'privacy.html', 'terms.html'];
 const toolHtmlFiles = htmlFiles.filter(f => !metaPages.includes(f));
 

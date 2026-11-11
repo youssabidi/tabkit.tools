@@ -72,7 +72,7 @@ function extractHowTo(html, toolName, toolId) {
   };
 }
 
-const files = fs.readdirSync('.').filter(f => f.endsWith('.html') && !['about.html','privacy.html','terms.html','contact.html','report-issue.html','index.html','faq.html','guide.html'].includes(f));
+const files = fs.readdirSync('.').filter(f => f.endsWith('.html') && !['404.html','about.html','privacy.html','terms.html','contact.html','report-issue.html','index.html','faq.html','guide.html'].includes(f));
 
 let upgraded = 0;
 let howToCount = 0;

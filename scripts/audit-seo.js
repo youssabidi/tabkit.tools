@@ -1,6 +1,6 @@
 const fs = require('fs');
 
-const files = fs.readdirSync('.').filter(f => f.endsWith('.html'));
+const files = fs.readdirSync('.').filter(f => f.endsWith('.html') && f !== '404.html');
 console.log('Auditing ' + files.length + ' HTML files for SEO depth...\n');
 
 let countFaq = 0;

@@ -25,7 +25,7 @@ const SUPPORT_PAGES = {
 
 const today = new Date().toISOString().split('T')[0];
 
-const files = fs.readdirSync('.').filter(f => f.endsWith('.html'));
+const files = fs.readdirSync('.').filter(f => f.endsWith('.html') && f !== '404.html');
 const entries = [];
 
 // 1. Root page

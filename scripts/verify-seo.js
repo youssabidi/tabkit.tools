@@ -1,5 +1,5 @@
 const fs = require('fs');
-const glob = fs.readdirSync('.').filter(f => f.endsWith('.html'));
+const glob = fs.readdirSync('.').filter(f => f.endsWith('.html') && f !== '404.html');
 
 let errors = 0;
 let warnings = 0;

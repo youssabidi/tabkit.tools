@@ -1,7 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 
-const files = fs.readdirSync('.').filter(f => f.endsWith('.html'));
+const files = fs.readdirSync('.').filter(f => f.endsWith('.html') && f !== '404.html');
 
 console.log('=== 1. INTERNAL LINK AUDIT ===');
 const existingFiles = new Set(files.map(f => f.replace('.html', '')));

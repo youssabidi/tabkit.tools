@@ -37,6 +37,17 @@ self.addEventListener('activate', (event) => {
 
 self.addEventListener('fetch', (event) => {
   if (event.request.method !== 'GET' || !event.request.url.startsWith('http')) return;
+  const reqUrl = new URL(event.request.url);
+  if (
+    reqUrl.pathname === '/ads.txt' ||
+    reqUrl.pathname === '/robots.txt' ||
+    reqUrl.pathname === '/sitemap.xml' ||
+    reqUrl.hostname.includes('googlesyndication.com') ||
+    reqUrl.hostname.includes('doubleclick.net') ||
+    reqUrl.hostname.includes('adtrafficquality.google')
+  ) {
+    return;
+  }
 
   event.respondWith(
     caches.match(event.request).then((cachedResponse) => {
