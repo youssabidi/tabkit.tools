@@ -254,7 +254,7 @@ const newUpdateCommandList = `<div id="cmd_item_\${idx}" class="w-full p-3 round
               <div class="text-xs text-workspace-muted truncate mt-0.5">\${escapeHtml(t.description)}</div>
             </div>
             <div class="flex items-center gap-2 shrink-0 font-mono">
-              <a href="/\${t.id}" target="_blank" rel="noopener noreferrer" class="btn-tactile px-2.5 py-1 rounded-lg border border-workspace-border hover:border-workspace-borderLight text-workspace-muted hover:text-workspace-text text-[11px] transition-colors flex items-center gap-1" title="Open standalone page in new tab">
+              <a data-tk-href="/\${t.id}" target="_blank" rel="noopener noreferrer" class="btn-tactile px-2.5 py-1 rounded-lg border border-workspace-border hover:border-workspace-borderLight text-workspace-muted hover:text-workspace-text text-[11px] transition-colors flex items-center gap-1" title="Open standalone page in new tab">
                 <span>↗</span>
                 <span class="hidden sm:inline">Open</span>
               </a>
@@ -267,6 +267,7 @@ const newUpdateCommandList = `<div id="cmd_item_\${idx}" class="w-full p-3 round
               </button>
             </div>
           </div>`;
+      if (typeof hydrateDeferredLinks === 'function') hydrateDeferredLinks(commandResults);
 
 if (html.includes(oldUpdateCommandList)) {
   html = html.replace(oldUpdateCommandList, newUpdateCommandList);

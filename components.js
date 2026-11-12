@@ -271,6 +271,14 @@ const CATEGORY_SLUGS_MAP = {
   "Productivity & Math": "productivity-math"
 };
 
+function hydrateDeferredLinks(root) {
+  if (!root) return;
+  root.querySelectorAll('a[data-tk-href]').forEach(a => {
+    a.setAttribute('href', a.getAttribute('data-tk-href'));
+    a.removeAttribute('data-tk-href');
+  });
+}
+
 function recordRecentTool(toolId) {
   if (!toolId || !TABKIT_TOOLS_MAP[toolId]) return;
   try {
@@ -324,7 +332,7 @@ class TabkitFooter extends HTMLElement {
               <span class="font-bold text-workspace-text uppercase tracking-wider text-[11px]">Related Offline Utilities</span>
               <span class="text-[10px] text-workspace-muted hidden sm:inline">(${currentTool.c})</span>
             </div>
-            <a href="/#${catSlug}" class="text-workspace-muted hover:text-workspace-accent text-[11px] transition-colors flex items-center gap-1 group">
+            <a data-tk-href="/#${catSlug}" class="text-workspace-muted hover:text-workspace-accent text-[11px] transition-colors flex items-center gap-1 group">
               <span>View category</span>
               <span class="group-hover:translate-x-0.5 transition-transform">&rarr;</span>
             </a>
@@ -333,7 +341,7 @@ class TabkitFooter extends HTMLElement {
             ${chosenIds.map(id => {
               const t = TABKIT_TOOLS_MAP[id];
               return `
-                <a href="/${id}" class="spotlight-card card-specular p-3.5 rounded-2xl bg-workspace-surface/60 border border-workspace-border hover:border-workspace-accent/50 hover:bg-workspace-surfaceHover transition-all flex flex-col justify-between group shadow-sm">
+                <a data-tk-href="/${id}" class="spotlight-card card-specular p-3.5 rounded-2xl bg-workspace-surface/60 border border-workspace-border hover:border-workspace-accent/50 hover:bg-workspace-surfaceHover transition-all flex flex-col justify-between group shadow-sm">
                   <div class="text-xs font-bold text-workspace-text group-hover:text-workspace-accent transition-colors line-clamp-1">${t.n}</div>
                   <div class="text-[10px] font-mono text-workspace-muted mt-3 flex items-center justify-between">
                     <span class="text-emerald-400/90 font-medium">100% Private</span>
@@ -388,6 +396,7 @@ class TabkitFooter extends HTMLElement {
         </div>
       </footer>
     `;
+    hydrateDeferredLinks(this);
   }
 }
 
@@ -420,7 +429,7 @@ class ToolHeader extends HTMLElement {
           <span class="text-workspace-borderLight text-xs hidden sm:inline">&bull;</span>
 
           <nav class="hidden sm:flex items-center gap-1.5 text-xs font-mono text-workspace-muted truncate" aria-label="Breadcrumb">
-            ${categorySlug ? `<a href="/#${categorySlug}" class="hover:text-workspace-accent transition-colors truncate">${categoryName}</a><span class="text-workspace-borderLight">/</span>` : ''}
+            ${categorySlug ? `<a data-tk-href="/#${categorySlug}" class="hover:text-workspace-accent transition-colors truncate">${categoryName}</a><span class="text-workspace-borderLight">/</span>` : ''}
             <span class="text-workspace-text font-medium truncate">${toolName}</span>
           </nav>
 
@@ -460,6 +469,7 @@ class ToolHeader extends HTMLElement {
         </div>
       </header>
     `;
+    hydrateDeferredLinks(this);
     if (typeof updateThemeUI === 'function') {
       updateThemeUI();
     }

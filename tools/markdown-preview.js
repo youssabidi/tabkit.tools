@@ -27,7 +27,7 @@ function parseMarkdownToHtml(md) {
   html = html.replace(/\[([^\]]+)\]\(([^)]+)\)/g, (match, label, href) => {
     const cleanHref = href.trim();
     if (/^(https?:\/\/|mailto:|#|\/)/i.test(cleanHref)) {
-      return `<a href="${cleanHref}" target="_blank" rel="noopener noreferrer" class="text-workspace-accent underline hover:text-workspace-accentHover">${label}</a>`;
+      return '<a href="' + cleanHref + '" target="_blank" rel="noopener noreferrer" class="text-workspace-accent underline hover:text-workspace-accentHover">' + label + '</a>';
     }
     return label;
   });

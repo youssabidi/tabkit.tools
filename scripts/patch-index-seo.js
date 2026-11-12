@@ -45,15 +45,7 @@ const newSchema = `<!-- Structured Data: WebSite, WebApplication, BreadcrumbList
         "@id": "https://tabkit.tools/#website",
         "name": "TabKit Tools",
         "url": "https://tabkit.tools/",
-        "description": "Local-first browser workbench with 64 client-side utilities including PDF merge, bank statement converter, invoice generator, JSON formatting, and regex testing.",
-        "potentialAction": {
-          "@type": "SearchAction",
-          "target": {
-            "@type": "EntryPoint",
-            "urlTemplate": "https://tabkit.tools/?q={search_term_string}"
-          },
-          "query-input": "required name=search_term_string"
-        }
+        "description": "Local-first browser workbench with 64 client-side utilities including PDF merge, bank statement converter, invoice generator, JSON formatting, and regex testing."
       },
       {
         "@type": "WebApplication",
