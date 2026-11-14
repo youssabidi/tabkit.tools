@@ -7,6 +7,9 @@ Allow: /
 User-agent: AdsBot-Google
 Allow: /
 
+User-agent: Google-Adwords-DisplayAds-WebCrawler
+Allow: /
+
 User-agent: *
 Allow: /
 
