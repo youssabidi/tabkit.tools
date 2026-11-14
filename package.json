@@ -4,6 +4,7 @@
   "description": "Local-First Browser Workbench & Utilities",
   "main": "components.js",
   "scripts": {
+    "build": "tailwindcss -i ./src/input.css -o ./styles.css --minify",
     "build:css": "tailwindcss -i ./src/input.css -o ./styles.css --minify",
     "watch:css": "tailwindcss -i ./src/input.css -o ./styles.css --watch",
     "sync": "node scripts/sync-all.js",
