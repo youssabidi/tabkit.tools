@@ -66,25 +66,25 @@
       {
         "@type": "HowTo",
         "@id": "https://tabkit.tools/image-to-base64#howto",
-        "name": "How to Use the Free Image to Base64 (Data URI) Generator",
+        "name": "How to Convert Images into Base64 Data URIs",
         "step": [
           {
             "@type": "HowToStep",
             "position": 1,
-            "name": "Import Vector or Raster Media",
-            "text": "Drop PNG, JPEG, SVG files, or select foreground and background colors to evaluate accessibility and optimize assets."
+            "name": "Drop an Image or SVG Icon",
+            "text": "Select a lightweight PNG, WebP, JPEG, or SVG asset into the encoder box."
           },
           {
             "@type": "HowToStep",
             "position": 2,
-            "name": "Fine-Tune Dimensions & Quality",
-            "text": "Adjust compression ratios, preview high-DPI scaling, test WCAG 2.1 AA/AAA contrast scores, or generate multi-resolution icon sizes."
+            "name": "Pick Output Wrapper Format",
+            "text": "Switch between Raw Data URI, ready-to-paste HTML &lt;img&gt; Tag, or CSS background-image url(...) syntax."
           },
           {
             "@type": "HowToStep",
             "position": 3,
-            "name": "Download Production Media Assets",
-            "text": "Export rasterized PNG/WebP files, download compressed icon packages, or copy optimized SVG and CSS code snippets with zero loss."
+            "name": "Copy URI String",
+            "text": "Check the encoded string length badge and copy the output directly into email templates or inline stylesheets."
           }
         ]
       },
@@ -168,29 +168,23 @@
       </div>
       
       <div class="border-t border-workspace-border pt-8 space-y-4">
-        <h2 class="text-xl font-bold text-white mb-3">How to Use the Free Image to Base64 (Data URI) Generator</h2>
+        <h2 class="text-xl font-bold text-white mb-3">How to Convert Images into Base64 Data URIs</h2>
         <ol class="list-decimal pl-5 space-y-2 text-sm text-workspace-muted">
-          <li><strong class="text-workspace-text">Import Vector or Raster Media:</strong> Drop PNG, JPEG, SVG files, or select foreground and background colors to evaluate accessibility and optimize assets.</li>
-          <li><strong class="text-workspace-text">Fine-Tune Dimensions & Quality:</strong> Adjust compression ratios, preview high-DPI scaling, test WCAG 2.1 AA/AAA contrast scores, or generate multi-resolution icon sizes.</li>
-          <li><strong class="text-workspace-text">Download Production Media Assets:</strong> Export rasterized PNG/WebP files, download compressed icon packages, or copy optimized SVG and CSS code snippets with zero loss.</li>
+          <li><strong class="text-workspace-text">Drop an Image or SVG Icon:</strong> Select a lightweight PNG, WebP, JPEG, or SVG asset into the encoder box.</li>
+          <li><strong class="text-workspace-text">Pick Output Wrapper Format:</strong> Switch between Raw Data URI, ready-to-paste HTML &lt;img&gt; Tag, or CSS background-image url(...) syntax.</li>
+          <li><strong class="text-workspace-text">Copy URI String:</strong> Check the encoded string length badge and copy the output directly into email templates or inline stylesheets.</li>
         </ol>
       </div>
 
       <div class="border-t border-workspace-border pt-8 space-y-4">
-        <h2 class="text-xl font-bold text-white mb-3">Why Client-Side Privacy Matters</h2>
-        <p>
-          Asset optimization frequently exposes unreleased product screenshots, copyrighted vector illustrations, and brand identities to public cloud image servers. TabKit renders all transformations inside local HTML5 Canvas and OffscreenCanvas contexts without ever transmitting a single byte over the network.
-        </p>
-      </div>
-
-      
-      <div class="border-t border-workspace-border pt-8 space-y-4">
-        <h2 class="text-xl font-bold text-white mb-3">Core Features &amp; Privacy Architecture</h2>
+        <h2 class="text-xl font-bold text-white mb-3">When to Inline Data URIs vs. Serving External Files</h2>
+        <p>Data URIs eliminate extra HTTP round trips for tiny UI icons and single-file HTML emails, at the cost of ~33% Base64 size overhead.</p>
         <ul class="list-disc pl-5 space-y-2 text-sm text-workspace-muted">
-          <li><strong class="text-workspace-text">Zero Server Transmissions:</strong> Every byte of data is processed locally inside your browser sandbox. No input strings, credentials, or file bytes are ever uploaded to remote servers.</li>
-          <li><strong class="text-workspace-text">Offline PWA Installation:</strong> Add TabKit to your desktop, iPhone, or Android device as a standalone Progressive Web App (PWA) to work completely air-gapped without an active internet connection.</li>
-          <li><strong class="text-workspace-text">Zero Limits or Paywalls:</strong> Enjoy unlimited file conversions, code formatting, and cryptographic operations without account logins, subscriptions, or artificial file size restrictions.</li>
-          <li><strong class="text-workspace-text">High-Speed Local Execution:</strong> Take advantage of multi-threaded Web Workers and hardware-accelerated WebAssembly for instant processing speeds directly on your device.</li>
+          <li><strong class="text-workspace-text">Best for Small Assets (< 4–10 KB):</strong> Keep Base64 inlining for micro-icons or critical spinner SVGs; large photos bloat HTML/CSS payloads and block parser caching.</li>
+          <li><strong class="text-workspace-text">No Independent Browser Caching:</strong> Unlike external /logo.png files cached across pages, inline Data URIs re-download whenever the enclosing stylesheet or HTML changes.</li>
+          <li><strong class="text-workspace-text">CSP img-src Requirement:</strong> Sites enforcing a strict Content-Security-Policy must include data: under img-src or embedded Data URIs will be blocked by browsers.</li>
+          <li><strong class="text-workspace-text">Preload & Render-Blocking Mitigation:</strong> When embedding critical above-the-fold hero graphics as Base64 strings, ensure stylesheets stay under critical-path byte limits so mobile browsers can render the page immediately without parser delays.</li>
+          <li><strong class="text-workspace-text">Cache Optimization:</strong> For icons used across multiple pages, evaluate whether an external SVG sprite sheet or inline Data URIs provide better overall performance.</li>
         </ul>
       </div>
 

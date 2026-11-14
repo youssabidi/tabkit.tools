@@ -63,25 +63,25 @@
       {
         "@type": "HowTo",
         "@id": "https://tabkit.tools/svg-optimizer#howto",
-        "name": "How to Use the Free SVG Optimizer & React / CSS Exporter",
+        "name": "How to Optimize SVGs & Export React JSX / CSS URIs",
         "step": [
           {
             "@type": "HowToStep",
             "position": 1,
-            "name": "Import Vector or Raster Media",
-            "text": "Drop PNG, JPEG, SVG files, or select foreground and background colors to evaluate accessibility and optimize assets."
+            "name": "Paste Raw SVG Markup or Load Sample",
+            "text": "Drop exported SVG code straight from Figma, Illustrator, or Sketch into the input editor."
           },
           {
             "@type": "HowToStep",
             "position": 2,
-            "name": "Fine-Tune Dimensions & Quality",
-            "text": "Adjust compression ratios, preview high-DPI scaling, test WCAG 2.1 AA/AAA contrast scores, or generate multi-resolution icon sizes."
+            "name": "Pick Output Target Mode",
+            "text": "Switch between Minified SVG, URL-encoded CSS Data URI (data:image/svg+xml), or React JSX component syntax."
           },
           {
             "@type": "HowToStep",
             "position": 3,
-            "name": "Download Production Media Assets",
-            "text": "Export rasterized PNG/WebP files, download compressed icon packages, or copy optimized SVG and CSS code snippets with zero loss."
+            "name": "Inspect Saved Bytes & Copy Code",
+            "text": "Review before/after byte savings and copy production-ready markup with comments and editor metadata stripped."
           }
         ]
       },
@@ -157,29 +157,22 @@
       </div>
       
       <div class="border-t border-workspace-border pt-8 space-y-4">
-        <h2 class="text-xl font-bold text-white mb-3">How to Use the Free SVG Optimizer & React / CSS Exporter</h2>
+        <h2 class="text-xl font-bold text-white mb-3">How to Optimize SVGs & Export React JSX / CSS URIs</h2>
         <ol class="list-decimal pl-5 space-y-2 text-sm text-workspace-muted">
-          <li><strong class="text-workspace-text">Import Vector or Raster Media:</strong> Drop PNG, JPEG, SVG files, or select foreground and background colors to evaluate accessibility and optimize assets.</li>
-          <li><strong class="text-workspace-text">Fine-Tune Dimensions & Quality:</strong> Adjust compression ratios, preview high-DPI scaling, test WCAG 2.1 AA/AAA contrast scores, or generate multi-resolution icon sizes.</li>
-          <li><strong class="text-workspace-text">Download Production Media Assets:</strong> Export rasterized PNG/WebP files, download compressed icon packages, or copy optimized SVG and CSS code snippets with zero loss.</li>
+          <li><strong class="text-workspace-text">Paste Raw SVG Markup or Load Sample:</strong> Drop exported SVG code straight from Figma, Illustrator, or Sketch into the input editor.</li>
+          <li><strong class="text-workspace-text">Pick Output Target Mode:</strong> Switch between Minified SVG, URL-encoded CSS Data URI (data:image/svg+xml), or React JSX component syntax.</li>
+          <li><strong class="text-workspace-text">Inspect Saved Bytes & Copy Code:</strong> Review before/after byte savings and copy production-ready markup with comments and editor metadata stripped.</li>
         </ol>
       </div>
 
       <div class="border-t border-workspace-border pt-8 space-y-4">
-        <h2 class="text-xl font-bold text-white mb-3">Why Client-Side Privacy Matters</h2>
-        <p>
-          Asset optimization frequently exposes unreleased product screenshots, copyrighted vector illustrations, and brand identities to public cloud image servers. TabKit renders all transformations inside local HTML5 Canvas and OffscreenCanvas contexts without ever transmitting a single byte over the network.
-        </p>
-      </div>
-
-      
-      <div class="border-t border-workspace-border pt-8 space-y-4">
-        <h2 class="text-xl font-bold text-white mb-3">Core Features &amp; Privacy Architecture</h2>
+        <h2 class="text-xl font-bold text-white mb-3">Figma/Illustrator SVG Bloat & React Attribute Differences</h2>
+        <p>Vector editors leave hidden Inkscape/Adobe XML namespaces, redundant decimal precision, and empty <g> wrappers inside exported icons.</p>
         <ul class="list-disc pl-5 space-y-2 text-sm text-workspace-muted">
-          <li><strong class="text-workspace-text">Zero Server Transmissions:</strong> Every byte of data is processed locally inside your browser sandbox. No input strings, credentials, or file bytes are ever uploaded to remote servers.</li>
-          <li><strong class="text-workspace-text">Offline PWA Installation:</strong> Add TabKit to your desktop, iPhone, or Android device as a standalone Progressive Web App (PWA) to work completely air-gapped without an active internet connection.</li>
-          <li><strong class="text-workspace-text">Zero Limits or Paywalls:</strong> Enjoy unlimited file conversions, code formatting, and cryptographic operations without account logins, subscriptions, or artificial file size restrictions.</li>
-          <li><strong class="text-workspace-text">High-Speed Local Execution:</strong> Take advantage of multi-threaded Web Workers and hardware-accelerated WebAssembly for instant processing speeds directly on your device.</li>
+          <li><strong class="text-workspace-text">JSX CamelCase Attributes:</strong> React rejects hyphenated SVG attributes like stroke-width, fill-rule, and class; JSX conversion automatically maps them to strokeWidth, fillRule, and className.</li>
+          <li><strong class="text-workspace-text">Inline CSS Data URI Rules:</strong> Encoding # as %23 allows tiny vector icons and noise textures to embed cleanly directly inside CSS background-image url(...) rules without Base64 overhead.</li>
+          <li><strong class="text-workspace-text">Keep viewBox Intact:</strong> Always preserve the viewBox="0 0 W H" attribute so responsive CSS width/height classes scale vectors cleanly without clipping artwork.</li>
+          <li><strong class="text-workspace-text">Strip Invisible Metadata:</strong> Exporting from Illustrator or Inkscape leaves hidden editor metadata, guides, and empty groups; stripping them cuts SVG weight by 30% to 60% without affecting visual rendering.</li>
         </ul>
       </div>
 

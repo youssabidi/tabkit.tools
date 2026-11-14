@@ -66,25 +66,25 @@
       {
         "@type": "HowTo",
         "@id": "https://tabkit.tools/regex-tester#howto",
-        "name": "How to Use the Free Regular Expression (Regex) Live Tester",
+        "name": "How to Debug Regular Expressions & Capture Groups Live",
         "step": [
           {
             "@type": "HowToStep",
             "position": 1,
-            "name": "Input Code, Payload, or Command",
-            "text": "Paste your raw JSON strings, SQL queries, regular expressions, cURL requests, or Unix timestamps into the code editor."
+            "name": "Enter Pattern & Toggle Flags",
+            "text": "Type your JavaScript regex pattern (or load Email, URL, or IP starter templates) and configure g, i, m, or s flags."
           },
           {
             "@type": "HowToStep",
             "position": 2,
-            "name": "Inspect Real-Time Formatted Output",
-            "text": "View beautified syntax highlighting, capture group matches, decoded JWT claim expiration, or converted code snippets across languages."
+            "name": "Paste Multi-Line Test Fixtures",
+            "text": "Drop log lines, HTML fragments, or validation samples into the test string editor."
           },
           {
             "@type": "HowToStep",
             "position": 3,
-            "name": "Copy Production-Ready Code",
-            "text": "Use one-click copy buttons to transfer validated TypeScript interfaces, optimized SQL clauses, or minified assets directly into your IDE."
+            "name": "Inspect Highlighted Matches & Captures",
+            "text": "Examine inline match highlights and numbered/named capture groups immediately to verify edge cases before committing."
           }
         ]
       },
@@ -192,29 +192,21 @@
       </div>
       
       <div class="border-t border-workspace-border pt-8 space-y-4">
-        <h2 class="text-xl font-bold text-white mb-3">How to Use the Free Regular Expression (Regex) Live Tester</h2>
+        <h2 class="text-xl font-bold text-white mb-3">How to Debug Regular Expressions & Capture Groups Live</h2>
         <ol class="list-decimal pl-5 space-y-2 text-sm text-workspace-muted">
-          <li><strong class="text-workspace-text">Input Code, Payload, or Command:</strong> Paste your raw JSON strings, SQL queries, regular expressions, cURL requests, or Unix timestamps into the code editor.</li>
-          <li><strong class="text-workspace-text">Inspect Real-Time Formatted Output:</strong> View beautified syntax highlighting, capture group matches, decoded JWT claim expiration, or converted code snippets across languages.</li>
-          <li><strong class="text-workspace-text">Copy Production-Ready Code:</strong> Use one-click copy buttons to transfer validated TypeScript interfaces, optimized SQL clauses, or minified assets directly into your IDE.</li>
+          <li><strong class="text-workspace-text">Enter Pattern & Toggle Flags:</strong> Type your JavaScript regex pattern (or load Email, URL, or IP starter templates) and configure g, i, m, or s flags.</li>
+          <li><strong class="text-workspace-text">Paste Multi-Line Test Fixtures:</strong> Drop log lines, HTML fragments, or validation samples into the test string editor.</li>
+          <li><strong class="text-workspace-text">Inspect Highlighted Matches & Captures:</strong> Examine inline match highlights and numbered/named capture groups immediately to verify edge cases before committing.</li>
         </ol>
       </div>
 
       <div class="border-t border-workspace-border pt-8 space-y-4">
-        <h2 class="text-xl font-bold text-white mb-3">Why Client-Side Privacy Matters</h2>
-        <p>
-          Pasting production authorization headers, internal database queries, or proprietary API payloads into cloud-based developer tools risks leaking sensitive keys and user secrets to access logs. TabKit executes all formatting, parsing, and regex engines exclusively in your browser session with zero backend calls.
-        </p>
-      </div>
-
-      
-      <div class="border-t border-workspace-border pt-8 space-y-4">
-        <h2 class="text-xl font-bold text-white mb-3">Core Features &amp; Privacy Architecture</h2>
+        <h2 class="text-xl font-bold text-white mb-3">JS Regex Engine Traps & ReDoS Safety</h2>
+        <p>Testing edge cases locally catches greedy quantifier surprises and catastrophic backtracking bugs before bad patterns ship to production servers.</p>
         <ul class="list-disc pl-5 space-y-2 text-sm text-workspace-muted">
-          <li><strong class="text-workspace-text">Zero Server Transmissions:</strong> Every byte of data is processed locally inside your browser sandbox. No input strings, credentials, or file bytes are ever uploaded to remote servers.</li>
-          <li><strong class="text-workspace-text">Offline PWA Installation:</strong> Add TabKit to your desktop, iPhone, or Android device as a standalone Progressive Web App (PWA) to work completely air-gapped without an active internet connection.</li>
-          <li><strong class="text-workspace-text">Zero Limits or Paywalls:</strong> Enjoy unlimited file conversions, code formatting, and cryptographic operations without account logins, subscriptions, or artificial file size restrictions.</li>
-          <li><strong class="text-workspace-text">High-Speed Local Execution:</strong> Take advantage of multi-threaded Web Workers and hardware-accelerated WebAssembly for instant processing speeds directly on your device.</li>
+          <li><strong class="text-workspace-text">Beware Catastrophic Backtracking (ReDoS):</strong> Nested quantifiers like (a+)+ or ([a-zA-Z]+)* can freeze single-threaded Node/browser tabs exponentially on non-matching input strings.</li>
+          <li><strong class="text-workspace-text">Global Flag (g) vs. Single Match:</strong> Remember g finds all occurrences across test fixtures, whereas unflagged regexes stop at the first match and populate capture groups inside .match().</li>
+          <li><strong class="text-workspace-text">Multiline Anchors (m Flag):</strong> Without m, ^ and $ only match the start and end of the entire document string—enable m when matching line-by-line log entries.</li>
         </ul>
       </div>
 

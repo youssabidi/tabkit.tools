@@ -66,25 +66,25 @@
       {
         "@type": "HowTo",
         "@id": "https://tabkit.tools/favicon-generator#howto",
-        "name": "How to Use the Free Favicon & PWA App Icon Generator",
+        "name": "How to Generate Favicons & PWA App Icons Locally",
         "step": [
           {
             "@type": "HowToStep",
             "position": 1,
-            "name": "Import Vector or Raster Media",
-            "text": "Drop PNG, JPEG, SVG files, or select foreground and background colors to evaluate accessibility and optimize assets."
+            "name": "Drop Your Square Logo or SVG Mark",
+            "text": "Upload a high-resolution PNG or SVG mark (ideally 512×512 or larger) onto the transparent checkerboard preview."
           },
           {
             "@type": "HowToStep",
             "position": 2,
-            "name": "Fine-Tune Dimensions & Quality",
-            "text": "Adjust compression ratios, preview high-DPI scaling, test WCAG 2.1 AA/AAA contrast scores, or generate multi-resolution icon sizes."
+            "name": "Customize Corner Mask & Backdrop",
+            "text": "Choose Full Square, Rounded Squircle (18% Radius), or Circle Mask over Transparent, White, or Dark Slate fill."
           },
           {
             "@type": "HowToStep",
             "position": 3,
-            "name": "Download Production Media Assets",
-            "text": "Export rasterized PNG/WebP files, download compressed icon packages, or copy optimized SVG and CSS code snippets with zero loss."
+            "name": "Download Sized Icons & Manifest Ready Assets",
+            "text": "Export crisp icon-192.png, icon-512.png, apple-touch-icon, and favicon sizes scaled locally on Canvas."
           }
         ]
       },
@@ -161,29 +161,22 @@
 
       
       <div class="border-t border-workspace-border pt-8 space-y-4">
-        <h2 class="text-xl font-bold text-white mb-3">How to Use the Free Favicon & PWA App Icon Generator</h2>
+        <h2 class="text-xl font-bold text-white mb-3">How to Generate Favicons & PWA App Icons Locally</h2>
         <ol class="list-decimal pl-5 space-y-2 text-sm text-workspace-muted">
-          <li><strong class="text-workspace-text">Import Vector or Raster Media:</strong> Drop PNG, JPEG, SVG files, or select foreground and background colors to evaluate accessibility and optimize assets.</li>
-          <li><strong class="text-workspace-text">Fine-Tune Dimensions & Quality:</strong> Adjust compression ratios, preview high-DPI scaling, test WCAG 2.1 AA/AAA contrast scores, or generate multi-resolution icon sizes.</li>
-          <li><strong class="text-workspace-text">Download Production Media Assets:</strong> Export rasterized PNG/WebP files, download compressed icon packages, or copy optimized SVG and CSS code snippets with zero loss.</li>
+          <li><strong class="text-workspace-text">Drop Your Square Logo or SVG Mark:</strong> Upload a high-resolution PNG or SVG mark (ideally 512×512 or larger) onto the transparent checkerboard preview.</li>
+          <li><strong class="text-workspace-text">Customize Corner Mask & Backdrop:</strong> Choose Full Square, Rounded Squircle (18% Radius), or Circle Mask over Transparent, White, or Dark Slate fill.</li>
+          <li><strong class="text-workspace-text">Download Sized Icons & Manifest Ready Assets:</strong> Export crisp icon-192.png, icon-512.png, apple-touch-icon, and favicon sizes scaled locally on Canvas.</li>
         </ol>
       </div>
 
       <div class="border-t border-workspace-border pt-8 space-y-4">
-        <h2 class="text-xl font-bold text-white mb-3">Why Client-Side Privacy Matters</h2>
-        <p>
-          Asset optimization frequently exposes unreleased product screenshots, copyrighted vector illustrations, and brand identities to public cloud image servers. TabKit renders all transformations inside local HTML5 Canvas and OffscreenCanvas contexts without ever transmitting a single byte over the network.
-        </p>
-      </div>
-
-      
-      <div class="border-t border-workspace-border pt-8 space-y-4">
-        <h2 class="text-xl font-bold text-white mb-3">Core Features &amp; Privacy Architecture</h2>
+        <h2 class="text-xl font-bold text-white mb-3">Modern Browser & PWA Icon Sizing Checklist</h2>
+        <p>Web apps require distinct sizes across desktop browser tabs, iOS Home Screen pins, and Android Web Manifest splash screens.</p>
         <ul class="list-disc pl-5 space-y-2 text-sm text-workspace-muted">
-          <li><strong class="text-workspace-text">Zero Server Transmissions:</strong> Every byte of data is processed locally inside your browser sandbox. No input strings, credentials, or file bytes are ever uploaded to remote servers.</li>
-          <li><strong class="text-workspace-text">Offline PWA Installation:</strong> Add TabKit to your desktop, iPhone, or Android device as a standalone Progressive Web App (PWA) to work completely air-gapped without an active internet connection.</li>
-          <li><strong class="text-workspace-text">Zero Limits or Paywalls:</strong> Enjoy unlimited file conversions, code formatting, and cryptographic operations without account logins, subscriptions, or artificial file size restrictions.</li>
-          <li><strong class="text-workspace-text">High-Speed Local Execution:</strong> Take advantage of multi-threaded Web Workers and hardware-accelerated WebAssembly for instant processing speeds directly on your device.</li>
+          <li><strong class="text-workspace-text">192×192 and 512×512 PWA Pair:</strong> Chromium install prompts require at least a 192px icon and a 512px PNG icon referenced inside manifest.json.</li>
+          <li><strong class="text-workspace-text">Apple Touch Icon Padding (180×180):</strong> iOS rounds corners automatically on white/dark opaque squares—avoid transparent margins on apple-touch-icon.png so iOS does not fill alpha black.</li>
+          <li><strong class="text-workspace-text">SVG Vector Source Advantage:</strong> Start from a clean SVG or 1024px raster source rather than upscaling a 32×32 icon, which produces blurry anti-aliased edges.</li>
+          <li><strong class="text-workspace-text">Safari Pinned Tab Mask:</strong> In addition to standard favicon and apple-touch-icon assets, single-color SVG masks with a black silhouette provide clean pinned-tab icons in Safari on macOS.</li>
         </ul>
       </div>
 

@@ -73,25 +73,25 @@
       {
         "@type": "HowTo",
         "@id": "https://tabkit.tools/excel-transpose#howto",
-        "name": "How to Use the Free Spreadsheet Row & Column Transposer",
+        "name": "How to Flip Rows and Columns (Transpose) in Excel & CSV",
         "step": [
           {
             "@type": "HowToStep",
             "position": 1,
-            "name": "Paste or Upload Spreadsheet Data",
-            "text": "Import your CSV, TSV, JSON, or Excel files into the editor, or paste raw tabular text directly from your clipboard."
+            "name": "Load Your Workbook or Paste Tabular Data",
+            "text": "Select an .xlsx or .csv file whose horizontal headers need to become vertical rows (or vice versa)."
           },
           {
             "@type": "HowToStep",
             "position": 2,
-            "name": "Select Parsing & Transformation Rules",
-            "text": "Customize delimiters, toggle deduplication keys, map nested object hierarchies, or select target spreadsheet formats (.xlsx, .csv, .json, .md)."
+            "name": "Preview the Rotated Grid",
+            "text": "Verify how Row 1 headers map cleanly into Column A and column entries pivot into horizontal records."
           },
           {
             "@type": "HowToStep",
             "position": 3,
-            "name": "Export Clean Data Immediately",
-            "text": "Download your formatted spreadsheet workbook or copy clean text directly to your clipboard with zero formatting loss."
+            "name": "Download Transposed CSV or .xlsx",
+            "text": "Export the rotated spreadsheet immediately without fighting Excel clipboard paste limits."
           }
         ]
       },
@@ -162,29 +162,21 @@
 
       
       <div class="border-t border-workspace-border pt-8 space-y-4">
-        <h2 class="text-xl font-bold text-white mb-3">How to Use the Free Spreadsheet Row & Column Transposer</h2>
+        <h2 class="text-xl font-bold text-white mb-3">How to Flip Rows and Columns (Transpose) in Excel & CSV</h2>
         <ol class="list-decimal pl-5 space-y-2 text-sm text-workspace-muted">
-          <li><strong class="text-workspace-text">Paste or Upload Spreadsheet Data:</strong> Import your CSV, TSV, JSON, or Excel files into the editor, or paste raw tabular text directly from your clipboard.</li>
-          <li><strong class="text-workspace-text">Select Parsing & Transformation Rules:</strong> Customize delimiters, toggle deduplication keys, map nested object hierarchies, or select target spreadsheet formats (.xlsx, .csv, .json, .md).</li>
-          <li><strong class="text-workspace-text">Export Clean Data Immediately:</strong> Download your formatted spreadsheet workbook or copy clean text directly to your clipboard with zero formatting loss.</li>
+          <li><strong class="text-workspace-text">Load Your Workbook or Paste Tabular Data:</strong> Select an .xlsx or .csv file whose horizontal headers need to become vertical rows (or vice versa).</li>
+          <li><strong class="text-workspace-text">Preview the Rotated Grid:</strong> Verify how Row 1 headers map cleanly into Column A and column entries pivot into horizontal records.</li>
+          <li><strong class="text-workspace-text">Download Transposed CSV or .xlsx:</strong> Export the rotated spreadsheet immediately without fighting Excel clipboard paste limits.</li>
         </ol>
       </div>
 
       <div class="border-t border-workspace-border pt-8 space-y-4">
-        <h2 class="text-xl font-bold text-white mb-3">Why Client-Side Privacy Matters</h2>
-        <p>
-          Corporate security policies and non-disclosure agreements strictly prohibit uploading customer records, proprietary sales pipelines, or employee payroll files to public converter websites. TabKit processes all tabular datasets locally in browser RAM, ensuring zero data leakage, zero telemetry, and full compliance with enterprise air-gapped guidelines.
-        </p>
-      </div>
-
-      
-      <div class="border-t border-workspace-border pt-8 space-y-4">
-        <h2 class="text-xl font-bold text-white mb-3">Core Features &amp; Privacy Architecture</h2>
+        <h2 class="text-xl font-bold text-white mb-3">When to Transpose Wide vs. Tall Datasets</h2>
+        <p>Reports exported for human reading often span dozens of monthly date columns horizontally, whereas BI dashboards and SQL tables expect tall normalized rows.</p>
         <ul class="list-disc pl-5 space-y-2 text-sm text-workspace-muted">
-          <li><strong class="text-workspace-text">Zero Server Transmissions:</strong> Every byte of data is processed locally inside your browser sandbox. No input strings, credentials, or file bytes are ever uploaded to remote servers.</li>
-          <li><strong class="text-workspace-text">Offline PWA Installation:</strong> Add TabKit to your desktop, iPhone, or Android device as a standalone Progressive Web App (PWA) to work completely air-gapped without an active internet connection.</li>
-          <li><strong class="text-workspace-text">Zero Limits or Paywalls:</strong> Enjoy unlimited file conversions, code formatting, and cryptographic operations without account logins, subscriptions, or artificial file size restrictions.</li>
-          <li><strong class="text-workspace-text">High-Speed Local Execution:</strong> Take advantage of multi-threaded Web Workers and hardware-accelerated WebAssembly for instant processing speeds directly on your device.</li>
+          <li><strong class="text-workspace-text">Overcoming Excel Column Limits:</strong> Pasting huge transposed blocks inside legacy tools can hit memory warnings; matrix transposition handles arbitrary M×N dimensions cleanly.</li>
+          <li><strong class="text-workspace-text">Preserving Header Alignment:</strong> Verify row 1 becomes column 1 without stray merged cells that shift subsequent rows out of alignment.</li>
+          <li><strong class="text-workspace-text">Export Format Parity:</strong> Download either native .xlsx for pivot analysis or .csv for direct Python pandas and database bulk ingestion.</li>
         </ul>
       </div>
 

@@ -65,25 +65,25 @@
       {
         "@type": "HowTo",
         "@id": "https://tabkit.tools/color-palette-contrast#howto",
-        "name": "How to Use the Free WCAG Color Contrast & Palette Studio",
+        "name": "How to Audit WCAG Contrast & Preview UI Themes",
         "step": [
           {
             "@type": "HowToStep",
             "position": 1,
-            "name": "Import Vector or Raster Media",
-            "text": "Drop PNG, JPEG, SVG files, or select foreground and background colors to evaluate accessibility and optimize assets."
+            "name": "Pick Foreground & Background Hex Colors",
+            "text": "Enter hex values or use the color pickers to set your text/accent color against Dark, Light, Indigo, or Emerald surfaces."
           },
           {
             "@type": "HowToStep",
             "position": 2,
-            "name": "Fine-Tune Dimensions & Quality",
-            "text": "Adjust compression ratios, preview high-DPI scaling, test WCAG 2.1 AA/AAA contrast scores, or generate multi-resolution icon sizes."
+            "name": "Check AA and AAA Compliance Badges",
+            "text": "Read the calculated luminance ratio (e.g., 4.5:1 or 7.0:1) to verify pass/fail status for normal body text and large headings."
           },
           {
             "@type": "HowToStep",
             "position": 3,
-            "name": "Download Production Media Assets",
-            "text": "Export rasterized PNG/WebP files, download compressed icon packages, or copy optimized SVG and CSS code snippets with zero loss."
+            "name": "Inspect Shade Ramp & Export Tokens",
+            "text": "Use the generated tonal scale and live UI preview cards to pick accessible hover and border variants."
           }
         ]
       },
@@ -302,29 +302,21 @@
 
       
       <div class="border-t border-workspace-border pt-8 space-y-4">
-        <h2 class="text-xl font-bold text-white mb-3">How to Use the Free WCAG Color Contrast & Palette Studio</h2>
+        <h2 class="text-xl font-bold text-white mb-3">How to Audit WCAG Contrast & Preview UI Themes</h2>
         <ol class="list-decimal pl-5 space-y-2 text-sm text-workspace-muted">
-          <li><strong class="text-workspace-text">Import Vector or Raster Media:</strong> Drop PNG, JPEG, SVG files, or select foreground and background colors to evaluate accessibility and optimize assets.</li>
-          <li><strong class="text-workspace-text">Fine-Tune Dimensions & Quality:</strong> Adjust compression ratios, preview high-DPI scaling, test WCAG 2.1 AA/AAA contrast scores, or generate multi-resolution icon sizes.</li>
-          <li><strong class="text-workspace-text">Download Production Media Assets:</strong> Export rasterized PNG/WebP files, download compressed icon packages, or copy optimized SVG and CSS code snippets with zero loss.</li>
+          <li><strong class="text-workspace-text">Pick Foreground & Background Hex Colors:</strong> Enter hex values or use the color pickers to set your text/accent color against Dark, Light, Indigo, or Emerald surfaces.</li>
+          <li><strong class="text-workspace-text">Check AA and AAA Compliance Badges:</strong> Read the calculated luminance ratio (e.g., 4.5:1 or 7.0:1) to verify pass/fail status for normal body text and large headings.</li>
+          <li><strong class="text-workspace-text">Inspect Shade Ramp & Export Tokens:</strong> Use the generated tonal scale and live UI preview cards to pick accessible hover and border variants.</li>
         </ol>
       </div>
 
       <div class="border-t border-workspace-border pt-8 space-y-4">
-        <h2 class="text-xl font-bold text-white mb-3">Why Client-Side Privacy Matters</h2>
-        <p>
-          Asset optimization frequently exposes unreleased product screenshots, copyrighted vector illustrations, and brand identities to public cloud image servers. TabKit renders all transformations inside local HTML5 Canvas and OffscreenCanvas contexts without ever transmitting a single byte over the network.
-        </p>
-      </div>
-
-      
-      <div class="border-t border-workspace-border pt-8 space-y-4">
-        <h2 class="text-xl font-bold text-white mb-3">Core Features &amp; Privacy Architecture</h2>
+        <h2 class="text-xl font-bold text-white mb-3">WCAG 2.1 Contrast Thresholds Explained</h2>
+        <p>Contrast ratio measures relative luminance between two sRGB colors on a scale from 1:1 (identical) to 21:1 (pure black on pure white).</p>
         <ul class="list-disc pl-5 space-y-2 text-sm text-workspace-muted">
-          <li><strong class="text-workspace-text">Zero Server Transmissions:</strong> Every byte of data is processed locally inside your browser sandbox. No input strings, credentials, or file bytes are ever uploaded to remote servers.</li>
-          <li><strong class="text-workspace-text">Offline PWA Installation:</strong> Add TabKit to your desktop, iPhone, or Android device as a standalone Progressive Web App (PWA) to work completely air-gapped without an active internet connection.</li>
-          <li><strong class="text-workspace-text">Zero Limits or Paywalls:</strong> Enjoy unlimited file conversions, code formatting, and cryptographic operations without account logins, subscriptions, or artificial file size restrictions.</li>
-          <li><strong class="text-workspace-text">High-Speed Local Execution:</strong> Take advantage of multi-threaded Web Workers and hardware-accelerated WebAssembly for instant processing speeds directly on your device.</li>
+          <li><strong class="text-workspace-text">AA Minimum Ratios:</strong> Normal text under 18pt (or 14pt bold) requires at least 4.5:1; large text (18pt+ regular or 14pt+ bold) and UI icons require at least 3.0:1.</li>
+          <li><strong class="text-workspace-text">AAA Enhanced Readability:</strong> Long-form editorial interfaces targeting WCAG AAA should hit 7.0:1 for body copy and 4.5:1 for large display headings.</li>
+          <li><strong class="text-workspace-text">Muted Text Pitfall:</strong> Mid-slate placeholders on dark surfaces frequently fall under 3.0:1; brighten muted foreground tokens slightly to stay legible on low-brightness screens.</li>
         </ul>
       </div>
 

@@ -73,25 +73,25 @@
       {
         "@type": "HowTo",
         "@id": "https://tabkit.tools/pdf-sign-stamp#howto",
-        "name": "How to Use the Free Client-Side PDF Signature & Stamp",
+        "name": "How to Draw & Stamp Signatures onto PDF Pages",
         "step": [
           {
             "@type": "HowToStep",
             "position": 1,
-            "name": "Select or Drag Your Document",
-            "text": "Drop your PDF or image files into the workspace container. Your document streams directly into local memory via the HTML5 File API without uploading to any remote server."
+            "name": "Load Your Unsigned PDF",
+            "text": "Drop a contract, NDA, lease, or consent form into the local PDF signing tool."
           },
           {
             "@type": "HowToStep",
             "position": 2,
-            "name": "Configure Custom Settings",
-            "text": "Select specific page ranges, adjust orientation, apply watermarks, or configure document encryption and export formatting with real-time browser preview."
+            "name": "Draw Your Signature & Pick Target Placement",
+            "text": "Sketch your signature on the smooth drawing pad, pick placement page (Last Page, Page 1, All Pages), corner, and scale."
           },
           {
             "@type": "HowToStep",
             "position": 3,
-            "name": "Save & Download Instantly",
-            "text": "Click to process and download your compiled, lossless PDF file directly from browser memory with zero waiting queues and complete privacy."
+            "name": "Embed Signature & Download PDF",
+            "text": "Stamp the transparent vector/PNG signature directly into the PDF page content stream and download immediately."
           }
         ]
       },
@@ -162,29 +162,21 @@
 
       
       <div class="border-t border-workspace-border pt-8 space-y-4">
-        <h2 class="text-xl font-bold text-white mb-3">How to Use the Free Client-Side PDF Signature & Stamp</h2>
+        <h2 class="text-xl font-bold text-white mb-3">How to Draw & Stamp Signatures onto PDF Pages</h2>
         <ol class="list-decimal pl-5 space-y-2 text-sm text-workspace-muted">
-          <li><strong class="text-workspace-text">Select or Drag Your Document:</strong> Drop your PDF or image files into the workspace container. Your document streams directly into local memory via the HTML5 File API without uploading to any remote server.</li>
-          <li><strong class="text-workspace-text">Configure Custom Settings:</strong> Select specific page ranges, adjust orientation, apply watermarks, or configure document encryption and export formatting with real-time browser preview.</li>
-          <li><strong class="text-workspace-text">Save & Download Instantly:</strong> Click to process and download your compiled, lossless PDF file directly from browser memory with zero waiting queues and complete privacy.</li>
+          <li><strong class="text-workspace-text">Load Your Unsigned PDF:</strong> Drop a contract, NDA, lease, or consent form into the local PDF signing tool.</li>
+          <li><strong class="text-workspace-text">Draw Your Signature & Pick Target Placement:</strong> Sketch your signature on the smooth drawing pad, pick placement page (Last Page, Page 1, All Pages), corner, and scale.</li>
+          <li><strong class="text-workspace-text">Embed Signature & Download PDF:</strong> Stamp the transparent vector/PNG signature directly into the PDF page content stream and download immediately.</li>
         </ol>
       </div>
 
       <div class="border-t border-workspace-border pt-8 space-y-4">
-        <h2 class="text-xl font-bold text-white mb-3">Why Client-Side Privacy Matters</h2>
-        <p>
-          Traditional online document converters upload private files to third-party cloud servers where they are queued, processed, and stored indefinitely. TabKit utilizes WebAssembly and native browser memory streams to execute 100% of PDF byte manipulation locally inside your browser sandbox. Your confidential business agreements, financial statements, medical records, and personal documents never touch the cloud.
-        </p>
-      </div>
-
-      
-      <div class="border-t border-workspace-border pt-8 space-y-4">
-        <h2 class="text-xl font-bold text-white mb-3">Core Features &amp; Privacy Architecture</h2>
+        <h2 class="text-xl font-bold text-white mb-3">Visual Electronic Signatures vs. Cryptographic PKI</h2>
+        <p>Visual signature stamping handles everyday NDA approvals, permission slips, and vendor onboarding forms without uploading documents to SaaS e-sign portals.</p>
         <ul class="list-disc pl-5 space-y-2 text-sm text-workspace-muted">
-          <li><strong class="text-workspace-text">Zero Server Transmissions:</strong> Every byte of data is processed locally inside your browser sandbox. No input strings, credentials, or file bytes are ever uploaded to remote servers.</li>
-          <li><strong class="text-workspace-text">Offline PWA Installation:</strong> Add TabKit to your desktop, iPhone, or Android device as a standalone Progressive Web App (PWA) to work completely air-gapped without an active internet connection.</li>
-          <li><strong class="text-workspace-text">Zero Limits or Paywalls:</strong> Enjoy unlimited file conversions, code formatting, and cryptographic operations without account logins, subscriptions, or artificial file size restrictions.</li>
-          <li><strong class="text-workspace-text">High-Speed Local Execution:</strong> Take advantage of multi-threaded Web Workers and hardware-accelerated WebAssembly for instant processing speeds directly on your device.</li>
+          <li><strong class="text-workspace-text">Flattened Transparency:</strong> The signature pad exports a clean transparent alpha image so lines blend naturally over ruled paper lines and signature boxes.</li>
+          <li><strong class="text-workspace-text">When PKI / Audit Trails Are Required:</strong> High-value real-estate deeds or regulated notarizations may specifically mandate X.509 cryptographic certificates or third-party timestamp logs; check counterparty requirements first.</li>
+          <li><strong class="text-workspace-text">Preserve an Unsigned Backup:</strong> Stamping writes ink pixels permanently into the PDF page—keep a copy of the blank template if you expect further contract revisions.</li>
         </ul>
       </div>
 

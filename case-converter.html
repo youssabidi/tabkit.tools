@@ -68,25 +68,25 @@
       {
         "@type": "HowTo",
         "@id": "https://tabkit.tools/case-converter#howto",
-        "name": "How to Use the Free Case Converter & Word Counter",
+        "name": "How to Transform Text Casing & Deduplicate Lines",
         "step": [
           {
             "@type": "HowToStep",
             "position": 1,
-            "name": "Paste or Upload Spreadsheet Data",
-            "text": "Import your CSV, TSV, JSON, or Excel files into the editor, or paste raw tabular text directly from your clipboard."
+            "name": "Paste Raw Copy or Lists",
+            "text": "Enter paragraphs, headings, CSV columns, or identifier lists into the editor while watching live word, character, and line metrics."
           },
           {
             "@type": "HowToStep",
             "position": 2,
-            "name": "Select Parsing & Transformation Rules",
-            "text": "Customize delimiters, toggle deduplication keys, map nested object hierarchies, or select target spreadsheet formats (.xlsx, .csv, .json, .md)."
+            "name": "Apply Case or Cleanup Rules",
+            "text": "Click UPPER, lower, Title, Sentence, camelCase/snake_case, or Dedupe to normalize formatting in a single click."
           },
           {
             "@type": "HowToStep",
             "position": 3,
-            "name": "Export Clean Data Immediately",
-            "text": "Download your formatted spreadsheet workbook or copy clean text directly to your clipboard with zero formatting loss."
+            "name": "Copy Normalized Output",
+            "text": "Click Copy Text once line counts and casing match your publication, database, or code requirements."
           }
         ]
       },
@@ -191,29 +191,22 @@
       </div>
       
       <div class="border-t border-workspace-border pt-8 space-y-4">
-        <h2 class="text-xl font-bold text-white mb-3">How to Use the Free Case Converter & Word Counter</h2>
+        <h2 class="text-xl font-bold text-white mb-3">How to Transform Text Casing & Deduplicate Lines</h2>
         <ol class="list-decimal pl-5 space-y-2 text-sm text-workspace-muted">
-          <li><strong class="text-workspace-text">Paste or Upload Spreadsheet Data:</strong> Import your CSV, TSV, JSON, or Excel files into the editor, or paste raw tabular text directly from your clipboard.</li>
-          <li><strong class="text-workspace-text">Select Parsing & Transformation Rules:</strong> Customize delimiters, toggle deduplication keys, map nested object hierarchies, or select target spreadsheet formats (.xlsx, .csv, .json, .md).</li>
-          <li><strong class="text-workspace-text">Export Clean Data Immediately:</strong> Download your formatted spreadsheet workbook or copy clean text directly to your clipboard with zero formatting loss.</li>
+          <li><strong class="text-workspace-text">Paste Raw Copy or Lists:</strong> Enter paragraphs, headings, CSV columns, or identifier lists into the editor while watching live word, character, and line metrics.</li>
+          <li><strong class="text-workspace-text">Apply Case or Cleanup Rules:</strong> Click UPPER, lower, Title, Sentence, camelCase/snake_case, or Dedupe to normalize formatting in a single click.</li>
+          <li><strong class="text-workspace-text">Copy Normalized Output:</strong> Click Copy Text once line counts and casing match your publication, database, or code requirements.</li>
         </ol>
       </div>
 
       <div class="border-t border-workspace-border pt-8 space-y-4">
-        <h2 class="text-xl font-bold text-white mb-3">Why Client-Side Privacy Matters</h2>
-        <p>
-          Corporate security policies and non-disclosure agreements strictly prohibit uploading customer records, proprietary sales pipelines, or employee payroll files to public converter websites. TabKit processes all tabular datasets locally in browser RAM, ensuring zero data leakage, zero telemetry, and full compliance with enterprise air-gapped guidelines.
-        </p>
-      </div>
-
-      
-      <div class="border-t border-workspace-border pt-8 space-y-4">
-        <h2 class="text-xl font-bold text-white mb-3">Core Features &amp; Privacy Architecture</h2>
+        <h2 class="text-xl font-bold text-white mb-3">Casing Conventions & Text Normalization Notes</h2>
+        <p>Consistent capitalization and whitespace hygiene prevent broken slug routing, duplicate tags, and inconsistent heading styles across content pipelines.</p>
         <ul class="list-disc pl-5 space-y-2 text-sm text-workspace-muted">
-          <li><strong class="text-workspace-text">Zero Server Transmissions:</strong> Every byte of data is processed locally inside your browser sandbox. No input strings, credentials, or file bytes are ever uploaded to remote servers.</li>
-          <li><strong class="text-workspace-text">Offline PWA Installation:</strong> Add TabKit to your desktop, iPhone, or Android device as a standalone Progressive Web App (PWA) to work completely air-gapped without an active internet connection.</li>
-          <li><strong class="text-workspace-text">Zero Limits or Paywalls:</strong> Enjoy unlimited file conversions, code formatting, and cryptographic operations without account logins, subscriptions, or artificial file size restrictions.</li>
-          <li><strong class="text-workspace-text">High-Speed Local Execution:</strong> Take advantage of multi-threaded Web Workers and hardware-accelerated WebAssembly for instant processing speeds directly on your device.</li>
+          <li><strong class="text-workspace-text">Title Case vs. Sentence Case:</strong> Title Case capitalizes major words for headlines and navigation labels, while Sentence case keeps body headings clean and scannable.</li>
+          <li><strong class="text-workspace-text">Line Deduplication Order:</strong> Running Dedupe removes repeated lines while preserving the first occurrence, ideal for cleaning keyword lists or log outputs.</li>
+          <li><strong class="text-workspace-text">Word Count Counting Rules:</strong> Counts split on whitespace boundaries so hyphenated compounds count once and trailing blank lines do not inflate totals.</li>
+          <li><strong class="text-workspace-text">Database Identifier Cleanliness:</strong> Converting text to snake_case or kebab-case strips special punctuation and normalizes accents, making strings safe for SQL column names and URL routing.</li>
         </ul>
       </div>
 

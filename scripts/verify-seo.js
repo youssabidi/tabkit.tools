@@ -82,5 +82,5 @@ if (errors > 0 || warnings > 0) {
   console.log('Action needed to resolve remaining warnings/errors.');
   process.exit(warnings > 5 ? 1 : 0);
 } else {
-  console.log('ALL 59 HTML PAGES PASSED 100% CLEAN!');
+  console.log(`ALL ${glob.length} HTML PAGES PASSED 100% CLEAN!`);
 }

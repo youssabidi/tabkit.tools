@@ -131,20 +131,81 @@ window.TOOLS_REGISTRY['cron-expression-generator'] = Object.assign(window.TOOLS_
       return parts.join(', ');
     }
 
-    function calculateNextRuns(m, h) {
-      const now = new Date();
-      const results = [];
-      let temp = new Date(now.getTime() + 60000); // 1 min ahead
+    function parseCronField(expr, min, max, wrapZeroToSeven) {
+      if (!expr || expr === '*') return null; // null = wildcard (matches all)
+      const allowed = new Set();
+      for (const rawPart of expr.split(',')) {
+        const part = rawPart.trim();
+        if (!part) continue;
+        const [rangeStr, stepStr] = part.split('/');
+        const step = stepStr ? Math.max(1, parseInt(stepStr, 10) || 1) : 1;
+        let start = min, end = max;
+        if (rangeStr !== '*' && rangeStr !== '') {
+          if (rangeStr.includes('-')) {
+            const [a, b] = rangeStr.split('-').map(n => parseInt(n, 10));
+            if (isNaN(a) || isNaN(b)) return new Set();
+            start = Math.max(min, a);
+            end = Math.min(max, b);
+          } else {
+            const v = parseInt(rangeStr, 10);
+            if (isNaN(v)) return new Set();
+            start = v;
+            end = stepStr ? max : v;
+          }
+        }
+        for (let i = start; i <= end; i += step) {
+          allowed.add(wrapZeroToSeven && i === 7 ? 0 : i);
+        }
+      }
+      return allowed;
+    }
 
-      const stepMinutes = m.startsWith('*/') ? parseInt(m.slice(2), 10) || 5 : 1;
-      
-      for (let i = 0; i < 3; i++) {
-        temp = new Date(temp.getTime() + stepMinutes * 60000);
-        results.push(temp.toLocaleString(undefined, { 
-          month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit' 
+    function calculateNextRuns(m, h, dom, mon, dow) {
+      const mSet = parseCronField(m, 0, 59, false);
+      const hSet = parseCronField(h, 0, 23, false);
+      const domSet = parseCronField(dom, 1, 31, false);
+      const monSet = parseCronField(mon, 1, 12, false);
+      const dowSet = parseCronField(dow, 0, 7, true);
+
+      const results = [];
+      const cur = new Date();
+      cur.setSeconds(0, 0);
+      cur.setMinutes(cur.getMinutes() + 1);
+
+      // Scan up to 1 year (366 days) skipping non-matching days/hours quickly
+      const limit = cur.getTime() + 366 * 24 * 60 * 60000;
+      while (results.length < 3 && cur.getTime() <= limit) {
+        if (monSet && !monSet.has(cur.getMonth() + 1)) {
+          cur.setMonth(cur.getMonth() + 1, 1);
+          cur.setHours(0, 0, 0, 0);
+          continue;
+        }
+        const domMatch = !domSet || domSet.has(cur.getDate());
+        const dowMatch = !dowSet || dowSet.has(cur.getDay());
+        // Standard Vixie cron: if both DOM and DOW are restricted, match if EITHER matches
+        const dayMatch = (domSet && dowSet) ? (domMatch || dowMatch) : (domMatch && dowMatch);
+        if (!dayMatch) {
+          cur.setDate(cur.getDate() + 1);
+          cur.setHours(0, 0, 0, 0);
+          continue;
+        }
+        if (hSet && !hSet.has(cur.getHours())) {
+          cur.setHours(cur.getHours() + 1, 0, 0, 0);
+          continue;
+        }
+        if (mSet && !mSet.has(cur.getMinutes())) {
+          cur.setMinutes(cur.getMinutes() + 1, 0, 0);
+          continue;
+        }
+        results.push(cur.toLocaleString(undefined, {
+          weekday: 'short', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit'
         }));
+        cur.setMinutes(cur.getMinutes() + 1, 0, 0);
       }
 
+      if (results.length === 0) {
+        return ['No matching run within the next 12 months (check field syntax)'];
+      }
       return results;
     }
 
@@ -161,7 +222,7 @@ window.TOOLS_REGISTRY['cron-expression-generator'] = Object.assign(window.TOOLS_
       const desc = explainCron(m, h, dom, mon, dow);
       elExplain.textContent = desc;
 
-      const runs = calculateNextRuns(m, h);
+      const runs = calculateNextRuns(m, h, dom, mon, dow);
       elNext.innerHTML = runs.map((r, idx) => `
         <div class="flex items-center justify-between py-0.5 px-2 rounded-lg bg-workspace-bg/40 border border-workspace-border/40">
           <span>${idx + 1}. ${r}</span>
@@ -192,11 +253,12 @@ window.TOOLS_REGISTRY['cron-expression-generator'] = Object.assign(window.TOOLS_
 
     btnCopy.addEventListener('click', () => {
       const str = elDisplay.textContent;
+      const label = btnCopy.querySelector('span') || btnCopy;
       if (navigator.clipboard) {
         navigator.clipboard.writeText(str).then(() => {
           if (typeof showToast === 'function') showToast(`📋 Copied: ${str}`);
-          btnCopy.textContent = 'Copied!';
-          setTimeout(() => { btnCopy.textContent = 'Copy'; }, 2000);
+          label.textContent = 'Copied!';
+          setTimeout(() => { label.textContent = 'Copy'; }, 2000);
         });
       }
     });

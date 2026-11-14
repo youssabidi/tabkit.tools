@@ -1,7 +1,7 @@
 {
   "name": "TabKit Tools",
   "short_name": "TabKit",
-  "description": "Privacy-First Local Browser Utilities (51 Client-Side Tools)",
+  "description": "Privacy-First Local Browser Utilities (65 Client-Side Tools)",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#0F1117",

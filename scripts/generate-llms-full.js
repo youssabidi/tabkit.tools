@@ -7,7 +7,7 @@ const registry = sandbox.window.TOOLS_REGISTRY;
 
 let content = `# TabKit Tools — Full Technical Specification for LLMs & AI Agents
 
-> TabKit Tools (https://tabkit.tools/) is a local-first browser workbench and open collection of 64 client-side web applications engineered for developer productivity, document transformations, financial data parsing, and design workflows.
+> TabKit Tools (https://tabkit.tools/) is a local-first browser workbench and open collection of ${Object.keys(registry).length} client-side web applications engineered for developer productivity, document transformations, financial data parsing, and design workflows.
 
 ## System Architecture & Security Proof
 

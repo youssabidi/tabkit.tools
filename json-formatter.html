@@ -68,25 +68,25 @@
       {
         "@type": "HowTo",
         "@id": "https://tabkit.tools/json-formatter#howto",
-        "name": "How to Use the Free JSON Formatter & Validator",
+        "name": "How to Validate, Pretty-Print & Minify JSON Payloads",
         "step": [
           {
             "@type": "HowToStep",
             "position": 1,
-            "name": "Paste or Upload Spreadsheet Data",
-            "text": "Import your CSV, TSV, JSON, or Excel files into the editor, or paste raw tabular text directly from your clipboard."
+            "name": "Paste Raw JSON Text",
+            "text": "Drop minified API responses, config files, or webhook logs into the code area."
           },
           {
             "@type": "HowToStep",
             "position": 2,
-            "name": "Select Parsing & Transformation Rules",
-            "text": "Customize delimiters, toggle deduplication keys, map nested object hierarchies, or select target spreadsheet formats (.xlsx, .csv, .json, .md)."
+            "name": "Format, Highlight or Minify",
+            "text": "Click Format to indent cleanly and catch syntax errors (missing commas, unquoted keys), or Minify to strip whitespace."
           },
           {
             "@type": "HowToStep",
             "position": 3,
-            "name": "Export Clean Data Immediately",
-            "text": "Download your formatted spreadsheet workbook or copy clean text directly to your clipboard with zero formatting loss."
+            "name": "Copy Validated JSON",
+            "text": "Review syntax-colored keys, numbers, and booleans before copying validated output back to your editor or request client."
           }
         ]
       },
@@ -209,29 +209,21 @@
       <!-- FAQ Accordion for Search Engines & Visitors -->
       
       <div class="border-t border-workspace-border pt-8 space-y-4">
-        <h2 class="text-xl font-bold text-white mb-3">How to Use the Free JSON Formatter & Validator</h2>
+        <h2 class="text-xl font-bold text-white mb-3">How to Validate, Pretty-Print & Minify JSON Payloads</h2>
         <ol class="list-decimal pl-5 space-y-2 text-sm text-workspace-muted">
-          <li><strong class="text-workspace-text">Paste or Upload Spreadsheet Data:</strong> Import your CSV, TSV, JSON, or Excel files into the editor, or paste raw tabular text directly from your clipboard.</li>
-          <li><strong class="text-workspace-text">Select Parsing & Transformation Rules:</strong> Customize delimiters, toggle deduplication keys, map nested object hierarchies, or select target spreadsheet formats (.xlsx, .csv, .json, .md).</li>
-          <li><strong class="text-workspace-text">Export Clean Data Immediately:</strong> Download your formatted spreadsheet workbook or copy clean text directly to your clipboard with zero formatting loss.</li>
+          <li><strong class="text-workspace-text">Paste Raw JSON Text:</strong> Drop minified API responses, config files, or webhook logs into the code area.</li>
+          <li><strong class="text-workspace-text">Format, Highlight or Minify:</strong> Click Format to indent cleanly and catch syntax errors (missing commas, unquoted keys), or Minify to strip whitespace.</li>
+          <li><strong class="text-workspace-text">Copy Validated JSON:</strong> Review syntax-colored keys, numbers, and booleans before copying validated output back to your editor or request client.</li>
         </ol>
       </div>
 
       <div class="border-t border-workspace-border pt-8 space-y-4">
-        <h2 class="text-xl font-bold text-white mb-3">Why Client-Side Privacy Matters</h2>
-        <p>
-          Corporate security policies and non-disclosure agreements strictly prohibit uploading customer records, proprietary sales pipelines, or employee payroll files to public converter websites. TabKit processes all tabular datasets locally in browser RAM, ensuring zero data leakage, zero telemetry, and full compliance with enterprise air-gapped guidelines.
-        </p>
-      </div>
-
-      
-      <div class="border-t border-workspace-border pt-8 space-y-4">
-        <h2 class="text-xl font-bold text-white mb-3">Core Features &amp; Privacy Architecture</h2>
+        <h2 class="text-xl font-bold text-white mb-3">Strict JSON Rules vs. JavaScript Object Literals</h2>
+        <p>RFC 8259 JSON is considerably stricter than relaxed JavaScript object syntax—two small syntax slip-ups account for most parser failures.</p>
         <ul class="list-disc pl-5 space-y-2 text-sm text-workspace-muted">
-          <li><strong class="text-workspace-text">Zero Server Transmissions:</strong> Every byte of data is processed locally inside your browser sandbox. No input strings, credentials, or file bytes are ever uploaded to remote servers.</li>
-          <li><strong class="text-workspace-text">Offline PWA Installation:</strong> Add TabKit to your desktop, iPhone, or Android device as a standalone Progressive Web App (PWA) to work completely air-gapped without an active internet connection.</li>
-          <li><strong class="text-workspace-text">Zero Limits or Paywalls:</strong> Enjoy unlimited file conversions, code formatting, and cryptographic operations without account logins, subscriptions, or artificial file size restrictions.</li>
-          <li><strong class="text-workspace-text">High-Speed Local Execution:</strong> Take advantage of multi-threaded Web Workers and hardware-accelerated WebAssembly for instant processing speeds directly on your device.</li>
+          <li><strong class="text-workspace-text">No Trailing Commas or Comments:</strong> Unlike TypeScript or JS files, standard JSON rejects trailing commas after the last property and disallows // or /* */ comments.</li>
+          <li><strong class="text-workspace-text">Double Quotes Only:</strong> Both object keys and string values must use double quotes ("); single-quoted strings trigger immediate JSON.parse syntax errors.</li>
+          <li><strong class="text-workspace-text">Large Integer Precision:</strong> Standard IEEE 754 JS numbers lose precision above 2^53 − 1 (9007199254740991); represent 64-bit snowflake IDs as strings in JSON APIs.</li>
         </ul>
       </div>
 

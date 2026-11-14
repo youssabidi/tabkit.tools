@@ -46,7 +46,7 @@ TabKit is an open collection of 65 utilities spanning six categories:
 
 Key architectural decisions:
 1. Zero Server Runtime: There is no backend API. Every byte of PDF manipulation, hashing, cron schedule simulation, and AST parsing runs inside the browser sandbox using Web Workers, WebAssembly, and native JS APIs.
-2. Offline PWA (Service Worker v22): All scripts, CSS, and worker binaries are precached. You can load TabKit on an airplane or in an air-gapped network room and every tool continues to work identically.
+2. Offline PWA (Service Worker v23): All scripts, CSS, and worker binaries are precached. You can load TabKit on an airplane or in an air-gapped network room and every tool continues to work identically.
 3. Multi-Tool Workbench Deck: Instead of forcing users to switch tabs or bookmark 20 sites, you can pin any tool to an interactive side-by-side deck. State is isolated per tool widget.
 4. Token-Optimized LLM Index: For agents and LLM browsing, we provide full structural manifests at `/llms.txt` and `/llms-full.txt`.
 
@@ -117,7 +117,7 @@ Some frontend and architectural details:
 - **No Backend:** Every single tool (including PDF merging, bank statement table parsing, SQL formatting, JWT decoding, and cron parsing) runs client-side.
 - **Micro-Interactions & Ambient Canvas:** Added interactive spring buttons (`cubic-bezier(0.16, 1, 0.3, 1)`), mouse-following spotlight glow cards, and an ambient canvas particle background that auto-pauses when off-screen.
 - **Automated Metadata Pipeline:** Everything is driven from a single source of truth (`registry.js`). A Node build script automatically syncs component maps, regenerates `sitemap.xml` with canonical validation, writes `llms.txt`, and generates Schema.org JSON-LD (WebApplication + HowTo + FAQPage) with 0 warnings.
-- **PWA Service Worker:** Uses cache-first asset caching with explicit version tagging (`tabkit-v22`) for offline reliability.
+- **PWA Service Worker:** Uses cache-first asset caching with explicit version tagging (`tabkit-v25`) for offline reliability.
 
 Would love thoughts on performance, UI polish, or tools you'd like to see next.
 

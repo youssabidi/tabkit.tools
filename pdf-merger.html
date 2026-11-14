@@ -67,25 +67,25 @@
       {
         "@type": "HowTo",
         "@id": "https://tabkit.tools/pdf-merger#howto",
-        "name": "How to Use the Free Client-Side PDF Merger & Combiner",
+        "name": "How to Merge Multiple PDF Documents in Browser Memory",
         "step": [
           {
             "@type": "HowToStep",
             "position": 1,
-            "name": "Select or Drag Your Document",
-            "text": "Drop your PDF or image files into the workspace container. Your document streams directly into local memory via the HTML5 File API without uploading to any remote server."
+            "name": "Select or Drop Two or More PDFs",
+            "text": "Load contracts, invoices, or chapters locally and view page counts for each loaded PDF file."
           },
           {
             "@type": "HowToStep",
             "position": 2,
-            "name": "Configure Custom Settings",
-            "text": "Select specific page ranges, adjust orientation, apply watermarks, or configure document encryption and export formatting with real-time browser preview."
+            "name": "Reorder or Remove Files",
+            "text": "Use the Up/Down move arrows to arrange final document sequence or remove unwanted attachments before merging."
           },
           {
             "@type": "HowToStep",
             "position": 3,
-            "name": "Save & Download Instantly",
-            "text": "Click to process and download your compiled, lossless PDF file directly from browser memory with zero waiting queues and complete privacy."
+            "name": "Click Merge & Save PDF",
+            "text": "Combine all pages losslessly into a single downloadable PDF without degrading vector text or embedded fonts."
           }
         ]
       },
@@ -184,29 +184,21 @@
       <!-- FAQ Accordion for Search Engines & Visitors -->
       
       <div class="border-t border-workspace-border pt-8 space-y-4">
-        <h2 class="text-xl font-bold text-white mb-3">How to Use the Free Client-Side PDF Merger & Combiner</h2>
+        <h2 class="text-xl font-bold text-white mb-3">How to Merge Multiple PDF Documents in Browser Memory</h2>
         <ol class="list-decimal pl-5 space-y-2 text-sm text-workspace-muted">
-          <li><strong class="text-workspace-text">Select or Drag Your Document:</strong> Drop your PDF or image files into the workspace container. Your document streams directly into local memory via the HTML5 File API without uploading to any remote server.</li>
-          <li><strong class="text-workspace-text">Configure Custom Settings:</strong> Select specific page ranges, adjust orientation, apply watermarks, or configure document encryption and export formatting with real-time browser preview.</li>
-          <li><strong class="text-workspace-text">Save & Download Instantly:</strong> Click to process and download your compiled, lossless PDF file directly from browser memory with zero waiting queues and complete privacy.</li>
+          <li><strong class="text-workspace-text">Select or Drop Two or More PDFs:</strong> Load contracts, invoices, or chapters locally and view page counts for each loaded PDF file.</li>
+          <li><strong class="text-workspace-text">Reorder or Remove Files:</strong> Use the Up/Down move arrows to arrange final document sequence or remove unwanted attachments before merging.</li>
+          <li><strong class="text-workspace-text">Click Merge & Save PDF:</strong> Combine all pages losslessly into a single downloadable PDF without degrading vector text or embedded fonts.</li>
         </ol>
       </div>
 
       <div class="border-t border-workspace-border pt-8 space-y-4">
-        <h2 class="text-xl font-bold text-white mb-3">Why Client-Side Privacy Matters</h2>
-        <p>
-          Traditional online document converters upload private files to third-party cloud servers where they are queued, processed, and stored indefinitely. TabKit utilizes WebAssembly and native browser memory streams to execute 100% of PDF byte manipulation locally inside your browser sandbox. Your confidential business agreements, financial statements, medical records, and personal documents never touch the cloud.
-        </p>
-      </div>
-
-      
-      <div class="border-t border-workspace-border pt-8 space-y-4">
-        <h2 class="text-xl font-bold text-white mb-3">Core Features &amp; Privacy Architecture</h2>
+        <h2 class="text-xl font-bold text-white mb-3">Vector Preservation & Password-Locked PDF Limits</h2>
+        <p>Client-side binary page copying preserves selectable text, bookmarks structure, and vector crispness instead of rasterizing pages into heavy bitmaps.</p>
         <ul class="list-disc pl-5 space-y-2 text-sm text-workspace-muted">
-          <li><strong class="text-workspace-text">Zero Server Transmissions:</strong> Every byte of data is processed locally inside your browser sandbox. No input strings, credentials, or file bytes are ever uploaded to remote servers.</li>
-          <li><strong class="text-workspace-text">Offline PWA Installation:</strong> Add TabKit to your desktop, iPhone, or Android device as a standalone Progressive Web App (PWA) to work completely air-gapped without an active internet connection.</li>
-          <li><strong class="text-workspace-text">Zero Limits or Paywalls:</strong> Enjoy unlimited file conversions, code formatting, and cryptographic operations without account logins, subscriptions, or artificial file size restrictions.</li>
-          <li><strong class="text-workspace-text">High-Speed Local Execution:</strong> Take advantage of multi-threaded Web Workers and hardware-accelerated WebAssembly for instant processing speeds directly on your device.</li>
+          <li><strong class="text-workspace-text">Encrypted Inputs Must Be Unlocked First:</strong> PDFs protected by an open password cannot have their page trees copied unless unlocked before merging.</li>
+          <li><strong class="text-workspace-text">Mixed Page Orientations:</strong> Merging a portrait letter document with landscape slides retains each page’s native MediaBox dimensions without cropping wide charts.</li>
+          <li><strong class="text-workspace-text">Browser Memory Sizing:</strong> Merging dozens of multi-hundred-MB scan PDFs depends on tab RAM; batch huge archives cleanly in chunks if browser tabs approach memory caps.</li>
         </ul>
       </div>
 

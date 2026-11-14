@@ -347,15 +347,6 @@ function playAudioChime() {
 }
 
 
-// Prevent Formula Injection in Spreadsheet Exports (T-07)
-function sanitizeSpreadsheetCell(val) {
-  if (typeof val !== 'string') return val;
-  if (/^[=+\-@\t\r]/.test(val)) {
-    return "'" + val;
-  }
-  return val;
-}
-
 // Developer Ergonomics: Ctrl+Enter / Cmd+Enter to execute primary action
 if (typeof document !== 'undefined') {
   document.addEventListener('keydown', function(e) {

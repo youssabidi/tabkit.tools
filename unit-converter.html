@@ -69,25 +69,25 @@
       {
         "@type": "HowTo",
         "@id": "https://tabkit.tools/unit-converter#howto",
-        "name": "How to Use the Free Universal Unit Converter",
+        "name": "How to Convert Digital Storage, Length, Weight & Temperature",
         "step": [
           {
             "@type": "HowToStep",
             "position": 1,
-            "name": "Enter Inputs & Parameters",
-            "text": "Input date intervals, percentages, invoice line items, or meeting times into clean interactive form fields."
+            "name": "Choose Measurement Category",
+            "text": "Select Digital Storage (B/KB/MB/GB/TB), Length, Weight, Temperature (°C/°F/K), Speed, or Volume."
           },
           {
             "@type": "HowToStep",
             "position": 2,
-            "name": "View Dynamic Real-Time Calculations",
-            "text": "Observe instant calculations, tax breakdowns, timezone comparisons, or focus intervals calculated at 60fps."
+            "name": "Pick Source & Target Units",
+            "text": "Set From and To dropdowns and enter any integer or decimal input value."
           },
           {
             "@type": "HowToStep",
             "position": 3,
-            "name": "Export or Copy Computed Results",
-            "text": "Copy calculated values, print formatted PDF invoices, or save custom settings locally for future sessions."
+            "name": "Read High-Precision Output Immediately",
+            "text": "Inspect converted decimals cleanly for engineering sizing, shipping weights, or storage capacity planning."
           }
         ]
       },
@@ -225,29 +225,22 @@
       </div>
       
       <div class="border-t border-workspace-border pt-8 space-y-4">
-        <h2 class="text-xl font-bold text-white mb-3">How to Use the Free Universal Unit Converter</h2>
+        <h2 class="text-xl font-bold text-white mb-3">How to Convert Digital Storage, Length, Weight & Temperature</h2>
         <ol class="list-decimal pl-5 space-y-2 text-sm text-workspace-muted">
-          <li><strong class="text-workspace-text">Enter Inputs & Parameters:</strong> Input date intervals, percentages, invoice line items, or meeting times into clean interactive form fields.</li>
-          <li><strong class="text-workspace-text">View Dynamic Real-Time Calculations:</strong> Observe instant calculations, tax breakdowns, timezone comparisons, or focus intervals calculated at 60fps.</li>
-          <li><strong class="text-workspace-text">Export or Copy Computed Results:</strong> Copy calculated values, print formatted PDF invoices, or save custom settings locally for future sessions.</li>
+          <li><strong class="text-workspace-text">Choose Measurement Category:</strong> Select Digital Storage (B/KB/MB/GB/TB), Length, Weight, Temperature (°C/°F/K), Speed, or Volume.</li>
+          <li><strong class="text-workspace-text">Pick Source & Target Units:</strong> Set From and To dropdowns and enter any integer or decimal input value.</li>
+          <li><strong class="text-workspace-text">Read High-Precision Output Immediately:</strong> Inspect converted decimals cleanly for engineering sizing, shipping weights, or storage capacity planning.</li>
         </ol>
       </div>
 
       <div class="border-t border-workspace-border pt-8 space-y-4">
-        <h2 class="text-xl font-bold text-white mb-3">Why Client-Side Privacy Matters</h2>
-        <p>
-          Calculating billable client rates, preparing proprietary invoices, or coordinating multi-city corporate meetings should not be monitored by third-party tracking cookies or ad networks. TabKit operates 100% offline with zero server telemetry and instant computation speed.
-        </p>
-      </div>
-
-      
-      <div class="border-t border-workspace-border pt-8 space-y-4">
-        <h2 class="text-xl font-bold text-white mb-3">Core Features &amp; Privacy Architecture</h2>
+        <h2 class="text-xl font-bold text-white mb-3">Decimal SI Units (MB) vs. Binary IEC (MiB) Storage</h2>
+        <p>Storage manufacturers and cloud billing dashboards frequently mix base-10 metric prefixes with base-2 OS reporting, causing apparent 7–10% capacity discrepancies.</p>
         <ul class="list-disc pl-5 space-y-2 text-sm text-workspace-muted">
-          <li><strong class="text-workspace-text">Zero Server Transmissions:</strong> Every byte of data is processed locally inside your browser sandbox. No input strings, credentials, or file bytes are ever uploaded to remote servers.</li>
-          <li><strong class="text-workspace-text">Offline PWA Installation:</strong> Add TabKit to your desktop, iPhone, or Android device as a standalone Progressive Web App (PWA) to work completely air-gapped without an active internet connection.</li>
-          <li><strong class="text-workspace-text">Zero Limits or Paywalls:</strong> Enjoy unlimited file conversions, code formatting, and cryptographic operations without account logins, subscriptions, or artificial file size restrictions.</li>
-          <li><strong class="text-workspace-text">High-Speed Local Execution:</strong> Take advantage of multi-threaded Web Workers and hardware-accelerated WebAssembly for instant processing speeds directly on your device.</li>
+          <li><strong class="text-workspace-text">1000 vs. 1024 Digital Storage Gap:</strong> Disk drives advertise 1 TB = 1,000^4 bytes (10^12), whereas Windows/macOS binary calculations report TiB multiples of 1024^4—roughly 931 GiB shown for a 1 TB drive.</li>
+          <li><strong class="text-workspace-text">Absolute Kelvin vs. Relative Temperature:</strong> Celsius and Fahrenheit use offset zeros (0°C = 32°F = 273.15 K), whereas temperature deltas multiply purely by 1.8 (9/5).</li>
+          <li><strong class="text-workspace-text">US Customary vs. Imperial Gallons:</strong> A US liquid gallon equals ~3.785 liters (128 fl oz), while an Imperial UK gallon equals ~4.546 liters—keep specs consistent in recipes and freight logs.</li>
+          <li><strong class="text-workspace-text">Significant Figures & Rounding:</strong> Precision loss compounds across chained conversions; calculate using double-precision floating-point arithmetic and round only the final displayed value for engineering reports.</li>
         </ul>
       </div>
 

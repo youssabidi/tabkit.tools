@@ -73,25 +73,25 @@
       {
         "@type": "HowTo",
         "@id": "https://tabkit.tools/pdf-text-extractor#howto",
-        "name": "How to Use the Free PDF Text & Markdown Extractor",
+        "name": "How to Extract Plain Text & Markdown from PDFs",
         "step": [
           {
             "@type": "HowToStep",
             "position": 1,
-            "name": "Select or Drag Your Document",
-            "text": "Drop your PDF or image files into the workspace container. Your document streams directly into local memory via the HTML5 File API without uploading to any remote server."
+            "name": "Load a Text-Based PDF Document",
+            "text": "Drop research papers, ebooks, specs, or contracts to parse PDF.js text layers page by page inside the browser."
           },
           {
             "@type": "HowToStep",
             "position": 2,
-            "name": "Configure Custom Settings",
-            "text": "Select specific page ranges, adjust orientation, apply watermarks, or configure document encryption and export formatting with real-time browser preview."
+            "name": "Review Extracted Output Structure",
+            "text": "Inspect recovered paragraphs, page markers, and line breaks cleanly inside the output preview box."
           },
           {
             "@type": "HowToStep",
             "position": 3,
-            "name": "Save & Download Instantly",
-            "text": "Click to process and download your compiled, lossless PDF file directly from browser memory with zero waiting queues and complete privacy."
+            "name": "Copy or Download .txt / .md",
+            "text": "Copy extracted prose to clipboard or save as plain .txt or Markdown (.md) for LLM prompts, study notes, or search indexing."
           }
         ]
       },
@@ -160,29 +160,22 @@
       </div>
       
       <div class="border-t border-workspace-border pt-8 space-y-4">
-        <h2 class="text-xl font-bold text-white mb-3">How to Use the Free PDF Text & Markdown Extractor</h2>
+        <h2 class="text-xl font-bold text-white mb-3">How to Extract Plain Text & Markdown from PDFs</h2>
         <ol class="list-decimal pl-5 space-y-2 text-sm text-workspace-muted">
-          <li><strong class="text-workspace-text">Select or Drag Your Document:</strong> Drop your PDF or image files into the workspace container. Your document streams directly into local memory via the HTML5 File API without uploading to any remote server.</li>
-          <li><strong class="text-workspace-text">Configure Custom Settings:</strong> Select specific page ranges, adjust orientation, apply watermarks, or configure document encryption and export formatting with real-time browser preview.</li>
-          <li><strong class="text-workspace-text">Save & Download Instantly:</strong> Click to process and download your compiled, lossless PDF file directly from browser memory with zero waiting queues and complete privacy.</li>
+          <li><strong class="text-workspace-text">Load a Text-Based PDF Document:</strong> Drop research papers, ebooks, specs, or contracts to parse PDF.js text layers page by page inside the browser.</li>
+          <li><strong class="text-workspace-text">Review Extracted Output Structure:</strong> Inspect recovered paragraphs, page markers, and line breaks cleanly inside the output preview box.</li>
+          <li><strong class="text-workspace-text">Copy or Download .txt / .md:</strong> Copy extracted prose to clipboard or save as plain .txt or Markdown (.md) for LLM prompts, study notes, or search indexing.</li>
         </ol>
       </div>
 
       <div class="border-t border-workspace-border pt-8 space-y-4">
-        <h2 class="text-xl font-bold text-white mb-3">Why Client-Side Privacy Matters</h2>
-        <p>
-          Traditional online document converters upload private files to third-party cloud servers where they are queued, processed, and stored indefinitely. TabKit utilizes WebAssembly and native browser memory streams to execute 100% of PDF byte manipulation locally inside your browser sandbox. Your confidential business agreements, financial statements, medical records, and personal documents never touch the cloud.
-        </p>
-      </div>
-
-      
-      <div class="border-t border-workspace-border pt-8 space-y-4">
-        <h2 class="text-xl font-bold text-white mb-3">Core Features &amp; Privacy Architecture</h2>
+        <h2 class="text-xl font-bold text-white mb-3">Handling Multi-Column Layouts & Scanned PDFs</h2>
+        <p>PDFs position glyphs by X/Y page coordinates rather than semantic HTML tags, making reading-order reconstruction the main technical challenge.</p>
         <ul class="list-disc pl-5 space-y-2 text-sm text-workspace-muted">
-          <li><strong class="text-workspace-text">Zero Server Transmissions:</strong> Every byte of data is processed locally inside your browser sandbox. No input strings, credentials, or file bytes are ever uploaded to remote servers.</li>
-          <li><strong class="text-workspace-text">Offline PWA Installation:</strong> Add TabKit to your desktop, iPhone, or Android device as a standalone Progressive Web App (PWA) to work completely air-gapped without an active internet connection.</li>
-          <li><strong class="text-workspace-text">Zero Limits or Paywalls:</strong> Enjoy unlimited file conversions, code formatting, and cryptographic operations without account logins, subscriptions, or artificial file size restrictions.</li>
-          <li><strong class="text-workspace-text">High-Speed Local Execution:</strong> Take advantage of multi-threaded Web Workers and hardware-accelerated WebAssembly for instant processing speeds directly on your device.</li>
+          <li><strong class="text-workspace-text">Two-Column Academic Papers:</strong> Coordinate-sorted extraction keeps left and right column streams readable instead of merging horizontal sentences across columns.</li>
+          <li><strong class="text-workspace-text">Image-Only Scans Need OCR:</strong> If copying highlights nothing in Chrome or Preview, the PDF consists of scanned bitmap photographs rather than text glyphs and requires OCR software first.</li>
+          <li><strong class="text-workspace-text">Token Savings for LLM Context:</strong> Extracting raw text/Markdown trims megabytes of binary font streams down to clean plain text before feeding documents to AI workflows.</li>
+          <li><strong class="text-workspace-text">Ligature & Kerning Unpacking:</strong> Modern vector fonts combine "fi", "fl", or "ffi" into single glyphs; text extraction unpacks unicode ligatures into distinct standard characters so search indexing works accurately.</li>
         </ul>
       </div>
 

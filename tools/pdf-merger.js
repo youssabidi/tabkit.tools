@@ -139,7 +139,7 @@ window.TOOLS_REGISTRY['pdf-merger'] = Object.assign(window.TOOLS_REGISTRY['pdf-m
           <div class="flex items-center gap-2 overflow-hidden mr-2">
             <span class="text-[10px] font-mono text-workspace-muted shrink-0">${idx + 1}.</span>
             <span class="font-mono text-workspace-text truncate" title="${escapeHtml(f.name)}">${escapeHtml(f.name)}</span>
-            <span class="text-[9px] px-1.5 py-0.2 rounded bg-workspace-bg text-workspace-accent font-mono shrink-0">${f.pages} pgs</span>
+            <span class="text-[9px] px-1.5 py-0.5 rounded bg-workspace-bg text-workspace-accent font-mono shrink-0">${f.pages} pgs</span>
           </div>
           <div class="flex items-center gap-1 shrink-0">
             <button onclick="window._pdfMergerMove('${toolId}', ${idx}, -1)" ${idx === 0 ? 'disabled' : ''} class="text-workspace-muted hover:text-workspace-text disabled:opacity-20 px-1" title="Move Up">&uarr;</button>

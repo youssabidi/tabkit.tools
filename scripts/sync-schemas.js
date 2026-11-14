@@ -43,7 +43,7 @@ function extractFaq(html) {
 }
 
 function extractHowTo(html, toolName, toolId) {
-  const match = html.match(/<h2[^>]*>([^<]*?How to Use[^<]*?)<\/h2>\s*<ol[^>]*>([\s\S]*?)<\/ol>/i);
+  const match = html.match(/<h2[^>]*>([^<]*?How to\b[^<]*?)<\/h2>\s*<ol[^>]*>([\s\S]*?)<\/ol>/i);
   if (!match) return null;
   const rawTitle = match[1].replace(/<[^>]+>/g, '').trim();
   const olContent = match[2];

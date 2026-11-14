@@ -73,25 +73,25 @@
       {
         "@type": "HowTo",
         "@id": "https://tabkit.tools/excel-deduplicator#howto",
-        "name": "How to Use the Free Spreadsheet Row Deduplicator",
+        "name": "How to Remove Duplicate Rows from Excel & CSV Files",
         "step": [
           {
             "@type": "HowToStep",
             "position": 1,
-            "name": "Paste or Upload Spreadsheet Data",
-            "text": "Import your CSV, TSV, JSON, or Excel files into the editor, or paste raw tabular text directly from your clipboard."
+            "name": "Upload Workbook or Delimited Text",
+            "text": "Load a .xlsx, .xls, or .csv sheet locally to inspect row headers and record counts."
           },
           {
             "@type": "HowToStep",
             "position": 2,
-            "name": "Select Parsing & Transformation Rules",
-            "text": "Customize delimiters, toggle deduplication keys, map nested object hierarchies, or select target spreadsheet formats (.xlsx, .csv, .json, .md)."
+            "name": "Select Key Columns to Match",
+            "text": "Choose All Columns for exact row matches, or pick a specific identifier column (like Email or Order ID) to deduplicate on that field alone."
           },
           {
             "@type": "HowToStep",
             "position": 3,
-            "name": "Export Clean Data Immediately",
-            "text": "Download your formatted spreadsheet workbook or copy clean text directly to your clipboard with zero formatting loss."
+            "name": "Export Deduplicated Sheet",
+            "text": "Review duplicate rows removed and download the clean table as .xlsx or CSV."
           }
         ]
       },
@@ -160,29 +160,22 @@
       </div>
       
       <div class="border-t border-workspace-border pt-8 space-y-4">
-        <h2 class="text-xl font-bold text-white mb-3">How to Use the Free Spreadsheet Row Deduplicator</h2>
+        <h2 class="text-xl font-bold text-white mb-3">How to Remove Duplicate Rows from Excel & CSV Files</h2>
         <ol class="list-decimal pl-5 space-y-2 text-sm text-workspace-muted">
-          <li><strong class="text-workspace-text">Paste or Upload Spreadsheet Data:</strong> Import your CSV, TSV, JSON, or Excel files into the editor, or paste raw tabular text directly from your clipboard.</li>
-          <li><strong class="text-workspace-text">Select Parsing & Transformation Rules:</strong> Customize delimiters, toggle deduplication keys, map nested object hierarchies, or select target spreadsheet formats (.xlsx, .csv, .json, .md).</li>
-          <li><strong class="text-workspace-text">Export Clean Data Immediately:</strong> Download your formatted spreadsheet workbook or copy clean text directly to your clipboard with zero formatting loss.</li>
+          <li><strong class="text-workspace-text">Upload Workbook or Delimited Text:</strong> Load a .xlsx, .xls, or .csv sheet locally to inspect row headers and record counts.</li>
+          <li><strong class="text-workspace-text">Select Key Columns to Match:</strong> Choose All Columns for exact row matches, or pick a specific identifier column (like Email or Order ID) to deduplicate on that field alone.</li>
+          <li><strong class="text-workspace-text">Export Deduplicated Sheet:</strong> Review duplicate rows removed and download the clean table as .xlsx or CSV.</li>
         </ol>
       </div>
 
       <div class="border-t border-workspace-border pt-8 space-y-4">
-        <h2 class="text-xl font-bold text-white mb-3">Why Client-Side Privacy Matters</h2>
-        <p>
-          Corporate security policies and non-disclosure agreements strictly prohibit uploading customer records, proprietary sales pipelines, or employee payroll files to public converter websites. TabKit processes all tabular datasets locally in browser RAM, ensuring zero data leakage, zero telemetry, and full compliance with enterprise air-gapped guidelines.
-        </p>
-      </div>
-
-      
-      <div class="border-t border-workspace-border pt-8 space-y-4">
-        <h2 class="text-xl font-bold text-white mb-3">Core Features &amp; Privacy Architecture</h2>
+        <h2 class="text-xl font-bold text-white mb-3">Deduplication Strategy for CRM & Billing Exports</h2>
+        <p>Duplicate customer leads, double-imported bank batches, and repeated SKU rows skew revenue sums and waste outreach quotas.</p>
         <ul class="list-disc pl-5 space-y-2 text-sm text-workspace-muted">
-          <li><strong class="text-workspace-text">Zero Server Transmissions:</strong> Every byte of data is processed locally inside your browser sandbox. No input strings, credentials, or file bytes are ever uploaded to remote servers.</li>
-          <li><strong class="text-workspace-text">Offline PWA Installation:</strong> Add TabKit to your desktop, iPhone, or Android device as a standalone Progressive Web App (PWA) to work completely air-gapped without an active internet connection.</li>
-          <li><strong class="text-workspace-text">Zero Limits or Paywalls:</strong> Enjoy unlimited file conversions, code formatting, and cryptographic operations without account logins, subscriptions, or artificial file size restrictions.</li>
-          <li><strong class="text-workspace-text">High-Speed Local Execution:</strong> Take advantage of multi-threaded Web Workers and hardware-accelerated WebAssembly for instant processing speeds directly on your device.</li>
+          <li><strong class="text-workspace-text">First-Row-Wins Retention:</strong> Deduplicating by Email keeps the first record encountered; sort newest-first in advance if you want the latest update preserved.</li>
+          <li><strong class="text-workspace-text">Full Row vs. Primary Key Match:</strong> Matching all columns misses near-duplicates where only a timestamp or status column changed—select the unique ID column to catch those.</li>
+          <li><strong class="text-workspace-text">Trimming Whitespace First:</strong> Trailing spaces (e.g., "alice@co.com ") treat strings as distinct values; clean whitespace before merging datasets if keys appear duplicated.</li>
+          <li><strong class="text-workspace-text">Case Sensitivity Selection:</strong> Customer email addresses should be deduplicated case-insensitively (e.g. User@domain.com equals user@domain.com), whereas SKU codes or tracking IDs may require exact case matching.</li>
         </ul>
       </div>
 

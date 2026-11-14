@@ -68,25 +68,25 @@
       {
         "@type": "HowTo",
         "@id": "https://tabkit.tools/excel-formula-builder#howto",
-        "name": "How to Use the Free Excel Formula Builder Cheat Sheet",
+        "name": "How to Look Up & Copy Tested Excel Formula Patterns",
         "step": [
           {
             "@type": "HowToStep",
             "position": 1,
-            "name": "Paste or Upload Spreadsheet Data",
-            "text": "Import your CSV, TSV, JSON, or Excel files into the editor, or paste raw tabular text directly from your clipboard."
+            "name": "Browse or Filter Formula Categories",
+            "text": "Find formulas for lookups (XLOOKUP, INDEX/MATCH), conditional math (SUMIFS, COUNTIFS), dates, or text cleanup."
           },
           {
             "@type": "HowToStep",
             "position": 2,
-            "name": "Select Parsing & Transformation Rules",
-            "text": "Customize delimiters, toggle deduplication keys, map nested object hierarchies, or select target spreadsheet formats (.xlsx, .csv, .json, .md)."
+            "name": "Review Syntax & Real Arguments",
+            "text": "Inspect required vs. optional parameters and real cell-range examples to match your worksheet structure."
           },
           {
             "@type": "HowToStep",
             "position": 3,
-            "name": "Export Clean Data Immediately",
-            "text": "Download your formatted spreadsheet workbook or copy clean text directly to your clipboard with zero formatting loss."
+            "name": "Copy Formula into Your Sheet",
+            "text": "Click Copy to grab the exact formula syntax and adapt the cell coordinates in Excel or Google Sheets."
           }
         ]
       },
@@ -223,28 +223,22 @@
       <div>
         
       <div class="border-t border-workspace-border pt-8 space-y-4">
-        <h2 class="text-xl font-bold text-white mb-3">How to Use the Free Excel Formula Builder Cheat Sheet</h2>
+        <h2 class="text-xl font-bold text-white mb-3">How to Look Up & Copy Tested Excel Formula Patterns</h2>
         <ol class="list-decimal pl-5 space-y-2 text-sm text-workspace-muted">
-          <li><strong class="text-workspace-text">Paste or Upload Spreadsheet Data:</strong> Import your CSV, TSV, JSON, or Excel files into the editor, or paste raw tabular text directly from your clipboard.</li>
-          <li><strong class="text-workspace-text">Select Parsing & Transformation Rules:</strong> Customize delimiters, toggle deduplication keys, map nested object hierarchies, or select target spreadsheet formats (.xlsx, .csv, .json, .md).</li>
-          <li><strong class="text-workspace-text">Export Clean Data Immediately:</strong> Download your formatted spreadsheet workbook or copy clean text directly to your clipboard with zero formatting loss.</li>
+          <li><strong class="text-workspace-text">Browse or Filter Formula Categories:</strong> Find formulas for lookups (XLOOKUP, INDEX/MATCH), conditional math (SUMIFS, COUNTIFS), dates, or text cleanup.</li>
+          <li><strong class="text-workspace-text">Review Syntax & Real Arguments:</strong> Inspect required vs. optional parameters and real cell-range examples to match your worksheet structure.</li>
+          <li><strong class="text-workspace-text">Copy Formula into Your Sheet:</strong> Click Copy to grab the exact formula syntax and adapt the cell coordinates in Excel or Google Sheets.</li>
         </ol>
       </div>
 
       <div class="border-t border-workspace-border pt-8 space-y-4">
-        <h2 class="text-xl font-bold text-white mb-3">Why Client-Side Privacy Matters</h2>
-        <p>
-          Corporate security policies and non-disclosure agreements strictly prohibit uploading customer records, proprietary sales pipelines, or employee payroll files to public converter websites. TabKit processes all tabular datasets locally in browser RAM, ensuring zero data leakage, zero telemetry, and full compliance with enterprise air-gapped guidelines.
-        </p>
-      </div>
-
-      <div class="border-t border-workspace-border pt-8 space-y-4">
-        <h2 class="text-xl font-bold text-white mb-3">Core Features &amp; Privacy Architecture</h2>
+        <h2 class="text-xl font-bold text-white mb-3">Formula Compatibility Between Excel & Google Sheets</h2>
+        <p>While core functions share identical signatures, newer dynamic array functions behave differently on older desktop Office builds.</p>
         <ul class="list-disc pl-5 space-y-2 text-sm text-workspace-muted">
-          <li><strong class="text-workspace-text">Zero Server Transmissions:</strong> Every formula calculation and template generation runs locally inside your browser sandbox with zero network telemetry.</li>
-          <li><strong class="text-workspace-text">Offline PWA Installation:</strong> Install TabKit as a standalone Progressive Web App on your desktop or mobile device to work without internet connectivity.</li>
-          <li><strong class="text-workspace-text">Zero Limits or Paywalls:</strong> Access all 90+ formulas, interactive builders, and cheatsheets freely without accounts or paywalls.</li>
-          <li><strong class="text-workspace-text">High-Speed Local Execution:</strong> Instant real-time formula generation with syntax highlighting and one-click copy to clipboard.</li>
+          <li><strong class="text-workspace-text">XLOOKUP vs. VLOOKUP:</strong> XLOOKUP supports left-to-right and right-to-left lookups without fragile column-index counting, while INDEX/MATCH stays compatible with Excel 2016 and older.</li>
+          <li><strong class="text-workspace-text">Array & Regional Separators:</strong> US locales separate formula arguments with commas (=SUMIFS(A:A, B:B, "Paid")), whereas some European OS locales require semicolons.</li>
+          <li><strong class="text-workspace-text">Absolute Range Anchors ($):</strong> Lock lookup table coordinates with $ (e.g., $A$2:$C$500) before dragging formulas down rows so references do not shift.</li>
+          <li><strong class="text-workspace-text">Volatile Function Caution:</strong> Functions like OFFSET and INDIRECT recalculate on every single worksheet edit, slowing down large workbooks; prefer INDEX or XLOOKUP for efficient formula calculation.</li>
         </ul>
       </div>
 

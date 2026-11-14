@@ -73,25 +73,25 @@
       {
         "@type": "HowTo",
         "@id": "https://tabkit.tools/excel-to-json#howto",
-        "name": "How to Use the Free Excel to JSON Converter",
+        "name": "How to Convert Excel Worksheets to Structured JSON",
         "step": [
           {
             "@type": "HowToStep",
             "position": 1,
-            "name": "Paste or Upload Spreadsheet Data",
-            "text": "Import your CSV, TSV, JSON, or Excel files into the editor, or paste raw tabular text directly from your clipboard."
+            "name": "Select an .xlsx or .xls Workbook",
+            "text": "Drop your spreadsheet file and select the target sheet tab from the dropdown menu."
           },
           {
             "@type": "HowToStep",
             "position": 2,
-            "name": "Select Parsing & Transformation Rules",
-            "text": "Customize delimiters, toggle deduplication keys, map nested object hierarchies, or select target spreadsheet formats (.xlsx, .csv, .json, .md)."
+            "name": "Choose JSON Shape & Indentation",
+            "text": "Output Array of Objects [{...}] (keyed by column headers), 2D Array [[...]], or Keyed by 1st Column with 2- or 4-space formatting."
           },
           {
             "@type": "HowToStep",
             "position": 3,
-            "name": "Export Clean Data Immediately",
-            "text": "Download your formatted spreadsheet workbook or copy clean text directly to your clipboard with zero formatting loss."
+            "name": "Copy or Export JSON Payload",
+            "text": "Inspect the syntax-formatted JSON preview and copy or download it for API seeds, fixtures, or config files."
           }
         ]
       },
@@ -160,29 +160,21 @@
       </div>
       
       <div class="border-t border-workspace-border pt-8 space-y-4">
-        <h2 class="text-xl font-bold text-white mb-3">How to Use the Free Excel to JSON Converter</h2>
+        <h2 class="text-xl font-bold text-white mb-3">How to Convert Excel Worksheets to Structured JSON</h2>
         <ol class="list-decimal pl-5 space-y-2 text-sm text-workspace-muted">
-          <li><strong class="text-workspace-text">Paste or Upload Spreadsheet Data:</strong> Import your CSV, TSV, JSON, or Excel files into the editor, or paste raw tabular text directly from your clipboard.</li>
-          <li><strong class="text-workspace-text">Select Parsing & Transformation Rules:</strong> Customize delimiters, toggle deduplication keys, map nested object hierarchies, or select target spreadsheet formats (.xlsx, .csv, .json, .md).</li>
-          <li><strong class="text-workspace-text">Export Clean Data Immediately:</strong> Download your formatted spreadsheet workbook or copy clean text directly to your clipboard with zero formatting loss.</li>
+          <li><strong class="text-workspace-text">Select an .xlsx or .xls Workbook:</strong> Drop your spreadsheet file and select the target sheet tab from the dropdown menu.</li>
+          <li><strong class="text-workspace-text">Choose JSON Shape & Indentation:</strong> Output Array of Objects [{...}] (keyed by column headers), 2D Array [[...]], or Keyed by 1st Column with 2- or 4-space formatting.</li>
+          <li><strong class="text-workspace-text">Copy or Export JSON Payload:</strong> Inspect the syntax-formatted JSON preview and copy or download it for API seeds, fixtures, or config files.</li>
         </ol>
       </div>
 
       <div class="border-t border-workspace-border pt-8 space-y-4">
-        <h2 class="text-xl font-bold text-white mb-3">Why Client-Side Privacy Matters</h2>
-        <p>
-          Corporate security policies and non-disclosure agreements strictly prohibit uploading customer records, proprietary sales pipelines, or employee payroll files to public converter websites. TabKit processes all tabular datasets locally in browser RAM, ensuring zero data leakage, zero telemetry, and full compliance with enterprise air-gapped guidelines.
-        </p>
-      </div>
-
-      
-      <div class="border-t border-workspace-border pt-8 space-y-4">
-        <h2 class="text-xl font-bold text-white mb-3">Core Features &amp; Privacy Architecture</h2>
+        <h2 class="text-xl font-bold text-white mb-3">Mapping Spreadsheet Headers to Clean JSON Keys</h2>
+        <p>Turning human-edited Excel sheets into typed JSON payloads works best when header rows follow consistent naming before export.</p>
         <ul class="list-disc pl-5 space-y-2 text-sm text-workspace-muted">
-          <li><strong class="text-workspace-text">Zero Server Transmissions:</strong> Every byte of data is processed locally inside your browser sandbox. No input strings, credentials, or file bytes are ever uploaded to remote servers.</li>
-          <li><strong class="text-workspace-text">Offline PWA Installation:</strong> Add TabKit to your desktop, iPhone, or Android device as a standalone Progressive Web App (PWA) to work completely air-gapped without an active internet connection.</li>
-          <li><strong class="text-workspace-text">Zero Limits or Paywalls:</strong> Enjoy unlimited file conversions, code formatting, and cryptographic operations without account logins, subscriptions, or artificial file size restrictions.</li>
-          <li><strong class="text-workspace-text">High-Speed Local Execution:</strong> Take advantage of multi-threaded Web Workers and hardware-accelerated WebAssembly for instant processing speeds directly on your device.</li>
+          <li><strong class="text-workspace-text">Clean Row-1 Headers:</strong> Avoid merged header cells or duplicate column titles in Row 1; duplicate headers overwrite earlier properties when building object keys.</li>
+          <li><strong class="text-workspace-text">Array of Objects vs. 2D Array:</strong> Use Array of Objects for REST/GraphQL fixtures and seed scripts, or 2D Array when importing raw matrices where column order matters most.</li>
+          <li><strong class="text-workspace-text">Empty Cell Omission:</strong> Blank trailing cells may be omitted per object depending on sparse row representation—validate optional fields before feeding strict TypeScript schemas.</li>
         </ul>
       </div>
 

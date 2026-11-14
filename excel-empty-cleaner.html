@@ -73,25 +73,25 @@
       {
         "@type": "HowTo",
         "@id": "https://tabkit.tools/excel-empty-cleaner#howto",
-        "name": "How to Use the Free Empty Rows & Whitespace Stripper",
+        "name": "How to Strip Blank Rows & Excess Whitespace in Excel",
         "step": [
           {
             "@type": "HowToStep",
             "position": 1,
-            "name": "Paste or Upload Spreadsheet Data",
-            "text": "Import your CSV, TSV, JSON, or Excel files into the editor, or paste raw tabular text directly from your clipboard."
+            "name": "Load Your Messy Spreadsheet",
+            "text": "Open any .xlsx or .csv file containing blank spacer lines, trailing spaces, or ragged formatting."
           },
           {
             "@type": "HowToStep",
             "position": 2,
-            "name": "Select Parsing & Transformation Rules",
-            "text": "Customize delimiters, toggle deduplication keys, map nested object hierarchies, or select target spreadsheet formats (.xlsx, .csv, .json, .md)."
+            "name": "Configure Trim & Blank-Row Options",
+            "text": "Enable whitespace trimming and empty-row pruning while previewing cleaned row counts live."
           },
           {
             "@type": "HowToStep",
             "position": 3,
-            "name": "Export Clean Data Immediately",
-            "text": "Download your formatted spreadsheet workbook or copy clean text directly to your clipboard with zero formatting loss."
+            "name": "Export Clean CSV or .xlsx",
+            "text": "Download the compacted file without empty rows breaking downstream pivot tables or SQL COPY imports."
           }
         ]
       },
@@ -162,29 +162,22 @@
 
       
       <div class="border-t border-workspace-border pt-8 space-y-4">
-        <h2 class="text-xl font-bold text-white mb-3">How to Use the Free Empty Rows & Whitespace Stripper</h2>
+        <h2 class="text-xl font-bold text-white mb-3">How to Strip Blank Rows & Excess Whitespace in Excel</h2>
         <ol class="list-decimal pl-5 space-y-2 text-sm text-workspace-muted">
-          <li><strong class="text-workspace-text">Paste or Upload Spreadsheet Data:</strong> Import your CSV, TSV, JSON, or Excel files into the editor, or paste raw tabular text directly from your clipboard.</li>
-          <li><strong class="text-workspace-text">Select Parsing & Transformation Rules:</strong> Customize delimiters, toggle deduplication keys, map nested object hierarchies, or select target spreadsheet formats (.xlsx, .csv, .json, .md).</li>
-          <li><strong class="text-workspace-text">Export Clean Data Immediately:</strong> Download your formatted spreadsheet workbook or copy clean text directly to your clipboard with zero formatting loss.</li>
+          <li><strong class="text-workspace-text">Load Your Messy Spreadsheet:</strong> Open any .xlsx or .csv file containing blank spacer lines, trailing spaces, or ragged formatting.</li>
+          <li><strong class="text-workspace-text">Configure Trim & Blank-Row Options:</strong> Enable whitespace trimming and empty-row pruning while previewing cleaned row counts live.</li>
+          <li><strong class="text-workspace-text">Export Clean CSV or .xlsx:</strong> Download the compacted file without empty rows breaking downstream pivot tables or SQL COPY imports.</li>
         </ol>
       </div>
 
       <div class="border-t border-workspace-border pt-8 space-y-4">
-        <h2 class="text-xl font-bold text-white mb-3">Why Client-Side Privacy Matters</h2>
-        <p>
-          Corporate security policies and non-disclosure agreements strictly prohibit uploading customer records, proprietary sales pipelines, or employee payroll files to public converter websites. TabKit processes all tabular datasets locally in browser RAM, ensuring zero data leakage, zero telemetry, and full compliance with enterprise air-gapped guidelines.
-        </p>
-      </div>
-
-      
-      <div class="border-t border-workspace-border pt-8 space-y-4">
-        <h2 class="text-xl font-bold text-white mb-3">Core Features &amp; Privacy Architecture</h2>
+        <h2 class="text-xl font-bold text-white mb-3">Why Invisible Whitespace Breaks Spreadsheets</h2>
+        <p>Legacy PDF-to-CSV exports and human-edited spreadsheets commonly leave whitespace-only cells that look empty visually but still fail VLOOKUP and ISBLANK checks.</p>
         <ul class="list-disc pl-5 space-y-2 text-sm text-workspace-muted">
-          <li><strong class="text-workspace-text">Zero Server Transmissions:</strong> Every byte of data is processed locally inside your browser sandbox. No input strings, credentials, or file bytes are ever uploaded to remote servers.</li>
-          <li><strong class="text-workspace-text">Offline PWA Installation:</strong> Add TabKit to your desktop, iPhone, or Android device as a standalone Progressive Web App (PWA) to work completely air-gapped without an active internet connection.</li>
-          <li><strong class="text-workspace-text">Zero Limits or Paywalls:</strong> Enjoy unlimited file conversions, code formatting, and cryptographic operations without account logins, subscriptions, or artificial file size restrictions.</li>
-          <li><strong class="text-workspace-text">High-Speed Local Execution:</strong> Take advantage of multi-threaded Web Workers and hardware-accelerated WebAssembly for instant processing speeds directly on your device.</li>
+          <li><strong class="text-workspace-text">Whitespace-Only Ghost Rows:</strong> A row containing a single space character passes naive emptiness tests; trimming cell contents first ensures truly blank lines are pruned.</li>
+          <li><strong class="text-workspace-text">Non-Breaking Spaces (NBSP):</strong> Copy-pasted web tables often insert U+00A0 non-breaking spaces that Excel TRIM() leaves behind; collapsing stray whitespace fixes broken lookups.</li>
+          <li><strong class="text-workspace-text">Smaller Downstream Imports:</strong> Deleting thousands of empty formatted trailing rows dramatically reduces .xlsx file weight and database import timeouts.</li>
+          <li><strong class="text-workspace-text">Conditional Formatting Residuals:</strong> Clearing empty rows removes hidden spreadsheet formatting artifacts that cause Excel scrollbars to stretch across 100,000 empty cells, restoring quick scrollbar navigation.</li>
         </ul>
       </div>
 

@@ -21,6 +21,9 @@
 /tailwind.config.js
   X-Robots-Tag: noindex, nofollow, noarchive
 
+/scripts/*
+  X-Robots-Tag: noindex, nofollow, noarchive
+
 /styles.css
   ! Cache-Control
   Cache-Control: public, max-age=3600, must-revalidate

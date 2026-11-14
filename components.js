@@ -293,24 +293,37 @@ function recordRecentTool(toolId) {
 function pinCurrentToolToWorkbench(toolId) {
   if (!toolId) return;
   try {
+    let added = false;
     let pinned = JSON.parse(localStorage.getItem('tabkit_pinned_tools') || '[]');
     if (!pinned.includes(toolId)) {
       pinned.push(toolId);
       localStorage.setItem('tabkit_pinned_tools', JSON.stringify(pinned));
-      if (typeof showToast === 'function') {
-        showToast('📌 Pinned to your TabKit Workbench!');
-      }
+      added = true;
+    }
+
+    const wsRaw = localStorage.getItem('tabkit_workspaces');
+    let wsData = wsRaw ? JSON.parse(wsRaw) : null;
+    if (!wsData || !Array.isArray(wsData.list) || wsData.list.length === 0) {
+      wsData = { activeId: 'main', list: [{ id: 'main', name: 'Main Deck', tools: [toolId] }] };
+      added = true;
     } else {
-      if (typeof showToast === 'function') {
-        showToast('✓ Already pinned in Workbench');
+      const target = wsData.list.find(w => w.id === wsData.activeId) || wsData.list[0];
+      if (target && Array.isArray(target.tools) && !target.tools.includes(toolId)) {
+        target.tools.push(toolId);
+        added = true;
       }
+    }
+    localStorage.setItem('tabkit_workspaces', JSON.stringify(wsData));
+
+    if (typeof showToast === 'function') {
+      showToast(added ? '📌 Pinned to your TabKit Workbench!' : '✓ Already pinned in Workbench');
     }
   } catch(e) {}
 }
 
 class TabkitFooter extends HTMLElement {
   connectedCallback() {
-    const rawPath = window.location.pathname.replace(/^\/|\.html$/g, '');
+    const rawPath = window.location.pathname.replace(/^\/|\/+$|\.html$/g, '');
     const currentId = rawPath === 'random-password-generator' ? 'secure-password-generator' : rawPath;
     const currentTool = TABKIT_TOOLS_MAP[currentId];
 
@@ -357,18 +370,7 @@ class TabkitFooter extends HTMLElement {
 
     this.innerHTML = `
       ${relatedHtml}
-      <div class="tabkit-ad-slot max-w-4xl mx-auto px-4 py-6 w-full text-center" style="contain: layout style;">
-        <div class="text-[9px] uppercase font-mono tracking-wider text-workspace-muted mb-1 opacity-50">Advertisement</div>
-        <div class="min-h-[100px] flex items-center justify-center rounded-2xl border border-workspace-border/60 bg-workspace-surface/40 overflow-hidden">
-          <ins class="adsbygoogle"
-               style="display:block"
-               data-ad-client="ca-pub-6634555517108396"
-               data-ad-slot="default"
-               data-ad-format="auto"
-               data-full-width-responsive="true"></ins>
-        </div>
-      </div>
-      <footer class="border-t border-workspace-border bg-workspace-surface/90 backdrop-blur-md px-4 py-4 md:py-3.5 flex flex-col md:flex-row items-center justify-between gap-3 text-xs font-mono text-workspace-muted relative z-20">
+      <footer class="border-t border-workspace-border bg-workspace-surface/90 backdrop-blur-md px-4 py-4 md:py-3.5 flex flex-col md:flex-row items-center justify-between gap-3 text-xs font-mono text-workspace-muted relative z-20 mt-8">
         <div class="flex flex-col sm:flex-row items-center gap-2">
           <div class="flex items-center gap-2">
             <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
@@ -402,12 +404,12 @@ class TabkitFooter extends HTMLElement {
 
 class ToolHeader extends HTMLElement {
   connectedCallback() {
-    const toolName = this.getAttribute('tool-name') || 'Tool';
-    const rawPath = window.location.pathname.replace(/^\/|\.html$/g, '');
+    const rawPath = window.location.pathname.replace(/^\/|\/+$|\.html$/g, '');
     const currentId = rawPath === 'random-password-generator' ? 'secure-password-generator' : rawPath;
     recordRecentTool(currentId);
 
     const toolMeta = TABKIT_TOOLS_MAP[currentId];
+    const toolName = (toolMeta && toolMeta.n) || this.getAttribute('tool-name') || 'Tool';
     const categoryName = toolMeta ? toolMeta.c : 'Tools';
     const categorySlug = CATEGORY_SLUGS_MAP[categoryName] || '';
 

@@ -68,25 +68,25 @@
       {
         "@type": "HowTo",
         "@id": "https://tabkit.tools/random-name-picker#howto",
-        "name": "How to Use the Free Random Name Picker & Wheel",
+        "name": "How to Pick Unbiased Winners or Randomize Lists",
         "step": [
           {
             "@type": "HowToStep",
             "position": 1,
-            "name": "Enter Inputs & Parameters",
-            "text": "Input date intervals, percentages, invoice line items, or meeting times into clean interactive form fields."
+            "name": "Enter One Participant or Item Per Line",
+            "text": "Paste classroom rosters, giveaway entrants, standup speaker names, or team pairings into the entry box."
           },
           {
             "@type": "HowToStep",
             "position": 2,
-            "name": "View Dynamic Real-Time Calculations",
-            "text": "Observe instant calculations, tax breakdowns, timezone comparisons, or focus intervals calculated at 60fps."
+            "name": "Choose Draw Options & Click Roll",
+            "text": "Pick a random winner using browser crypto-backed randomness, optionally removing drawn names so duplicates never win twice."
           },
           {
             "@type": "HowToStep",
             "position": 3,
-            "name": "Export or Copy Computed Results",
-            "text": "Copy calculated values, print formatted PDF invoices, or save custom settings locally for future sessions."
+            "name": "Run Subsequent Rounds Smoothly",
+            "text": "Track previously picked winners clearly below the stage for transparent classroom, raffle, or sprint ceremonies."
           }
         ]
       },
@@ -213,29 +213,22 @@
 
       
       <div class="border-t border-workspace-border pt-8 space-y-4">
-        <h2 class="text-xl font-bold text-white mb-3">How to Use the Free Random Name Picker & Wheel</h2>
+        <h2 class="text-xl font-bold text-white mb-3">How to Pick Unbiased Winners or Randomize Lists</h2>
         <ol class="list-decimal pl-5 space-y-2 text-sm text-workspace-muted">
-          <li><strong class="text-workspace-text">Enter Inputs & Parameters:</strong> Input date intervals, percentages, invoice line items, or meeting times into clean interactive form fields.</li>
-          <li><strong class="text-workspace-text">View Dynamic Real-Time Calculations:</strong> Observe instant calculations, tax breakdowns, timezone comparisons, or focus intervals calculated at 60fps.</li>
-          <li><strong class="text-workspace-text">Export or Copy Computed Results:</strong> Copy calculated values, print formatted PDF invoices, or save custom settings locally for future sessions.</li>
+          <li><strong class="text-workspace-text">Enter One Participant or Item Per Line:</strong> Paste classroom rosters, giveaway entrants, standup speaker names, or team pairings into the entry box.</li>
+          <li><strong class="text-workspace-text">Choose Draw Options & Click Roll:</strong> Pick a random winner using browser crypto-backed randomness, optionally removing drawn names so duplicates never win twice.</li>
+          <li><strong class="text-workspace-text">Run Subsequent Rounds Smoothly:</strong> Track previously picked winners clearly below the stage for transparent classroom, raffle, or sprint ceremonies.</li>
         </ol>
       </div>
 
       <div class="border-t border-workspace-border pt-8 space-y-4">
-        <h2 class="text-xl font-bold text-white mb-3">Why Client-Side Privacy Matters</h2>
-        <p>
-          Calculating billable client rates, preparing proprietary invoices, or coordinating multi-city corporate meetings should not be monitored by third-party tracking cookies or ad networks. TabKit operates 100% offline with zero server telemetry and instant computation speed.
-        </p>
-      </div>
-
-      
-      <div class="border-t border-workspace-border pt-8 space-y-4">
-        <h2 class="text-xl font-bold text-white mb-3">Core Features &amp; Privacy Architecture</h2>
+        <h2 class="text-xl font-bold text-white mb-3">Fairness & Duplicate-Handling Tips for Raffles</h2>
+        <p>Using `crypto.getRandomValues` prevents the subtle modulo bias and predictable cycling common in naive Math.random() wheel animations.</p>
         <ul class="list-disc pl-5 space-y-2 text-sm text-workspace-muted">
-          <li><strong class="text-workspace-text">Zero Server Transmissions:</strong> Every byte of data is processed locally inside your browser sandbox. No input strings, credentials, or file bytes are ever uploaded to remote servers.</li>
-          <li><strong class="text-workspace-text">Offline PWA Installation:</strong> Add TabKit to your desktop, iPhone, or Android device as a standalone Progressive Web App (PWA) to work completely air-gapped without an active internet connection.</li>
-          <li><strong class="text-workspace-text">Zero Limits or Paywalls:</strong> Enjoy unlimited file conversions, code formatting, and cryptographic operations without account logins, subscriptions, or artificial file size restrictions.</li>
-          <li><strong class="text-workspace-text">High-Speed Local Execution:</strong> Take advantage of multi-threaded Web Workers and hardware-accelerated WebAssembly for instant processing speeds directly on your device.</li>
+          <li><strong class="text-workspace-text">Clean Whitespace & Blank Lines:</strong> Remove accidental blank trailing lines or extra spaces around pasted email addresses so blank slots do not appear in the draw pool.</li>
+          <li><strong class="text-workspace-text">Elimination vs. Replacement Draws:</strong> Remove winners after each round when assigning distinct prizes or speaking order; retain names only when independent multi-prize entries are allowed.</li>
+          <li><strong class="text-workspace-text">Deduplicate Entrants Before Rolling:</strong> Paste lists through a deduplicator first if one-entry-per-person giveaway rules apply.</li>
+          <li><strong class="text-workspace-text">Audit Logs for Fair Drawings:</strong> Save the drawn winners list before closing the browser tab to maintain a verifiable paper trail for team standups, student prizes, and promotional contests.</li>
         </ul>
       </div>
 

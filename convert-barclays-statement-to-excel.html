@@ -6,7 +6,8 @@
   <title>Convert Barclays Statement to Excel | TabKit Tools</title>
   <link rel="manifest" href="/manifest.json" />
   <meta name="description" content="Convert Barclays UK PDF bank statements to Excel (.xlsx) and CSV files in your browser. Air-gapped privacy, zero server uploads, 100% free." />
-  <link rel="canonical" href="https://tabkit.tools/convert-barclays-statement-to-excel" />
+  <meta name="robots" content="noindex, follow" />
+  <link rel="canonical" href="https://tabkit.tools/bank-statement-to-excel" />
   <!-- OpenGraph SEO -->
   <meta property="og:title" content="Convert Barclays Statement to Excel | TabKit Tools" />
   <meta property="og:description" content="Convert Barclays UK PDF bank statements to Excel (.xlsx) and CSV files in your browser. Air-gapped privacy, zero server uploads, 100% free." />
@@ -75,25 +76,25 @@
       {
         "@type": "HowTo",
         "@id": "https://tabkit.tools/convert-barclays-statement-to-excel#howto",
-        "name": "How to Use the Free Convert Barclays Statement to Excel",
+        "name": "How to Extract Barclays UK Statements to Excel",
         "step": [
           {
             "@type": "HowToStep",
             "position": 1,
-            "name": "Select or Drag Your Document",
-            "text": "Drop your PDF or image files into the workspace container. Your document streams directly into local memory via the HTML5 File API without uploading to any remote server."
+            "name": "Drop Your Barclays PDF",
+            "text": "Load a Barclays Personal, Premier, or Business current account PDF statement generated from Online Banking."
           },
           {
             "@type": "HowToStep",
             "position": 2,
-            "name": "Configure Custom Settings",
-            "text": "Select specific page ranges, adjust orientation, apply watermarks, or configure document encryption and export formatting with real-time browser preview."
+            "name": "Check Money Out / Money In Columns",
+            "text": "Inspect the extracted payment type codes (DD, SO, FPO, BGC), descriptions, and running balances."
           },
           {
             "@type": "HowToStep",
             "position": 3,
-            "name": "Save & Download Instantly",
-            "text": "Click to process and download your compiled, lossless PDF file directly from browser memory with zero waiting queues and complete privacy."
+            "name": "Export to Spreadsheet Format",
+            "text": "Download CSV or .xlsx rows ready for HMRC Making Tax Digital records, Xero, or Sage imports."
           }
         ]
       },
@@ -168,29 +169,21 @@
 
       
       <div class="border-t border-workspace-border pt-8 space-y-4">
-        <h2 class="text-xl font-bold text-white mb-3">How to Use the Free Convert Barclays Statement to Excel</h2>
+        <h2 class="text-xl font-bold text-white mb-3">How to Extract Barclays UK Statements to Excel</h2>
         <ol class="list-decimal pl-5 space-y-2 text-sm text-workspace-muted">
-          <li><strong class="text-workspace-text">Select or Drag Your Document:</strong> Drop your PDF or image files into the workspace container. Your document streams directly into local memory via the HTML5 File API without uploading to any remote server.</li>
-          <li><strong class="text-workspace-text">Configure Custom Settings:</strong> Select specific page ranges, adjust orientation, apply watermarks, or configure document encryption and export formatting with real-time browser preview.</li>
-          <li><strong class="text-workspace-text">Save & Download Instantly:</strong> Click to process and download your compiled, lossless PDF file directly from browser memory with zero waiting queues and complete privacy.</li>
+          <li><strong class="text-workspace-text">Drop Your Barclays PDF:</strong> Load a Barclays Personal, Premier, or Business current account PDF statement generated from Online Banking.</li>
+          <li><strong class="text-workspace-text">Check Money Out / Money In Columns:</strong> Inspect the extracted payment type codes (DD, SO, FPO, BGC), descriptions, and running balances.</li>
+          <li><strong class="text-workspace-text">Export to Spreadsheet Format:</strong> Download CSV or .xlsx rows ready for HMRC Making Tax Digital records, Xero, or Sage imports.</li>
         </ol>
       </div>
 
       <div class="border-t border-workspace-border pt-8 space-y-4">
-        <h2 class="text-xl font-bold text-white mb-3">Why Client-Side Privacy Matters</h2>
-        <p>
-          Traditional online document converters upload private files to third-party cloud servers where they are queued, processed, and stored indefinitely. TabKit utilizes WebAssembly and native browser memory streams to execute 100% of PDF byte manipulation locally inside your browser sandbox. Your confidential business agreements, financial statements, medical records, and personal documents never touch the cloud.
-        </p>
-      </div>
-
-      
-      <div class="border-t border-workspace-border pt-8 space-y-4">
-        <h2 class="text-xl font-bold text-white mb-3">Core Features &amp; Privacy Architecture</h2>
+        <h2 class="text-xl font-bold text-white mb-3">Barclays UK Statement Formatting Details</h2>
+        <p>Barclays statements typically format dates as DD MMM (for example, 14 Oct) and separate Money Out from Money In.</p>
         <ul class="list-disc pl-5 space-y-2 text-sm text-workspace-muted">
-          <li><strong class="text-workspace-text">Zero Server Transmissions:</strong> Every byte of data is processed locally inside your browser sandbox. No input strings, credentials, or file bytes are ever uploaded to remote servers.</li>
-          <li><strong class="text-workspace-text">Offline PWA Installation:</strong> Add TabKit to your desktop, iPhone, or Android device as a standalone Progressive Web App (PWA) to work completely air-gapped without an active internet connection.</li>
-          <li><strong class="text-workspace-text">Zero Limits or Paywalls:</strong> Enjoy unlimited file conversions, code formatting, and cryptographic operations without account logins, subscriptions, or artificial file size restrictions.</li>
-          <li><strong class="text-workspace-text">High-Speed Local Execution:</strong> Take advantage of multi-threaded Web Workers and hardware-accelerated WebAssembly for instant processing speeds directly on your device.</li>
+          <li><strong class="text-workspace-text">UK DD MMM Date Format:</strong> When sorting across calendar year boundaries, append the statement year before converting date strings into Excel Date serials.</li>
+          <li><strong class="text-workspace-text">Payment Method Prefixes:</strong> Direct Debit (DD), Standing Order (SO), and Faster Payments (FPO/FPI) tags help categorize recurring bills quickly.</li>
+          <li><strong class="text-workspace-text">Balance Forward Rows:</strong> Remove "Start balance" and "Carried forward" rows prior to running SUM formulas across transaction columns.</li>
         </ul>
       </div>
 

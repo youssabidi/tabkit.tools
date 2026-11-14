@@ -38,17 +38,24 @@ const registryWithoutToolJs = registryKeys.filter(k => {
 });
 console.log('Registry tools without tools/*.js workbench implementation:', registryWithoutToolJs);
 
-// Check sitemap.xml parity
+// Check sitemap.xml parity (excluding intentional noindex aliases)
 const sitemap = fs.readFileSync('sitemap.xml', 'utf8');
 const missingFromSitemap = [];
+const excludedAliases = [];
 htmlFiles.forEach(f => {
+  const html = fs.readFileSync(f, 'utf8');
+  if (/name=["']robots["'][^>]*noindex/i.test(html)) {
+    excludedAliases.push(f);
+    return;
+  }
   const slug = f === 'index.html' ? '' : f.replace('.html', '');
   const url = `https://tabkit.tools/${slug}`;
   if (!sitemap.includes(`<loc>${url}</loc>`)) {
     missingFromSitemap.push(f);
   }
 });
-console.log(`HTML files missing from sitemap.xml: ${missingFromSitemap.length}`, missingFromSitemap);
+console.log(`Intentional noindex alias pages excluded from sitemap: ${excludedAliases.length}`, excludedAliases);
+console.log(`Indexable HTML files missing from sitemap.xml: ${missingFromSitemap.length}`, missingFromSitemap);
 
 // Check duplicate meta tags & metadata health
 console.log('\n=== 2. METADATA & META TAG AUDIT ===');

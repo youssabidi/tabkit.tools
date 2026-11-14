@@ -75,25 +75,25 @@
       {
         "@type": "HowTo",
         "@id": "https://tabkit.tools/bank-statement-to-excel#howto",
-        "name": "How to Use the Free PDF Bank Statement to Excel Converter",
+        "name": "How to Convert a PDF Bank Statement to Excel",
         "step": [
           {
             "@type": "HowToStep",
             "position": 1,
-            "name": "Select or Drag Your Document",
-            "text": "Drop your PDF or image files into the workspace container. Your document streams directly into local memory via the HTML5 File API without uploading to any remote server."
+            "name": "Load Your Statement PDF",
+            "text": "Drop one or more text-based checking or credit card PDF statements into the file zone. Multi-page statements are parsed page by page directly in memory."
           },
           {
             "@type": "HowToStep",
             "position": 2,
-            "name": "Configure Custom Settings",
-            "text": "Select specific page ranges, adjust orientation, apply watermarks, or configure document encryption and export formatting with real-time browser preview."
+            "name": "Inspect Detected Transaction Rows",
+            "text": "Review the extracted date, description, debit/credit, and balance columns in the preview table before exporting."
           },
           {
             "@type": "HowToStep",
             "position": 3,
-            "name": "Save & Download Instantly",
-            "text": "Click to process and download your compiled, lossless PDF file directly from browser memory with zero waiting queues and complete privacy."
+            "name": "Download CSV or Excel (.xlsx)",
+            "text": "Export a sanitized spreadsheet workbook with formula-injection protection applied to cells starting with =, +, -, or @."
           }
         ]
       },
@@ -185,29 +185,21 @@
 
       
       <div class="border-t border-workspace-border pt-8 space-y-4">
-        <h2 class="text-xl font-bold text-white mb-3">How to Use the Free PDF Bank Statement to Excel Converter</h2>
+        <h2 class="text-xl font-bold text-white mb-3">How to Convert a PDF Bank Statement to Excel</h2>
         <ol class="list-decimal pl-5 space-y-2 text-sm text-workspace-muted">
-          <li><strong class="text-workspace-text">Select or Drag Your Document:</strong> Drop your PDF or image files into the workspace container. Your document streams directly into local memory via the HTML5 File API without uploading to any remote server.</li>
-          <li><strong class="text-workspace-text">Configure Custom Settings:</strong> Select specific page ranges, adjust orientation, apply watermarks, or configure document encryption and export formatting with real-time browser preview.</li>
-          <li><strong class="text-workspace-text">Save & Download Instantly:</strong> Click to process and download your compiled, lossless PDF file directly from browser memory with zero waiting queues and complete privacy.</li>
+          <li><strong class="text-workspace-text">Load Your Statement PDF:</strong> Drop one or more text-based checking or credit card PDF statements into the file zone. Multi-page statements are parsed page by page directly in memory.</li>
+          <li><strong class="text-workspace-text">Inspect Detected Transaction Rows:</strong> Review the extracted date, description, debit/credit, and balance columns in the preview table before exporting.</li>
+          <li><strong class="text-workspace-text">Download CSV or Excel (.xlsx):</strong> Export a sanitized spreadsheet workbook with formula-injection protection applied to cells starting with =, +, -, or @.</li>
         </ol>
       </div>
 
       <div class="border-t border-workspace-border pt-8 space-y-4">
-        <h2 class="text-xl font-bold text-white mb-3">Why Client-Side Privacy Matters</h2>
-        <p>
-          Traditional online document converters upload private files to third-party cloud servers where they are queued, processed, and stored indefinitely. TabKit utilizes WebAssembly and native browser memory streams to execute 100% of PDF byte manipulation locally inside your browser sandbox. Your confidential business agreements, financial statements, medical records, and personal documents never touch the cloud.
-        </p>
-      </div>
-
-      
-      <div class="border-t border-workspace-border pt-8 space-y-4">
-        <h2 class="text-xl font-bold text-white mb-3">Core Features &amp; Privacy Architecture</h2>
+        <h2 class="text-xl font-bold text-white mb-3">PDF Parsing Notes & Spreadsheet Compatibility</h2>
+        <p>Bank statements vary significantly in column alignment and multi-line merchant descriptions. The parser reconstructs coordinate-based PDF text items into tabular rows suited for accounting imports.</p>
         <ul class="list-disc pl-5 space-y-2 text-sm text-workspace-muted">
-          <li><strong class="text-workspace-text">Zero Server Transmissions:</strong> Every byte of data is processed locally inside your browser sandbox. No input strings, credentials, or file bytes are ever uploaded to remote servers.</li>
-          <li><strong class="text-workspace-text">Offline PWA Installation:</strong> Add TabKit to your desktop, iPhone, or Android device as a standalone Progressive Web App (PWA) to work completely air-gapped without an active internet connection.</li>
-          <li><strong class="text-workspace-text">Zero Limits or Paywalls:</strong> Enjoy unlimited file conversions, code formatting, and cryptographic operations without account logins, subscriptions, or artificial file size restrictions.</li>
-          <li><strong class="text-workspace-text">High-Speed Local Execution:</strong> Take advantage of multi-threaded Web Workers and hardware-accelerated WebAssembly for instant processing speeds directly on your device.</li>
+          <li><strong class="text-workspace-text">Text-Based PDFs vs. Scans:</strong> Select statements downloaded directly from online banking portals rather than flatbed-scanned image PDFs, which contain no extractable character streams.</li>
+          <li><strong class="text-workspace-text">Debit & Credit Sign Conventions:</strong> Verify whether your accounting package (QuickBooks, Xero, Wave) expects signed amounts in one column or split Debit/Credit columns before importing.</li>
+          <li><strong class="text-workspace-text">Formula Injection Protection:</strong> Leading trigger characters in merchant memos are automatically escaped on CSV/XLSX export so spreadsheet software never evaluates untrusted strings as formulas.</li>
         </ul>
       </div>
 
