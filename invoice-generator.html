@@ -204,6 +204,98 @@
         </div>
       </div>
 
+      
+      <!-- Enterprise Technical Architecture & Deep Dive -->
+      <div data-enriched="true" class="border-t border-workspace-border pt-10 space-y-8">
+        <div>
+          <h2 class="text-xl font-bold text-white mb-3">Enterprise Technical Architecture & Deep Dive</h2>
+          <p class="text-sm text-workspace-muted leading-relaxed">
+            Engineered for high-throughput production environments, enterprise developer workflows, and compliance-sensitive operations. Below is an exhaustive technical reference covering architecture, execution parameters, and edge-case behaviors.
+          </p>
+        </div>
+
+        <!-- Production Use Cases -->
+        <div>
+          <h3 class="text-base font-bold text-white mb-4">Enterprise & Production Use Cases</h3>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/50 flex flex-col justify-between">
+              <h4 class="text-sm font-bold text-workspace-text mb-2">Freelance & Agency Billing Compliance</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">Consultants, software contractors, and digital agencies generate professional, itemized commercial invoices complete with tax registration IDs (VAT, GST, EIN), sequential numbering, custom payment terms (Net 15, Net 30), and international bank wire routing instructions (IBAN, SWIFT).</p>
+            </div>
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/50 flex flex-col justify-between">
+              <h4 class="text-sm font-bold text-workspace-text mb-2">Privacy-Preserving Confidential Financial Billing</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">Generating invoices inside client browser memory eliminates the risk of transmitting customer names, physical addresses, confidential project hourly rates, and banking details to external cloud accounting platforms, maintaining full GDPR and CCPA compliance.</p>
+            </div>
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/50 flex flex-col justify-between">
+              <h4 class="text-sm font-bold text-workspace-text mb-2">Vector-Crisp Direct Print & PDF Export</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">Utilizing print-optimized CSS rules (@media print), invoices render as pixel-perfect, vector-sharp PDF documents directly from the browser print dialog without subscription paywalls, third-party watermarks, or branding logos.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Technical Architecture Comparison -->
+        <div>
+          <h3 class="text-base font-bold text-white mb-3">Architectural Comparison: Client-Side Engine vs Cloud Processing</h3>
+          <div class="overflow-x-auto my-4">
+            <table class="w-full text-left text-xs font-mono border border-workspace-border rounded-xl overflow-hidden">
+              <thead class="bg-workspace-surface border-b border-workspace-border text-workspace-text">
+                <tr>
+                  <th class="p-3">Evaluation Parameter</th>
+                  <th class="p-3 text-workspace-accent">TabKit In-Browser Engine</th>
+                  <th class="p-3 text-workspace-muted">Traditional Cloud Service</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-workspace-border text-workspace-muted">
+                <tr>
+                  <td class="p-3 font-semibold text-workspace-text">Calculation Precision</td>
+                  <td class="p-3 text-workspace-accent font-medium">High-precision decimal arithmetic eliminating IEEE 754 roundoff errors</td>
+                  <td class="p-3">Naive floating-point arithmetic causing cent discrepancies</td>
+                </tr>
+                <tr>
+                  <td class="p-3 font-semibold text-workspace-text">Tax & Discount Logic</td>
+                  <td class="p-3 text-workspace-accent font-medium">Supports percentage discounts, compound taxes, and multiple tax rates</td>
+                  <td class="p-3">Single flat tax rate or no discount calculations</td>
+                </tr>
+                <tr>
+                  <td class="p-3 font-semibold text-workspace-text">Data Confidentiality</td>
+                  <td class="p-3 text-workspace-accent font-medium">Client billing details and bank info stay 100% in local memory</td>
+                  <td class="p-3">Uploaded to third-party servers with retention risks</td>
+                </tr>
+                <tr>
+                  <td class="p-3 font-semibold text-workspace-text">PDF Generation</td>
+                  <td class="p-3 text-workspace-accent font-medium">Native browser vector print engine with print CSS formatting</td>
+                  <td class="p-3">Low-resolution rasterized PDF with watermarks</td>
+                </tr>
+                <tr>
+                  <td class="p-3 font-semibold text-workspace-text">Currency Flexibility</td>
+                  <td class="p-3 text-workspace-accent font-medium">Customizable currency symbols ($ USD, € EUR, £ GBP, ¥ JPY, etc.)</td>
+                  <td class="p-3">Hardcoded to single currency</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Pitfalls & Troubleshooting -->
+        <div>
+          <h3 class="text-base font-bold text-white mb-3">Common Pitfalls & Engineering Troubleshooting</h3>
+          <div class="space-y-3">
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/40">
+              <h4 class="text-sm font-semibold text-workspace-text mb-1">Binary Floating-Point Currency Rounding Errors</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">In standard JavaScript, binary floating-point representation causes calculations like 0.1 + 0.2 to evaluate to 0.30000000000000004. In financial invoices, multiplying unit prices by quantities can introduce fractional cents that propagate into incorrect subtotals and tax amounts. TabKit rounds each calculation step to 2 decimal places.</p>
+            </div>
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/40">
+              <h4 class="text-sm font-semibold text-workspace-text mb-1">Statutory Invoice Compliance Mandates (VAT/GST)</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">In jurisdictions such as the European Union, the United Kingdom (HMRC), and Australia (ATO), invoices must include specific mandatory fields: unique sequential invoice numbers, supplier tax identification number, tax date, and clear currency disclosures. Omitting these invalidates invoices for corporate tax deductions.</p>
+            </div>
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/40">
+              <h4 class="text-sm font-semibold text-workspace-text mb-1">Print CSS Page-Break Table Severing</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">When printing multi-item invoices, naive print stylesheets can slice an item row in half across the bottom of a page. TabKit applies CSS break-inside: avoid to table rows and invoice totals to ensure clean page breaks.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <div class="border-t border-workspace-border pt-8">
         <h3 class="text-xs font-bold uppercase tracking-wider text-workspace-muted mb-3 font-mono">Related Business &amp; Spreadsheet Utilities</h3>
         <div class="flex flex-wrap gap-2 text-xs font-mono">

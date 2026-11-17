@@ -205,6 +205,98 @@
         </div>
       </div>
 
+      
+      <!-- Enterprise Technical Architecture & Deep Dive -->
+      <div data-enriched="true" class="border-t border-workspace-border pt-10 space-y-8">
+        <div>
+          <h2 class="text-xl font-bold text-white mb-3">Enterprise Technical Architecture & Deep Dive</h2>
+          <p class="text-sm text-workspace-muted leading-relaxed">
+            Engineered for high-throughput production environments, enterprise developer workflows, and compliance-sensitive operations. Below is an exhaustive technical reference covering architecture, execution parameters, and edge-case behaviors.
+          </p>
+        </div>
+
+        <!-- Production Use Cases -->
+        <div>
+          <h3 class="text-base font-bold text-white mb-4">Enterprise & Production Use Cases</h3>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/50 flex flex-col justify-between">
+              <h4 class="text-sm font-bold text-workspace-text mb-2">Wells Fargo Commercial & Consumer Statement Reconciliation</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">Accounting professionals convert Wells Fargo statement PDFs into Excel workbooks, accurately capturing transaction dates, check numbers, withdrawal amounts, and daily ending balances.</p>
+            </div>
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/50 flex flex-col justify-between">
+              <h4 class="text-sm font-bold text-workspace-text mb-2">Mortgage & SBA Loan Application Processing</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">Underwriters convert applicant Wells Fargo PDF statements into structured financial datasets for debt-to-income and cash reserve verification.</p>
+            </div>
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/50 flex flex-col justify-between">
+              <h4 class="text-sm font-bold text-workspace-text mb-2">Small Business Bookkeeping & Expense Reconciliation</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">Entrepreneurs convert Wells Fargo debit and credit card statements for easy import into QuickBooks and spreadsheet templates.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Technical Architecture Comparison -->
+        <div>
+          <h3 class="text-base font-bold text-white mb-3">Architectural Comparison: Client-Side Engine vs Cloud Processing</h3>
+          <div class="overflow-x-auto my-4">
+            <table class="w-full text-left text-xs font-mono border border-workspace-border rounded-xl overflow-hidden">
+              <thead class="bg-workspace-surface border-b border-workspace-border text-workspace-text">
+                <tr>
+                  <th class="p-3">Evaluation Parameter</th>
+                  <th class="p-3 text-workspace-accent">TabKit In-Browser Engine</th>
+                  <th class="p-3 text-workspace-muted">Traditional Cloud Service</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-workspace-border text-workspace-muted">
+                <tr>
+                  <td class="p-3 font-semibold text-workspace-text">Wells Fargo Parsing</td>
+                  <td class="p-3 text-workspace-accent font-medium">Extracts transaction history, check images tables, and balances</td>
+                  <td class="p-3">Fails on Wells Fargo compressed statement headers</td>
+                </tr>
+                <tr>
+                  <td class="p-3 font-semibold text-workspace-text">Check Number Binding</td>
+                  <td class="p-3 text-workspace-accent font-medium">Links check numbers and cleared amounts into clean columns</td>
+                  <td class="p-3">Splits check numbers into separate broken rows</td>
+                </tr>
+                <tr>
+                  <td class="p-3 font-semibold text-workspace-text">Confidentiality</td>
+                  <td class="p-3 text-workspace-accent font-medium">Account numbers and sensitive transaction details stay local</td>
+                  <td class="p-3">Transmitted to remote servers with privacy risks</td>
+                </tr>
+                <tr>
+                  <td class="p-3 font-semibold text-workspace-text">Spreadsheet Output</td>
+                  <td class="p-3 text-workspace-accent font-medium">Outputs formatted Excel (.xlsx) with auto-fitted columns</td>
+                  <td class="p-3">Raw text output requiring manual cleanup</td>
+                </tr>
+                <tr>
+                  <td class="p-3 font-semibold text-workspace-text">Speed</td>
+                  <td class="p-3 text-workspace-accent font-medium">Processes multi-page statements in seconds directly in browser</td>
+                  <td class="p-3">15 - 45 second server round-trip latency</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Pitfalls & Troubleshooting -->
+        <div>
+          <h3 class="text-base font-bold text-white mb-3">Common Pitfalls & Engineering Troubleshooting</h3>
+          <div class="space-y-3">
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/40">
+              <h4 class="text-sm font-semibold text-workspace-text mb-1">Wells Fargo Check Image Section Interleaving</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">Wells Fargo statements frequently append thumbnail images of cleared checks at the end of statements. These image sections contain dates and amounts that can confuse generic text parsers, duplicating transactions. TabKit filters out non-tabular image sections.</p>
+            </div>
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/40">
+              <h4 class="text-sm font-semibold text-workspace-text mb-1">Daily Ledger Balance vs Transaction Sequence</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">Wells Fargo statements feature a "Daily Ledger Balance Summary" grid that lists dates and ending balances separately from transaction rows. Failing to distinguish this table can inject balance rows into transaction registers.</p>
+            </div>
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/40">
+              <h4 class="text-sm font-semibold text-workspace-text mb-1">Negative Amount Indicators in Wire Transfers</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">Wells Fargo formats wire transfer fees and international payments with specific debit abbreviations. Accurate parsing requires identifying transaction type markers to ensure correct sign assignment.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <div class="border-t border-workspace-border pt-8">
         <h2 class="text-xs font-bold uppercase tracking-wider text-workspace-muted mb-3 font-mono">Other Bank Statement Presets & Financial Utilities</h2>
         <div class="flex flex-wrap gap-2 text-xs font-mono">

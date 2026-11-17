@@ -204,6 +204,98 @@
           </div>
         </div>
       </div>
+      
+      <!-- Enterprise Technical Architecture & Deep Dive -->
+      <div data-enriched="true" class="border-t border-workspace-border pt-10 space-y-8">
+        <div>
+          <h2 class="text-xl font-bold text-white mb-3">Enterprise Technical Architecture & Deep Dive</h2>
+          <p class="text-sm text-workspace-muted leading-relaxed">
+            Engineered for high-throughput production environments, enterprise developer workflows, and compliance-sensitive operations. Below is an exhaustive technical reference covering architecture, execution parameters, and edge-case behaviors.
+          </p>
+        </div>
+
+        <!-- Production Use Cases -->
+        <div>
+          <h3 class="text-base font-bold text-white mb-4">Enterprise & Production Use Cases</h3>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/50 flex flex-col justify-between">
+              <h4 class="text-sm font-bold text-workspace-text mb-2">Browser Network Tab to Production Code Conversion</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">When reverse-engineering internal APIs or automating web workflows, developers frequently use "Copy as cURL" from Chrome or Firefox DevTools. This tool translates complex multi-line cURL commands—including cookies, headers, and request bodies—into clean, production-ready JavaScript (fetch/axios), Python (requests/httpx), Go, or PHP code within seconds.</p>
+            </div>
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/50 flex flex-col justify-between">
+              <h4 class="text-sm font-bold text-workspace-text mb-2">API Integration Testing & Script Automation</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">Quality assurance and backend engineers migrating manual testing workflows into automated test suites can convert cURL examples directly into programmatic HTTP clients for Jest, pytest, or Postman collections, eliminating repetitive manual request construction.</p>
+            </div>
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/50 flex flex-col justify-between">
+              <h4 class="text-sm font-bold text-workspace-text mb-2">Secure Webhook Reproduction & Debugging</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">Reproducing complex webhooks from third-party payment providers (Stripe, PayPal, Adyen) or CI systems requires exact HTTP header reproduction. Converting commands locally protects client secrets and live signature tokens from third-party server exposure.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Technical Architecture Comparison -->
+        <div>
+          <h3 class="text-base font-bold text-white mb-3">Architectural Comparison: Client-Side Engine vs Cloud Processing</h3>
+          <div class="overflow-x-auto my-4">
+            <table class="w-full text-left text-xs font-mono border border-workspace-border rounded-xl overflow-hidden">
+              <thead class="bg-workspace-surface border-b border-workspace-border text-workspace-text">
+                <tr>
+                  <th class="p-3">Evaluation Parameter</th>
+                  <th class="p-3 text-workspace-accent">TabKit In-Browser Engine</th>
+                  <th class="p-3 text-workspace-muted">Traditional Cloud Service</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-workspace-border text-workspace-muted">
+                <tr>
+                  <td class="p-3 font-semibold text-workspace-text">Parsing Engine</td>
+                  <td class="p-3 text-workspace-accent font-medium">In-browser CLI AST argument tokenizer</td>
+                  <td class="p-3">Remote cloud API translation service</td>
+                </tr>
+                <tr>
+                  <td class="p-3 font-semibold text-workspace-text">Confidentiality</td>
+                  <td class="p-3 text-workspace-accent font-medium">API keys and Bearer tokens never leave memory</td>
+                  <td class="p-3">Credentials transmitted over HTTPS to cloud server</td>
+                </tr>
+                <tr>
+                  <td class="p-3 font-semibold text-workspace-text">Target Languages</td>
+                  <td class="p-3 text-workspace-accent font-medium">Modern ES6+ fetch, Axios, Python Requests, Go, PHP</td>
+                  <td class="p-3">Varies by provider; often outdated syntax</td>
+                </tr>
+                <tr>
+                  <td class="p-3 font-semibold text-workspace-text">Execution Speed</td>
+                  <td class="p-3 text-workspace-accent font-medium">< 5ms instant local compilation</td>
+                  <td class="p-3">150ms - 500ms network round-trip latency</td>
+                </tr>
+                <tr>
+                  <td class="p-3 font-semibold text-workspace-text">Escaping Integrity</td>
+                  <td class="p-3 text-workspace-accent font-medium">Robust handling of nested quotes and multiline slashes</td>
+                  <td class="p-3">Prone to escaping syntax breakages</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Pitfalls & Troubleshooting -->
+        <div>
+          <h3 class="text-base font-bold text-white mb-3">Common Pitfalls & Engineering Troubleshooting</h3>
+          <div class="space-y-3">
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/40">
+              <h4 class="text-sm font-semibold text-workspace-text mb-1">Windows CMD vs Bash Shell Quoting Incompatibilities</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">cURL commands designed for Unix Bash use single quotes (') to wrap JSON payloads. Windows Command Prompt (cmd.exe) does not recognize single quotes as string boundaries, interpreting them as literal characters and failing with HTTP 400 Bad Request errors. On Windows, always convert to escaped double quotes (\") or use PowerShell.</p>
+            </div>
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/40">
+              <h4 class="text-sm font-semibold text-workspace-text mb-1">Missing Content-Type Header Pitfall</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">When passing data with the -d or --data flag, cURL automatically defaults to "application/x-www-form-urlencoded" unless an explicit -H "Content-Type: application/json" header is supplied. Failing to include the header causes modern REST APIs to reject JSON bodies.</p>
+            </div>
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/40">
+              <h4 class="text-sm font-semibold text-workspace-text mb-1">Multiline Backslash Line Continuation Errors</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">Copying multiline cURL commands with trailing backslashes (\) into non-Bash environments or text editors can introduce invisible trailing spaces after the backslash, causing the shell to execute an incomplete command and misinterpret following lines as independent commands.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <div class="border-t border-workspace-border pt-8">
         <h3 class="text-xs font-bold uppercase tracking-wider text-workspace-muted mb-3 font-mono">Related API Utilities</h3>
         <div class="flex flex-wrap gap-2 text-xs font-mono">

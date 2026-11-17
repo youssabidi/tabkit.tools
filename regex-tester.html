@@ -227,6 +227,98 @@
           </div>
         </div>
       </div>
+      
+      <!-- Enterprise Technical Architecture & Deep Dive -->
+      <div data-enriched="true" class="border-t border-workspace-border pt-10 space-y-8">
+        <div>
+          <h2 class="text-xl font-bold text-white mb-3">Enterprise Technical Architecture & Deep Dive</h2>
+          <p class="text-sm text-workspace-muted leading-relaxed">
+            Engineered for high-throughput production environments, enterprise developer workflows, and compliance-sensitive operations. Below is an exhaustive technical reference covering architecture, execution parameters, and edge-case behaviors.
+          </p>
+        </div>
+
+        <!-- Production Use Cases -->
+        <div>
+          <h3 class="text-base font-bold text-white mb-4">Enterprise & Production Use Cases</h3>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/50 flex flex-col justify-between">
+              <h4 class="text-sm font-bold text-workspace-text mb-2">Production Input Validation & Form Sanitization</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">Front-end and full-stack developers validate critical input fields—such as RFC 5322 email addresses, E.164 international telephone numbers, ISO currency strings, and alphanumeric usernames—using regular expressions. Testing patterns interactively with real-time feedback ensures edge cases are covered before shipping to production.</p>
+            </div>
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/50 flex flex-col justify-between">
+              <h4 class="text-sm font-bold text-workspace-text mb-2">Server Log Parsing & Structured Data Extraction</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">DevOps engineers extracting metrics from unstructured Nginx access logs or syslog streams use capturing groups and named groups (?&lt;ip&gt;...) to isolate IP addresses, HTTP status codes, and user-agent strings for automated parsing pipelines.</p>
+            </div>
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/50 flex flex-col justify-between">
+              <h4 class="text-sm font-bold text-workspace-text mb-2">Mass Codebase Refactoring & Search-and-Replace</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">Senior software architects executing broad codebase refactorings in modern IDEs rely on regular expressions with numbered backreferences ($1, $2) to safely reorganize function signatures, update import paths, and normalize configuration formats.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Technical Architecture Comparison -->
+        <div>
+          <h3 class="text-base font-bold text-white mb-3">Architectural Comparison: Client-Side Engine vs Cloud Processing</h3>
+          <div class="overflow-x-auto my-4">
+            <table class="w-full text-left text-xs font-mono border border-workspace-border rounded-xl overflow-hidden">
+              <thead class="bg-workspace-surface border-b border-workspace-border text-workspace-text">
+                <tr>
+                  <th class="p-3">Evaluation Parameter</th>
+                  <th class="p-3 text-workspace-accent">TabKit In-Browser Engine</th>
+                  <th class="p-3 text-workspace-muted">Traditional Cloud Service</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-workspace-border text-workspace-muted">
+                <tr>
+                  <td class="p-3 font-semibold text-workspace-text">Execution Engine</td>
+                  <td class="p-3 text-workspace-accent font-medium">Native Browser V8 Regular Expression Engine</td>
+                  <td class="p-3">Simulated or non-standard server regex parser</td>
+                </tr>
+                <tr>
+                  <td class="p-3 font-semibold text-workspace-text">Flag Support</td>
+                  <td class="p-3 text-workspace-accent font-medium">Full support for g, i, m, s, u, and y flags</td>
+                  <td class="p-3">Often restricted to basic global and ignore-case flags</td>
+                </tr>
+                <tr>
+                  <td class="p-3 font-semibold text-workspace-text">Data Confidentiality</td>
+                  <td class="p-3 text-workspace-accent font-medium">Proprietary logs and test strings remain 100% in browser RAM</td>
+                  <td class="p-3">Test strings uploaded and logged on cloud servers</td>
+                </tr>
+                <tr>
+                  <td class="p-3 font-semibold text-workspace-text">ReDoS Safety</td>
+                  <td class="p-3 text-workspace-accent font-medium">Client-side isolated execution protects servers from crashes</td>
+                  <td class="p-3">Vulnerable to server thread starvation on bad patterns</td>
+                </tr>
+                <tr>
+                  <td class="p-3 font-semibold text-workspace-text">Capturing Groups</td>
+                  <td class="p-3 text-workspace-accent font-medium">Color-coded visual group highlighting and index extraction</td>
+                  <td class="p-3">Plain text output without visual inspection</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Pitfalls & Troubleshooting -->
+        <div>
+          <h3 class="text-base font-bold text-white mb-3">Common Pitfalls & Engineering Troubleshooting</h3>
+          <div class="space-y-3">
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/40">
+              <h4 class="text-sm font-semibold text-workspace-text mb-1">Regular Expression Denial of Service (ReDoS)</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">Patterns containing nested or overlapping quantifiers (such as (a+)+$ or (.*a)+$) suffer from exponential backtracking when evaluated against non-matching strings. An input of just 30 characters can lock a single-threaded Node.js server loop indefinitely. Always test regex patterns against long, failing boundary strings.</p>
+            </div>
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/40">
+              <h4 class="text-sm font-semibold text-workspace-text mb-1">The Greedy vs Lazy Quantifier Trap</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">Quantifiers like * and + are greedy by default, consuming the maximum possible number of characters. When attempting to extract content between HTML tags (e.g. <div>.*</div>), a greedy pattern will match from the first opening tag to the final closing tag on the page. Adding a question mark (.*?) enforces lazy matching.</p>
+            </div>
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/40">
+              <h4 class="text-sm font-semibold text-workspace-text mb-1">Stateful RegExp Object LastIndex Bugs in JavaScript</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">When a regular expression uses the global (g) or sticky (y) flag in JavaScript, the RegExp instance maintains internal state via the lastIndex property. Reusing the same RegExp instance across multiple test calls causes alternating true/false results on identical inputs.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <div class="border-t border-workspace-border pt-8">
         <h3 class="text-xs font-bold uppercase tracking-wider text-workspace-muted mb-3 font-mono">Related Developer Utilities</h3>
         <div class="flex flex-wrap gap-2 text-xs font-mono">

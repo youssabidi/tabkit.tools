@@ -251,6 +251,98 @@
           </div>
         </div>
       </div>
+      
+      <!-- Enterprise Technical Architecture & Deep Dive -->
+      <div data-enriched="true" class="border-t border-workspace-border pt-10 space-y-8">
+        <div>
+          <h2 class="text-xl font-bold text-white mb-3">Enterprise Technical Architecture & Deep Dive</h2>
+          <p class="text-sm text-workspace-muted leading-relaxed">
+            Engineered for high-throughput production environments, enterprise developer workflows, and compliance-sensitive operations. Below is an exhaustive technical reference covering architecture, execution parameters, and edge-case behaviors.
+          </p>
+        </div>
+
+        <!-- Production Use Cases -->
+        <div>
+          <h3 class="text-base font-bold text-white mb-4">Enterprise & Production Use Cases</h3>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/50 flex flex-col justify-between">
+              <h4 class="text-sm font-bold text-workspace-text mb-2">E-Commerce Margin, Markup & Discount Modeling</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">Retail analysts and e-commerce operators compute gross profit margins ((Revenue - Cost) / Revenue), retail markups ((Price - Cost) / Cost), and multi-tier promotional discounts on product catalogs to maintain profitability.</p>
+            </div>
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/50 flex flex-col justify-between">
+              <h4 class="text-sm font-bold text-workspace-text mb-2">Financial Performance & Revenue Growth Analysis</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">Financial analysts compute quarter-over-quarter percentage increases, inflation adjustments, and annual recurring revenue (ARR) variance to evaluate corporate performance metrics.</p>
+            </div>
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/50 flex flex-col justify-between">
+              <h4 class="text-sm font-bold text-workspace-text mb-2">A/B Test Conversion Rate Lift & Statistical Metrics</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">Growth marketers and product managers calculate relative percentage increases between conversion rates in experiment variants to determine winning UI treatments.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Technical Architecture Comparison -->
+        <div>
+          <h3 class="text-base font-bold text-white mb-3">Architectural Comparison: Client-Side Engine vs Cloud Processing</h3>
+          <div class="overflow-x-auto my-4">
+            <table class="w-full text-left text-xs font-mono border border-workspace-border rounded-xl overflow-hidden">
+              <thead class="bg-workspace-surface border-b border-workspace-border text-workspace-text">
+                <tr>
+                  <th class="p-3">Evaluation Parameter</th>
+                  <th class="p-3 text-workspace-accent">TabKit In-Browser Engine</th>
+                  <th class="p-3 text-workspace-muted">Traditional Cloud Service</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-workspace-border text-workspace-muted">
+                <tr>
+                  <td class="p-3 font-semibold text-workspace-text">Calculation Types</td>
+                  <td class="p-3 text-workspace-accent font-medium">Percentage of value, Percentage Change, Reverse Percentage, Margin vs Markup</td>
+                  <td class="p-3">Basic "X% of Y" only</td>
+                </tr>
+                <tr>
+                  <td class="p-3 font-semibold text-workspace-text">Mathematical Precision</td>
+                  <td class="p-3 text-workspace-accent font-medium">High-precision decimal calculations with configurable rounding</td>
+                  <td class="p-3">Truncates decimal results causing inaccuracy</td>
+                </tr>
+                <tr>
+                  <td class="p-3 font-semibold text-workspace-text">Formula Transparency</td>
+                  <td class="p-3 text-workspace-accent font-medium">Step-by-step algebraic breakdown of every calculation</td>
+                  <td class="p-3">Displays raw answer without explanation</td>
+                </tr>
+                <tr>
+                  <td class="p-3 font-semibold text-workspace-text">Confidentiality</td>
+                  <td class="p-3 text-workspace-accent font-medium">Proprietary financial revenues and margin goals remain strictly in RAM</td>
+                  <td class="p-3">Transmitted over network or saved in server logs</td>
+                </tr>
+                <tr>
+                  <td class="p-3 font-semibold text-workspace-text">Real-Time Evaluation</td>
+                  <td class="p-3 text-workspace-accent font-medium">Calculates results instantaneously on every keystroke</td>
+                  <td class="p-3">Requires manual button submission</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Pitfalls & Troubleshooting -->
+        <div>
+          <h3 class="text-base font-bold text-white mb-3">Common Pitfalls & Engineering Troubleshooting</h3>
+          <div class="space-y-3">
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/40">
+              <h4 class="text-sm font-semibold text-workspace-text mb-1">The Dangerous Profit Margin vs Markup Confusion</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">A 50% markup on a $100 cost produces a $150 selling price, which represents a 33.3% gross profit margin. Conflating margin with markup is one of the most common causes of negative profitability in retail and consulting pricing.</p>
+            </div>
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/40">
+              <h4 class="text-sm font-semibold text-workspace-text mb-1">Asymmetric Compounding of Percentage Losses and Gains</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">A 20% loss followed by a 20% gain does not return to the original value: $100 drops by 20% to $80, and $80 increases by 20% to $96 (a net 4% loss). Recovering from a 50% drop requires a 100% gain.</p>
+            </div>
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/40">
+              <h4 class="text-sm font-semibold text-workspace-text mb-1">Percentage Points vs Relative Percentage Change Discrepancy</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">Moving an interest rate from 10% to 12% is an increase of 2 percentage points, but a 20% relative percentage increase. Conflating these two distinct metrics creates misleading statistical conclusions.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <div class="border-t border-workspace-border pt-8">
         <h3 class="text-xs font-bold uppercase tracking-wider text-workspace-muted mb-3 font-mono">Related Calculation Utilities</h3>
         <div class="flex flex-wrap gap-2 text-xs font-mono">

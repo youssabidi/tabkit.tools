@@ -221,6 +221,98 @@
         </div>
       </div>
 
+      
+      <!-- Enterprise Technical Architecture & Deep Dive -->
+      <div data-enriched="true" class="border-t border-workspace-border pt-10 space-y-8">
+        <div>
+          <h2 class="text-xl font-bold text-white mb-3">Enterprise Technical Architecture & Deep Dive</h2>
+          <p class="text-sm text-workspace-muted leading-relaxed">
+            Engineered for high-throughput production environments, enterprise developer workflows, and compliance-sensitive operations. Below is an exhaustive technical reference covering architecture, execution parameters, and edge-case behaviors.
+          </p>
+        </div>
+
+        <!-- Production Use Cases -->
+        <div>
+          <h3 class="text-base font-bold text-white mb-4">Enterprise & Production Use Cases</h3>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/50 flex flex-col justify-between">
+              <h4 class="text-sm font-bold text-workspace-text mb-2">Financial Modeling & Investment Banking Speed</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">Financial analysts and investment bankers rely on keyboard shortcuts (such as F2 to edit cells, Ctrl + [ to trace precedent formulas, and Alt + = for instant AutoSum) to build and audit multi-statement models without touching the mouse, doubling modeling velocity.</p>
+            </div>
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/50 flex flex-col justify-between">
+              <h4 class="text-sm font-bold text-workspace-text mb-2">Cross-Platform Operating System Mapping (Windows vs macOS)</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">Engineers and financial professionals switching between Windows and macOS must navigate substantial keyboard mapping discrepancies (Ctrl vs Cmd, Alt vs Option). Interactive shortcut matrices translate muscle memory smoothly across operating systems.</p>
+            </div>
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/50 flex flex-col justify-between">
+              <h4 class="text-sm font-bold text-workspace-text mb-2">Large Dataset Navigation & Range Selection</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">Navigating multi-thousand row spreadsheets efficiently requires mastering directional jumps (Ctrl + Arrow Keys) and bulk range expansions (Ctrl + Shift + Arrow Keys), eliminating slow, error-prone mouse dragging.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Technical Architecture Comparison -->
+        <div>
+          <h3 class="text-base font-bold text-white mb-3">Architectural Comparison: Client-Side Engine vs Cloud Processing</h3>
+          <div class="overflow-x-auto my-4">
+            <table class="w-full text-left text-xs font-mono border border-workspace-border rounded-xl overflow-hidden">
+              <thead class="bg-workspace-surface border-b border-workspace-border text-workspace-text">
+                <tr>
+                  <th class="p-3">Evaluation Parameter</th>
+                  <th class="p-3 text-workspace-accent">TabKit In-Browser Engine</th>
+                  <th class="p-3 text-workspace-muted">Traditional Cloud Service</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-workspace-border text-workspace-muted">
+                <tr>
+                  <td class="p-3 font-semibold text-workspace-text">Platform Mapping</td>
+                  <td class="p-3 text-workspace-accent font-medium">Interactive simultaneous Windows and macOS keyboard mapping</td>
+                  <td class="p-3">Windows-only shortcuts without Mac equivalents</td>
+                </tr>
+                <tr>
+                  <td class="p-3 font-semibold text-workspace-text">Categorization</td>
+                  <td class="p-3 text-workspace-accent font-medium">Navigation, Formula Auditing, Cell Formatting, and Table Operations</td>
+                  <td class="p-3">Unorganized plain text list</td>
+                </tr>
+                <tr>
+                  <td class="p-3 font-semibold text-workspace-text">Visual Keycaps</td>
+                  <td class="p-3 text-workspace-accent font-medium">Styled high-contrast keyboard key representations</td>
+                  <td class="p-3">Plain text descriptions</td>
+                </tr>
+                <tr>
+                  <td class="p-3 font-semibold text-workspace-text">Search & Filtering</td>
+                  <td class="p-3 text-workspace-accent font-medium">Instant client-side shortcut search by action or key combination</td>
+                  <td class="p-3">Requires manual scrolling</td>
+                </tr>
+                <tr>
+                  <td class="p-3 font-semibold text-workspace-text">Offline Availability</td>
+                  <td class="p-3 text-workspace-accent font-medium">Complete shortcut cheat sheet accessible 100% offline via PWA</td>
+                  <td class="p-3">Requires active web connection</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Pitfalls & Troubleshooting -->
+        <div>
+          <h3 class="text-base font-bold text-white mb-3">Common Pitfalls & Engineering Troubleshooting</h3>
+          <div class="space-y-3">
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/40">
+              <h4 class="text-sm font-semibold text-workspace-text mb-1">macOS Global System Shortcut Interception</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">macOS reserves key combinations like F3 (Mission Control) and Cmd + Space (Spotlight). In macOS Excel, these global shortcuts take precedence unless users configure the "Use F1, F2, etc. keys as standard function keys" toggle in macOS System Settings.</p>
+            </div>
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/40">
+              <h4 class="text-sm font-semibold text-workspace-text mb-1">Windows Alt-Key Ribbon Navigation vs macOS Menu Bars</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">On Windows, pressing the Alt key displays ribbon key tips (e.g. Alt + H + O + I to auto-fit columns). On macOS, the ribbon shortcut system does not exist; equivalent formatting commands require dedicated custom keyboard shortcuts.</p>
+            </div>
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/40">
+              <h4 class="text-sm font-semibold text-workspace-text mb-1">Compact Laptop Keyboards Lacking Dedicated Number Pads</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">Shortcuts designed for full-size desktop keyboards (such as Ctrl + NumPad Enter) require the Fn key or alternative key combinations on compact laptops (such as MacBooks or Dell XPS) that omit numeric keypads.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <div class="border-t border-workspace-border pt-8">
         <h3 class="text-xs font-bold uppercase tracking-wider text-workspace-muted mb-3 font-mono">Related Spreadsheet Utilities</h3>
         <div class="flex flex-wrap gap-2 text-xs font-mono">

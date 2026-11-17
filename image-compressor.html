@@ -192,6 +192,98 @@
         </div>
       </div>
 
+      
+      <!-- Enterprise Technical Architecture & Deep Dive -->
+      <div data-enriched="true" class="border-t border-workspace-border pt-10 space-y-8">
+        <div>
+          <h2 class="text-xl font-bold text-white mb-3">Enterprise Technical Architecture & Deep Dive</h2>
+          <p class="text-sm text-workspace-muted leading-relaxed">
+            Engineered for high-throughput production environments, enterprise developer workflows, and compliance-sensitive operations. Below is an exhaustive technical reference covering architecture, execution parameters, and edge-case behaviors.
+          </p>
+        </div>
+
+        <!-- Production Use Cases -->
+        <div>
+          <h3 class="text-base font-bold text-white mb-4">Enterprise & Production Use Cases</h3>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/50 flex flex-col justify-between">
+              <h4 class="text-sm font-bold text-workspace-text mb-2">Core Web Vitals Largest Contentful Paint (LCP) Optimization</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">E-commerce and SaaS marketing teams compress high-resolution hero banners, feature screenshots, and product catalog imagery to under 100KB without visible perceptual degradation, drastically slashing First Contentful Paint and LCP times.</p>
+            </div>
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/50 flex flex-col justify-between">
+              <h4 class="text-sm font-bold text-workspace-text mb-2">Mobile App Asset Trimming & Cellular Download Budgets</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">Mobile application engineers compress embedded splash screens and iconography before bundling them into iOS IPA and Android APK archives, keeping initial install downloads well below app store cellular warning thresholds.</p>
+            </div>
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/50 flex flex-col justify-between">
+              <h4 class="text-sm font-bold text-workspace-text mb-2">Email Campaign HTML Newsletter Payload Reduction</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">Email marketing specialists compress marketing headers to ensure newsletters load rapidly on low-bandwidth mobile connections, preventing recipient abandonment and preserving engagement metrics.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Technical Architecture Comparison -->
+        <div>
+          <h3 class="text-base font-bold text-white mb-3">Architectural Comparison: Client-Side Engine vs Cloud Processing</h3>
+          <div class="overflow-x-auto my-4">
+            <table class="w-full text-left text-xs font-mono border border-workspace-border rounded-xl overflow-hidden">
+              <thead class="bg-workspace-surface border-b border-workspace-border text-workspace-text">
+                <tr>
+                  <th class="p-3">Evaluation Parameter</th>
+                  <th class="p-3 text-workspace-accent">TabKit In-Browser Engine</th>
+                  <th class="p-3 text-workspace-muted">Traditional Cloud Service</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-workspace-border text-workspace-muted">
+                <tr>
+                  <td class="p-3 font-semibold text-workspace-text">Compression Engine</td>
+                  <td class="p-3 text-workspace-accent font-medium">Client-Side HTML5 Canvas & WebAssembly WebP/JPEG encoders</td>
+                  <td class="p-3">Server-side cloud conversion queue</td>
+                </tr>
+                <tr>
+                  <td class="p-3 font-semibold text-workspace-text">Data Confidentiality</td>
+                  <td class="p-3 text-workspace-accent font-medium">Personal photos and proprietary product mockups never leave your device</td>
+                  <td class="p-3">Photos uploaded to remote cloud storage with privacy risks</td>
+                </tr>
+                <tr>
+                  <td class="p-3 font-semibold text-workspace-text">Visual Quality Control</td>
+                  <td class="p-3 text-workspace-accent font-medium">Interactive real-time split-screen slider comparison</td>
+                  <td class="p-3">Blind compression without preview</td>
+                </tr>
+                <tr>
+                  <td class="p-3 font-semibold text-workspace-text">Output Standards</td>
+                  <td class="p-3 text-workspace-accent font-medium">Next-gen WebP, optimized JPEG, and crushed PNG formats</td>
+                  <td class="p-3">Restricted to legacy JPEG format only</td>
+                </tr>
+                <tr>
+                  <td class="p-3 font-semibold text-workspace-text">Compression Speed</td>
+                  <td class="p-3 text-workspace-accent font-medium">Sub-second local processing leveraging client GPU acceleration</td>
+                  <td class="p-3">Network upload + remote queue + download time</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Pitfalls & Troubleshooting -->
+        <div>
+          <h3 class="text-base font-bold text-white mb-3">Common Pitfalls & Engineering Troubleshooting</h3>
+          <div class="space-y-3">
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/40">
+              <h4 class="text-sm font-semibold text-workspace-text mb-1">Compounding Lossy Re-Compression Artifacts</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">Recompressing an image that has already been saved with heavy JPEG compression introduces cumulative Discrete Cosine Transform (DCT) blocking artifacts, pixel halos, and color banding. Always source original uncompressed master files (PNG or TIFF) when generating optimized web assets.</p>
+            </div>
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/40">
+              <h4 class="text-sm font-semibold text-workspace-text mb-1">PNG Transparency Inversion on JPEG Export</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">JPEG format has no alpha transparency channel. When converting a transparent PNG logo to JPEG without explicit background compositing, the transparent alpha channel defaults to solid black, ruining logo presentation. TabKit composites transparent layers over clean white background buffers.</p>
+            </div>
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/40">
+              <h4 class="text-sm font-semibold text-workspace-text mb-1">Animated GIF File Size Explosion on Canvas Export</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">Drawing an animated GIF to a standard HTML5 Canvas context extracts only the first static keyframe. To optimize multi-frame animations, modern engineering best practices mandate converting GIFs to WebM or MP4 video files, which achieve 90% size reductions.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <div class="border-t border-workspace-border pt-8">
         <h3 class="text-xs font-bold uppercase tracking-wider text-workspace-muted mb-3 font-mono">Related Media Utilities</h3>
         <div class="flex flex-wrap gap-2 text-xs font-mono">

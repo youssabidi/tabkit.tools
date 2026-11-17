@@ -198,6 +198,98 @@
         </div>
       </div>
 
+      
+      <!-- Enterprise Technical Architecture & Deep Dive -->
+      <div data-enriched="true" class="border-t border-workspace-border pt-10 space-y-8">
+        <div>
+          <h2 class="text-xl font-bold text-white mb-3">Enterprise Technical Architecture & Deep Dive</h2>
+          <p class="text-sm text-workspace-muted leading-relaxed">
+            Engineered for high-throughput production environments, enterprise developer workflows, and compliance-sensitive operations. Below is an exhaustive technical reference covering architecture, execution parameters, and edge-case behaviors.
+          </p>
+        </div>
+
+        <!-- Production Use Cases -->
+        <div>
+          <h3 class="text-base font-bold text-white mb-4">Enterprise & Production Use Cases</h3>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/50 flex flex-col justify-between">
+              <h4 class="text-sm font-bold text-workspace-text mb-2">Executive Financial & Operational Reporting</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">Transforming JSON API payloads directly into styled Microsoft Excel workbooks (.xlsx) with auto-formatted column widths, bold header bars, and freeze panes creates polished presentation-ready reports for business leaders and audit committees.</p>
+            </div>
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/50 flex flex-col justify-between">
+              <h4 class="text-sm font-bold text-workspace-text mb-2">Multi-Endpoint Consolidation into Tabbed Worksheets</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">Full-stack developers can bundle responses from multiple distinct API endpoints into separate named worksheets inside a single unified Excel spreadsheet, simplifying multi-entity reconciliation.</p>
+            </div>
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/50 flex flex-col justify-between">
+              <h4 class="text-sm font-bold text-workspace-text mb-2">Data Export for Non-Technical Stakeholders</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">Product managers and developers providing data extracts to customer support, finance, and legal teams can export structured JSON into native Excel files, eliminating the CSV formatting pitfalls non-technical users frequently encounter.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Technical Architecture Comparison -->
+        <div>
+          <h3 class="text-base font-bold text-white mb-3">Architectural Comparison: Client-Side Engine vs Cloud Processing</h3>
+          <div class="overflow-x-auto my-4">
+            <table class="w-full text-left text-xs font-mono border border-workspace-border rounded-xl overflow-hidden">
+              <thead class="bg-workspace-surface border-b border-workspace-border text-workspace-text">
+                <tr>
+                  <th class="p-3">Evaluation Parameter</th>
+                  <th class="p-3 text-workspace-accent">TabKit In-Browser Engine</th>
+                  <th class="p-3 text-workspace-muted">Traditional Cloud Service</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-workspace-border text-workspace-muted">
+                <tr>
+                  <td class="p-3 font-semibold text-workspace-text">Output Format</td>
+                  <td class="p-3 text-workspace-accent font-medium">Native Microsoft Excel (.xlsx) OpenXML Workbook</td>
+                  <td class="p-3">Plain text or basic CSV format</td>
+                </tr>
+                <tr>
+                  <td class="p-3 font-semibold text-workspace-text">Cell Typing</td>
+                  <td class="p-3 text-workspace-accent font-medium">Preserves numbers, booleans, and dates as typed Excel cells</td>
+                  <td class="p-3">Treats all cell values as raw text</td>
+                </tr>
+                <tr>
+                  <td class="p-3 font-semibold text-workspace-text">Styling & Layout</td>
+                  <td class="p-3 text-workspace-accent font-medium">Styled header rows, freeze panes, and auto-fitted columns</td>
+                  <td class="p-3">Unstyled plain data grid</td>
+                </tr>
+                <tr>
+                  <td class="p-3 font-semibold text-workspace-text">Confidentiality</td>
+                  <td class="p-3 text-workspace-accent font-medium">Proprietary business metrics and API keys remain strictly local</td>
+                  <td class="p-3">Uploaded to remote web conversion APIs</td>
+                </tr>
+                <tr>
+                  <td class="p-3 font-semibold text-workspace-text">Data Volume</td>
+                  <td class="p-3 text-workspace-accent font-medium">Supports workbooks with tens of thousands of rows efficiently</td>
+                  <td class="p-3">Browser memory crash on medium datasets</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Pitfalls & Troubleshooting -->
+        <div>
+          <h3 class="text-base font-bold text-white mb-3">Common Pitfalls & Engineering Troubleshooting</h3>
+          <div class="space-y-3">
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/40">
+              <h4 class="text-sm font-semibold text-workspace-text mb-1">Excel 32,767 Character Cell Limit Overflow</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">Microsoft Excel enforces a strict maximum limit of 32,767 characters per individual cell. Attempting to embed massive JSON string blobs, base64 data, or stack traces exceeding this limit can corrupt the workbook file structure upon opening. TabKit truncates or splits overflowing cells.</p>
+            </div>
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/40">
+              <h4 class="text-sm font-semibold text-workspace-text mb-1">Worksheet Name Length and Special Character Restrictions</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">Excel strictly limits worksheet tab names to 31 characters and forbids characters like \, /, ?, *, [, and ]. Attempting to name a worksheet after a full API URL or endpoint path causes Excel generation libraries to crash. TabKit automatically sanitizes worksheet titles.</p>
+            </div>
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/40">
+              <h4 class="text-sm font-semibold text-workspace-text mb-1">Memory Exhaustion When Parsing Massive JSON Trees</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">Parsing massive 50MB+ JSON datasets directly into complex DOM tables can freeze browser tabs. TabKit streams data through memory-efficient transformation pipelines directly into binary Excel archives.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <div class="border-t border-workspace-border pt-8">
         <h3 class="text-xs font-bold uppercase tracking-wider text-workspace-muted mb-3 font-mono">Related Data Utilities</h3>
         <div class="flex flex-wrap gap-2 text-xs font-mono">

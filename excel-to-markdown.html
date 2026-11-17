@@ -198,6 +198,98 @@
         </div>
       </div>
 
+      
+      <!-- Enterprise Technical Architecture & Deep Dive -->
+      <div data-enriched="true" class="border-t border-workspace-border pt-10 space-y-8">
+        <div>
+          <h2 class="text-xl font-bold text-white mb-3">Enterprise Technical Architecture & Deep Dive</h2>
+          <p class="text-sm text-workspace-muted leading-relaxed">
+            Engineered for high-throughput production environments, enterprise developer workflows, and compliance-sensitive operations. Below is an exhaustive technical reference covering architecture, execution parameters, and edge-case behaviors.
+          </p>
+        </div>
+
+        <!-- Production Use Cases -->
+        <div>
+          <h3 class="text-base font-bold text-white mb-4">Enterprise & Production Use Cases</h3>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/50 flex flex-col justify-between">
+              <h4 class="text-sm font-bold text-workspace-text mb-2">Technical Documentation & GitHub README Authoring</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">Software engineers and devrel teams convert spreadsheet tables—such as API endpoint specifications, performance benchmarks, and feature comparison matrices—into GitHub Flavored Markdown (GFM) tables for documentation and repositories.</p>
+            </div>
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/50 flex flex-col justify-between">
+              <h4 class="text-sm font-bold text-workspace-text mb-2">Agile Backlog & Sprint Ticket Description Formatting</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">Product managers and scrum masters pasting sprint planning matrices or user story backlogs into Jira, GitHub Issues, or Linear use markdown tables to maintain clean, readable formatting without manual pipe syntax.</p>
+            </div>
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/50 flex flex-col justify-between">
+              <h4 class="text-sm font-bold text-workspace-text mb-2">Technical Blogging & Static Site Publishing</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">Technical writers publishing on static site generators (Docusaurus, Astro, Hugo, VitePress) convert complex financial or engineering datasets into clean markdown tables with customized column alignments.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Technical Architecture Comparison -->
+        <div>
+          <h3 class="text-base font-bold text-white mb-3">Architectural Comparison: Client-Side Engine vs Cloud Processing</h3>
+          <div class="overflow-x-auto my-4">
+            <table class="w-full text-left text-xs font-mono border border-workspace-border rounded-xl overflow-hidden">
+              <thead class="bg-workspace-surface border-b border-workspace-border text-workspace-text">
+                <tr>
+                  <th class="p-3">Evaluation Parameter</th>
+                  <th class="p-3 text-workspace-accent">TabKit In-Browser Engine</th>
+                  <th class="p-3 text-workspace-muted">Traditional Cloud Service</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-workspace-border text-workspace-muted">
+                <tr>
+                  <td class="p-3 font-semibold text-workspace-text">Markdown Specification</td>
+                  <td class="p-3 text-workspace-accent font-medium">GitHub Flavored Markdown (GFM) and CommonMark Compliant</td>
+                  <td class="p-3">Non-standard pipe syntax</td>
+                </tr>
+                <tr>
+                  <td class="p-3 font-semibold text-workspace-text">Alignment Formatting</td>
+                  <td class="p-3 text-workspace-accent font-medium">Configurable column alignment (:---, :---:, ---:)</td>
+                  <td class="p-3">Default left-aligned columns only</td>
+                </tr>
+                <tr>
+                  <td class="p-3 font-semibold text-workspace-text">Multiline Cell Handling</td>
+                  <td class="p-3 text-workspace-accent font-medium">Converts internal cell line breaks to &lt;br&gt; tags cleanly</td>
+                  <td class="p-3">Breaks table rows on multi-line text</td>
+                </tr>
+                <tr>
+                  <td class="p-3 font-semibold text-workspace-text">Confidentiality</td>
+                  <td class="p-3 text-workspace-accent font-medium">Internal roadmaps and proprietary metrics stay 100% in RAM</td>
+                  <td class="p-3">Uploaded to remote conversion servers</td>
+                </tr>
+                <tr>
+                  <td class="p-3 font-semibold text-workspace-text">Source Readability</td>
+                  <td class="p-3 text-workspace-accent font-medium">Generates padded, visually aligned markdown columns</td>
+                  <td class="p-3">Unaligned jagged columns hard to edit in raw text</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Pitfalls & Troubleshooting -->
+        <div>
+          <h3 class="text-base font-bold text-white mb-3">Common Pitfalls & Engineering Troubleshooting</h3>
+          <div class="space-y-3">
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/40">
+              <h4 class="text-sm font-semibold text-workspace-text mb-1">Internal Line Breaks Shattering Markdown Table Rows</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">In Excel, users frequently insert internal line breaks (Alt+Enter) within a single cell. In Markdown table syntax, any newline character represents the end of the entire table row. An unescaped newline shatters table layout. TabKit automatically converts internal newlines to HTML &lt;br /&gt; tags.</p>
+            </div>
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/40">
+              <h4 class="text-sm font-semibold text-workspace-text mb-1">Unescaped Pipe Characters (|) Splitting Columns</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">Because the pipe symbol (|) serves as the column delimiter in Markdown tables, any literal pipe character contained within spreadsheet text will be interpreted as a new column boundary, shifting all subsequent cells to the right. TabKit escapes literal pipes (\|).</p>
+            </div>
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/40">
+              <h4 class="text-sm font-semibold text-workspace-text mb-1">Missing Table Delimiter Row Syntax</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">Markdown table specifications require a header row followed immediately by a delimiter row (|---|---|). Omitting the delimiter row causes markdown parsers to treat the entire table as plain text paragraphs.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <div class="border-t border-workspace-border pt-8">
         <h3 class="text-xs font-bold uppercase tracking-wider text-workspace-muted mb-3 font-mono">Related Documentation Utilities</h3>
         <div class="flex flex-wrap gap-2 text-xs font-mono">

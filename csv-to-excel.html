@@ -198,6 +198,98 @@
         </div>
       </div>
 
+      
+      <!-- Enterprise Technical Architecture & Deep Dive -->
+      <div data-enriched="true" class="border-t border-workspace-border pt-10 space-y-8">
+        <div>
+          <h2 class="text-xl font-bold text-white mb-3">Enterprise Technical Architecture & Deep Dive</h2>
+          <p class="text-sm text-workspace-muted leading-relaxed">
+            Engineered for high-throughput production environments, enterprise developer workflows, and compliance-sensitive operations. Below is an exhaustive technical reference covering architecture, execution parameters, and edge-case behaviors.
+          </p>
+        </div>
+
+        <!-- Production Use Cases -->
+        <div>
+          <h3 class="text-base font-bold text-white mb-4">Enterprise & Production Use Cases</h3>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/50 flex flex-col justify-between">
+              <h4 class="text-sm font-bold text-workspace-text mb-2">Executive & Stakeholder Reporting Presentation</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">Data engineers and business analysts convert raw database CSV exports and log extracts into formatted Microsoft Excel (.xlsx) workbooks for non-technical leadership and external clients who expect professional spreadsheet presentation.</p>
+            </div>
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/50 flex flex-col justify-between">
+              <h4 class="text-sm font-bold text-workspace-text mb-2">Preventing Auto-Formatting Truncation of Leading Zeros</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">Opening CSV files directly in desktop Microsoft Excel causes Excel to automatically format numeric-looking text columns as numbers, destroying leading zeros in postal codes, employee IDs, and bank routing numbers. Pre-converting to native .xlsx with explicit text cell types preserves leading zeros.</p>
+            </div>
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/50 flex flex-col justify-between">
+              <h4 class="text-sm font-bold text-workspace-text mb-2">Consolidating Multiple CSV Files into Multi-Sheet Workbooks</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">Operations teams combine disparate daily or regional CSV exports into a single organized multi-tab Excel workbook for centralized record-keeping and streamlined file sharing.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Technical Architecture Comparison -->
+        <div>
+          <h3 class="text-base font-bold text-white mb-3">Architectural Comparison: Client-Side Engine vs Cloud Processing</h3>
+          <div class="overflow-x-auto my-4">
+            <table class="w-full text-left text-xs font-mono border border-workspace-border rounded-xl overflow-hidden">
+              <thead class="bg-workspace-surface border-b border-workspace-border text-workspace-text">
+                <tr>
+                  <th class="p-3">Evaluation Parameter</th>
+                  <th class="p-3 text-workspace-accent">TabKit In-Browser Engine</th>
+                  <th class="p-3 text-workspace-muted">Traditional Cloud Service</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-workspace-border text-workspace-muted">
+                <tr>
+                  <td class="p-3 font-semibold text-workspace-text">Output Standard</td>
+                  <td class="p-3 text-workspace-accent font-medium">Native OOXML Microsoft Excel (.xlsx) Workbook</td>
+                  <td class="p-3">Basic text file with .xlsx file extension (invalid)</td>
+                </tr>
+                <tr>
+                  <td class="p-3 font-semibold text-workspace-text">Encoding Handling</td>
+                  <td class="p-3 text-workspace-accent font-medium">Injects UTF-8 Byte Order Mark (BOM) preventing Mojibake</td>
+                  <td class="p-3">Accented characters corrupted in Excel</td>
+                </tr>
+                <tr>
+                  <td class="p-3 font-semibold text-workspace-text">Type Integrity</td>
+                  <td class="p-3 text-workspace-accent font-medium">Preserves leading zeros in IDs, phone numbers, and codes</td>
+                  <td class="p-3">Desktop Excel strips leading zeros automatically</td>
+                </tr>
+                <tr>
+                  <td class="p-3 font-semibold text-workspace-text">Confidentiality</td>
+                  <td class="p-3 text-workspace-accent font-medium">Sensitive financial exports never touch third-party servers</td>
+                  <td class="p-3">Uploaded across public network to cloud converters</td>
+                </tr>
+                <tr>
+                  <td class="p-3 font-semibold text-workspace-text">Execution Speed</td>
+                  <td class="p-3 text-workspace-accent font-medium">< 250ms instant client-side binary compilation</td>
+                  <td class="p-3">Dependent on server queue and network bandwidth</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Pitfalls & Troubleshooting -->
+        <div>
+          <h3 class="text-base font-bold text-white mb-3">Common Pitfalls & Engineering Troubleshooting</h3>
+          <div class="space-y-3">
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/40">
+              <h4 class="text-sm font-semibold text-workspace-text mb-1">The Notorious Excel Leading Zero Truncation Defect</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">When double-clicking a CSV file to open it in Microsoft Excel, Excel uses its default text import engine, automatically converting strings like "01234" to the number 1234. Converting the CSV into an authentic .xlsx file with explicit string cell formatting prevents this irreversible data loss.</p>
+            </div>
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/40">
+              <h4 class="text-sm font-semibold text-workspace-text mb-1">Mojibake and UTF-8 Accented Character Scrambling</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">When Excel opens a standard UTF-8 CSV on Windows without a Byte Order Mark (BOM), it defaults to the legacy Windows-1252 code page. Accented characters like "é" or "ñ" appear as scrambled glyphs ("Ã©"). TabKit injects the necessary UTF-8 BOM byte sequence.</p>
+            </div>
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/40">
+              <h4 class="text-sm font-semibold text-workspace-text mb-1">Scientific Notation Conversion on Long Numeric Identifiers</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">Excel automatically displays numeric strings longer than 11 digits (such as credit card numbers or FedEx tracking IDs) in scientific notation (e.g. 1.23457E+15). Saving the file permanently truncates the trailing digits to zeros unless preserved as text.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <div class="border-t border-workspace-border pt-8">
         <h3 class="text-xs font-bold uppercase tracking-wider text-workspace-muted mb-3 font-mono">Related Spreadsheet Utilities</h3>
         <div class="flex flex-wrap gap-2 text-xs font-mono">

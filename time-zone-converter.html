@@ -231,6 +231,98 @@
           </div>
         </div>
       </div>
+      
+      <!-- Enterprise Technical Architecture & Deep Dive -->
+      <div data-enriched="true" class="border-t border-workspace-border pt-10 space-y-8">
+        <div>
+          <h2 class="text-xl font-bold text-white mb-3">Enterprise Technical Architecture & Deep Dive</h2>
+          <p class="text-sm text-workspace-muted leading-relaxed">
+            Engineered for high-throughput production environments, enterprise developer workflows, and compliance-sensitive operations. Below is an exhaustive technical reference covering architecture, execution parameters, and edge-case behaviors.
+          </p>
+        </div>
+
+        <!-- Production Use Cases -->
+        <div>
+          <h3 class="text-base font-bold text-white mb-4">Enterprise & Production Use Cases</h3>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/50 flex flex-col justify-between">
+              <h4 class="text-sm font-bold text-workspace-text mb-2">Global Distributed Team Meeting Scheduling</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">Engineering team leads coordinate sprint syncs across time zones (e.g. San Francisco PST, London GMT, Dubai GST, Singapore SGT) to find overlapping business hours without scheduling anyone at midnight.</p>
+            </div>
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/50 flex flex-col justify-between">
+              <h4 class="text-sm font-bold text-workspace-text mb-2">Synchronized Worldwide Product Launches</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">Product marketing and release engineering teams set synchronized deployment times for major software updates, webinars, and embargoed announcements across global markets.</p>
+            </div>
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/50 flex flex-col justify-between">
+              <h4 class="text-sm font-bold text-workspace-text mb-2">Incident Post-Mortem Multi-Region Log Correlation</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">Site Reliability Engineers (SREs) align server logs recorded in UTC with customer incident timestamps recorded in regional local times during outage investigations.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Technical Architecture Comparison -->
+        <div>
+          <h3 class="text-base font-bold text-white mb-3">Architectural Comparison: Client-Side Engine vs Cloud Processing</h3>
+          <div class="overflow-x-auto my-4">
+            <table class="w-full text-left text-xs font-mono border border-workspace-border rounded-xl overflow-hidden">
+              <thead class="bg-workspace-surface border-b border-workspace-border text-workspace-text">
+                <tr>
+                  <th class="p-3">Evaluation Parameter</th>
+                  <th class="p-3 text-workspace-accent">TabKit In-Browser Engine</th>
+                  <th class="p-3 text-workspace-muted">Traditional Cloud Service</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-workspace-border text-workspace-muted">
+                <tr>
+                  <td class="p-3 font-semibold text-workspace-text">Timezone Database</td>
+                  <td class="p-3 text-workspace-accent font-medium">Complete IANA Time Zone Database (TZDB) standard coverage</td>
+                  <td class="p-3">Limited hardcoded time zones</td>
+                </tr>
+                <tr>
+                  <td class="p-3 font-semibold text-workspace-text">Daylight Saving Transitions</td>
+                  <td class="p-3 text-workspace-accent font-medium">Automated historical and future DST shift calculations</td>
+                  <td class="p-3">Static offsets failing during DST transitions</td>
+                </tr>
+                <tr>
+                  <td class="p-3 font-semibold text-workspace-text">Format Options</td>
+                  <td class="p-3 text-workspace-accent font-medium">12-Hour AM/PM, 24-Hour Military, and ISO 8601 UTC offsets</td>
+                  <td class="p-3">Single display format only</td>
+                </tr>
+                <tr>
+                  <td class="p-3 font-semibold text-workspace-text">Privacy & Security</td>
+                  <td class="p-3 text-workspace-accent font-medium">Meeting details and working hours stay 100% in local browser memory</td>
+                  <td class="p-3">Uploaded to calendar synchronization servers</td>
+                </tr>
+                <tr>
+                  <td class="p-3 font-semibold text-workspace-text">Fractional Timezones</td>
+                  <td class="p-3 text-workspace-accent font-medium">Full support for half-hour (UTC+5:30) and 45-minute (UTC+5:45) zones</td>
+                  <td class="p-3">Rounds all timezones to nearest whole hour</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Pitfalls & Troubleshooting -->
+        <div>
+          <h3 class="text-base font-bold text-white mb-3">Common Pitfalls & Engineering Troubleshooting</h3>
+          <div class="space-y-3">
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/40">
+              <h4 class="text-sm font-semibold text-workspace-text mb-1">Non-Synchronous Regional Daylight Saving Transitions</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">The United States switches to Daylight Saving Time on the second Sunday of March, while European countries transition on the last Sunday of March. During these three intervening weeks, the time difference between New York and London shrinks from 5 hours to 4 hours. Hardcoded offsets cause missed meetings.</p>
+            </div>
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/40">
+              <h4 class="text-sm font-semibold text-workspace-text mb-1">Half-Hour and 45-Minute Fractional Timezone Blindspots</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">Not all time zones are whole-hour offsets from UTC. For example, India is UTC+05:30, Iran is UTC+03:30, and Nepal is UTC+05:45. Basic timezone tools that only permit whole-hour adjustments generate significant scheduling errors in these regions.</p>
+            </div>
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/40">
+              <h4 class="text-sm font-semibold text-workspace-text mb-1">International Date Line Calendar Day Crossing</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">Scheduling a morning meeting in Tokyo with colleagues in California means the US participant must attend the previous afternoon. Failing to track the calendar day component causes participants to show up on the wrong day.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <div class="border-t border-workspace-border pt-8">
         <h3 class="text-xs font-bold uppercase tracking-wider text-workspace-muted mb-3 font-mono">Related Time Utilities</h3>
         <div class="flex flex-wrap gap-2 text-xs font-mono">

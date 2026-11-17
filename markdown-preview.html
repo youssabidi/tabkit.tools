@@ -186,7 +186,7 @@
           <li><strong class="text-workspace-text">Blank Lines Around Lists & Fences:</strong> Separate paragraphs from bullet lists and ``` code blocks with an empty line so strict CommonMark renderers parse blocks reliably.</li>
           <li><strong class="text-workspace-text">Fenced Language Hints:</strong> Always specify language tags after triple backticks (```js, ```bash, ```json) so GitHub and static site generators apply accurate syntax highlighting.</li>
           <li><strong class="text-workspace-text">Escaping Literal Asterisks & Underscores:</strong> Precede literal underscores outside code spans with a backslash (\_) to avoid accidental italics in snake_case identifiers.</li>
-          <li><strong class="text-workspace-text">HTML Entity Encoding:</strong> When documenting code samples containing raw HTML tags like <div> or <span>, escape angle brackets as &lt; and &gt; to prevent browsers from parsing them as live DOM nodes.</li>
+          <li><strong class="text-workspace-text">HTML Entity Encoding:</strong> When documenting code samples containing raw HTML tags like &lt;div&gt; or &lt;span&gt;, escape angle brackets as &amp;lt; and &amp;gt; to prevent browsers from parsing them as live DOM nodes.</li>
         </ul>
       </div>
 
@@ -207,6 +207,106 @@
           </div>
         </div>
       </div>
+      
+      <!-- Enterprise Technical Architecture & Deep Dive -->
+      <div data-enriched="true" class="border-t border-workspace-border pt-10 space-y-8">
+        <div>
+          <h2 class="text-xl font-bold text-white mb-3">Enterprise Technical Architecture & Deep Dive</h2>
+          <p class="text-sm text-workspace-muted leading-relaxed">
+            Engineered for high-throughput production environments, enterprise developer workflows, and compliance-sensitive operations. Below is an exhaustive technical reference covering architecture, execution parameters, and edge-case behaviors.
+          </p>
+        </div>
+
+        <!-- Production Use Cases -->
+        <div>
+          <h3 class="text-base font-bold text-white mb-4">Enterprise & Production Use Cases</h3>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/50 flex flex-col justify-between">
+              <h4 class="text-sm font-bold text-workspace-text mb-2">GitHub Flavored Markdown (GFM) Documentation Authoring</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">Software engineers and open-source maintainers crafting repository README files, contribution guidelines, and release notes can preview formatting with complete support for tables, task lists, fenced code blocks, and footnotes before pushing commits.</p>
+            </div>
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/50 flex flex-col justify-between">
+              <h4 class="text-sm font-bold text-workspace-text mb-2">Static Site Generator Content Drafting (Astro, Hugo, Next.js)</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">Content creators drafting blog posts or technical documentation for static site generators can verify typography, header hierarchies, and embedded links in real time without launching local Node.js development servers.</p>
+            </div>
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/50 flex flex-col justify-between">
+              <h4 class="text-sm font-bold text-workspace-text mb-2">Architectural Decision Records (ADR) & Sprint Notes</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">Engineering teams documenting architectural decisions and sprint retrospectives use markdown preview to maintain clear, standardized technical documentation across distributed teams.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Technical Architecture Comparison -->
+        <div>
+          <h3 class="text-base font-bold text-white mb-3">Architectural Comparison: Client-Side Engine vs Cloud Processing</h3>
+          <div class="overflow-x-auto my-4">
+            <table class="w-full text-left text-xs font-mono border border-workspace-border rounded-xl overflow-hidden">
+              <thead class="bg-workspace-surface border-b border-workspace-border text-workspace-text">
+                <tr>
+                  <th class="p-3">Evaluation Parameter</th>
+                  <th class="p-3 text-workspace-accent">TabKit In-Browser Engine</th>
+                  <th class="p-3 text-workspace-muted">Traditional Cloud Service</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-workspace-border text-workspace-muted">
+                <tr>
+                  <td class="p-3 font-semibold text-workspace-text">Markdown Specification</td>
+                  <td class="p-3 text-workspace-accent font-medium">CommonMark & GitHub Flavored Markdown (GFM) Compliant</td>
+                  <td class="p-3">Non-standard or partial markdown parsing</td>
+                </tr>
+                <tr>
+                  <td class="p-3 font-semibold text-workspace-text">Security Sanitization</td>
+                  <td class="p-3 text-workspace-accent font-medium">DOMPurify client-side HTML sanitization preventing XSS</td>
+                  <td class="p-3">Unsanitized innerHTML rendering; vulnerable to XSS</td>
+                </tr>
+                <tr>
+                  <td class="p-3 font-semibold text-workspace-text">GFM Extensions</td>
+                  <td class="p-3 text-workspace-accent font-medium">Supports tables, task lists (- [x]), autolinks, strikethrough</td>
+                  <td class="p-3">Basic markdown only; missing table support</td>
+                </tr>
+                <tr>
+                  <td class="p-3 font-semibold text-workspace-text">Privacy & Confidentiality</td>
+                  <td class="p-3 text-workspace-accent font-medium">Internal design documents stay 100% in local browser memory</td>
+                  <td class="p-3">Uploaded to remote preview API</td>
+                </tr>
+                <tr>
+                  <td class="p-3 font-semibold text-workspace-text">Rendering Latency</td>
+                  <td class="p-3 text-workspace-accent font-medium">Sub-millisecond real-time debounced preview</td>
+                  <td class="p-3">150ms - 400ms server network round-trip</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Pitfalls & Troubleshooting -->
+        <div>
+          <h3 class="text-base font-bold text-white mb-3">Common Pitfalls & Engineering Troubleshooting</h3>
+          <div class="space-y-3">
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/40">
+              <h4 class="text-sm font-semibold text-workspace-text mb-1">Cross-Site Scripting (XSS) via Unsanitized Markdown</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">Markdown allows raw HTML elements by design. If user-supplied markdown is rendered directly to DOM innerHTML without strict sanitization, malicious actors can inject &lt;script&gt; tags or &lt;img src=x onerror=...&gt; payloads to hijack session tokens. TabKit runs all output through DOMPurify.</p>
+            </div>
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/40">
+              <h4 class="text-sm font-semibold text-workspace-text mb-1">GFM Table Header and Delimiter Alignment Breakages</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">In GitHub Flavored Markdown, tables strictly require a header row followed by a delimiter row containing at least three hyphens per column (|---|---|). Omitting the delimiter row or having mismatched column counts causes the entire table to render as broken plain text.</p>
+            </div>
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/40">
+              <h4 class="text-sm font-semibold text-workspace-text mb-1">CommonMark 4-Space Indentation Rules for Nested Lists</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">In CommonMark, nesting code blocks or secondary paragraphs inside a list item requires 4 spaces or a tab of indentation. Using only 2 spaces breaks the list item continuity and renders the child block at the root level.</p>
+            </div>
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/40">
+              <h4 class="text-sm font-semibold text-workspace-text mb-1">LaTeX Math Delimiter Escaping ($ vs \$)</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">In scientific markdown documents containing KaTeX or MathJax equations, unescaped literal dollar signs in prose (e.g. costs $50 to $100) are misinterpreted as math delimiters, corrupting the formatting of surrounding paragraphs. Always escape literal dollar signs with a backslash (\$).</p>
+            </div>
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/40">
+              <h4 class="text-sm font-semibold text-workspace-text mb-1">Footnote Reference Identifier Collisions</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">Extended markdown engines support academic footnotes using [^1] syntax. When merging multiple document chapters into a single markdown file, duplicate footnote keys overwrite preceding definitions unless unique namespace prefixes are assigned.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <div class="border-t border-workspace-border pt-8">
         <h3 class="text-xs font-bold uppercase tracking-wider text-workspace-muted mb-3 font-mono">Related Documentation Utilities</h3>
         <div class="flex flex-wrap gap-2 text-xs font-mono">

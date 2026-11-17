@@ -261,6 +261,98 @@
           </div>
         </div>
       </div>
+      
+      <!-- Enterprise Technical Architecture & Deep Dive -->
+      <div data-enriched="true" class="border-t border-workspace-border pt-10 space-y-8">
+        <div>
+          <h2 class="text-xl font-bold text-white mb-3">Enterprise Technical Architecture & Deep Dive</h2>
+          <p class="text-sm text-workspace-muted leading-relaxed">
+            Engineered for high-throughput production environments, enterprise developer workflows, and compliance-sensitive operations. Below is an exhaustive technical reference covering architecture, execution parameters, and edge-case behaviors.
+          </p>
+        </div>
+
+        <!-- Production Use Cases -->
+        <div>
+          <h3 class="text-base font-bold text-white mb-4">Enterprise & Production Use Cases</h3>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/50 flex flex-col justify-between">
+              <h4 class="text-sm font-bold text-workspace-text mb-2">Cross-Disciplinary Scientific & Engineering Calculations</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">Mechanical, civil, and aerospace engineers convert units across metric (SI) and imperial systems (Length, Mass, Pressure, Temperature, Energy, Power, Velocity, Flow) for technical specifications and CAD models.</p>
+            </div>
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/50 flex flex-col justify-between">
+              <h4 class="text-sm font-bold text-workspace-text mb-2">International E-Commerce Packaging & Shipping Compliance</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">Logistics coordinators convert package dimensions and weights between kilograms/grams and pounds/ounces to ensure compliance with international air carrier rate tables (FedEx, DHL, UPS).</p>
+            </div>
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/50 flex flex-col justify-between">
+              <h4 class="text-sm font-bold text-workspace-text mb-2">Cloud Infrastructure & Memory Storage Provisioning</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">DevOps engineers convert storage allocations between decimal SI units (Kilobytes = 1,000 bytes) and binary IEC units (Kibibytes = 1,024 bytes) when provisioning cloud volumes and container memory limits.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Technical Architecture Comparison -->
+        <div>
+          <h3 class="text-base font-bold text-white mb-3">Architectural Comparison: Client-Side Engine vs Cloud Processing</h3>
+          <div class="overflow-x-auto my-4">
+            <table class="w-full text-left text-xs font-mono border border-workspace-border rounded-xl overflow-hidden">
+              <thead class="bg-workspace-surface border-b border-workspace-border text-workspace-text">
+                <tr>
+                  <th class="p-3">Evaluation Parameter</th>
+                  <th class="p-3 text-workspace-accent">TabKit In-Browser Engine</th>
+                  <th class="p-3 text-workspace-muted">Traditional Cloud Service</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-workspace-border text-workspace-muted">
+                <tr>
+                  <td class="p-3 font-semibold text-workspace-text">Conversion Accuracy</td>
+                  <td class="p-3 text-workspace-accent font-medium">High-precision IEEE 754 floating-point with rational fractions</td>
+                  <td class="p-3">Approximated values with severe rounding errors</td>
+                </tr>
+                <tr>
+                  <td class="p-3 font-semibold text-workspace-text">Unit Coverage</td>
+                  <td class="p-3 text-workspace-accent font-medium">10+ Engineering domains covering 80+ international unit standards</td>
+                  <td class="p-3">Basic length and weight only</td>
+                </tr>
+                <tr>
+                  <td class="p-3 font-semibold text-workspace-text">Real-Time Calculation</td>
+                  <td class="p-3 text-workspace-accent font-medium">Instant simultaneous conversion across all related units as you type</td>
+                  <td class="p-3">Requires manual dropdown selection and button submit</td>
+                </tr>
+                <tr>
+                  <td class="p-3 font-semibold text-workspace-text">Confidentiality</td>
+                  <td class="p-3 text-workspace-accent font-medium">Proprietary engineering dimensions remain 100% in local memory</td>
+                  <td class="p-3">Calculation inputs logged on third-party servers</td>
+                </tr>
+                <tr>
+                  <td class="p-3 font-semibold text-workspace-text">Binary Storage Support</td>
+                  <td class="p-3 text-workspace-accent font-medium">Distinguishes decimal SI (KB/MB/GB) from binary IEC (KiB/MiB/GiB)</td>
+                  <td class="p-3">Conflates 1,000 bytes with 1,024 bytes</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Pitfalls & Troubleshooting -->
+        <div>
+          <h3 class="text-base font-bold text-white mb-3">Common Pitfalls & Engineering Troubleshooting</h3>
+          <div class="space-y-3">
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/40">
+              <h4 class="text-sm font-semibold text-workspace-text mb-1">Decimal (SI) vs Binary (IEC) Data Storage Discrepancies</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">Hard drive manufacturers define a Terabyte as 10^12 bytes (1,000,000,000,000 bytes), whereas computer operating systems historically calculate gigabytes using powers of 2 (2^30 = 1,073,741,824 bytes). This causes a 1TB drive to display as ~931 GiB in Windows, confusing non-technical users.</p>
+            </div>
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/40">
+              <h4 class="text-sm font-semibold text-workspace-text mb-1">Temperature Non-Linear Affine Transformation Errors</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">Unlike length or weight conversions that use simple proportional multiplication (y = a * x), temperature conversions involve an additive offset (Fahrenheit = Celsius * 1.8 + 32; Kelvin = Celsius + 273.15). Using naive proportional math produces completely incorrect temperature values.</p>
+            </div>
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/40">
+              <h4 class="text-sm font-semibold text-workspace-text mb-1">US Customary vs UK Imperial Liquid Volume Incompatibilities</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">A US liquid gallon is 3.785 liters (128 US fluid ounces), whereas a British Imperial gallon is 4.546 liters (160 Imperial fluid ounces). Mixing US and UK liquid volume units creates a 20% measurement discrepancy.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <div class="border-t border-workspace-border pt-8">
         <h3 class="text-xs font-bold uppercase tracking-wider text-workspace-muted mb-3 font-mono">Related Calculation Utilities</h3>
         <div class="flex flex-wrap gap-2 text-xs font-mono">

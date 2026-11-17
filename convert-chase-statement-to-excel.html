@@ -205,6 +205,98 @@
         </div>
       </div>
 
+      
+      <!-- Enterprise Technical Architecture & Deep Dive -->
+      <div data-enriched="true" class="border-t border-workspace-border pt-10 space-y-8">
+        <div>
+          <h2 class="text-xl font-bold text-white mb-3">Enterprise Technical Architecture & Deep Dive</h2>
+          <p class="text-sm text-workspace-muted leading-relaxed">
+            Engineered for high-throughput production environments, enterprise developer workflows, and compliance-sensitive operations. Below is an exhaustive technical reference covering architecture, execution parameters, and edge-case behaviors.
+          </p>
+        </div>
+
+        <!-- Production Use Cases -->
+        <div>
+          <h3 class="text-base font-bold text-white mb-4">Enterprise & Production Use Cases</h3>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/50 flex flex-col justify-between">
+              <h4 class="text-sm font-bold text-workspace-text mb-2">Chase Business & Personal Account Reconciliation</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">Cardholders and business managers convert Chase checking, savings, and Chase Ink / Sapphire credit card statements into Excel workbooks, accurately mapping Chase's transaction tables into clean rows.</p>
+            </div>
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/50 flex flex-col justify-between">
+              <h4 class="text-sm font-bold text-workspace-text mb-2">Categorized Expense Audits & Schedule C Tax Filing</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">Self-employed contractors and business owners extract itemized Chase expenses to classify deductible business expenses for IRS Schedule C tax filings.</p>
+            </div>
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/50 flex flex-col justify-between">
+              <h4 class="text-sm font-bold text-workspace-text mb-2">Loan Application Documentation for Chase Customers</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">Applicants preparing financial dossiers convert multi-month Chase PDF statements into clean spreadsheets for loan officers.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Technical Architecture Comparison -->
+        <div>
+          <h3 class="text-base font-bold text-white mb-3">Architectural Comparison: Client-Side Engine vs Cloud Processing</h3>
+          <div class="overflow-x-auto my-4">
+            <table class="w-full text-left text-xs font-mono border border-workspace-border rounded-xl overflow-hidden">
+              <thead class="bg-workspace-surface border-b border-workspace-border text-workspace-text">
+                <tr>
+                  <th class="p-3">Evaluation Parameter</th>
+                  <th class="p-3 text-workspace-accent">TabKit In-Browser Engine</th>
+                  <th class="p-3 text-workspace-muted">Traditional Cloud Service</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-workspace-border text-workspace-muted">
+                <tr>
+                  <td class="p-3 font-semibold text-workspace-text">Chase Table Mapping</td>
+                  <td class="p-3 text-workspace-accent font-medium">Parsed sections: Deposits, Withdrawals, Checks Paid, and Fees</td>
+                  <td class="p-3">Generic parser splitting Chase summary boxes</td>
+                </tr>
+                <tr>
+                  <td class="p-3 font-semibold text-workspace-text">Date Formatting</td>
+                  <td class="p-3 text-workspace-accent font-medium">Normalizes Chase MM/DD format with automatic statement year binding</td>
+                  <td class="p-3">Leaves dates as ambiguous text strings</td>
+                </tr>
+                <tr>
+                  <td class="p-3 font-semibold text-workspace-text">Confidentiality</td>
+                  <td class="p-3 text-workspace-accent font-medium">Account numbers and transaction history remain strictly local in browser</td>
+                  <td class="p-3">Transmitted to third-party conversion servers</td>
+                </tr>
+                <tr>
+                  <td class="p-3 font-semibold text-workspace-text">Output Standards</td>
+                  <td class="p-3 text-workspace-accent font-medium">Native .xlsx with formatted dates and currency columns</td>
+                  <td class="p-3">Unformatted text output</td>
+                </tr>
+                <tr>
+                  <td class="p-3 font-semibold text-workspace-text">Execution Speed</td>
+                  <td class="p-3 text-workspace-accent font-medium">< 2 seconds local execution for multi-month Chase statements</td>
+                  <td class="p-3">Cloud queue and upload delay</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Pitfalls & Troubleshooting -->
+        <div>
+          <h3 class="text-base font-bold text-white mb-3">Common Pitfalls & Engineering Troubleshooting</h3>
+          <div class="space-y-3">
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/40">
+              <h4 class="text-sm font-semibold text-workspace-text mb-1">Chase Year-Boundary Transaction Date Binding</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">Chase statements print transaction dates in MM/DD format without the year on individual rows, showing the statement year only on the header cover. Statements spanning December into January require smart year binding to prevent January transactions from being assigned to the previous calendar year.</p>
+            </div>
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/40">
+              <h4 class="text-sm font-semibold text-workspace-text mb-1">Handling Chase Separate Deposits and Withdrawals Grids</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">Chase statements frequently partition deposits and withdrawals into distinct tabular sections on separate pages. Robust extraction requires parsing each section and combining them into a unified chronological register.</p>
+            </div>
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/40">
+              <h4 class="text-sm font-semibold text-workspace-text mb-1">Checks Paid Table Layout Variations</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">Chase checks paid sections often format check numbers, dates, and amounts in a compressed 3-column side-by-side grid. Parsing these requires grid-aware extraction to avoid interleaving check records.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <div class="border-t border-workspace-border pt-8">
         <h2 class="text-xs font-bold uppercase tracking-wider text-workspace-muted mb-3 font-mono">Other Bank Statement Presets & Financial Utilities</h2>
         <div class="flex flex-wrap gap-2 text-xs font-mono">

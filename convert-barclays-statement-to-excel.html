@@ -205,6 +205,98 @@
         </div>
       </div>
 
+      
+      <!-- Enterprise Technical Architecture & Deep Dive -->
+      <div data-enriched="true" class="border-t border-workspace-border pt-10 space-y-8">
+        <div>
+          <h2 class="text-xl font-bold text-white mb-3">Enterprise Technical Architecture & Deep Dive</h2>
+          <p class="text-sm text-workspace-muted leading-relaxed">
+            Engineered for high-throughput production environments, enterprise developer workflows, and compliance-sensitive operations. Below is an exhaustive technical reference covering architecture, execution parameters, and edge-case behaviors.
+          </p>
+        </div>
+
+        <!-- Production Use Cases -->
+        <div>
+          <h3 class="text-base font-bold text-white mb-4">Enterprise & Production Use Cases</h3>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/50 flex flex-col justify-between">
+              <h4 class="text-sm font-bold text-workspace-text mb-2">Barclays UK Business & Personal Account Reconciliation</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">UK business owners, bookkeepers, and accountants convert Barclays current and savings account statement PDFs into Excel workbooks for HMRC tax filings and Making Tax Digital (MTD) compliance.</p>
+            </div>
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/50 flex flex-col justify-between">
+              <h4 class="text-sm font-bold text-workspace-text mb-2">UK Mortgage & Visa Financial Documentation</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">Applicants preparing documents for UK mortgage lenders or Home Office visa applications convert Barclays PDF statements into clean spreadsheets for income verification.</p>
+            </div>
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/50 flex flex-col justify-between">
+              <h4 class="text-sm font-bold text-workspace-text mb-2">Barclaycard Credit Card Expense Tracking</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">Finance teams process monthly Barclaycard statements to itemize employee corporate card expenditures and reclaim VAT on eligible expenses.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Technical Architecture Comparison -->
+        <div>
+          <h3 class="text-base font-bold text-white mb-3">Architectural Comparison: Client-Side Engine vs Cloud Processing</h3>
+          <div class="overflow-x-auto my-4">
+            <table class="w-full text-left text-xs font-mono border border-workspace-border rounded-xl overflow-hidden">
+              <thead class="bg-workspace-surface border-b border-workspace-border text-workspace-text">
+                <tr>
+                  <th class="p-3">Evaluation Parameter</th>
+                  <th class="p-3 text-workspace-accent">TabKit In-Browser Engine</th>
+                  <th class="p-3 text-workspace-muted">Traditional Cloud Service</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-workspace-border text-workspace-muted">
+                <tr>
+                  <td class="p-3 font-semibold text-workspace-text">Barclays Table Support</td>
+                  <td class="p-3 text-workspace-accent font-medium">Extracts Payments Out, Payments In, and Balance columns</td>
+                  <td class="p-3">Generic parsers confusing Payments In and Out columns</td>
+                </tr>
+                <tr>
+                  <td class="p-3 font-semibold text-workspace-text">UK Date Conventions</td>
+                  <td class="p-3 text-workspace-accent font-medium">Strict handling of British DD/MM/YYYY date formatting</td>
+                  <td class="p-3">Inverts day and month treating dates as US MM/DD</td>
+                </tr>
+                <tr>
+                  <td class="p-3 font-semibold text-workspace-text">Confidentiality</td>
+                  <td class="p-3 text-workspace-accent font-medium">Sort codes and account numbers stay 100% in local memory</td>
+                  <td class="p-3">Uploaded to third-party web conversion servers</td>
+                </tr>
+                <tr>
+                  <td class="p-3 font-semibold text-workspace-text">Format Standards</td>
+                  <td class="p-3 text-workspace-accent font-medium">Outputs native .xlsx with British currency (£ GBP) formatting</td>
+                  <td class="p-3">Plain text output without formatting</td>
+                </tr>
+                <tr>
+                  <td class="p-3 font-semibold text-workspace-text">Speed</td>
+                  <td class="p-3 text-workspace-accent font-medium">Processes multi-page Barclays statements in seconds</td>
+                  <td class="p-3">Server upload latency and processing queues</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Pitfalls & Troubleshooting -->
+        <div>
+          <h3 class="text-base font-bold text-white mb-3">Common Pitfalls & Engineering Troubleshooting</h3>
+          <div class="space-y-3">
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/40">
+              <h4 class="text-sm font-semibold text-workspace-text mb-1">British DD/MM/YYYY vs US MM/DD/YYYY Date Inversion</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">Barclays statements format dates according to UK conventions (DD/MM/YYYY). A transaction on 05/06/2023 represents June 5 in the UK, but US-based software interprets it as May 6. TabKit enforces British date parsing for Barclays statements.</p>
+            </div>
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/40">
+              <h4 class="text-sm font-semibold text-workspace-text mb-1">Barclays Sort Code (00-00-00) Formatting</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">Barclays statements feature UK 6-digit sort codes formatted with hyphens. Excel can misinterpret hyphenated sort codes as mathematical subtractions or dates unless formatted explicitly as text strings.</p>
+            </div>
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/40">
+              <h4 class="text-sm font-semibold text-workspace-text mb-1">Handling Split "Payments In" and "Payments Out" Columns</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">Barclays uses separate "Payments Out" and "Payments In" columns rather than signed amounts. TabKit converts these into signed amounts (negative for Payments Out, positive for Payments In) for easy summation.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <div class="border-t border-workspace-border pt-8">
         <h2 class="text-xs font-bold uppercase tracking-wider text-workspace-muted mb-3 font-mono">Other Bank Statement Presets & Financial Utilities</h2>
         <div class="flex flex-wrap gap-2 text-xs font-mono">

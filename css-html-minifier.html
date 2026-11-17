@@ -205,6 +205,98 @@
           </div>
         </div>
       </div>
+      
+      <!-- Enterprise Technical Architecture & Deep Dive -->
+      <div data-enriched="true" class="border-t border-workspace-border pt-10 space-y-8">
+        <div>
+          <h2 class="text-xl font-bold text-white mb-3">Enterprise Technical Architecture & Deep Dive</h2>
+          <p class="text-sm text-workspace-muted leading-relaxed">
+            Engineered for high-throughput production environments, enterprise developer workflows, and compliance-sensitive operations. Below is an exhaustive technical reference covering architecture, execution parameters, and edge-case behaviors.
+          </p>
+        </div>
+
+        <!-- Production Use Cases -->
+        <div>
+          <h3 class="text-base font-bold text-white mb-4">Enterprise & Production Use Cases</h3>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/50 flex flex-col justify-between">
+              <h4 class="text-sm font-bold text-workspace-text mb-2">Core Web Vitals & First Contentful Paint (FCP) Tuning</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">Minifying critical inline CSS and HTML templates strips superfluous whitespace, indentations, comments, and redundant punctuation. Reducing HTML document byte size directly improves Time to First Byte (TTFB), minimizes TCP packet round-trips over mobile networks, and boosts Google PageSpeed Insights performance scores.</p>
+            </div>
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/50 flex flex-col justify-between">
+              <h4 class="text-sm font-bold text-workspace-text mb-2">Serverless & Edge Worker Bundle Optimization</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">Modern edge computing runtimes (Cloudflare Workers, AWS Lambda@Edge, Vercel Edge) enforce strict script bundle limits (e.g. 1MB or 5MB compressed). Minifying static HTML error pages and CSS assets before embedding them into edge functions ensures tight adherence to deployment size budgets.</p>
+            </div>
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/50 flex flex-col justify-between">
+              <h4 class="text-sm font-bold text-workspace-text mb-2">Email HTML Newsletter 102KB Truncation Prevention</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">Desktop and mobile Gmail clients automatically truncate email messages that exceed 102 kilobytes in size, replacing the content with a "[Message clipped] View entire message" link. Minifying HTML email code strips unnecessary bytes, ensuring full newsletter rendering and preserving click tracking pixels.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Technical Architecture Comparison -->
+        <div>
+          <h3 class="text-base font-bold text-white mb-3">Architectural Comparison: Client-Side Engine vs Cloud Processing</h3>
+          <div class="overflow-x-auto my-4">
+            <table class="w-full text-left text-xs font-mono border border-workspace-border rounded-xl overflow-hidden">
+              <thead class="bg-workspace-surface border-b border-workspace-border text-workspace-text">
+                <tr>
+                  <th class="p-3">Evaluation Parameter</th>
+                  <th class="p-3 text-workspace-accent">TabKit In-Browser Engine</th>
+                  <th class="p-3 text-workspace-muted">Traditional Cloud Service</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-workspace-border text-workspace-muted">
+                <tr>
+                  <td class="p-3 font-semibold text-workspace-text">Minification Engine</td>
+                  <td class="p-3 text-workspace-accent font-medium">Client-side AST and regular expression compressor</td>
+                  <td class="p-3">Cloud-based build tool or external API</td>
+                </tr>
+                <tr>
+                  <td class="p-3 font-semibold text-workspace-text">Proprietary Code Safety</td>
+                  <td class="p-3 text-workspace-accent font-medium">Source markup never leaves the browser tab</td>
+                  <td class="p-3">Source code transmitted to remote server</td>
+                </tr>
+                <tr>
+                  <td class="p-3 font-semibold text-workspace-text">Preservation Controls</td>
+                  <td class="p-3 text-workspace-accent font-medium">Safely preserves CSS calc(), CSS variables, and comments</td>
+                  <td class="p-3">Often strips required vendor prefixes</td>
+                </tr>
+                <tr>
+                  <td class="p-3 font-semibold text-workspace-text">Execution Latency</td>
+                  <td class="p-3 text-workspace-accent font-medium">Instant local compression (5-20ms)</td>
+                  <td class="p-3">Network upload and download delay</td>
+                </tr>
+                <tr>
+                  <td class="p-3 font-semibold text-workspace-text">Output Cleanliness</td>
+                  <td class="p-3 text-workspace-accent font-medium">Lossless compression preserving DOM structure</td>
+                  <td class="p-3">Risk of aggressive whitespace collapse breaking layout</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Pitfalls & Troubleshooting -->
+        <div>
+          <h3 class="text-base font-bold text-white mb-3">Common Pitfalls & Engineering Troubleshooting</h3>
+          <div class="space-y-3">
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/40">
+              <h4 class="text-sm font-semibold text-workspace-text mb-1">Collapsing Significant Whitespace in Preformatted Elements</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">Aggressive HTML minification can inadvertently collapse spaces and newlines inside &lt;pre&gt;, &lt;code&gt;, and &lt;textarea&gt; elements where whitespace is semantically critical. TabKit's parser preserves whitespace integrity inside preformatted containers.</p>
+            </div>
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/40">
+              <h4 class="text-sm font-semibold text-workspace-text mb-1">Omission of Semicolons in Cascading Style Sheets</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">While the final declaration in a CSS block does not require a terminating semicolon according to the CSS specification, omitting it causes parsing syntax errors if styles are later concatenated or dynamically amended via JavaScript.</p>
+            </div>
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/40">
+              <h4 class="text-sm font-semibold text-workspace-text mb-1">Breaking CSS Custom Property and calc() Calculations</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">CSS calc() expressions strictly require whitespace around addition (+) and subtraction (-) operators (e.g. calc(100% - 20px)). Minifiers that strip all whitespace indiscriminately turn valid calc statements into invalid CSS, causing layout collapse.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <div class="border-t border-workspace-border pt-8">
         <h3 class="text-xs font-bold uppercase tracking-wider text-workspace-muted mb-3 font-mono">Related Web Utilities</h3>
         <div class="flex flex-wrap gap-2 text-xs font-mono">

@@ -188,6 +188,98 @@
         </div>
       </div>
 
+      
+      <!-- Enterprise Technical Architecture & Deep Dive -->
+      <div data-enriched="true" class="border-t border-workspace-border pt-10 space-y-8">
+        <div>
+          <h2 class="text-xl font-bold text-white mb-3">Enterprise Technical Architecture & Deep Dive</h2>
+          <p class="text-sm text-workspace-muted leading-relaxed">
+            Engineered for high-throughput production environments, enterprise developer workflows, and compliance-sensitive operations. Below is an exhaustive technical reference covering architecture, execution parameters, and edge-case behaviors.
+          </p>
+        </div>
+
+        <!-- Production Use Cases -->
+        <div>
+          <h3 class="text-base font-bold text-white mb-4">Enterprise & Production Use Cases</h3>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/50 flex flex-col justify-between">
+              <h4 class="text-sm font-bold text-workspace-text mb-2">Omnichannel Social Media Card Validation</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">Digital marketing teams and growth engineers simulate exactly how web pages, blog posts, and landing pages render when shared across Twitter/X (summary_large_image), Facebook Open Graph, LinkedIn, Discord, and Slack, ensuring branded presentation across all platforms.</p>
+            </div>
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/50 flex flex-col justify-between">
+              <h4 class="text-sm font-bold text-workspace-text mb-2">Click-Through Rate (CTR) Headline & Metadata Tuning</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">Content creators test title character limits (under 60 characters) and description lengths (under 155 characters) against real-time platform simulation cards to ensure marketing copy is not truncated with awkward ellipses (...).</p>
+            </div>
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/50 flex flex-col justify-between">
+              <h4 class="text-sm font-bold text-workspace-text mb-2">Social Crawling & Meta Tag Diagnostic Audits</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">SEO specialists audit pages to verify required meta tags—such as og:image, og:image:width, og:image:height, twitter:card, and canonical URLs—are populated with absolute HTTPS links before launching public marketing campaigns.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Technical Architecture Comparison -->
+        <div>
+          <h3 class="text-base font-bold text-white mb-3">Architectural Comparison: Client-Side Engine vs Cloud Processing</h3>
+          <div class="overflow-x-auto my-4">
+            <table class="w-full text-left text-xs font-mono border border-workspace-border rounded-xl overflow-hidden">
+              <thead class="bg-workspace-surface border-b border-workspace-border text-workspace-text">
+                <tr>
+                  <th class="p-3">Evaluation Parameter</th>
+                  <th class="p-3 text-workspace-accent">TabKit In-Browser Engine</th>
+                  <th class="p-3 text-workspace-muted">Traditional Cloud Service</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-workspace-border text-workspace-muted">
+                <tr>
+                  <td class="p-3 font-semibold text-workspace-text">Simulated Platforms</td>
+                  <td class="p-3 text-workspace-accent font-medium">Twitter / X, Facebook Open Graph, LinkedIn, Discord, Slack</td>
+                  <td class="p-3">Single platform generic card preview</td>
+                </tr>
+                <tr>
+                  <td class="p-3 font-semibold text-workspace-text">Aspect Ratio Check</td>
+                  <td class="p-3 text-workspace-accent font-medium">Validates 1.91:1 (1200x630px) recommended social dimensions</td>
+                  <td class="p-3">No aspect ratio validation</td>
+                </tr>
+                <tr>
+                  <td class="p-3 font-semibold text-workspace-text">Real-Time Emulation</td>
+                  <td class="p-3 text-workspace-accent font-medium">Instant live preview updating on every keystroke</td>
+                  <td class="p-3">Requires manual page refresh or server fetch</td>
+                </tr>
+                <tr>
+                  <td class="p-3 font-semibold text-workspace-text">Confidentiality</td>
+                  <td class="p-3 text-workspace-accent font-medium">Unreleased product announcements stay 100% in local memory</td>
+                  <td class="p-3">Requires public URL crawled by third-party debuggers</td>
+                </tr>
+                <tr>
+                  <td class="p-3 font-semibold text-workspace-text">Tag Generator</td>
+                  <td class="p-3 text-workspace-accent font-medium">Outputs copy-pasteable HTML &lt;meta&gt; tags ready for deployment</td>
+                  <td class="p-3">Preview only without tag generation</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Pitfalls & Troubleshooting -->
+        <div>
+          <h3 class="text-base font-bold text-white mb-3">Common Pitfalls & Engineering Troubleshooting</h3>
+          <div class="space-y-3">
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/40">
+              <h4 class="text-sm font-semibold text-workspace-text mb-1">Persistent Social Platform Crawler Caching</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">Platforms like Facebook, LinkedIn, and Twitter aggressively cache scraped Open Graph metadata for days. Deploying updated meta tags to your server will not update existing social cards until forced via platform-specific tools like the Facebook Sharing Debugger or Twitter Card Validator.</p>
+            </div>
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/40">
+              <h4 class="text-sm font-semibold text-workspace-text mb-1">Social Image File Size Exceeding Platform Limits</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">Facebook and Twitter automatically ignore og:image declarations if the linked image file exceeds 5MB or 8MB, falling back to a plain text link card without imagery. Keep social preview cards under 1MB for reliable worldwide delivery.</p>
+            </div>
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/40">
+              <h4 class="text-sm font-semibold text-workspace-text mb-1">Relative URL Paths Breaking Social Crawlers</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">Social scrapers do not execute client-side JavaScript and cannot resolve relative image paths (e.g. content="/og-image.png"). All Open Graph image, URL, and audio tags strictly require absolute HTTPS URLs (e.g. content="https://example.com/og-image.png").</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <div class="border-t border-workspace-border pt-8">
         <h3 class="text-xs font-bold uppercase tracking-wider text-workspace-muted mb-3 font-mono">Related Developer Utilities</h3>
         <div class="flex flex-wrap gap-2 text-xs font-mono">

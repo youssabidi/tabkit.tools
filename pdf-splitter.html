@@ -208,6 +208,98 @@
           </div>
         </div>
       </div>
+      
+      <!-- Enterprise Technical Architecture & Deep Dive -->
+      <div data-enriched="true" class="border-t border-workspace-border pt-10 space-y-8">
+        <div>
+          <h2 class="text-xl font-bold text-white mb-3">Enterprise Technical Architecture & Deep Dive</h2>
+          <p class="text-sm text-workspace-muted leading-relaxed">
+            Engineered for high-throughput production environments, enterprise developer workflows, and compliance-sensitive operations. Below is an exhaustive technical reference covering architecture, execution parameters, and edge-case behaviors.
+          </p>
+        </div>
+
+        <!-- Production Use Cases -->
+        <div>
+          <h3 class="text-base font-bold text-white mb-4">Enterprise & Production Use Cases</h3>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/50 flex flex-col justify-between">
+              <h4 class="text-sm font-bold text-workspace-text mb-2">Large Legal & M&A Document Disaggregation</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">Legal counsel and transaction teams extract specific exhibits, disclosure schedules, or signature pages from massive 500-page scanned court filings, annual reports, and closing binders.</p>
+            </div>
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/50 flex flex-col justify-between">
+              <h4 class="text-sm font-bold text-workspace-text mb-2">Sensitive Section Extraction & Privacy Redaction</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">Extracting only relevant pages from multi-year tax returns or closing packages before sharing with third-party vendors prevents inadvertent exposure of private financial schedules.</p>
+            </div>
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/50 flex flex-col justify-between">
+              <h4 class="text-sm font-bold text-workspace-text mb-2">Email Attachment Size Budget Compliance</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">Splitting multi-megabyte PDF binders into smaller page ranges enables compliance with strict 10MB or 25MB corporate email server attachment limits.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Technical Architecture Comparison -->
+        <div>
+          <h3 class="text-base font-bold text-white mb-3">Architectural Comparison: Client-Side Engine vs Cloud Processing</h3>
+          <div class="overflow-x-auto my-4">
+            <table class="w-full text-left text-xs font-mono border border-workspace-border rounded-xl overflow-hidden">
+              <thead class="bg-workspace-surface border-b border-workspace-border text-workspace-text">
+                <tr>
+                  <th class="p-3">Evaluation Parameter</th>
+                  <th class="p-3 text-workspace-accent">TabKit In-Browser Engine</th>
+                  <th class="p-3 text-workspace-muted">Traditional Cloud Service</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-workspace-border text-workspace-muted">
+                <tr>
+                  <td class="p-3 font-semibold text-workspace-text">Splitting Engine</td>
+                  <td class="p-3 text-workspace-accent font-medium">Client-side pdf-lib WebAssembly/JavaScript stream editor</td>
+                  <td class="p-3">Server-side Ghostscript or Poppler utilities</td>
+                </tr>
+                <tr>
+                  <td class="p-3 font-semibold text-workspace-text">Range Customization</td>
+                  <td class="p-3 text-workspace-accent font-medium">Custom ranges (1-5, 8, 11-14), split every N pages, or burst all</td>
+                  <td class="p-3">Rigid single-page burst only</td>
+                </tr>
+                <tr>
+                  <td class="p-3 font-semibold text-workspace-text">File Confidentiality</td>
+                  <td class="p-3 text-workspace-accent font-medium">Proprietary legal and medical records never leave browser memory</td>
+                  <td class="p-3">Uploaded across public network to third-party servers</td>
+                </tr>
+                <tr>
+                  <td class="p-3 font-semibold text-workspace-text">Visual Quality</td>
+                  <td class="p-3 text-workspace-accent font-medium">100% lossless extraction preserving vector paths and fonts</td>
+                  <td class="p-3">Re-compresses pages causing visual degradation</td>
+                </tr>
+                <tr>
+                  <td class="p-3 font-semibold text-workspace-text">Execution Speed</td>
+                  <td class="p-3 text-workspace-accent font-medium">Sub-second extraction (< 500ms) directly in client memory</td>
+                  <td class="p-3">Network upload + remote queue + download time</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Pitfalls & Troubleshooting -->
+        <div>
+          <h3 class="text-base font-bold text-white mb-3">Common Pitfalls & Engineering Troubleshooting</h3>
+          <div class="space-y-3">
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/40">
+              <h4 class="text-sm font-semibold text-workspace-text mb-1">Corrupted Cross-Reference (XRef) Tables in Malformed PDFs</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">PDFs with malformed trailer dictionaries or broken xref tables fail to split in standard viewers. TabKit repairs xref tables during parsing to ensure clean page extraction.</p>
+            </div>
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/40">
+              <h4 class="text-sm font-semibold text-workspace-text mb-1">Orphaned Document Outlines and Bookmarks</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">When extracting a sub-range of pages, document bookmarks pointing to removed pages become orphaned unless the outline tree is pruned. TabKit cleans outline references to ensure extracted files open without errors.</p>
+            </div>
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/40">
+              <h4 class="text-sm font-semibold text-workspace-text mb-1">Shared Resource Dictionary Bloat in Extracted Files</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">In naive splitters, each extracted single-page PDF retains the entire embedded font dictionary of the original 500-page document. TabKit prunes unused fonts and resources to keep extracted file sizes minimal.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <div class="border-t border-workspace-border pt-8">
         <h3 class="text-xs font-bold uppercase tracking-wider text-workspace-muted mb-3 font-mono">Related PDF Utilities</h3>
         <div class="flex flex-wrap gap-2 text-xs font-mono">

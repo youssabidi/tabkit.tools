@@ -205,6 +205,98 @@
         </div>
       </div>
 
+      
+      <!-- Enterprise Technical Architecture & Deep Dive -->
+      <div data-enriched="true" class="border-t border-workspace-border pt-10 space-y-8">
+        <div>
+          <h2 class="text-xl font-bold text-white mb-3">Enterprise Technical Architecture & Deep Dive</h2>
+          <p class="text-sm text-workspace-muted leading-relaxed">
+            Engineered for high-throughput production environments, enterprise developer workflows, and compliance-sensitive operations. Below is an exhaustive technical reference covering architecture, execution parameters, and edge-case behaviors.
+          </p>
+        </div>
+
+        <!-- Production Use Cases -->
+        <div>
+          <h3 class="text-base font-bold text-white mb-4">Enterprise & Production Use Cases</h3>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/50 flex flex-col justify-between">
+              <h4 class="text-sm font-bold text-workspace-text mb-2">Bank of America Business Checking Reconciliation</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">Business owners and bookkeepers convert Bank of America statement PDFs into structured Excel sheets, mapping deposits, electronic withdrawals, and service fees into clean accounting rows.</p>
+            </div>
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/50 flex flex-col justify-between">
+              <h4 class="text-sm font-bold text-workspace-text mb-2">Corporate Credit Card Expense Auditing</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">Finance departments process monthly Bank of America commercial card statements to verify employee travel expenses and identify unauthorized charges.</p>
+            </div>
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/50 flex flex-col justify-between">
+              <h4 class="text-sm font-bold text-workspace-text mb-2">Cash Flow Analysis & Working Capital Modeling</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">Financial controllers analyze daily balance summaries across Bank of America accounts to project liquidity and cash flow trends.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Technical Architecture Comparison -->
+        <div>
+          <h3 class="text-base font-bold text-white mb-3">Architectural Comparison: Client-Side Engine vs Cloud Processing</h3>
+          <div class="overflow-x-auto my-4">
+            <table class="w-full text-left text-xs font-mono border border-workspace-border rounded-xl overflow-hidden">
+              <thead class="bg-workspace-surface border-b border-workspace-border text-workspace-text">
+                <tr>
+                  <th class="p-3">Evaluation Parameter</th>
+                  <th class="p-3 text-workspace-accent">TabKit In-Browser Engine</th>
+                  <th class="p-3 text-workspace-muted">Traditional Cloud Service</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-workspace-border text-workspace-muted">
+                <tr>
+                  <td class="p-3 font-semibold text-workspace-text">BoA Layout Mapping</td>
+                  <td class="p-3 text-workspace-accent font-medium">Detects "Deposits and additions" and "Withdrawals and debits"</td>
+                  <td class="p-3">Generic table parser misaligning BoA running balances</td>
+                </tr>
+                <tr>
+                  <td class="p-3 font-semibold text-workspace-text">Currency Cleansing</td>
+                  <td class="p-3 text-workspace-accent font-medium">Cleans currency strings, handling commas and negative signs</td>
+                  <td class="p-3">Leaves raw text strings causing formula breaks</td>
+                </tr>
+                <tr>
+                  <td class="p-3 font-semibold text-workspace-text">Confidentiality</td>
+                  <td class="p-3 text-workspace-accent font-medium">Confidential financial transactions stay 100% in local memory</td>
+                  <td class="p-3">Uploaded to remote web conversion APIs</td>
+                </tr>
+                <tr>
+                  <td class="p-3 font-semibold text-workspace-text">Running Balance Support</td>
+                  <td class="p-3 text-workspace-accent font-medium">Extracts and verifies running balance continuity across transactions</td>
+                  <td class="p-3">Omits balance validation</td>
+                </tr>
+                <tr>
+                  <td class="p-3 font-semibold text-workspace-text">Performance</td>
+                  <td class="p-3 text-workspace-accent font-medium">Instant in-memory conversion without software installation</td>
+                  <td class="p-3">Dependent on server availability</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Pitfalls & Troubleshooting -->
+        <div>
+          <h3 class="text-base font-bold text-white mb-3">Common Pitfalls & Engineering Troubleshooting</h3>
+          <div class="space-y-3">
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/40">
+              <h4 class="text-sm font-semibold text-workspace-text mb-1">Bank of America Multi-Column Running Balance Alignment</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">Bank of America statements place running balances in a separate right-hand column. If transaction descriptions wrap onto multiple lines, naive extractors align the running balance with the wrong transaction line. TabKit matches balances by line coordinates.</p>
+            </div>
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/40">
+              <h4 class="text-sm font-semibold text-workspace-text mb-1">Service Fee and Interest Payment Section Segregation</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">BoA statements isolate monthly service fees and earned interest into standalone summary boxes at the end of the statement. Failing to incorporate these summary rows results in reconciliation imbalances.</p>
+            </div>
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/40">
+              <h4 class="text-sm font-semibold text-workspace-text mb-1">Multi-Account Combined Statement Separation</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">Enterprise Bank of America statements often bundle multiple accounts (e.g. Operating Checking and Payroll Checking) into a single PDF. TabKit allows selecting specific account sections.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <div class="border-t border-workspace-border pt-8">
         <h2 class="text-xs font-bold uppercase tracking-wider text-workspace-muted mb-3 font-mono">Other Bank Statement Presets & Financial Utilities</h2>
         <div class="flex flex-wrap gap-2 text-xs font-mono">

@@ -202,6 +202,98 @@
           </div>
         </div>
       </div>
+      
+      <!-- Enterprise Technical Architecture & Deep Dive -->
+      <div data-enriched="true" class="border-t border-workspace-border pt-10 space-y-8">
+        <div>
+          <h2 class="text-xl font-bold text-white mb-3">Enterprise Technical Architecture & Deep Dive</h2>
+          <p class="text-sm text-workspace-muted leading-relaxed">
+            Engineered for high-throughput production environments, enterprise developer workflows, and compliance-sensitive operations. Below is an exhaustive technical reference covering architecture, execution parameters, and edge-case behaviors.
+          </p>
+        </div>
+
+        <!-- Production Use Cases -->
+        <div>
+          <h3 class="text-base font-bold text-white mb-4">Enterprise & Production Use Cases</h3>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/50 flex flex-col justify-between">
+              <h4 class="text-sm font-bold text-workspace-text mb-2">Confidentiality & Embargo Enforcement</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">Investment bankers and corporate executives apply prominent diagonal "CONFIDENTIAL", "DRAFT", or "DO NOT DISTRIBUTE" watermarks across unannounced pitch decks and financial forecasts.</p>
+            </div>
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/50 flex flex-col justify-between">
+              <h4 class="text-sm font-bold text-workspace-text mb-2">Intellectual Property & Copyright Stamping</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">Photographers, architects, and publishers embed ownership identifiers and copyright notices across preview documents before public client distribution.</p>
+            </div>
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/50 flex flex-col justify-between">
+              <h4 class="text-sm font-bold text-workspace-text mb-2">Authorized Recipient Leak Tracing</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">Stamping recipient names or email addresses ("Prepared for Jane Doe") across distributed materials creates accountability and deters unauthorized leaks.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Technical Architecture Comparison -->
+        <div>
+          <h3 class="text-base font-bold text-white mb-3">Architectural Comparison: Client-Side Engine vs Cloud Processing</h3>
+          <div class="overflow-x-auto my-4">
+            <table class="w-full text-left text-xs font-mono border border-workspace-border rounded-xl overflow-hidden">
+              <thead class="bg-workspace-surface border-b border-workspace-border text-workspace-text">
+                <tr>
+                  <th class="p-3">Evaluation Parameter</th>
+                  <th class="p-3 text-workspace-accent">TabKit In-Browser Engine</th>
+                  <th class="p-3 text-workspace-muted">Traditional Cloud Service</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-workspace-border text-workspace-muted">
+                <tr>
+                  <td class="p-3 font-semibold text-workspace-text">Placement Styles</td>
+                  <td class="p-3 text-workspace-accent font-medium">Diagonal Center, Header Banner, or Footer Stamp</td>
+                  <td class="p-3">Fixed diagonal center only</td>
+                </tr>
+                <tr>
+                  <td class="p-3 font-semibold text-workspace-text">Visual Customization</td>
+                  <td class="p-3 text-workspace-accent font-medium">Adjustable opacity (5% - 80%), font size, rotation angle, and color</td>
+                  <td class="p-3">Rigid black/gray text with fixed opacity</td>
+                </tr>
+                <tr>
+                  <td class="p-3 font-semibold text-workspace-text">Layering Position</td>
+                  <td class="p-3 text-workspace-accent font-medium">Over Content (Foreground) or Under Content (Background)</td>
+                  <td class="p-3">Always placed behind content; obscured by white pages</td>
+                </tr>
+                <tr>
+                  <td class="p-3 font-semibold text-workspace-text">Confidentiality</td>
+                  <td class="p-3 text-workspace-accent font-medium">Proprietary trade secrets remain 100% in local browser memory</td>
+                  <td class="p-3">Uploaded to third-party web servers</td>
+                </tr>
+                <tr>
+                  <td class="p-3 font-semibold text-workspace-text">Document Integrity</td>
+                  <td class="p-3 text-workspace-accent font-medium">Preserves original vector text and interactive form fields intact</td>
+                  <td class="p-3">Flattens documents into low-resolution raster images</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Pitfalls & Troubleshooting -->
+        <div>
+          <h3 class="text-base font-bold text-white mb-3">Common Pitfalls & Engineering Troubleshooting</h3>
+          <div class="space-y-3">
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/40">
+              <h4 class="text-sm font-semibold text-workspace-text mb-1">Excessive Opacity Obscuring Underlying Text</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">Setting watermark opacity too high (above 40%) renders underlying body text illegible when printed or read on low-brightness displays. Ideal watermarks use 15% to 25% opacity with high-contrast neutral colors.</p>
+            </div>
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/40">
+              <h4 class="text-sm font-semibold text-workspace-text mb-1">Background Watermarks Hidden by Opaque Page Fills</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">Many PDFs feature solid white vector rectangles as page backgrounds. Placing a watermark behind page content renders it completely invisible beneath the opaque white fill. Stamping over content with transparency ensures visibility.</p>
+            </div>
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/40">
+              <h4 class="text-sm font-semibold text-workspace-text mb-1">Easily Stripped Vector Watermark Objects</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">Vector text watermarks added as distinct PDF content stream objects can be selected and deleted by users with basic PDF editing tools. For non-repudiable protection, flatten pages.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <div class="border-t border-workspace-border pt-8">
         <h3 class="text-xs font-bold uppercase tracking-wider text-workspace-muted mb-3 font-mono">Related PDF Utilities</h3>
         <div class="flex flex-wrap gap-2 text-xs font-mono">

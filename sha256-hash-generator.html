@@ -247,6 +247,98 @@
         </div>
       </div>
 
+      
+      <!-- Enterprise Technical Architecture & Deep Dive -->
+      <div data-enriched="true" class="border-t border-workspace-border pt-10 space-y-8">
+        <div>
+          <h2 class="text-xl font-bold text-white mb-3">Enterprise Technical Architecture & Deep Dive</h2>
+          <p class="text-sm text-workspace-muted leading-relaxed">
+            Engineered for high-throughput production environments, enterprise developer workflows, and compliance-sensitive operations. Below is an exhaustive technical reference covering architecture, execution parameters, and edge-case behaviors.
+          </p>
+        </div>
+
+        <!-- Production Use Cases -->
+        <div>
+          <h3 class="text-base font-bold text-white mb-4">Enterprise & Production Use Cases</h3>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/50 flex flex-col justify-between">
+              <h4 class="text-sm font-bold text-workspace-text mb-2">Release Asset & Software Checksum Verification</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">Security engineers and developers downloading compiled software binaries, OS ISO images, and container tarballs must verify file integrity against official publisher checksums. Generating a SHA-256 hash locally confirms the downloaded file has not been corrupted during transmission or compromised by a man-in-the-middle (MITM) tampering attack.</p>
+            </div>
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/50 flex flex-col justify-between">
+              <h4 class="text-sm font-bold text-workspace-text mb-2">Content-Addressable Storage & Deduplication</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">Distributed systems like IPFS, Git, and cloud storage systems rely on content hashes to uniquely identify objects. By calculating the SHA-256 digest of documents, databases can instantly identify duplicate uploads and store files under deterministic content-addressed keys without inspecting file names.</p>
+            </div>
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/50 flex flex-col justify-between">
+              <h4 class="text-sm font-bold text-workspace-text mb-2">Cryptographic Proof of Existence & Timestamping</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">Organizations frequently need to prove that a specific contract, code release, or design document existed at an exact point in time without publicly exposing the proprietary document contents. Hashing the file generates a permanent 64-character fingerprint that can be recorded on public ledgers or shared with auditors.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Technical Architecture Comparison -->
+        <div>
+          <h3 class="text-base font-bold text-white mb-3">Architectural Comparison: Client-Side Engine vs Cloud Processing</h3>
+          <div class="overflow-x-auto my-4">
+            <table class="w-full text-left text-xs font-mono border border-workspace-border rounded-xl overflow-hidden">
+              <thead class="bg-workspace-surface border-b border-workspace-border text-workspace-text">
+                <tr>
+                  <th class="p-3">Evaluation Parameter</th>
+                  <th class="p-3 text-workspace-accent">TabKit In-Browser Engine</th>
+                  <th class="p-3 text-workspace-muted">Traditional Cloud Service</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-workspace-border text-workspace-muted">
+                <tr>
+                  <td class="p-3 font-semibold text-workspace-text">Cryptographic Engine</td>
+                  <td class="p-3 text-workspace-accent font-medium">Web Cryptography API (SubtleCrypto.digest)</td>
+                  <td class="p-3">Server-side OpenSSL / Crypto CLI</td>
+                </tr>
+                <tr>
+                  <td class="p-3 font-semibold text-workspace-text">Algorithm Standard</td>
+                  <td class="p-3 text-workspace-accent font-medium">FIPS PUB 180-4 SHA-256 (256-bit hash digest)</td>
+                  <td class="p-3">FIPS PUB 180-4 SHA-256 (256-bit hash digest)</td>
+                </tr>
+                <tr>
+                  <td class="p-3 font-semibold text-workspace-text">Data Confidentiality</td>
+                  <td class="p-3 text-workspace-accent font-medium">Proprietary files never leave browser tab memory</td>
+                  <td class="p-3">File bytes uploaded across public internet to server</td>
+                </tr>
+                <tr>
+                  <td class="p-3 font-semibold text-workspace-text">Collision Resistance</td>
+                  <td class="p-3 text-workspace-accent font-medium">2^128 operations against birthday attacks</td>
+                  <td class="p-3">2^128 operations against birthday attacks</td>
+                </tr>
+                <tr>
+                  <td class="p-3 font-semibold text-workspace-text">Processing Speed</td>
+                  <td class="p-3 text-workspace-accent font-medium">Hardware-accelerated crypto instructions (AES-NI/AVX)</td>
+                  <td class="p-3">Dependent on server CPU allocation & network throughput</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Pitfalls & Troubleshooting -->
+        <div>
+          <h3 class="text-base font-bold text-white mb-3">Common Pitfalls & Engineering Troubleshooting</h3>
+          <div class="space-y-3">
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/40">
+              <h4 class="text-sm font-semibold text-workspace-text mb-1">Cross-Platform Line Ending Differences (CRLF vs LF)</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">The single most common cause of mismatched file hashes between team members is Git line-ending conversion. Windows files traditionally terminate lines with carriage return + line feed (\r\n), while macOS and Linux use simple line feeds (\n). Even a single byte difference alters every single character in the resulting SHA-256 output. Normalize line endings before comparing checksums.</p>
+            </div>
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/40">
+              <h4 class="text-sm font-semibold text-workspace-text mb-1">Character Encoding Mismatches (UTF-8 vs UTF-16LE)</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">Hashing a plain text string requires converting characters into raw bytes. Windows PowerShell traditionally outputs strings as UTF-16LE, whereas web browsers and Unix systems use UTF-8. Hashing the word "admin" in UTF-16 yields an entirely different hash than UTF-8. TabKit enforces standardized UTF-8 byte serialization.</p>
+            </div>
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/40">
+              <h4 class="text-sm font-semibold text-workspace-text mb-1">Using Raw SHA-256 for Password Storage</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">SHA-256 is designed to be extremely fast for integrity checking. Because modern GPU clusters can calculate billions of SHA-256 hashes per second, hashing raw passwords with unsalted SHA-256 makes them trivial to crack via precomputed rainbow tables. Passwords must always use memory-hard slow hashing algorithms (Argon2id, bcrypt, PBKDF2).</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <!-- Related Tools -->
       <div class="border-t border-workspace-border pt-8">
         <h3 class="text-xs font-bold uppercase tracking-wider text-workspace-muted mb-3 font-mono">Related Security &amp; Dev Tools</h3>

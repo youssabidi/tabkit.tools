@@ -250,6 +250,98 @@
         </div>
       </div>
 
+      
+      <!-- Enterprise Technical Architecture & Deep Dive -->
+      <div data-enriched="true" class="border-t border-workspace-border pt-10 space-y-8">
+        <div>
+          <h2 class="text-xl font-bold text-white mb-3">Enterprise Technical Architecture & Deep Dive</h2>
+          <p class="text-sm text-workspace-muted leading-relaxed">
+            Engineered for high-throughput production environments, enterprise developer workflows, and compliance-sensitive operations. Below is an exhaustive technical reference covering architecture, execution parameters, and edge-case behaviors.
+          </p>
+        </div>
+
+        <!-- Production Use Cases -->
+        <div>
+          <h3 class="text-base font-bold text-white mb-4">Enterprise & Production Use Cases</h3>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/50 flex flex-col justify-between">
+              <h4 class="text-sm font-bold text-workspace-text mb-2">Agile Scrum Standup & Retrospective Moderation</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">Scrum masters and engineering team leads randomly select speaker order in daily standup meetings and retrospective discussions to promote engagement and eliminate speaking hierarchy biases.</p>
+            </div>
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/50 flex flex-col justify-between">
+              <h4 class="text-sm font-bold text-workspace-text mb-2">Verifiable Giveaway & Community Raffle Drawings</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">Community managers conduct transparent, unbiased drawings for webinar prizes, conference ticket giveaways, and community contests with provable randomness.</p>
+            </div>
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/50 flex flex-col justify-between">
+              <h4 class="text-sm font-bold text-workspace-text mb-2">Fair Code Review & On-Call Rotation Distribution</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">Engineering teams select random code reviewers from active contributor pools to distribute review workloads evenly across senior and junior team members.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Technical Architecture Comparison -->
+        <div>
+          <h3 class="text-base font-bold text-white mb-3">Architectural Comparison: Client-Side Engine vs Cloud Processing</h3>
+          <div class="overflow-x-auto my-4">
+            <table class="w-full text-left text-xs font-mono border border-workspace-border rounded-xl overflow-hidden">
+              <thead class="bg-workspace-surface border-b border-workspace-border text-workspace-text">
+                <tr>
+                  <th class="p-3">Evaluation Parameter</th>
+                  <th class="p-3 text-workspace-accent">TabKit In-Browser Engine</th>
+                  <th class="p-3 text-workspace-muted">Traditional Cloud Service</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-workspace-border text-workspace-muted">
+                <tr>
+                  <td class="p-3 font-semibold text-workspace-text">Randomness Source</td>
+                  <td class="p-3 text-workspace-accent font-medium">Cryptographically secure window.crypto.getRandomValues() CSPRNG</td>
+                  <td class="p-3">Predictable pseudo-random Math.random()</td>
+                </tr>
+                <tr>
+                  <td class="p-3 font-semibold text-workspace-text">Draw Modes</td>
+                  <td class="p-3 text-workspace-accent font-medium">With Replacement (items can repeat) & Without Replacement (elimination)</td>
+                  <td class="p-3">Single draw mode only</td>
+                </tr>
+                <tr>
+                  <td class="p-3 font-semibold text-workspace-text">Animation & Sound</td>
+                  <td class="p-3 text-workspace-accent font-medium">Interactive visual wheel spin and winner celebration display</td>
+                  <td class="p-3">Plain text output without visual feedback</td>
+                </tr>
+                <tr>
+                  <td class="p-3 font-semibold text-workspace-text">Confidentiality</td>
+                  <td class="p-3 text-workspace-accent font-medium">Employee rosters and customer lists remain 100% in local browser RAM</td>
+                  <td class="p-3">Names uploaded to third-party raffle websites</td>
+                </tr>
+                <tr>
+                  <td class="p-3 font-semibold text-workspace-text">List Management</td>
+                  <td class="p-3 text-workspace-accent font-medium">Bulk paste, local storage persistence, and export of winning records</td>
+                  <td class="p-3">Requires manual re-entry on page refresh</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Pitfalls & Troubleshooting -->
+        <div>
+          <h3 class="text-base font-bold text-white mb-3">Common Pitfalls & Engineering Troubleshooting</h3>
+          <div class="space-y-3">
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/40">
+              <h4 class="text-sm font-semibold text-workspace-text mb-1">Pseudo-Random Math.random() Clustering Artifacts</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">Standard JavaScript Math.random() uses PRNG algorithms (such as xorshift128+) that are deterministic and can produce perceptible clustering over small sample sizes. TabKit uses the browser's cryptographic random number generator to guarantee uniform mathematical probability.</p>
+            </div>
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/40">
+              <h4 class="text-sm font-semibold text-workspace-text mb-1">Duplicate Name Ambiguities in Participant Pools</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">If a participant list contains common names (e.g. multiple "Alex" entries), selecting without index numbers creates confusion over who won. TabKit assigns unique line identifiers to distinguish duplicate entries.</p>
+            </div>
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/40">
+              <h4 class="text-sm font-semibold text-workspace-text mb-1">Accidental Re-Selection in Elimination Draws</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">In multi-prize raffles, failing to remove winning names from the active drawing pool allows a single participant to win multiple times. TabKit provides an instant "Remove Winner from Pool" toggle.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <div class="border-t border-workspace-border pt-8">
         <h3 class="text-xs font-bold uppercase tracking-wider text-workspace-muted mb-3 font-mono">Related Randomization Tools</h3>
         <div class="flex flex-wrap gap-2 text-xs font-mono">

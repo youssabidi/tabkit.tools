@@ -193,6 +193,98 @@
           </div>
         </div>
       </div>
+      
+      <!-- Enterprise Technical Architecture & Deep Dive -->
+      <div data-enriched="true" class="border-t border-workspace-border pt-10 space-y-8">
+        <div>
+          <h2 class="text-xl font-bold text-white mb-3">Enterprise Technical Architecture & Deep Dive</h2>
+          <p class="text-sm text-workspace-muted leading-relaxed">
+            Engineered for high-throughput production environments, enterprise developer workflows, and compliance-sensitive operations. Below is an exhaustive technical reference covering architecture, execution parameters, and edge-case behaviors.
+          </p>
+        </div>
+
+        <!-- Production Use Cases -->
+        <div>
+          <h3 class="text-base font-bold text-white mb-4">Enterprise & Production Use Cases</h3>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/50 flex flex-col justify-between">
+              <h4 class="text-sm font-bold text-workspace-text mb-2">Cloud Infrastructure Log Ingestion & Incident Root-Cause Analysis</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">Site Reliability Engineers (SREs) investigating production outages must correlate events across distributed log streams (AWS CloudWatch, Datadog, Kubernetes journald). Converting raw Unix epoch timestamps into synchronized UTC and local timezone representations accelerates incident mitigation.</p>
+            </div>
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/50 flex flex-col justify-between">
+              <h4 class="text-sm font-bold text-workspace-text mb-2">Database Indexing & Time-Series Range Querying</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">High-throughput relational databases (PostgreSQL, MySQL) and time-series engines (ClickHouse, TimescaleDB, Redis sorted sets) store dates as 32-bit or 64-bit integer timestamps to maximize B-tree indexing efficiency. Converting calendar dates to Unix timestamps allows developers to construct high-performance range queries.</p>
+            </div>
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/50 flex flex-col justify-between">
+              <h4 class="text-sm font-bold text-workspace-text mb-2">JWT Expiration (exp) and Not-Before (nbf) Verification</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">OAuth 2.0 and OpenID Connect tokens store authorization expiration windows as Unix timestamps in seconds. Decoupling and verifying these claims helps developers diagnose subtle authentication failures caused by clock skew or unexpected session timeouts.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Technical Architecture Comparison -->
+        <div>
+          <h3 class="text-base font-bold text-white mb-3">Architectural Comparison: Client-Side Engine vs Cloud Processing</h3>
+          <div class="overflow-x-auto my-4">
+            <table class="w-full text-left text-xs font-mono border border-workspace-border rounded-xl overflow-hidden">
+              <thead class="bg-workspace-surface border-b border-workspace-border text-workspace-text">
+                <tr>
+                  <th class="p-3">Evaluation Parameter</th>
+                  <th class="p-3 text-workspace-accent">TabKit In-Browser Engine</th>
+                  <th class="p-3 text-workspace-muted">Traditional Cloud Service</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-workspace-border text-workspace-muted">
+                <tr>
+                  <td class="p-3 font-semibold text-workspace-text">Precision Handling</td>
+                  <td class="p-3 text-workspace-accent font-medium">Auto-detects Seconds (10-digit) and Milliseconds (13-digit)</td>
+                  <td class="p-3">Requires manual unit selection or miscalculates date</td>
+                </tr>
+                <tr>
+                  <td class="p-3 font-semibold text-workspace-text">Timezone Conversions</td>
+                  <td class="p-3 text-workspace-accent font-medium">Instant dual output: Local System Time & Universal UTC</td>
+                  <td class="p-3">Single timezone output requiring manual math</td>
+                </tr>
+                <tr>
+                  <td class="p-3 font-semibold text-workspace-text">Format Standards</td>
+                  <td class="p-3 text-workspace-accent font-medium">Supports ISO 8601, RFC 2822, and human-readable formats</td>
+                  <td class="p-3">Limited output formats</td>
+                </tr>
+                <tr>
+                  <td class="p-3 font-semibold text-workspace-text">Privacy & Security</td>
+                  <td class="p-3 text-workspace-accent font-medium">Timestamps containing sensitive audit trails stay local</td>
+                  <td class="p-3">Logged in third-party server telemetry</td>
+                </tr>
+                <tr>
+                  <td class="p-3 font-semibold text-workspace-text">Zero Latency</td>
+                  <td class="p-3 text-workspace-accent font-medium">Instant evaluation via browser native Intl and Date APIs</td>
+                  <td class="p-3">Network round-trip latency</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Pitfalls & Troubleshooting -->
+        <div>
+          <h3 class="text-base font-bold text-white mb-3">Common Pitfalls & Engineering Troubleshooting</h3>
+          <div class="space-y-3">
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/40">
+              <h4 class="text-sm font-semibold text-workspace-text mb-1">The Milliseconds vs Seconds Scale Confusion</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">Unix timestamps historically count seconds since January 1, 1970 (10 digits, e.g. 1700000000). However, JavaScript's Date constructor (new Date(timestamp)) strictly expects milliseconds (13 digits). Passing a second-based timestamp into JavaScript results in dates in early January 1970. TabKit automatically detects digit length to prevent calculation errors.</p>
+            </div>
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/40">
+              <h4 class="text-sm font-semibold text-workspace-text mb-1">The Year 2038 Problem (Y2038 Unix Epoch Overflow)</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">On January 19, 2038 at 03:14:07 UTC, 32-bit signed integer timestamps will exceed their maximum capacity (2,147,483,647) and overflow to negative numbers (-2,147,483,648), resetting clocks to December 13, 1901. Modern applications must adopt 64-bit integer timestamp representations to avoid system outages.</p>
+            </div>
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/40">
+              <h4 class="text-sm font-semibold text-workspace-text mb-1">Daylight Saving Time (DST) Arithmetic Pitfalls</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">Performing naive arithmetic on timestamps (such as adding 86,400 seconds to represent "tomorrow") causes 1-hour errors during Daylight Saving Time transition days when days are 23 or 25 hours long. Always use calendar-aware date math libraries for multi-day date logic.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <div class="border-t border-workspace-border pt-8">
         <h3 class="text-xs font-bold uppercase tracking-wider text-workspace-muted mb-3 font-mono">Related Time Utilities</h3>
         <div class="flex flex-wrap gap-2 text-xs font-mono">

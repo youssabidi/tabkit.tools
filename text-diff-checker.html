@@ -268,6 +268,98 @@
       </div>
 
       <!-- Related Tools for SEO Internal Linking -->
+      
+      <!-- Enterprise Technical Architecture & Deep Dive -->
+      <div data-enriched="true" class="border-t border-workspace-border pt-10 space-y-8">
+        <div>
+          <h2 class="text-xl font-bold text-white mb-3">Enterprise Technical Architecture & Deep Dive</h2>
+          <p class="text-sm text-workspace-muted leading-relaxed">
+            Engineered for high-throughput production environments, enterprise developer workflows, and compliance-sensitive operations. Below is an exhaustive technical reference covering architecture, execution parameters, and edge-case behaviors.
+          </p>
+        </div>
+
+        <!-- Production Use Cases -->
+        <div>
+          <h3 class="text-base font-bold text-white mb-4">Enterprise & Production Use Cases</h3>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/50 flex flex-col justify-between">
+              <h4 class="text-sm font-bold text-workspace-text mb-2">Source Code & Git Merge Conflict Resolution</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">Developers reviewing code changes, patch files, or resolving git merge conflicts can compare two files side-by-side with line and character-level difference highlighting, ensuring no subtle logic changes are overlooked during code review.</p>
+            </div>
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/50 flex flex-col justify-between">
+              <h4 class="text-sm font-bold text-workspace-text mb-2">Legal Contract & Commercial Agreement Auditing</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">Legal counsel, procurement teams, and founders reviewing redlined contracts, non-disclosure agreements (NDAs), and terms of service can immediately detect added, deleted, or subtly modified legal clauses without relying on opaque word processor change tracking.</p>
+            </div>
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/50 flex flex-col justify-between">
+              <h4 class="text-sm font-bold text-workspace-text mb-2">Environment Configuration & Secret Drift Detection</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">DevOps engineers troubleshooting deployment differences between staging and production environments can diff .env and configuration files to spot missing environment variables, mismatched ports, or altered flags before deploying.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Technical Architecture Comparison -->
+        <div>
+          <h3 class="text-base font-bold text-white mb-3">Architectural Comparison: Client-Side Engine vs Cloud Processing</h3>
+          <div class="overflow-x-auto my-4">
+            <table class="w-full text-left text-xs font-mono border border-workspace-border rounded-xl overflow-hidden">
+              <thead class="bg-workspace-surface border-b border-workspace-border text-workspace-text">
+                <tr>
+                  <th class="p-3">Evaluation Parameter</th>
+                  <th class="p-3 text-workspace-accent">TabKit In-Browser Engine</th>
+                  <th class="p-3 text-workspace-muted">Traditional Cloud Service</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-workspace-border text-workspace-muted">
+                <tr>
+                  <td class="p-3 font-semibold text-workspace-text">Diff Algorithm</td>
+                  <td class="p-3 text-workspace-accent font-medium">Myers Diff Algorithm (Shortest Edit Script O((N+M)D))</td>
+                  <td class="p-3">Simple line-by-line comparison</td>
+                </tr>
+                <tr>
+                  <td class="p-3 font-semibold text-workspace-text">View Modes</td>
+                  <td class="p-3 text-workspace-accent font-medium">Side-by-side Split View and Unified Inline View</td>
+                  <td class="p-3">Unified plain text output only</td>
+                </tr>
+                <tr>
+                  <td class="p-3 font-semibold text-workspace-text">Granularity</td>
+                  <td class="p-3 text-workspace-accent font-medium">Line-level, word-level, and character-level difference highlighting</td>
+                  <td class="p-3">Line-level changes only</td>
+                </tr>
+                <tr>
+                  <td class="p-3 font-semibold text-workspace-text">Confidentiality</td>
+                  <td class="p-3 text-workspace-accent font-medium">Proprietary source code and legal text remain 100% in local RAM</td>
+                  <td class="p-3">Text sent to third-party comparison servers</td>
+                </tr>
+                <tr>
+                  <td class="p-3 font-semibold text-workspace-text">Whitespace Options</td>
+                  <td class="p-3 text-workspace-accent font-medium">Configurable toggles to ignore leading, trailing, and newline whitespace</td>
+                  <td class="p-3">Flags all whitespace changes as modifications</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Pitfalls & Troubleshooting -->
+        <div>
+          <h3 class="text-base font-bold text-white mb-3">Common Pitfalls & Engineering Troubleshooting</h3>
+          <div class="space-y-3">
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/40">
+              <h4 class="text-sm font-semibold text-workspace-text mb-1">Cross-Platform Line Ending Discrepancies (CRLF vs LF)</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">Diffing files where one version was saved on Windows (\r\n) and another on Linux (\n) causes naive diff utilities to mark every single line in the entire file as modified, obscuring the actual semantic changes. TabKit features whitespace-normalization toggles to isolate real textual edits.</p>
+            </div>
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/40">
+              <h4 class="text-sm font-semibold text-workspace-text mb-1">Typographic Smart Quotes vs Straight Quotes</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">Word processors frequently replace straight quotes (' and ") with typographic smart quotes (‘’ and “”). These glyphs have different Unicode code points and will trigger diff warnings even though the text appears identical on screen.</p>
+            </div>
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/40">
+              <h4 class="text-sm font-semibold text-workspace-text mb-1">Memory Overhead on Megabyte-Scale Diffs</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">Calculating optimal Myers edit scripts on documents exceeding 50,000 lines requires quadratic memory if unoptimized. TabKit incorporates chunked heuristic fallbacks to guarantee responsive in-browser diffing on large documents.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <div class="border-t border-workspace-border pt-8">
         <h3 class="text-xs font-bold uppercase tracking-wider text-workspace-muted mb-3 font-mono">Related Developer Tools</h3>
         <div class="flex flex-wrap gap-2 text-xs font-mono">

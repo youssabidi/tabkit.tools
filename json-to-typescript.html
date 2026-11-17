@@ -193,6 +193,98 @@
         </div>
       </div>
 
+      
+      <!-- Enterprise Technical Architecture & Deep Dive -->
+      <div data-enriched="true" class="border-t border-workspace-border pt-10 space-y-8">
+        <div>
+          <h2 class="text-xl font-bold text-white mb-3">Enterprise Technical Architecture & Deep Dive</h2>
+          <p class="text-sm text-workspace-muted leading-relaxed">
+            Engineered for high-throughput production environments, enterprise developer workflows, and compliance-sensitive operations. Below is an exhaustive technical reference covering architecture, execution parameters, and edge-case behaviors.
+          </p>
+        </div>
+
+        <!-- Production Use Cases -->
+        <div>
+          <h3 class="text-base font-bold text-white mb-4">Enterprise & Production Use Cases</h3>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/50 flex flex-col justify-between">
+              <h4 class="text-sm font-bold text-workspace-text mb-2">Strongly-Typed API Contract Generation</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">Full-stack engineering teams consuming REST or GraphQL APIs frequently deal with unstructured JSON responses. Converting live API payloads into TypeScript interface definitions guarantees compile-time type safety, unlocks rich IDE autocomplete in VS Code, and catches breaking schema changes during build time.</p>
+            </div>
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/50 flex flex-col justify-between">
+              <h4 class="text-sm font-bold text-workspace-text mb-2">Legacy Codebase TypeScript Refactoring</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">When modernizing legacy JavaScript applications to TypeScript, engineers must define hundreds of object models. Pasting mock data fixtures or database JSON dumps into this generator accelerates migrations by automatically inferring nested object hierarchies and array union types.</p>
+            </div>
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/50 flex flex-col justify-between">
+              <h4 class="text-sm font-bold text-workspace-text mb-2">Third-Party Webhook Schema Definitions</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">Integrating webhooks from payment gateways (Stripe, Paddle) or communication platforms (Twilio, SendGrid) requires robust typing. Creating local TypeScript interfaces from webhook event payloads prevents runtime TypeError exceptions in event handlers.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Technical Architecture Comparison -->
+        <div>
+          <h3 class="text-base font-bold text-white mb-3">Architectural Comparison: Client-Side Engine vs Cloud Processing</h3>
+          <div class="overflow-x-auto my-4">
+            <table class="w-full text-left text-xs font-mono border border-workspace-border rounded-xl overflow-hidden">
+              <thead class="bg-workspace-surface border-b border-workspace-border text-workspace-text">
+                <tr>
+                  <th class="p-3">Evaluation Parameter</th>
+                  <th class="p-3 text-workspace-accent">TabKit In-Browser Engine</th>
+                  <th class="p-3 text-workspace-muted">Traditional Cloud Service</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-workspace-border text-workspace-muted">
+                <tr>
+                  <td class="p-3 font-semibold text-workspace-text">Type Inference Pipeline</td>
+                  <td class="p-3 text-workspace-accent font-medium">Recursive AST traversal with deep object exploration</td>
+                  <td class="p-3">Shallow single-level property parsing</td>
+                </tr>
+                <tr>
+                  <td class="p-3 font-semibold text-workspace-text">Confidentiality</td>
+                  <td class="p-3 text-workspace-accent font-medium">Proprietary database structures stay 100% local</td>
+                  <td class="p-3">Database models sent across public third-party APIs</td>
+                </tr>
+                <tr>
+                  <td class="p-3 font-semibold text-workspace-text">Union Type Support</td>
+                  <td class="p-3 text-workspace-accent font-medium">Detects heterogeneous array items and merges keys</td>
+                  <td class="p-3">Only samples first element in arrays</td>
+                </tr>
+                <tr>
+                  <td class="p-3 font-semibold text-workspace-text">Output Style</td>
+                  <td class="p-3 text-workspace-accent font-medium">Configurable PascalCase interfaces with optional types</td>
+                  <td class="p-3">Rigid output format without customization</td>
+                </tr>
+                <tr>
+                  <td class="p-3 font-semibold text-workspace-text">Performance</td>
+                  <td class="p-3 text-workspace-accent font-medium">Sub-millisecond compilation for complex schemas</td>
+                  <td class="p-3">Dependent on external API availability and load</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Pitfalls & Troubleshooting -->
+        <div>
+          <h3 class="text-base font-bold text-white mb-3">Common Pitfalls & Engineering Troubleshooting</h3>
+          <div class="space-y-3">
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/40">
+              <h4 class="text-sm font-semibold text-workspace-text mb-1">Heterogeneous Array Schema Sampling Errors</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">In real-world JSON, array objects frequently have non-uniform properties (e.g. some user records include a secondary phone number, while others omit it). Converters that only inspect the first array item generate incomplete types. TabKit traverses all array elements to construct unified schemas with optional properties (?.</p>
+            </div>
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/40">
+              <h4 class="text-sm font-semibold text-workspace-text mb-1">Nullable vs Optional Property Distinction</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">In TypeScript, an optional property (fieldName?: string) means the key can be completely missing from the object, whereas (fieldName: string | null) requires the key to be present with a null value. TabKit accurately infers nullable union types when explicit null literals are detected in sample data.</p>
+            </div>
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/40">
+              <h4 class="text-sm font-semibold text-workspace-text mb-1">64-Bit Integer Precision Loss in Number Types</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">JSON specifies only a generic "number" primitive, which JavaScript represents as IEEE 754 double-precision floats. High-precision 64-bit database IDs (such as Twitter snowflakes or PostgreSQL BIGINT) exceed Number.MAX_SAFE_INTEGER (2^53 - 1) and will suffer precision truncation unless treated as strings or BigInt.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <div class="border-t border-workspace-border pt-8">
         <h3 class="text-xs font-bold uppercase tracking-wider text-workspace-muted mb-3 font-mono">Related Developer Utilities</h3>
         <div class="flex flex-wrap gap-2 text-xs font-mono">

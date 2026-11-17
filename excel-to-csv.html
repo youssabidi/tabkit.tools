@@ -196,6 +196,98 @@
           </div>
         </div>
       </div>
+      
+      <!-- Enterprise Technical Architecture & Deep Dive -->
+      <div data-enriched="true" class="border-t border-workspace-border pt-10 space-y-8">
+        <div>
+          <h2 class="text-xl font-bold text-white mb-3">Enterprise Technical Architecture & Deep Dive</h2>
+          <p class="text-sm text-workspace-muted leading-relaxed">
+            Engineered for high-throughput production environments, enterprise developer workflows, and compliance-sensitive operations. Below is an exhaustive technical reference covering architecture, execution parameters, and edge-case behaviors.
+          </p>
+        </div>
+
+        <!-- Production Use Cases -->
+        <div>
+          <h3 class="text-base font-bold text-white mb-4">Enterprise & Production Use Cases</h3>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/50 flex flex-col justify-between">
+              <h4 class="text-sm font-bold text-workspace-text mb-2">High-Speed Database Bulk Ingestion (COPY / LOAD DATA)</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">Database administrators importing large datasets into PostgreSQL, MySQL, ClickHouse, or Snowflake convert proprietary Excel workbooks (.xlsx) into plain CSV format to leverage ultra-fast native bulk copy operations that bypass ORM overhead.</p>
+            </div>
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/50 flex flex-col justify-between">
+              <h4 class="text-sm font-bold text-workspace-text mb-2">Data Science & Machine Learning Pipeline Preparation</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">Data scientists converting multi-tab Excel files into plain CSVs streamline data ingestion into Python Pandas, NumPy, and R scripts, eliminating the need to install heavy binary Excel reader dependencies in production Docker containers.</p>
+            </div>
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/50 flex flex-col justify-between">
+              <h4 class="text-sm font-bold text-workspace-text mb-2">Legacy Enterprise System Compatibility</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">Integrating modern spreadsheet data with legacy enterprise accounting and ERP systems that lack modern OpenXML (.xlsx) decompression libraries requires clean, standardized RFC 4180 CSV exports.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Technical Architecture Comparison -->
+        <div>
+          <h3 class="text-base font-bold text-white mb-3">Architectural Comparison: Client-Side Engine vs Cloud Processing</h3>
+          <div class="overflow-x-auto my-4">
+            <table class="w-full text-left text-xs font-mono border border-workspace-border rounded-xl overflow-hidden">
+              <thead class="bg-workspace-surface border-b border-workspace-border text-workspace-text">
+                <tr>
+                  <th class="p-3">Evaluation Parameter</th>
+                  <th class="p-3 text-workspace-accent">TabKit In-Browser Engine</th>
+                  <th class="p-3 text-workspace-muted">Traditional Cloud Service</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-workspace-border text-workspace-muted">
+                <tr>
+                  <td class="p-3 font-semibold text-workspace-text">Parsing Engine</td>
+                  <td class="p-3 text-workspace-accent font-medium">Client-Side WebAssembly & SheetJS Binary Parser</td>
+                  <td class="p-3">Server-side Python/LibreOffice conversion</td>
+                </tr>
+                <tr>
+                  <td class="p-3 font-semibold text-workspace-text">Worksheet Selection</td>
+                  <td class="p-3 text-workspace-accent font-medium">Select individual worksheets from multi-tab workbooks</td>
+                  <td class="p-3">Only converts first sheet or merges improperly</td>
+                </tr>
+                <tr>
+                  <td class="p-3 font-semibold text-workspace-text">Confidentiality</td>
+                  <td class="p-3 text-workspace-accent font-medium">Proprietary financial sheets and salary data stay in browser RAM</td>
+                  <td class="p-3">Uploaded across public internet to third-party servers</td>
+                </tr>
+                <tr>
+                  <td class="p-3 font-semibold text-workspace-text">Date Formatting</td>
+                  <td class="p-3 text-workspace-accent font-medium">Accurately converts Excel serial numbers to ISO 8601 dates</td>
+                  <td class="p-3">Exports raw serial integers (e.g. 44927)</td>
+                </tr>
+                <tr>
+                  <td class="p-3 font-semibold text-workspace-text">Encoding Standard</td>
+                  <td class="p-3 text-workspace-accent font-medium">Outputs UTF-8 with optional Byte Order Mark (BOM)</td>
+                  <td class="p-3">Vulnerable to accented character corruption</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Pitfalls & Troubleshooting -->
+        <div>
+          <h3 class="text-base font-bold text-white mb-3">Common Pitfalls & Engineering Troubleshooting</h3>
+          <div class="space-y-3">
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/40">
+              <h4 class="text-sm font-semibold text-workspace-text mb-1">Excel Serial Date Number Corruption</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">Excel internally represents dates as floating-point serial numbers counting days since January 1, 1900 (for example, January 1, 2023 is stored as 44927). Naive converters export these raw numeric serials rather than formatted date strings. TabKit decodes cell format masks to output human-readable dates.</p>
+            </div>
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/40">
+              <h4 class="text-sm font-semibold text-workspace-text mb-1">Formula Values vs Calculation Cache Inconsistencies</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">If an Excel workbook was modified by third-party software without triggering recalculation, the cached formula results may be stale or empty. TabKit evaluates calculated values to ensure data fidelity in exported CSVs.</p>
+            </div>
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/40">
+              <h4 class="text-sm font-semibold text-workspace-text mb-1">Number Formatting and Currency Symbol Pollution</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">Cells formatted as currency ($1,234.56) or percentages (12.5%) can cause database integer/float ingestion errors if the currency symbols and commas are exported as literal text. Always verify numeric column cleaning.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <div class="border-t border-workspace-border pt-8">
         <h3 class="text-xs font-bold uppercase tracking-wider text-workspace-muted mb-3 font-mono">Related Spreadsheet Utilities</h3>
         <div class="flex flex-wrap gap-2 text-xs font-mono">

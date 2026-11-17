@@ -206,6 +206,98 @@
         </div>
       </div>
 
+      
+      <!-- Enterprise Technical Architecture & Deep Dive -->
+      <div data-enriched="true" class="border-t border-workspace-border pt-10 space-y-8">
+        <div>
+          <h2 class="text-xl font-bold text-white mb-3">Enterprise Technical Architecture & Deep Dive</h2>
+          <p class="text-sm text-workspace-muted leading-relaxed">
+            Engineered for high-throughput production environments, enterprise developer workflows, and compliance-sensitive operations. Below is an exhaustive technical reference covering architecture, execution parameters, and edge-case behaviors.
+          </p>
+        </div>
+
+        <!-- Production Use Cases -->
+        <div>
+          <h3 class="text-base font-bold text-white mb-4">Enterprise & Production Use Cases</h3>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/50 flex flex-col justify-between">
+              <h4 class="text-sm font-bold text-workspace-text mb-2">Database Seed & Migration Fixture Generation</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">Developers migrating spreadsheet data into document databases (MongoDB, DynamoDB) or relational JSONB columns convert CSV exports into structured JSON arrays, accelerating test database seeding and automated integration testing.</p>
+            </div>
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/50 flex flex-col justify-between">
+              <h4 class="text-sm font-bold text-workspace-text mb-2">Data Pipeline ETL Ingestion & Microservice Integration</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">Data engineering pipelines consuming legacy vendor CSV reports translate rows into standardized JSON payloads for ingestion into REST APIs, Kafka topics, and serverless webhook receivers.</p>
+            </div>
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/50 flex flex-col justify-between">
+              <h4 class="text-sm font-bold text-workspace-text mb-2">Frontend Mock Data & Storybook Component Prototyping</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">Frontend developers convert sample CSV spreadsheets into JSON fixtures to populate UI mock states, table prototypes, and Storybook components before backend APIs are deployed.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Technical Architecture Comparison -->
+        <div>
+          <h3 class="text-base font-bold text-white mb-3">Architectural Comparison: Client-Side Engine vs Cloud Processing</h3>
+          <div class="overflow-x-auto my-4">
+            <table class="w-full text-left text-xs font-mono border border-workspace-border rounded-xl overflow-hidden">
+              <thead class="bg-workspace-surface border-b border-workspace-border text-workspace-text">
+                <tr>
+                  <th class="p-3">Evaluation Parameter</th>
+                  <th class="p-3 text-workspace-accent">TabKit In-Browser Engine</th>
+                  <th class="p-3 text-workspace-muted">Traditional Cloud Service</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-workspace-border text-workspace-muted">
+                <tr>
+                  <td class="p-3 font-semibold text-workspace-text">Delimiter Support</td>
+                  <td class="p-3 text-workspace-accent font-medium">Auto-detects Comma (,), Semicolon (;), Tab (\t), Pipe (|)</td>
+                  <td class="p-3">Restricted to standard comma delimiter</td>
+                </tr>
+                <tr>
+                  <td class="p-3 font-semibold text-workspace-text">Type Inference</td>
+                  <td class="p-3 text-workspace-accent font-medium">Intelligently parses numbers, booleans, and nulls vs strings</td>
+                  <td class="p-3">Treats all values as plain strings</td>
+                </tr>
+                <tr>
+                  <td class="p-3 font-semibold text-workspace-text">RFC 4180 Compliance</td>
+                  <td class="p-3 text-workspace-accent font-medium">Robust parsing of quoted cells with internal commas and newlines</td>
+                  <td class="p-3">Breaks on cells containing commas or line breaks</td>
+                </tr>
+                <tr>
+                  <td class="p-3 font-semibold text-workspace-text">Confidentiality</td>
+                  <td class="p-3 text-workspace-accent font-medium">Sensitive customer datasets remain strictly in browser RAM</td>
+                  <td class="p-3">Uploaded to remote web conversion servers</td>
+                </tr>
+                <tr>
+                  <td class="p-3 font-semibold text-workspace-text">Processing Capacity</td>
+                  <td class="p-3 text-workspace-accent font-medium">Handles 100,000+ rows directly in client memory</td>
+                  <td class="p-3">Restricted to small files due to server upload limits</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Pitfalls & Troubleshooting -->
+        <div>
+          <h3 class="text-base font-bold text-white mb-3">Common Pitfalls & Engineering Troubleshooting</h3>
+          <div class="space-y-3">
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/40">
+              <h4 class="text-sm font-semibold text-workspace-text mb-1">RFC 4180 Escaped Commas and Internal Newlines</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">When a CSV cell contains a comma or newline (e.g. "123 Main St, Suite 400"), the entire cell must be wrapped in double quotes. Escaped quotes inside the cell are represented by two double quotes (""). Naive split(',') parsers split these cells into broken pieces, corrupting column alignment.</p>
+            </div>
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/40">
+              <h4 class="text-sm font-semibold text-workspace-text mb-1">Destructive Type Coercion of Leading Zero Identifiers</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">Blindly converting strings that look like numbers into numeric types strips leading zeros from US postal codes (e.g. "01234" becomes 1234) and international telephone numbers, corrupting primary keys. TabKit preserves leading zero strings.</p>
+            </div>
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/40">
+              <h4 class="text-sm font-semibold text-workspace-text mb-1">Inconsistent Column Counts in Ragged CSV Files</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">Malformed CSV exports frequently have lines with fewer columns than the header row due to omitted trailing commas. Robust converters must normalize ragged rows by inserting empty string values to prevent missing object properties.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <div class="border-t border-workspace-border pt-8">
         <h3 class="text-xs font-bold uppercase tracking-wider text-workspace-muted mb-3 font-mono">Related Data Utilities</h3>
         <div class="flex flex-wrap gap-2 text-xs font-mono">

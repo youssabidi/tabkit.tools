@@ -192,6 +192,98 @@
         </div>
       </div>
 
+      
+      <!-- Enterprise Technical Architecture & Deep Dive -->
+      <div data-enriched="true" class="border-t border-workspace-border pt-10 space-y-8">
+        <div>
+          <h2 class="text-xl font-bold text-white mb-3">Enterprise Technical Architecture & Deep Dive</h2>
+          <p class="text-sm text-workspace-muted leading-relaxed">
+            Engineered for high-throughput production environments, enterprise developer workflows, and compliance-sensitive operations. Below is an exhaustive technical reference covering architecture, execution parameters, and edge-case behaviors.
+          </p>
+        </div>
+
+        <!-- Production Use Cases -->
+        <div>
+          <h3 class="text-base font-bold text-white mb-4">Enterprise & Production Use Cases</h3>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/50 flex flex-col justify-between">
+              <h4 class="text-sm font-bold text-workspace-text mb-2">Source Protection & Investigative Journalism</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">Reporters, whistleblowers, and human rights investigators frequently handle photos taken in sensitive or hostile environments. Modern smartphones automatically embed exact GPS latitude, longitude, altitude, and device hardware IDs into image files. Stripping this metadata locally before publishing or distributing documents is critical to preventing physical location tracking and protecting informant safety.</p>
+            </div>
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/50 flex flex-col justify-between">
+              <h4 class="text-sm font-bold text-workspace-text mb-2">Marketplace & Real Estate Listing Sanitization</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">Platforms accepting user-generated media (such as classified ad boards, real estate listings, and peer-to-peer marketplaces) must strip EXIF data to prevent buyer/seller privacy violations. If photos taken inside private residences retain GPS metadata, malicious actors can extract the exact home address of users who believed their personal information was private.</p>
+            </div>
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/50 flex flex-col justify-between">
+              <h4 class="text-sm font-bold text-workspace-text mb-2">GDPR, CCPA & Privacy Regulatory Compliance</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">Under European GDPR and California CCPA regulations, embedded GPS coordinates, camera serial numbers, and capture timestamps qualify as Personally Identifiable Information (PII). Organizations processing customer identification photos or warranty claim uploads must sanitize images to maintain audit-ready compliance and prevent inadvertent PII storage.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Technical Architecture Comparison -->
+        <div>
+          <h3 class="text-base font-bold text-white mb-3">Architectural Comparison: Client-Side Engine vs Cloud Processing</h3>
+          <div class="overflow-x-auto my-4">
+            <table class="w-full text-left text-xs font-mono border border-workspace-border rounded-xl overflow-hidden">
+              <thead class="bg-workspace-surface border-b border-workspace-border text-workspace-text">
+                <tr>
+                  <th class="p-3">Evaluation Parameter</th>
+                  <th class="p-3 text-workspace-accent">TabKit In-Browser Engine</th>
+                  <th class="p-3 text-workspace-muted">Traditional Cloud Service</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-workspace-border text-workspace-muted">
+                <tr>
+                  <td class="p-3 font-semibold text-workspace-text">Processing Pipeline</td>
+                  <td class="p-3 text-workspace-accent font-medium">HTML5 Canvas 2D Re-rasterization (Offline)</td>
+                  <td class="p-3">Server-side ImageMagick / ExifTool cloud API</td>
+                </tr>
+                <tr>
+                  <td class="p-3 font-semibold text-workspace-text">File Upload Requirement</td>
+                  <td class="p-3 text-workspace-accent font-medium">Never leaves local device memory</td>
+                  <td class="p-3">Requires uploading unencrypted photos to server</td>
+                </tr>
+                <tr>
+                  <td class="p-3 font-semibold text-workspace-text">Metadata Stripped</td>
+                  <td class="p-3 text-workspace-accent font-medium">GPS, Camera Model, Shutter Count, Timestamps</td>
+                  <td class="p-3">Configurable by server command-line flags</td>
+                </tr>
+                <tr>
+                  <td class="p-3 font-semibold text-workspace-text">Processing Speed</td>
+                  <td class="p-3 text-workspace-accent font-medium">Instant local blob generation (10-50ms)</td>
+                  <td class="p-3">Network upload + remote queue + download time</td>
+                </tr>
+                <tr>
+                  <td class="p-3 font-semibold text-workspace-text">Confidentiality</td>
+                  <td class="p-3 text-workspace-accent font-medium">100% Client-Side memory sandbox</td>
+                  <td class="p-3">Subject to cloud host security & privacy terms</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Pitfalls & Troubleshooting -->
+        <div>
+          <h3 class="text-base font-bold text-white mb-3">Common Pitfalls & Engineering Troubleshooting</h3>
+          <div class="space-y-3">
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/40">
+              <h4 class="text-sm font-semibold text-workspace-text mb-1">Orientation Metadata (EXIF Tag 0x0112) Inversion</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">Smartphones frequently record portrait photos in landscape orientation physically on the camera sensor, relying on EXIF orientation flag 0x0112 to instruct image viewers how to rotate the display. Naively stripping metadata without re-orienting the pixel matrix causes images to appear upside-down or sideways. TabKit draws the image to an HTML5 canvas respecting hardware rotation before exporting clean pixels.</p>
+            </div>
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/40">
+              <h4 class="text-sm font-semibold text-workspace-text mb-1">Color Space & Display P3 Profile Shifts</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">Modern mobile devices capture imagery using wide-gamut Display P3 color profiles. When rendering to a standard sRGB canvas context without explicit color space management, slight color shifts or desaturation can occur. TabKit preserves visual fidelity by adhering to standard browser color matching standards.</p>
+            </div>
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/40">
+              <h4 class="text-sm font-semibold text-workspace-text mb-1">Lossless vs Lossy Re-encoding</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">Stripping EXIF headers from JPEG files via canvas re-encoding involves recompressing the DCT coefficients. While visually indistinguishable at quality 0.92+, it is technically a lossy transformation. For bit-exact pixel preservation in scientific imaging, binary marker byte slicing is required.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <div class="border-t border-workspace-border pt-8">
         <h3 class="text-xs font-bold uppercase tracking-wider text-workspace-muted mb-3 font-mono">Related Image Utilities</h3>
         <div class="flex flex-wrap gap-2 text-xs font-mono">

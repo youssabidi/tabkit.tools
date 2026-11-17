@@ -196,6 +196,98 @@
           </div>
         </div>
       </div>
+      
+      <!-- Enterprise Technical Architecture & Deep Dive -->
+      <div data-enriched="true" class="border-t border-workspace-border pt-10 space-y-8">
+        <div>
+          <h2 class="text-xl font-bold text-white mb-3">Enterprise Technical Architecture & Deep Dive</h2>
+          <p class="text-sm text-workspace-muted leading-relaxed">
+            Engineered for high-throughput production environments, enterprise developer workflows, and compliance-sensitive operations. Below is an exhaustive technical reference covering architecture, execution parameters, and edge-case behaviors.
+          </p>
+        </div>
+
+        <!-- Production Use Cases -->
+        <div>
+          <h3 class="text-base font-bold text-white mb-4">Enterprise & Production Use Cases</h3>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/50 flex flex-col justify-between">
+              <h4 class="text-sm font-bold text-workspace-text mb-2">CRM Lead List & Marketing Contact Deduplication</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">Sales operations teams scrub raw conference attendee lists and marketing leads before importing into Salesforce or HubSpot, preventing duplicate prospect records, conflicting sales ownership, and wasted marketing spend.</p>
+            </div>
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/50 flex flex-col justify-between">
+              <h4 class="text-sm font-bold text-workspace-text mb-2">E-Commerce Inventory SKU & Catalog Reconciliation</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">Catalog managers merging multi-vendor inventory feeds deduplicate items by unique identifiers (SKU, UPC, ISBN, or barcode) to prevent duplicate product listings and consolidate stock level counts.</p>
+            </div>
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/50 flex flex-col justify-between">
+              <h4 class="text-sm font-bold text-workspace-text mb-2">Financial Audit & Double-Billing Elimination</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">Corporate accounting teams review vendor invoice exports and expense reports to identify duplicate invoice numbers, repeated transactions, and accidental double payments prior to monthly financial closes.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Technical Architecture Comparison -->
+        <div>
+          <h3 class="text-base font-bold text-white mb-3">Architectural Comparison: Client-Side Engine vs Cloud Processing</h3>
+          <div class="overflow-x-auto my-4">
+            <table class="w-full text-left text-xs font-mono border border-workspace-border rounded-xl overflow-hidden">
+              <thead class="bg-workspace-surface border-b border-workspace-border text-workspace-text">
+                <tr>
+                  <th class="p-3">Evaluation Parameter</th>
+                  <th class="p-3 text-workspace-accent">TabKit In-Browser Engine</th>
+                  <th class="p-3 text-workspace-muted">Traditional Cloud Service</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-workspace-border text-workspace-muted">
+                <tr>
+                  <td class="p-3 font-semibold text-workspace-text">Deduplication Logic</td>
+                  <td class="p-3 text-workspace-accent font-medium">Target specific primary key columns or entire row matching</td>
+                  <td class="p-3">Entire row matching only</td>
+                </tr>
+                <tr>
+                  <td class="p-3 font-semibold text-workspace-text">Retention Policy</td>
+                  <td class="p-3 text-workspace-accent font-medium">Configurable: Keep First Occurrence, Keep Last, or Isolate Duplicates</td>
+                  <td class="p-3">Forces keeping first occurrence with no review</td>
+                </tr>
+                <tr>
+                  <td class="p-3 font-semibold text-workspace-text">Confidentiality</td>
+                  <td class="p-3 text-workspace-accent font-medium">Proprietary customer lists and transaction records stay in RAM</td>
+                  <td class="p-3">Database records uploaded to cloud servers</td>
+                </tr>
+                <tr>
+                  <td class="p-3 font-semibold text-workspace-text">Algorithm Complexity</td>
+                  <td class="p-3 text-workspace-accent font-medium">High-performance O(N) hash-set lookup supporting 100k+ rows</td>
+                  <td class="p-3">Sluggish O(N^2) comparison freezing browser</td>
+                </tr>
+                <tr>
+                  <td class="p-3 font-semibold text-workspace-text">Data Sanitization</td>
+                  <td class="p-3 text-workspace-accent font-medium">Automatic trimming of invisible whitespace and case normalization</td>
+                  <td class="p-3">Fails when capitalization or spacing differs</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Pitfalls & Troubleshooting -->
+        <div>
+          <h3 class="text-base font-bold text-white mb-3">Common Pitfalls & Engineering Troubleshooting</h3>
+          <div class="space-y-3">
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/40">
+              <h4 class="text-sm font-semibold text-workspace-text mb-1">Case-Sensitivity and Invisible Whitespace Mismatches</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">Deduplicating contact records by email where some entries have uppercase letters ("User@Example.com") and others have trailing spaces ("user@example.com ") allows duplicates to evade naive checks. TabKit provides normalization toggles before hashing keys.</p>
+            </div>
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/40">
+              <h4 class="text-sm font-semibold text-workspace-text mb-1">Accidental Loss of Newer Record Data</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">Blindly keeping the first occurrence can discard more recent updates (such as a corrected address or phone number) present in later duplicate entries. Always verify your dataset's chronological sort order before deduplication.</p>
+            </div>
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/40">
+              <h4 class="text-sm font-semibold text-workspace-text mb-1">Multi-Column Composite Key Requirement</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">Deduplicating on a single column (e.g. "First Name") destroys valid records. Many business datasets require composite keys (e.g. "First Name" + "Last Name" + "Postal Code") to accurately identify genuine duplicate entities.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <div class="border-t border-workspace-border pt-8">
         <h3 class="text-xs font-bold uppercase tracking-wider text-workspace-muted mb-3 font-mono">Related Spreadsheet Utilities</h3>
         <div class="flex flex-wrap gap-2 text-xs font-mono">

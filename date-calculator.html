@@ -401,6 +401,98 @@
           </div>
         </div>
       </div>
+      
+      <!-- Enterprise Technical Architecture & Deep Dive -->
+      <div data-enriched="true" class="border-t border-workspace-border pt-10 space-y-8">
+        <div>
+          <h2 class="text-xl font-bold text-white mb-3">Enterprise Technical Architecture & Deep Dive</h2>
+          <p class="text-sm text-workspace-muted leading-relaxed">
+            Engineered for high-throughput production environments, enterprise developer workflows, and compliance-sensitive operations. Below is an exhaustive technical reference covering architecture, execution parameters, and edge-case behaviors.
+          </p>
+        </div>
+
+        <!-- Production Use Cases -->
+        <div>
+          <h3 class="text-base font-bold text-white mb-4">Enterprise & Production Use Cases</h3>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/50 flex flex-col justify-between">
+              <h4 class="text-sm font-bold text-workspace-text mb-2">Project Management Sprint & Milestone Scheduling</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">Technical program managers and scrum masters calculate exact calendar durations and business workdays (excluding weekends) between milestone kickoffs and release targets to plan realistic sprint capacities.</p>
+            </div>
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/50 flex flex-col justify-between">
+              <h4 class="text-sm font-bold text-workspace-text mb-2">Legal Contract Windows & Statutory Notice Periods</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">Legal counsel and contract managers determine precise notice deadlines (such as "within 90 calendar days" or "10 business days prior to renewal") for commercial contracts, lease options, and warranty windows.</p>
+            </div>
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/50 flex flex-col justify-between">
+              <h4 class="text-sm font-bold text-workspace-text mb-2">SLA Uptime & Support Resolution Measurement</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">Operations and customer support teams compute resolution windows and SLA compliance thresholds down to exact days, hours, and minutes for customer incident post-mortems.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Technical Architecture Comparison -->
+        <div>
+          <h3 class="text-base font-bold text-white mb-3">Architectural Comparison: Client-Side Engine vs Cloud Processing</h3>
+          <div class="overflow-x-auto my-4">
+            <table class="w-full text-left text-xs font-mono border border-workspace-border rounded-xl overflow-hidden">
+              <thead class="bg-workspace-surface border-b border-workspace-border text-workspace-text">
+                <tr>
+                  <th class="p-3">Evaluation Parameter</th>
+                  <th class="p-3 text-workspace-accent">TabKit In-Browser Engine</th>
+                  <th class="p-3 text-workspace-muted">Traditional Cloud Service</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-workspace-border text-workspace-muted">
+                <tr>
+                  <td class="p-3 font-semibold text-workspace-text">Calculation Modes</td>
+                  <td class="p-3 text-workspace-accent font-medium">Days between dates, Add/Subtract duration, and Business Days</td>
+                  <td class="p-3">Basic days between dates only</td>
+                </tr>
+                <tr>
+                  <td class="p-3 font-semibold text-workspace-text">Calendar Standards</td>
+                  <td class="p-3 text-workspace-accent font-medium">Gregorian calendar with full astronomical leap year logic</td>
+                  <td class="p-3">Naive 365-day math ignoring leap years</td>
+                </tr>
+                <tr>
+                  <td class="p-3 font-semibold text-workspace-text">Daylight Saving Safety</td>
+                  <td class="p-3 text-workspace-accent font-medium">Calculates calendar spans independent of DST clock shifts</td>
+                  <td class="p-3">Vulnerable to 1-hour daylight saving drift</td>
+                </tr>
+                <tr>
+                  <td class="p-3 font-semibold text-workspace-text">Confidentiality</td>
+                  <td class="p-3 text-workspace-accent font-medium">Sensitive milestone dates and legal timelines stay in local memory</td>
+                  <td class="p-3">Date queries transmitted to cloud servers</td>
+                </tr>
+                <tr>
+                  <td class="p-3 font-semibold text-workspace-text">Output Granularity</td>
+                  <td class="p-3 text-workspace-accent font-medium">Displays elapsed time in total days, weeks, months, and business days</td>
+                  <td class="p-3">Single total days integer only</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Pitfalls & Troubleshooting -->
+        <div>
+          <h3 class="text-base font-bold text-white mb-3">Common Pitfalls & Engineering Troubleshooting</h3>
+          <div class="space-y-3">
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/40">
+              <h4 class="text-sm font-semibold text-workspace-text mb-1">Daylight Saving Time (DST) 23-Hour and 25-Hour Day Calculations</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">Calculating date differences by dividing millisecond timestamps by 86,400,000 (24 hours) produces fractional results (e.g. 1.04 or 0.96 days) on dates when clocks shift for Daylight Saving Time. TabKit operates on calendar date components directly to ensure whole integer day counts.</p>
+            </div>
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/40">
+              <h4 class="text-sm font-semibold text-workspace-text mb-1">The Astronomical Gregorian Leap Year Century Exception</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">While years divisible by 4 are leap years, years divisible by 100 are NOT leap years UNLESS they are also divisible by 400 (for example, the year 2000 was a leap year, but 1900 was not, and 2100 will not be). TabKit incorporates complete Gregorian astronomical leap rules.</p>
+            </div>
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/40">
+              <h4 class="text-sm font-semibold text-workspace-text mb-1">Inclusive vs Exclusive Boundary Counting Discrepancies</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">In legal and project management contexts, whether both the start date and end date are counted (inclusive, +1 day) or only the elapsed time between them (exclusive) is a frequent source of dispute. Always specify your counting methodology.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <div class="border-t border-workspace-border pt-8">
         <h3 class="text-xs font-bold uppercase tracking-wider text-workspace-muted mb-3 font-mono">Related Time Utilities</h3>
         <div class="flex flex-wrap gap-2 text-xs font-mono">

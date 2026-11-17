@@ -255,6 +255,98 @@
         </div>
       </div>
 
+      
+      <!-- Enterprise Technical Architecture & Deep Dive -->
+      <div data-enriched="true" class="border-t border-workspace-border pt-10 space-y-8">
+        <div>
+          <h2 class="text-xl font-bold text-white mb-3">Enterprise Technical Architecture & Deep Dive</h2>
+          <p class="text-sm text-workspace-muted leading-relaxed">
+            Engineered for high-throughput production environments, enterprise developer workflows, and compliance-sensitive operations. Below is an exhaustive technical reference covering architecture, execution parameters, and edge-case behaviors.
+          </p>
+        </div>
+
+        <!-- Production Use Cases -->
+        <div>
+          <h3 class="text-base font-bold text-white mb-4">Enterprise & Production Use Cases</h3>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/50 flex flex-col justify-between">
+              <h4 class="text-sm font-bold text-workspace-text mb-2">Data URI Inlining for Web Assets & SVG Icons</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">Front-end performance optimization often requires inlining small vector icons, WebP thumbnails, and critical fonts directly into CSS stylesheets or HTML markup. Encoding binary assets into Base64 data URIs (e.g. data:image/svg+xml;base64,...) eliminates extra HTTP request round-trips, reduces DNS lookups, and prevents layout shift (CLS) during initial render of critical above-the-fold content.</p>
+            </div>
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/50 flex flex-col justify-between">
+              <h4 class="text-sm font-bold text-workspace-text mb-2">HTTP Basic Authentication & Authorization Headers</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">Modern REST and GraphQL APIs frequently use HTTP Basic Auth (RFC 7617) for internal microservice communication and webhooks. Developers must concatenate username and password with a colon (username:password) and encode the resulting string into Base64 for the Authorization header. Conducting this encoding in-browser prevents confidential service credentials from entering third-party server access logs.</p>
+            </div>
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/50 flex flex-col justify-between">
+              <h4 class="text-sm font-bold text-workspace-text mb-2">Binary Transport Over Text-Only Protocols</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">Legacy message queues, SMTP email MIME attachments (RFC 2045), and raw JSON payloads are fundamentally restricted to 7-bit or 8-bit ASCII characters. Base64 bridges the gap by safely packing arbitrary binary blobs—such as compiled binaries, cryptographic certificates, or compressed gzip archives—into ASCII-safe strings that traverse firewalls, mail transfer agents, and proxies without truncation or encoding corruption.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Technical Architecture Comparison -->
+        <div>
+          <h3 class="text-base font-bold text-white mb-3">Architectural Comparison: Client-Side Engine vs Cloud Processing</h3>
+          <div class="overflow-x-auto my-4">
+            <table class="w-full text-left text-xs font-mono border border-workspace-border rounded-xl overflow-hidden">
+              <thead class="bg-workspace-surface border-b border-workspace-border text-workspace-text">
+                <tr>
+                  <th class="p-3">Evaluation Parameter</th>
+                  <th class="p-3 text-workspace-accent">TabKit In-Browser Engine</th>
+                  <th class="p-3 text-workspace-muted">Traditional Cloud Service</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-workspace-border text-workspace-muted">
+                <tr>
+                  <td class="p-3 font-semibold text-workspace-text">Execution Environment</td>
+                  <td class="p-3 text-workspace-accent font-medium">Client-Side V8 / JavaScript Engine</td>
+                  <td class="p-3">Remote Cloud Proxy / API Gateway</td>
+                </tr>
+                <tr>
+                  <td class="p-3 font-semibold text-workspace-text">Credential Leak Risk</td>
+                  <td class="p-3 text-workspace-accent font-medium">Zero: No network egress or packet transmission</td>
+                  <td class="p-3">High: Logged in web server access logs & traces</td>
+                </tr>
+                <tr>
+                  <td class="p-3 font-semibold text-workspace-text">Unicode / Multi-byte Support</td>
+                  <td class="p-3 text-workspace-accent font-medium">RFC 4648 with UTF-8 byte serialization</td>
+                  <td class="p-3">Dependent on server default encoding</td>
+                </tr>
+                <tr>
+                  <td class="p-3 font-semibold text-workspace-text">Network Latency</td>
+                  <td class="p-3 text-workspace-accent font-medium">0ms instant execution (offline capable)</td>
+                  <td class="p-3">150ms - 600ms HTTP round-trip latency</td>
+                </tr>
+                <tr>
+                  <td class="p-3 font-semibold text-workspace-text">Payload Size Limit</td>
+                  <td class="p-3 text-workspace-accent font-medium">Browser memory limits (~50MB+ comfortably)</td>
+                  <td class="p-3">Strict HTTP POST payload limits (e.g. 4MB/10MB)</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Pitfalls & Troubleshooting -->
+        <div>
+          <h3 class="text-base font-bold text-white mb-3">Common Pitfalls & Engineering Troubleshooting</h3>
+          <div class="space-y-3">
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/40">
+              <h4 class="text-sm font-semibold text-workspace-text mb-1">UTF-8 Multi-byte Character Corruption</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">The standard browser window.btoa() function was originally designed for 8-bit Latin1 character sequences (0x00 to 0xFF). Attempting to encode multi-byte Unicode strings—such as international typography, Cyrillic, Kanji, or emojis—throws an uncaught InvalidCharacterError exception. TabKit pre-serializes strings through an encodeURIComponent UTF-8 pipeline before binary conversion, ensuring 100% loss-free representation.</p>
+            </div>
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/40">
+              <h4 class="text-sm font-semibold text-workspace-text mb-1">Base64 vs Base64URL Format Conflicts</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">Standard Base64 utilizes the plus sign (+) and forward slash (/), which carry special syntactic meanings in URL query parameters, REST route segments, and JSON Web Token (JWT) signatures. Base64URL (RFC 4648 §5) swaps these with hyphen (-) and underscore (_), while stripping trailing equal (=) padding characters. Be careful to verify which variant your consuming API expects.</p>
+            </div>
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/40">
+              <h4 class="text-sm font-semibold text-workspace-text mb-1">33% Data Expansion Overhead</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">Base64 converts 3 bytes of raw binary data into 4 ASCII characters, incurring an unavoidable 33% increase in data volume. Avoid Base64-encoding massive assets (>10MB) inside JSON payloads when binary multipart form-data or direct S3 presigned URL uploads are available.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <!-- Related Tools -->
       <div class="border-t border-workspace-border pt-8">
         <h3 class="text-xs font-bold uppercase tracking-wider text-workspace-muted mb-3 font-mono">Related Developer Utilities</h3>

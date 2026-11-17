@@ -201,6 +201,98 @@
           </div>
         </div>
       </div>
+      
+      <!-- Enterprise Technical Architecture & Deep Dive -->
+      <div data-enriched="true" class="border-t border-workspace-border pt-10 space-y-8">
+        <div>
+          <h2 class="text-xl font-bold text-white mb-3">Enterprise Technical Architecture & Deep Dive</h2>
+          <p class="text-sm text-workspace-muted leading-relaxed">
+            Engineered for high-throughput production environments, enterprise developer workflows, and compliance-sensitive operations. Below is an exhaustive technical reference covering architecture, execution parameters, and edge-case behaviors.
+          </p>
+        </div>
+
+        <!-- Production Use Cases -->
+        <div>
+          <h3 class="text-base font-bold text-white mb-4">Enterprise & Production Use Cases</h3>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/50 flex flex-col justify-between">
+              <h4 class="text-sm font-bold text-workspace-text mb-2">Batch Scanned Document ADF Feed Correction</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">Office administrators correct upside-down or sideways pages resulting from inverted feeds in automatic document feeder (ADF) scanners.</p>
+            </div>
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/50 flex flex-col justify-between">
+              <h4 class="text-sm font-bold text-workspace-text mb-2">Mixed Orientation Document Standardization</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">Reorienting landscape financial spreadsheets and architectural diagrams within an otherwise portrait business proposal ensures comfortable reading.</p>
+            </div>
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/50 flex flex-col justify-between">
+              <h4 class="text-sm font-bold text-workspace-text mb-2">Smartphone Document Scan Orientation Repair</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">Smartphone document scanner apps frequently record incorrect orientation tags. Rotating pages permanently ensures consistent display across all PDF viewers.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Technical Architecture Comparison -->
+        <div>
+          <h3 class="text-base font-bold text-white mb-3">Architectural Comparison: Client-Side Engine vs Cloud Processing</h3>
+          <div class="overflow-x-auto my-4">
+            <table class="w-full text-left text-xs font-mono border border-workspace-border rounded-xl overflow-hidden">
+              <thead class="bg-workspace-surface border-b border-workspace-border text-workspace-text">
+                <tr>
+                  <th class="p-3">Evaluation Parameter</th>
+                  <th class="p-3 text-workspace-accent">TabKit In-Browser Engine</th>
+                  <th class="p-3 text-workspace-muted">Traditional Cloud Service</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-workspace-border text-workspace-muted">
+                <tr>
+                  <td class="p-3 font-semibold text-workspace-text">Rotation Angles</td>
+                  <td class="p-3 text-workspace-accent font-medium">90° Clockwise, 180° Inversion, 270° Counter-Clockwise</td>
+                  <td class="p-3">Fixed 90° clockwise only</td>
+                </tr>
+                <tr>
+                  <td class="p-3 font-semibold text-workspace-text">Modification Mode</td>
+                  <td class="p-3 text-workspace-accent font-medium">Modifies /Rotate dictionary entry without re-encoding page pixels</td>
+                  <td class="p-3">Re-compresses page pixels causing loss of quality</td>
+                </tr>
+                <tr>
+                  <td class="p-3 font-semibold text-workspace-text">Confidentiality</td>
+                  <td class="p-3 text-workspace-accent font-medium">Proprietary legal and corporate files remain 100% in local memory</td>
+                  <td class="p-3">Uploaded to remote web servers</td>
+                </tr>
+                <tr>
+                  <td class="p-3 font-semibold text-workspace-text">Page Granularity</td>
+                  <td class="p-3 text-workspace-accent font-medium">Rotate all pages simultaneously or select individual page targets</td>
+                  <td class="p-3">All-or-nothing whole document rotation</td>
+                </tr>
+                <tr>
+                  <td class="p-3 font-semibold text-workspace-text">Lossless Guarantee</td>
+                  <td class="p-3 text-workspace-accent font-medium">100% lossless vector and text preservation</td>
+                  <td class="p-3">Lossy re-encoding degrading text crispness</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Pitfalls & Troubleshooting -->
+        <div>
+          <h3 class="text-base font-bold text-white mb-3">Common Pitfalls & Engineering Troubleshooting</h3>
+          <div class="space-y-3">
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/40">
+              <h4 class="text-sm font-semibold text-workspace-text mb-1">Viewer-Level Rotation vs Permanent PDF Dictionary Updates</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">Some basic PDF viewers apply temporary rotation in the viewport without updating the PDF object catalog's /Rotate attribute. When the file is emailed to a client, it opens in its original sideways orientation. TabKit writes permanent dictionary updates.</p>
+            </div>
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/40">
+              <h4 class="text-sm font-semibold text-workspace-text mb-1">MediaBox and CropBox Coordinate Asymmetries</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">PDFs specify /MediaBox (physical page dimensions) and /CropBox (visible region). Rotating page dimensions without properly transforming the bounding box coordinates can cause page content to be clipped in print outputs.</p>
+            </div>
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/40">
+              <h4 class="text-sm font-semibold text-workspace-text mb-1">Annotation and Signature Coordinate Drift</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">Form fields, digital signatures, and comments have explicit bounding coordinates. Rotating page dimensions requires transforming annotation coordinates to prevent signatures from floating off into margins.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <div class="border-t border-workspace-border pt-8">
         <h3 class="text-xs font-bold uppercase tracking-wider text-workspace-muted mb-3 font-mono">Related PDF Utilities</h3>
         <div class="flex flex-wrap gap-2 text-xs font-mono">

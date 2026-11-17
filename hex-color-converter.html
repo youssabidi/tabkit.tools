@@ -242,6 +242,98 @@
         </div>
       </div>
 
+      
+      <!-- Enterprise Technical Architecture & Deep Dive -->
+      <div data-enriched="true" class="border-t border-workspace-border pt-10 space-y-8">
+        <div>
+          <h2 class="text-xl font-bold text-white mb-3">Enterprise Technical Architecture & Deep Dive</h2>
+          <p class="text-sm text-workspace-muted leading-relaxed">
+            Engineered for high-throughput production environments, enterprise developer workflows, and compliance-sensitive operations. Below is an exhaustive technical reference covering architecture, execution parameters, and edge-case behaviors.
+          </p>
+        </div>
+
+        <!-- Production Use Cases -->
+        <div>
+          <h3 class="text-base font-bold text-white mb-4">Enterprise & Production Use Cases</h3>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/50 flex flex-col justify-between">
+              <h4 class="text-sm font-bold text-workspace-text mb-2">Cross-Stack Design Token Synchronization</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">Frontend developers translating Figma design tokens into production code convert color definitions across CSS Hex (#10b981), RGB (rgb(16, 185, 129)), HSL (hsl(161, 84%, 39%)), and modern CSS Color 4 OKLCH formats, maintaining 100% numerical parity across platforms.</p>
+            </div>
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/50 flex flex-col justify-between">
+              <h4 class="text-sm font-bold text-workspace-text mb-2">Alpha Channel Opacity Calculation & Hex Transparency</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">Modern CSS supports 8-digit hexadecimal colors (e.g. #10b98180). Converting 8-digit hex into rgba(16, 185, 129, 0.5) with exact floating-point precision facilitates seamless opacity adjustments in Tailwind CSS custom utility classes.</p>
+            </div>
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/50 flex flex-col justify-between">
+              <h4 class="text-sm font-bold text-workspace-text mb-2">Mobile & Native Application Color Format Mapping</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">Translating web hex codes into native platform color models—such as Android ARGB integers (0xFF10B981) or iOS SwiftUI Color(.sRGB, red:green:blue:opacity)—streamlines cross-platform mobile application development.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Technical Architecture Comparison -->
+        <div>
+          <h3 class="text-base font-bold text-white mb-3">Architectural Comparison: Client-Side Engine vs Cloud Processing</h3>
+          <div class="overflow-x-auto my-4">
+            <table class="w-full text-left text-xs font-mono border border-workspace-border rounded-xl overflow-hidden">
+              <thead class="bg-workspace-surface border-b border-workspace-border text-workspace-text">
+                <tr>
+                  <th class="p-3">Evaluation Parameter</th>
+                  <th class="p-3 text-workspace-accent">TabKit In-Browser Engine</th>
+                  <th class="p-3 text-workspace-muted">Traditional Cloud Service</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-workspace-border text-workspace-muted">
+                <tr>
+                  <td class="p-3 font-semibold text-workspace-text">Supported Models</td>
+                  <td class="p-3 text-workspace-accent font-medium">HEX, HEXA, RGB, RGBA, HSL, HSLA, CMYK, and OKLCH</td>
+                  <td class="p-3">Basic HEX to RGB only</td>
+                </tr>
+                <tr>
+                  <td class="p-3 font-semibold text-workspace-text">Mathematical Precision</td>
+                  <td class="p-3 text-workspace-accent font-medium">Lossless floating-point calculations preventing degree rounding drift</td>
+                  <td class="p-3">Frequent 1-degree hue rounding errors</td>
+                </tr>
+                <tr>
+                  <td class="p-3 font-semibold text-workspace-text">Alpha Precision</td>
+                  <td class="p-3 text-workspace-accent font-medium">Full 8-digit Hex alpha channel decoding and percentage mapping</td>
+                  <td class="p-3">Ignores alpha opacity values</td>
+                </tr>
+                <tr>
+                  <td class="p-3 font-semibold text-workspace-text">Confidentiality</td>
+                  <td class="p-3 text-workspace-accent font-medium">Proprietary corporate palettes remain 100% in local memory</td>
+                  <td class="p-3">Uploaded to remote web conversion APIs</td>
+                </tr>
+                <tr>
+                  <td class="p-3 font-semibold text-workspace-text">Wide Gamut Support</td>
+                  <td class="p-3 text-workspace-accent font-medium">Calculates sRGB and Display P3 wide-gamut equivalents</td>
+                  <td class="p-3">Restricted to standard sRGB space</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Pitfalls & Troubleshooting -->
+        <div>
+          <h3 class="text-base font-bold text-white mb-3">Common Pitfalls & Engineering Troubleshooting</h3>
+          <div class="space-y-3">
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/40">
+              <h4 class="text-sm font-semibold text-workspace-text mb-1">3-Digit vs 6-Digit Hex Shorthand Expansion Rules</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">CSS shorthand hex values (e.g. #123) expand by doubling each individual character (#112233), NOT by appending trailing zeros (#123000). Misunderstanding this expansion rule results in completely wrong color values during CSS refactorings.</p>
+            </div>
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/40">
+              <h4 class="text-sm font-semibold text-workspace-text mb-1">HSL Color Space Perceptual Non-Uniformity</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">Standard HSL is not perceptually uniform. For example, a pure yellow hue (hue 60) and pure blue hue (hue 240) sharing the exact same 50% lightness value exhibit vastly different perceived luminance to the human eye. Modern design systems recommend OKLCH for predictable visual brightness.</p>
+            </div>
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/40">
+              <h4 class="text-sm font-semibold text-workspace-text mb-1">RGB Screen Hex to Print CMYK Gamut Clipping</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">Converting screen hex colors to CMYK for physical print collateral involves physical ink limitations. Vibrant digital RGB greens and cyans fall outside the printable CMYK gamut, resulting in muddy, desaturated print outputs unless color profiles are calibrated.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <div class="border-t border-workspace-border pt-8">
         <h3 class="text-xs font-bold uppercase tracking-wider text-workspace-muted mb-3 font-mono">Related Design Utilities</h3>
         <div class="flex flex-wrap gap-2 text-xs font-mono">

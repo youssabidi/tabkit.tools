@@ -225,6 +225,98 @@
           </div>
         </div>
       </div>
+      
+      <!-- Enterprise Technical Architecture & Deep Dive -->
+      <div data-enriched="true" class="border-t border-workspace-border pt-10 space-y-8">
+        <div>
+          <h2 class="text-xl font-bold text-white mb-3">Enterprise Technical Architecture & Deep Dive</h2>
+          <p class="text-sm text-workspace-muted leading-relaxed">
+            Engineered for high-throughput production environments, enterprise developer workflows, and compliance-sensitive operations. Below is an exhaustive technical reference covering architecture, execution parameters, and edge-case behaviors.
+          </p>
+        </div>
+
+        <!-- Production Use Cases -->
+        <div>
+          <h3 class="text-base font-bold text-white mb-4">Enterprise & Production Use Cases</h3>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/50 flex flex-col justify-between">
+              <h4 class="text-sm font-bold text-workspace-text mb-2">Privacy-Conscious Internal Link Distribution</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">When sharing links across corporate Slack channels, Discord communities, or customer support tickets, raw copied URLs frequently contain personal click identifiers (fbclid, gclid, msclkid) that associate the link with the sharer's private account profile. Sanitizing URLs strips intrusive marketing telemetry while maintaining direct access to destination content.</p>
+            </div>
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/50 flex flex-col justify-between">
+              <h4 class="text-sm font-bold text-workspace-text mb-2">SEO Canonicalization & Clean Sitemap Audits</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">Digital marketing and SEO teams must ensure inbound links, sitemaps, and internal navigation structures use clean canonical URLs. Eliminating redundant tracking query strings prevents search engine crawlers from indexing duplicate URL variations, consolidating domain authority and preserving crawl budget.</p>
+            </div>
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/50 flex flex-col justify-between">
+              <h4 class="text-sm font-bold text-workspace-text mb-2">Affiliate Marketing & Tracking Transparency</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">E-commerce analysts and affiliate managers frequently inspect affiliate links to determine whether affiliate codes, referral parameters, or sub-IDs have been injected by browser extensions or adware. TabKit reveals the stripped parameters so analysts can audit the precise tracking mechanisms employed.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Technical Architecture Comparison -->
+        <div>
+          <h3 class="text-base font-bold text-white mb-3">Architectural Comparison: Client-Side Engine vs Cloud Processing</h3>
+          <div class="overflow-x-auto my-4">
+            <table class="w-full text-left text-xs font-mono border border-workspace-border rounded-xl overflow-hidden">
+              <thead class="bg-workspace-surface border-b border-workspace-border text-workspace-text">
+                <tr>
+                  <th class="p-3">Evaluation Parameter</th>
+                  <th class="p-3 text-workspace-accent">TabKit In-Browser Engine</th>
+                  <th class="p-3 text-workspace-muted">Traditional Cloud Service</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-workspace-border text-workspace-muted">
+                <tr>
+                  <td class="p-3 font-semibold text-workspace-text">Filtering Engine</td>
+                  <td class="p-3 text-workspace-accent font-medium">Browser URL & URLSearchParams DOM APIs</td>
+                  <td class="p-3">Cloud-based link shortener / redirect service</td>
+                </tr>
+                <tr>
+                  <td class="p-3 font-semibold text-workspace-text">Network Requests</td>
+                  <td class="p-3 text-workspace-accent font-medium">Zero outbound HTTP requests (100% offline)</td>
+                  <td class="p-3">Sends request to remote redirect service</td>
+                </tr>
+                <tr>
+                  <td class="p-3 font-semibold text-workspace-text">Parameter Blacklist</td>
+                  <td class="p-3 text-workspace-accent font-medium">50+ tracking tokens (UTM, Facebook, Google, Mailchimp)</td>
+                  <td class="p-3">Dependent on service database</td>
+                </tr>
+                <tr>
+                  <td class="p-3 font-semibold text-workspace-text">Destination Integrity</td>
+                  <td class="p-3 text-workspace-accent font-medium">Path and functional routing parameters preserved</td>
+                  <td class="p-3">Risk of broken redirect chains or 404 links</td>
+                </tr>
+                <tr>
+                  <td class="p-3 font-semibold text-workspace-text">Execution Speed</td>
+                  <td class="p-3 text-workspace-accent font-medium">< 1ms local regex and query token parsing</td>
+                  <td class="p-3">100ms - 400ms server ping and redirect</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Pitfalls & Troubleshooting -->
+        <div>
+          <h3 class="text-base font-bold text-white mb-3">Common Pitfalls & Engineering Troubleshooting</h3>
+          <div class="space-y-3">
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/40">
+              <h4 class="text-sm font-semibold text-workspace-text mb-1">Stripping Required Functional Parameters</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">Not all query parameters are marketing trackers. For example, YouTube videos require the "v" parameter (?v=dQw4w9WgXcQ), and e-commerce stores require product IDs (?id=1024). Naively stripping all query strings breaks application navigation. TabKit targets an exhaustive blacklist of known telemetry keys while safely preserving functional routing query parameters.</p>
+            </div>
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/40">
+              <h4 class="text-sm font-semibold text-workspace-text mb-1">Nested URLs & Redirect Wrappers</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">Many corporate email scanners (such as Proofpoint or Outlook SafeLinks) wrap destination URLs inside a redirect wrapper parameter (e.g. https://safelinks.protection.outlook.com/?url=https%3A%2F%2Ftarget.com). To clean these links, the embedded URL must be fully extracted and percent-decoded before stripping secondary tracking parameters.</p>
+            </div>
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/40">
+              <h4 class="text-sm font-semibold text-workspace-text mb-1">Fragment Tracking (#utm_campaign=...) Patterns</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">Some single-page applications and modern marketing engines append tracking parameters after the hash symbol (#) instead of the query string (?) to avoid server-side caching invalidation. TabKit evaluates both the URL search query and the URL hash fragment to eliminate all tracking footprints.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <div class="border-t border-workspace-border pt-8">
         <h3 class="text-xs font-bold uppercase tracking-wider text-workspace-muted mb-3 font-mono">Related Privacy Utilities</h3>
         <div class="flex flex-wrap gap-2 text-xs font-mono">

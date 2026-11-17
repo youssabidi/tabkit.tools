@@ -337,6 +337,98 @@
           </div>
         </div>
       </div>
+    
+      <!-- Enterprise Technical Architecture & Deep Dive -->
+      <div data-enriched="true" class="border-t border-workspace-border pt-10 space-y-8">
+        <div>
+          <h2 class="text-xl font-bold text-white mb-3">Enterprise Technical Architecture & Deep Dive</h2>
+          <p class="text-sm text-workspace-muted leading-relaxed">
+            Engineered for high-throughput production environments, enterprise developer workflows, and compliance-sensitive operations. Below is an exhaustive technical reference covering architecture, execution parameters, and edge-case behaviors.
+          </p>
+        </div>
+
+        <!-- Production Use Cases -->
+        <div>
+          <h3 class="text-base font-bold text-white mb-4">Enterprise & Production Use Cases</h3>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/50 flex flex-col justify-between">
+              <h4 class="text-sm font-bold text-workspace-text mb-2">WCAG 2.2 AA & AAA Enterprise Accessibility Auditing</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">Digital product teams and accessibility compliance officers verify contrast ratios between text foregrounds and background surfaces. Adhering to WCAG 2.2 Level AA (minimum 4.5:1 for regular text, 3:1 for large text) and Level AAA (7:1) is legally mandated for enterprise, government, and educational web platforms.</p>
+            </div>
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/50 flex flex-col justify-between">
+              <h4 class="text-sm font-bold text-workspace-text mb-2">Design System Semantic Token Ramp Generation</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">Design engineers construct accessible color ramps (canvas -> surface -> elevated -> border -> accent) across light and dark modes. Generating harmonious, contrast-verified shades prevents legibility issues in complex dashboards and data tables.</p>
+            </div>
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/50 flex flex-col justify-between">
+              <h4 class="text-sm font-bold text-workspace-text mb-2">State-Dependent Interaction Contrast Verification</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">Interactive UI components require adequate contrast across all seven states: default, hover, focus-visible, active, disabled, loading, and error. Auditing keyboard focus indicators ensures compliance with WCAG 2.4.13 Focus Appearance requirements.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Technical Architecture Comparison -->
+        <div>
+          <h3 class="text-base font-bold text-white mb-3">Architectural Comparison: Client-Side Engine vs Cloud Processing</h3>
+          <div class="overflow-x-auto my-4">
+            <table class="w-full text-left text-xs font-mono border border-workspace-border rounded-xl overflow-hidden">
+              <thead class="bg-workspace-surface border-b border-workspace-border text-workspace-text">
+                <tr>
+                  <th class="p-3">Evaluation Parameter</th>
+                  <th class="p-3 text-workspace-accent">TabKit In-Browser Engine</th>
+                  <th class="p-3 text-workspace-muted">Traditional Cloud Service</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-workspace-border text-workspace-muted">
+                <tr>
+                  <td class="p-3 font-semibold text-workspace-text">Contrast Standard</td>
+                  <td class="p-3 text-workspace-accent font-medium">WCAG 2.1 & 2.2 Relative Luminance Formula</td>
+                  <td class="p-3">Simple RGB Euclidean distance approximation</td>
+                </tr>
+                <tr>
+                  <td class="p-3 font-semibold text-workspace-text">Color Space Precision</td>
+                  <td class="p-3 text-workspace-accent font-medium">Perceptually uniform OKLCH, CIELAB, and sRGB color models</td>
+                  <td class="p-3">Basic 8-bit RGB without color space calibration</td>
+                </tr>
+                <tr>
+                  <td class="p-3 font-semibold text-workspace-text">Compliance Evaluation</td>
+                  <td class="p-3 text-workspace-accent font-medium">Automated Pass/Fail badges for Normal, Large, and UI components</td>
+                  <td class="p-3">Displays raw ratio without compliance guidance</td>
+                </tr>
+                <tr>
+                  <td class="p-3 font-semibold text-workspace-text">Confidentiality</td>
+                  <td class="p-3 text-workspace-accent font-medium">Proprietary brand palettes remain strictly local in browser RAM</td>
+                  <td class="p-3">Transmitted to cloud server with potential logging</td>
+                </tr>
+                <tr>
+                  <td class="p-3 font-semibold text-workspace-text">Interactive Harmony</td>
+                  <td class="p-3 text-workspace-accent font-medium">Instant palette generation with complementary and split-complementary shades</td>
+                  <td class="p-3">Single-pair contrast check only</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Pitfalls & Troubleshooting -->
+        <div>
+          <h3 class="text-base font-bold text-white mb-3">Common Pitfalls & Engineering Troubleshooting</h3>
+          <div class="space-y-3">
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/40">
+              <h4 class="text-sm font-semibold text-workspace-text mb-1">The APCA vs WCAG 2 Polarity Discrepancy</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">WCAG 2 calculates relative luminance symmetrically, giving identical scores whether dark text sits on light backgrounds or white text on dark surfaces. The Advanced Perceptual Contrast Algorithm (APCA) models human ocular biology, recognizing that dark backgrounds cause halation and require different contrast thresholds for equal readability.</p>
+            </div>
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/40">
+              <h4 class="text-sm font-semibold text-workspace-text mb-1">Gradient Background Contrast Ambiguities</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">Testing text contrast against multi-color CSS gradients requires evaluating the contrast ratio at the lowest contrast coordinate along the text path rather than testing against an average color. Failing to test the worst-case background coordinate leads to hidden readability drop-offs.</p>
+            </div>
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/40">
+              <h4 class="text-sm font-semibold text-workspace-text mb-1">Subpixel Antialiasing and Thin Typography Weights</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">Mathematical contrast formulas assume solid rasterized shapes. When thin typography (font-weight 300 or lighter) is rendered, subpixel antialiasing blends edge pixels with the background, effectively reducing real-world contrast. Always pair lighter font weights with higher contrast ratios.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
     </article>
   </main>
 

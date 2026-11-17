@@ -198,6 +198,98 @@
         </div>
       </div>
 
+      
+      <!-- Enterprise Technical Architecture & Deep Dive -->
+      <div data-enriched="true" class="border-t border-workspace-border pt-10 space-y-8">
+        <div>
+          <h2 class="text-xl font-bold text-white mb-3">Enterprise Technical Architecture & Deep Dive</h2>
+          <p class="text-sm text-workspace-muted leading-relaxed">
+            Engineered for high-throughput production environments, enterprise developer workflows, and compliance-sensitive operations. Below is an exhaustive technical reference covering architecture, execution parameters, and edge-case behaviors.
+          </p>
+        </div>
+
+        <!-- Production Use Cases -->
+        <div>
+          <h3 class="text-base font-bold text-white mb-4">Enterprise & Production Use Cases</h3>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/50 flex flex-col justify-between">
+              <h4 class="text-sm font-bold text-workspace-text mb-2">Financial Model & Time-Series Realignment</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">Financial analysts transforming quarterly models where financial line items are organized vertically and dates horizontally can transpose the matrix 90 degrees to orient dates vertically, preparing the dataset for relational database loading or BI dashboards.</p>
+            </div>
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/50 flex flex-col justify-between">
+              <h4 class="text-sm font-bold text-workspace-text mb-2">Survey Response & Questionnaire Restructuring</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">Research teams transposing survey exports where questions are arranged in rows can restructure data into standard database records where columns represent survey questions and rows represent individual respondents.</p>
+            </div>
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/50 flex flex-col justify-between">
+              <h4 class="text-sm font-bold text-workspace-text mb-2">Data Visualization & Charting Library Feed Preparation</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">Reshaping tabular matrices to conform to the input data expectations of charting frameworks (Chart.js, D3.js, Highcharts) allows analysts to generate multi-series bar and line charts without writing complex transformation scripts.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Technical Architecture Comparison -->
+        <div>
+          <h3 class="text-base font-bold text-white mb-3">Architectural Comparison: Client-Side Engine vs Cloud Processing</h3>
+          <div class="overflow-x-auto my-4">
+            <table class="w-full text-left text-xs font-mono border border-workspace-border rounded-xl overflow-hidden">
+              <thead class="bg-workspace-surface border-b border-workspace-border text-workspace-text">
+                <tr>
+                  <th class="p-3">Evaluation Parameter</th>
+                  <th class="p-3 text-workspace-accent">TabKit In-Browser Engine</th>
+                  <th class="p-3 text-workspace-muted">Traditional Cloud Service</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-workspace-border text-workspace-muted">
+                <tr>
+                  <td class="p-3 font-semibold text-workspace-text">Matrix Transformation</td>
+                  <td class="p-3 text-workspace-accent font-medium">Full M x N Row-Column Transposition in local memory</td>
+                  <td class="p-3">Slow manual copy-paste transpose in desktop Excel</td>
+                </tr>
+                <tr>
+                  <td class="p-3 font-semibold text-workspace-text">Format Support</td>
+                  <td class="p-3 text-workspace-accent font-medium">Microsoft Excel (.xlsx, .xls) and CSV workbooks</td>
+                  <td class="p-3">CSV only or limited format options</td>
+                </tr>
+                <tr>
+                  <td class="p-3 font-semibold text-workspace-text">Formula Handling</td>
+                  <td class="p-3 text-workspace-accent font-medium">Evaluates formulas to fixed values before rotating</td>
+                  <td class="p-3">Breaks relative formula references (#REF!)</td>
+                </tr>
+                <tr>
+                  <td class="p-3 font-semibold text-workspace-text">Confidentiality</td>
+                  <td class="p-3 text-workspace-accent font-medium">Proprietary financial matrices remain strictly local in browser</td>
+                  <td class="p-3">Spreadsheets uploaded to external conversion servers</td>
+                </tr>
+                <tr>
+                  <td class="p-3 font-semibold text-workspace-text">Execution Speed</td>
+                  <td class="p-3 text-workspace-accent font-medium">< 100ms instant matrix transposition for large tables</td>
+                  <td class="p-3">150ms - 400ms server network latency</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Pitfalls & Troubleshooting -->
+        <div>
+          <h3 class="text-base font-bold text-white mb-3">Common Pitfalls & Engineering Troubleshooting</h3>
+          <div class="space-y-3">
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/40">
+              <h4 class="text-sm font-semibold text-workspace-text mb-1">Exceeding Excel's Maximum 16,384 Column Limit</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">Microsoft Excel enforces a strict maximum boundary of 16,384 columns (column XFD) versus 1,048,576 rows. Transposing a dataset containing more than 16,384 rows horizontally will exceed Excel's maximum column capacity, causing catastrophic data truncation.</p>
+            </div>
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/40">
+              <h4 class="text-sm font-semibold text-workspace-text mb-1">Broken Relative Formula References (#REF! Errors)</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">Transposing cells containing relative formulas (such as =A1+B1) rotates cell coordinates 90 degrees, causing formulas to point to invalid cell addresses and returning #REF! errors. TabKit transposes evaluated cell values to preserve calculation integrity.</p>
+            </div>
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/40">
+              <h4 class="text-sm font-semibold text-workspace-text mb-1">Header and Data Type Inversion</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">In standard tables, each column represents a single data type (e.g. Column A is dates, Column B is currency). Transposing the matrix causes rows to contain mixed data types. Verify your target schema handles heterogeneous rows.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <div class="border-t border-workspace-border pt-8">
         <h3 class="text-xs font-bold uppercase tracking-wider text-workspace-muted mb-3 font-mono">Related Spreadsheet Utilities</h3>
         <div class="flex flex-wrap gap-2 text-xs font-mono">

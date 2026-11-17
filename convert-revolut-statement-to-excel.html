@@ -205,6 +205,98 @@
         </div>
       </div>
 
+      
+      <!-- Enterprise Technical Architecture & Deep Dive -->
+      <div data-enriched="true" class="border-t border-workspace-border pt-10 space-y-8">
+        <div>
+          <h2 class="text-xl font-bold text-white mb-3">Enterprise Technical Architecture & Deep Dive</h2>
+          <p class="text-sm text-workspace-muted leading-relaxed">
+            Engineered for high-throughput production environments, enterprise developer workflows, and compliance-sensitive operations. Below is an exhaustive technical reference covering architecture, execution parameters, and edge-case behaviors.
+          </p>
+        </div>
+
+        <!-- Production Use Cases -->
+        <div>
+          <h3 class="text-base font-bold text-white mb-4">Enterprise & Production Use Cases</h3>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/50 flex flex-col justify-between">
+              <h4 class="text-sm font-bold text-workspace-text mb-2">Revolut Multi-Currency Balance & FX Reconciliation</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">International businesses and freelancers convert Revolut Business and Personal statements into Excel, extracting transactions across EUR, GBP, USD, and other currencies with exchange rate data.</p>
+            </div>
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/50 flex flex-col justify-between">
+              <h4 class="text-sm font-bold text-workspace-text mb-2">Crypto, Stock & Investment Portfolio Auditing</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">Investors convert Revolut crypto and stock trading statement PDFs into spreadsheets for capital gains tax calculations and portfolio tracking.</p>
+            </div>
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/50 flex flex-col justify-between">
+              <h4 class="text-sm font-bold text-workspace-text mb-2">Cross-Border Contractor & Freelancer Invoicing Audits</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">Remote contractors verify international client payments, FX conversion fees, and transfer times directly in Excel.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Technical Architecture Comparison -->
+        <div>
+          <h3 class="text-base font-bold text-white mb-3">Architectural Comparison: Client-Side Engine vs Cloud Processing</h3>
+          <div class="overflow-x-auto my-4">
+            <table class="w-full text-left text-xs font-mono border border-workspace-border rounded-xl overflow-hidden">
+              <thead class="bg-workspace-surface border-b border-workspace-border text-workspace-text">
+                <tr>
+                  <th class="p-3">Evaluation Parameter</th>
+                  <th class="p-3 text-workspace-accent">TabKit In-Browser Engine</th>
+                  <th class="p-3 text-workspace-muted">Traditional Cloud Service</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-workspace-border text-workspace-muted">
+                <tr>
+                  <td class="p-3 font-semibold text-workspace-text">Multi-Currency Handling</td>
+                  <td class="p-3 text-workspace-accent font-medium">Preserves distinct currency symbols and FX exchange rates</td>
+                  <td class="p-3">Conflates multiple currencies into a single column</td>
+                </tr>
+                <tr>
+                  <td class="p-3 font-semibold text-workspace-text">Revolut Fee Breakdown</td>
+                  <td class="p-3 text-workspace-accent font-medium">Separates raw transaction amounts from Revolut transfer fees</td>
+                  <td class="p-3">Merges fees into gross amount causing discrepancy</td>
+                </tr>
+                <tr>
+                  <td class="p-3 font-semibold text-workspace-text">Confidentiality</td>
+                  <td class="p-3 text-workspace-accent font-medium">International financial records remain strictly local in browser</td>
+                  <td class="p-3">Uploaded to third-party conversion servers</td>
+                </tr>
+                <tr>
+                  <td class="p-3 font-semibold text-workspace-text">Date & Time Precision</td>
+                  <td class="p-3 text-workspace-accent font-medium">Extracts exact timestamps down to hours and minutes</td>
+                  <td class="p-3">Truncates timestamps to dates only</td>
+                </tr>
+                <tr>
+                  <td class="p-3 font-semibold text-workspace-text">Modern Layout Support</td>
+                  <td class="p-3 text-workspace-accent font-medium">Optimized for modern Revolut digital PDF statement designs</td>
+                  <td class="p-3">Fails on Revolut's multi-column app export layout</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Pitfalls & Troubleshooting -->
+        <div>
+          <h3 class="text-base font-bold text-white mb-3">Common Pitfalls & Engineering Troubleshooting</h3>
+          <div class="space-y-3">
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/40">
+              <h4 class="text-sm font-semibold text-workspace-text mb-1">Multi-Currency Pocket Column Collisions</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">Revolut statements often list transactions from different currency pockets (EUR, GBP, USD) in a single document. Naively summing amounts without grouping by currency produces meaningless financial totals. TabKit preserves currency codes alongside amounts.</p>
+            </div>
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/40">
+              <h4 class="text-sm font-semibold text-workspace-text mb-1">Embedded Currency Exchange (FX) Row Structure</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">Revolut records currency exchanges as dual-line transactions showing both the sold amount and bought amount. Parsers must link these paired legs to prevent artificial doubling of transaction volumes.</p>
+            </div>
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/40">
+              <h4 class="text-sm font-semibold text-workspace-text mb-1">Pending vs Completed Transaction Distinctions</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">Revolut statements sometimes list pending card pre-authorizations alongside completed transactions. Always verify transaction status flags to avoid recording unsettled authorizations.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <div class="border-t border-workspace-border pt-8">
         <h2 class="text-xs font-bold uppercase tracking-wider text-workspace-muted mb-3 font-mono">Other Bank Statement Presets & Financial Utilities</h2>
         <div class="flex flex-wrap gap-2 text-xs font-mono">

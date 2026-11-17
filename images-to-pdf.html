@@ -200,6 +200,98 @@
           </div>
         </div>
       </div>
+      
+      <!-- Enterprise Technical Architecture & Deep Dive -->
+      <div data-enriched="true" class="border-t border-workspace-border pt-10 space-y-8">
+        <div>
+          <h2 class="text-xl font-bold text-white mb-3">Enterprise Technical Architecture & Deep Dive</h2>
+          <p class="text-sm text-workspace-muted leading-relaxed">
+            Engineered for high-throughput production environments, enterprise developer workflows, and compliance-sensitive operations. Below is an exhaustive technical reference covering architecture, execution parameters, and edge-case behaviors.
+          </p>
+        </div>
+
+        <!-- Production Use Cases -->
+        <div>
+          <h3 class="text-base font-bold text-white mb-4">Enterprise & Production Use Cases</h3>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/50 flex flex-col justify-between">
+              <h4 class="text-sm font-bold text-workspace-text mb-2">Expense Receipt & Invoice Reimbursement Packaging</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">Business travelers convert smartphone photos of receipts, taxi vouchers, and hotel folios into a single organized PDF document for corporate expense reporting systems.</p>
+            </div>
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/50 flex flex-col justify-between">
+              <h4 class="text-sm font-bold text-workspace-text mb-2">Design Portfolio & Visual Case Study Delivery</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">Designers and photographers convert high-resolution graphic renders and architectural plans into standardized PDF presentations for client review.</p>
+            </div>
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/50 flex flex-col justify-between">
+              <h4 class="text-sm font-bold text-workspace-text mb-2">Historical Paper Document Archive Digitization</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">Archivists and paralegals assemble photographic scans of historical records, deed books, and paper contracts into clean, searchable PDF files.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Technical Architecture Comparison -->
+        <div>
+          <h3 class="text-base font-bold text-white mb-3">Architectural Comparison: Client-Side Engine vs Cloud Processing</h3>
+          <div class="overflow-x-auto my-4">
+            <table class="w-full text-left text-xs font-mono border border-workspace-border rounded-xl overflow-hidden">
+              <thead class="bg-workspace-surface border-b border-workspace-border text-workspace-text">
+                <tr>
+                  <th class="p-3">Evaluation Parameter</th>
+                  <th class="p-3 text-workspace-accent">TabKit In-Browser Engine</th>
+                  <th class="p-3 text-workspace-muted">Traditional Cloud Service</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-workspace-border text-workspace-muted">
+                <tr>
+                  <td class="p-3 font-semibold text-workspace-text">Input Formats</td>
+                  <td class="p-3 text-workspace-accent font-medium">PNG, JPEG, WebP, GIF, and BMP raster formats</td>
+                  <td class="p-3">JPEG only</td>
+                </tr>
+                <tr>
+                  <td class="p-3 font-semibold text-workspace-text">Page Geometry</td>
+                  <td class="p-3 text-workspace-accent font-medium">Auto-fit to standard page sizes (US Letter, A4) or fit to image aspect ratio</td>
+                  <td class="p-3">Forces square or distorted page sizes</td>
+                </tr>
+                <tr>
+                  <td class="p-3 font-semibold text-workspace-text">Margin Controls</td>
+                  <td class="p-3 text-workspace-accent font-medium">Configurable margin padding (None, Small, Normal)</td>
+                  <td class="p-3">Fixed margins that crop image edges</td>
+                </tr>
+                <tr>
+                  <td class="p-3 font-semibold text-workspace-text">Confidentiality</td>
+                  <td class="p-3 text-workspace-accent font-medium">Personal identification photos and receipts never leave browser memory</td>
+                  <td class="p-3">Uploaded to remote cloud conversion servers</td>
+                </tr>
+                <tr>
+                  <td class="p-3 font-semibold text-workspace-text">Compression Tuning</td>
+                  <td class="p-3 text-workspace-accent font-medium">Adjustable JPEG compression quality to manage file size budgets</td>
+                  <td class="p-3">No compression control leading to 50MB+ files</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Pitfalls & Troubleshooting -->
+        <div>
+          <h3 class="text-base font-bold text-white mb-3">Common Pitfalls & Engineering Troubleshooting</h3>
+          <div class="space-y-3">
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/40">
+              <h4 class="text-sm font-semibold text-workspace-text mb-1">Smartphone High-Megapixel File Size Explosion</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">Converting multiple 12MP or 48MP smartphone photos directly into a PDF can create a massive 80MB document that exceeds corporate email attachment limits. TabKit provides intelligent compression options to maintain readability while keeping file size under 10MB.</p>
+            </div>
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/40">
+              <h4 class="text-sm font-semibold text-workspace-text mb-1">Non-Uniform Aspect Ratio Stretching and Distortion</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">Forcing smartphone photos (4:3 or 16:9) to stretch across fixed A4 dimensions without letterboxing distorts imagery. TabKit centers and scales images proportionally within page boundaries.</p>
+            </div>
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/40">
+              <h4 class="text-sm font-semibold text-workspace-text mb-1">CMYK JPEG Color Inversion Artifacts</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">Photographs exported in print CMYK color mode can render as inverted negatives in web canvas renderers. TabKit normalizes color spaces into standard sRGB before PDF compilation.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <div class="border-t border-workspace-border pt-8">
         <h3 class="text-xs font-bold uppercase tracking-wider text-workspace-muted mb-3 font-mono">Related PDF Utilities</h3>
         <div class="flex flex-wrap gap-2 text-xs font-mono">

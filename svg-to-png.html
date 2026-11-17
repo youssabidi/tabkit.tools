@@ -208,6 +208,98 @@
           </div>
         </div>
       </div>
+    
+      <!-- Enterprise Technical Architecture & Deep Dive -->
+      <div data-enriched="true" class="border-t border-workspace-border pt-10 space-y-8">
+        <div>
+          <h2 class="text-xl font-bold text-white mb-3">Enterprise Technical Architecture & Deep Dive</h2>
+          <p class="text-sm text-workspace-muted leading-relaxed">
+            Engineered for high-throughput production environments, enterprise developer workflows, and compliance-sensitive operations. Below is an exhaustive technical reference covering architecture, execution parameters, and edge-case behaviors.
+          </p>
+        </div>
+
+        <!-- Production Use Cases -->
+        <div>
+          <h3 class="text-base font-bold text-white mb-4">Enterprise & Production Use Cases</h3>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/50 flex flex-col justify-between">
+              <h4 class="text-sm font-bold text-workspace-text mb-2">High-Resolution Vector to Raster Asset Rasterization</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">Designers and software developers convert scalable vector graphics into crisp, lossless PNGs at custom scale multipliers (1x, 2x, 4x, 8x) for marketing slide decks, print collateral, and social media banners where vector formats are unsupported.</p>
+            </div>
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/50 flex flex-col justify-between">
+              <h4 class="text-sm font-bold text-workspace-text mb-2">Legacy Software & Email Client Compatibility</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">Enterprise email campaigns and legacy desktop software platforms frequently fail to render SVG vector graphics. Converting vector artwork to transparent PNGs ensures universal rendering across all desktop and mobile email clients.</p>
+            </div>
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/50 flex flex-col justify-between">
+              <h4 class="text-sm font-bold text-workspace-text mb-2">Retina Display & Mobile High-DPI App Icon Export</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">Mobile application developers generate @2x and @3x raster icon assets from a single master SVG file, ensuring razor-sharp visual fidelity on high-density smartphone screens without manual recreation.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Technical Architecture Comparison -->
+        <div>
+          <h3 class="text-base font-bold text-white mb-3">Architectural Comparison: Client-Side Engine vs Cloud Processing</h3>
+          <div class="overflow-x-auto my-4">
+            <table class="w-full text-left text-xs font-mono border border-workspace-border rounded-xl overflow-hidden">
+              <thead class="bg-workspace-surface border-b border-workspace-border text-workspace-text">
+                <tr>
+                  <th class="p-3">Evaluation Parameter</th>
+                  <th class="p-3 text-workspace-accent">TabKit In-Browser Engine</th>
+                  <th class="p-3 text-workspace-muted">Traditional Cloud Service</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-workspace-border text-workspace-muted">
+                <tr>
+                  <td class="p-3 font-semibold text-workspace-text">Rasterization Pipeline</td>
+                  <td class="p-3 text-workspace-accent font-medium">Hardware-accelerated HTML5 Canvas 2D with custom scaling</td>
+                  <td class="p-3">Server-side headless browser or ImageMagick</td>
+                </tr>
+                <tr>
+                  <td class="p-3 font-semibold text-workspace-text">Alpha Channel Support</td>
+                  <td class="p-3 text-workspace-accent font-medium">Full preservation of 32-bit transparent backgrounds</td>
+                  <td class="p-3">Fills transparent backgrounds with solid black/white</td>
+                </tr>
+                <tr>
+                  <td class="p-3 font-semibold text-workspace-text">Scale Factors</td>
+                  <td class="p-3 text-workspace-accent font-medium">Configurable multipliers (1x, 2x, 4x, 8x) up to 8192px resolution</td>
+                  <td class="p-3">Fixed 1x resolution export only</td>
+                </tr>
+                <tr>
+                  <td class="p-3 font-semibold text-workspace-text">Data Confidentiality</td>
+                  <td class="p-3 text-workspace-accent font-medium">Proprietary vector marks remain 100% in local browser memory</td>
+                  <td class="p-3">Transmitted to cloud conversion server</td>
+                </tr>
+                <tr>
+                  <td class="p-3 font-semibold text-workspace-text">Execution Latency</td>
+                  <td class="p-3 text-workspace-accent font-medium">Instant client-side canvas rasterization (< 50ms)</td>
+                  <td class="p-3">150ms - 600ms network round-trip</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Pitfalls & Troubleshooting -->
+        <div>
+          <h3 class="text-base font-bold text-white mb-3">Common Pitfalls & Engineering Troubleshooting</h3>
+          <div class="space-y-3">
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/40">
+              <h4 class="text-sm font-semibold text-workspace-text mb-1">Missing Root Dimensions Causing 300x150px Default Cropping</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">In HTML5 Canvas specification, drawing an SVG that lacks explicit width, height, or viewBox attributes causes browser rasterization engines to default to an arbitrary 300x150 pixel viewport, clipping artwork or rendering tiny blurry images. TabKit ensures dimensions are parsed before drawing.</p>
+            </div>
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/40">
+              <h4 class="text-sm font-semibold text-workspace-text mb-1">Unloaded External Web Fonts Rendering as Fallback Glyphs</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">When an SVG contains text elements utilizing external web fonts (such as Google Fonts loaded via @import), drawing the SVG to a canvas before the font has fully loaded causes the canvas to render system fallback fonts (Arial or Times). Ensure fonts are preloaded.</p>
+            </div>
+            <div class="p-4 rounded-xl border border-workspace-border bg-workspace-surface/40">
+              <h4 class="text-sm font-semibold text-workspace-text mb-1">Browser Canvas Maximum Dimension Memory Limits</h4>
+              <p class="text-xs text-workspace-muted leading-relaxed">Web browsers enforce strict limits on HTML5 canvas memory allocations (e.g. iOS Safari limits canvas dimensions to 16,384 x 16,384 pixels or total pixel memory limits). Attempting to export at 16x scale on a large vector will throw an out-of-memory exception.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
     </article>
   </main>
 
