@@ -175,16 +175,16 @@ window.TOOLS_REGISTRY['invoice-generator'] = Object.assign(window.TOOLS_REGISTRY
         const lineTotal = (item.qty * item.rate).toFixed(2);
         tr.innerHTML = `
           <td class="py-1.5 px-2">
-            <input type="text" class="w-full bg-workspace-surface border border-workspace-border rounded px-2 py-1 text-workspace-text text-xs item-desc" data-index="${index}" value="${item.desc}" />
+            <input type="text" class="w-full bg-workspace-surface border border-workspace-border rounded px-2 py-1 text-workspace-text text-xs item-desc" data-index="${index}" value="${escapeHtml(item.desc)}" />
           </td>
           <td class="py-1.5 px-1">
-            <input type="number" min="0" step="any" class="w-full bg-workspace-surface border border-workspace-border rounded px-1.5 py-1 text-center text-workspace-text text-xs item-qty font-mono" data-index="${index}" value="${item.qty}" />
+            <input type="number" min="0" step="any" class="w-full bg-workspace-surface border border-workspace-border rounded px-1.5 py-1 text-center text-workspace-text text-xs item-qty font-mono tabular-nums" data-index="${index}" value="${Number(item.qty) || 0}" />
           </td>
           <td class="py-1.5 px-1">
-            <input type="number" min="0" step="any" class="w-full bg-workspace-surface border border-workspace-border rounded px-1.5 py-1 text-right text-workspace-text text-xs item-rate font-mono" data-index="${index}" value="${item.rate}" />
+            <input type="number" min="0" step="any" class="w-full bg-workspace-surface border border-workspace-border rounded px-1.5 py-1 text-right text-workspace-text text-xs item-rate font-mono tabular-nums" data-index="${index}" value="${Number(item.rate) || 0}" />
           </td>
-          <td class="py-1.5 px-3 text-right font-mono font-bold text-workspace-accent">
-            ${curr}${Number(lineTotal).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+          <td class="py-1.5 px-3 text-right font-mono tabular-nums font-bold text-workspace-accent">
+            ${escapeHtml(curr)}${Number(lineTotal).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
           </td>
           <td class="py-1.5 px-1 text-center">
             <button class="text-red-400 hover:text-red-300 font-bold p-1 btn-del" data-index="${index}" title="Remove item">×</button>

@@ -358,7 +358,7 @@ window.TOOLS_REGISTRY['bank-statement-to-excel'] = Object.assign(window.TOOLS_RE
         renderResults(parsedRows);
       } catch (err) {
         console.error('PDF parsing error:', err);
-        status.innerHTML = `<span class="text-red-400 font-bold">Error parsing PDF:</span> ${err.message || 'Could not parse text table.'}`;
+        status.innerHTML = `<span class="text-red-400 font-bold">Error parsing PDF:</span> ${escapeHtml(err.message || 'Could not parse text table.')}`;
       }
     }
 
@@ -407,11 +407,11 @@ window.TOOLS_REGISTRY['bank-statement-to-excel'] = Object.assign(window.TOOLS_RE
         const tr = document.createElement('tr');
         tr.className = 'hover:bg-workspace-surface/50 transition-colors';
         tr.innerHTML = `
-          <td class="py-1.5 px-3 whitespace-nowrap text-workspace-muted">${r.date}</td>
-          <td class="py-1.5 px-3 max-w-[200px] truncate" title="${r.description}">${r.description}</td>
-          <td class="py-1.5 px-3 text-right text-amber-400">${r.debit ? '$' + Number(r.debit).toFixed(2) : '-'}</td>
-          <td class="py-1.5 px-3 text-right text-emerald-400">${r.credit ? '$' + Number(r.credit).toFixed(2) : '-'}</td>
-          <td class="py-1.5 px-3 text-right text-workspace-muted">${r.balance ? '$' + Number(r.balance).toFixed(2) : '-'}</td>
+          <td class="py-1.5 px-3 whitespace-nowrap text-workspace-muted">${escapeHtml(r.date)}</td>
+          <td class="py-1.5 px-3 max-w-[200px] truncate" title="${escapeHtml(r.description)}">${escapeHtml(r.description)}</td>
+          <td class="py-1.5 px-3 text-right text-amber-400 font-mono tabular-nums">${r.debit ? '$' + Number(r.debit).toFixed(2) : '-'}</td>
+          <td class="py-1.5 px-3 text-right text-emerald-400 font-mono tabular-nums">${r.credit ? '$' + Number(r.credit).toFixed(2) : '-'}</td>
+          <td class="py-1.5 px-3 text-right text-workspace-muted font-mono tabular-nums">${r.balance ? '$' + Number(r.balance).toFixed(2) : '-'}</td>
         `;
         tableBody.appendChild(tr);
       });
