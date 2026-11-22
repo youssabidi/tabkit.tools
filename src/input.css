@@ -143,11 +143,30 @@ html.theme-light code {
   --card-highlight: inset 0 1px 0 0 rgba(255, 255, 255, 0.12);
 }
 
-.btn-tactile {
-  transition: transform 0.12s var(--spring-snappy), background-color 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
+.btn-tactile,
+button:not(:disabled),
+a[role="button"] {
+  transition: transform 75ms var(--spring-snappy), background-color 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
 }
-.btn-tactile:active {
+.btn-tactile:active,
+button:not(:disabled):active,
+a[role="button"]:active {
   transform: scale(0.97) !important;
+}
+
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+a:focus-visible {
+  outline: 2px solid #06B6D4;
+  outline-offset: 2px;
+}
+
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+  -webkit-font-feature-settings: "tnum";
+  font-feature-settings: "tnum";
 }
 
 .card-specular {
