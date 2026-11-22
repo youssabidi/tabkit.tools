@@ -329,11 +329,15 @@ class TabkitFooter extends HTMLElement {
 
     let relatedHtml = '';
     if (currentTool) {
-      const sameCategory = Object.keys(TABKIT_TOOLS_MAP).filter(id => id !== currentId && TABKIT_TOOLS_MAP[id].c === currentTool.c);
-      const fallbackTools = ['json-formatter', 'bank-statement-to-excel', 'pdf-merger', 'secure-password-generator'];
-      const chosenIds = sameCategory.length >= 4 
-        ? sameCategory.slice(0, 4) 
-        : [...sameCategory, ...fallbackTools.filter(id => id !== currentId && !sameCategory.includes(id))].slice(0, 4);
+      const catTools = Object.keys(TABKIT_TOOLS_MAP).filter(id => TABKIT_TOOLS_MAP[id].c === currentTool.c);
+      const curIdx = catTools.indexOf(currentId);
+      const otherCatTools = curIdx >= 0
+        ? [...catTools.slice(curIdx + 1), ...catTools.slice(0, curIdx)]
+        : catTools.filter(id => id !== currentId);
+      const fallbackTools = ['json-formatter', 'bank-statement-to-excel', 'pdf-merger', 'secure-password-generator', 'cron-expression-generator'];
+      const chosenIds = otherCatTools.length >= 4 
+        ? otherCatTools.slice(0, 4) 
+        : [...otherCatTools, ...fallbackTools.filter(id => id !== currentId && !otherCatTools.includes(id))].slice(0, 4);
 
       const catSlug = CATEGORY_SLUGS_MAP[currentTool.c] || '';
 
@@ -481,24 +485,55 @@ class ToolHeader extends HTMLElement {
 function copyCitation(toolName) {
   const name = toolName || document.title.split('|')[0].trim() || 'TabKit Tool';
   const url = window.location.href.split('?')[0].split('#')[0];
-  const md = `[${name}](${url}) — Free in-browser developer utility (100% private, client-side).`;
-  if (navigator.clipboard) {
-    navigator.clipboard.writeText(md).then(() => {
-      if (typeof showToast === 'function') {
-        showToast('📋 Markdown citation copied for README or Docs!');
-      } else {
-        const fallbackToast = document.createElement('div');
-        fallbackToast.className = 'fixed bottom-6 right-6 z-50 bg-emerald-600 text-white text-xs font-medium px-4 py-2.5 rounded-xl shadow-lg border border-emerald-400';
-        fallbackToast.textContent = '📋 Citation copied to clipboard!';
-        document.body.appendChild(fallbackToast);
-        setTimeout(() => fallbackToast.remove(), 2500);
-      }
-    }).catch(() => {
-      prompt('Copy Markdown link:', md);
+  const mdCitation = `[${name}](${url}) — Free in-browser developer utility (100% private, client-side).`;
+  const badgeMarkdown = `[![Privacy: 100% Client-Side](https://tabkit.tools/badges/tabkit-private.svg)](${url})`;
+
+  let modal = document.getElementById('citeModal');
+  if (!modal) {
+    modal = document.createElement('div');
+    modal.id = 'citeModal';
+    modal.className = 'fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-4';
+    modal.onclick = (e) => { if (e.target === modal) modal.classList.add('hidden'); };
+    document.body.appendChild(modal);
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && !modal.classList.contains('hidden')) modal.classList.add('hidden');
     });
-  } else {
-    prompt('Copy Markdown link:', md);
   }
+
+  modal.innerHTML = `
+    <div class="w-full max-w-lg rounded-2xl border border-workspace-borderLight bg-workspace-surface shadow-2xl p-6 space-y-5 text-left font-sans">
+      <div class="flex items-center justify-between border-b border-workspace-border pb-3">
+        <div class="flex items-center gap-2">
+          <span class="w-2.5 h-2.5 rounded-full bg-workspace-accent"></span>
+          <h3 class="text-sm font-bold text-workspace-text uppercase font-mono tracking-wider">Cite &amp; Embed ${name}</h3>
+        </div>
+        <button type="button" onclick="document.getElementById('citeModal').classList.add('hidden')" class="text-workspace-muted hover:text-workspace-text text-sm font-mono">&times; ESC</button>
+      </div>
+
+      <div class="space-y-2">
+        <label class="block text-xs font-mono font-bold text-workspace-muted uppercase">1. GitHub README Badge</label>
+        <div class="flex items-center gap-2 p-2.5 rounded-xl bg-workspace-bg border border-workspace-border">
+          <img src="/badges/tabkit-private.svg" alt="TabKit Privacy Badge" class="h-5 shrink-0" />
+          <input readonly type="text" value="${badgeMarkdown.replace(/"/g, '&quot;')}" class="flex-1 bg-transparent text-[11px] font-mono text-workspace-muted select-all focus:outline-none truncate" />
+          <button type="button" onclick="navigator.clipboard.writeText('${badgeMarkdown.replace(/'/g, "\\'")}').then(() => (typeof showToast === 'function' ? showToast('📋 Badge Markdown copied!') : alert('Badge copied!')))" class="btn-tactile px-3 py-1.5 rounded-lg bg-workspace-accent hover:bg-workspace-accentHover text-black font-bold font-mono text-xs shrink-0">Copy</button>
+        </div>
+      </div>
+
+      <div class="space-y-2">
+        <label class="block text-xs font-mono font-bold text-workspace-muted uppercase">2. Plain Markdown Citation</label>
+        <div class="flex items-center gap-2 p-2.5 rounded-xl bg-workspace-bg border border-workspace-border">
+          <input readonly type="text" value="${mdCitation.replace(/"/g, '&quot;')}" class="flex-1 bg-transparent text-[11px] font-mono text-workspace-muted select-all focus:outline-none truncate" />
+          <button type="button" onclick="navigator.clipboard.writeText('${mdCitation.replace(/'/g, "\\'")}').then(() => (typeof showToast === 'function' ? showToast('📋 Citation copied!') : alert('Citation copied!')))" class="btn-tactile px-3 py-1.5 rounded-lg bg-workspace-surface border border-workspace-border hover:border-workspace-accent text-workspace-text font-bold font-mono text-xs shrink-0">Copy</button>
+        </div>
+      </div>
+
+      <div class="pt-2 text-[11px] font-mono text-workspace-muted/80 flex items-center justify-between">
+        <span>100% Client-Side &bull; Zero Server Telemetry</span>
+        <span class="text-emerald-400">Permissive Open Citation</span>
+      </div>
+    </div>
+  `;
+  modal.classList.remove('hidden');
 }
 
 // Global Spotlight Cursor Tracking (Aceternity / Linear pattern)

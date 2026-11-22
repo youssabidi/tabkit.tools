@@ -1,8 +1,8 @@
 # TabKit Tools Master Launch & Distribution Kit
 
 > **Status:** Production-Ready (Phase 13)  
-> **Platform Version:** TabKit v22 (65 Local Tools, 73 Canonical URLs, 100% Offline PWA)  
-> **Repository:** `Bru-T/tabkit.tools`  
+> **Platform Version:** TabKit v25 (65 Local Tools, 68 Canonical URLs, 100% Offline PWA)  
+> **Repository:** `youssabidi/tabkit.tools`  
 > **Live Site:** [https://tabkit.tools](https://tabkit.tools)
 
 ---
@@ -46,7 +46,7 @@ TabKit is an open collection of 65 utilities spanning six categories:
 
 Key architectural decisions:
 1. Zero Server Runtime: There is no backend API. Every byte of PDF manipulation, hashing, cron schedule simulation, and AST parsing runs inside the browser sandbox using Web Workers, WebAssembly, and native JS APIs.
-2. Offline PWA (Service Worker v23): All scripts, CSS, and worker binaries are precached. You can load TabKit on an airplane or in an air-gapped network room and every tool continues to work identically.
+2. Offline PWA (Service Worker v25): All scripts, CSS, and worker binaries are precached. You can load TabKit on an airplane or in an air-gapped network room and every tool continues to work identically.
 3. Multi-Tool Workbench Deck: Instead of forcing users to switch tabs or bookmark 20 sites, you can pin any tool to an interactive side-by-side deck. State is isolated per tool widget.
 4. Token-Optimized LLM Index: For agents and LLM browsing, we provide full structural manifests at `/llms.txt` and `/llms-full.txt`.
 
@@ -77,7 +77,7 @@ Thanks for checking it out!
 * **Tagline (under 60 chars):** 65 private, client-side tools with zero data tracking
 * **Pricing Model:** Free
 * **Categories:** Developer Tools, Privacy, Productivity, Open Source
-* **Makers:** @Bru-T
+* **Makers:** @youssabidi
 
 ### Maker First Comment
 ```markdown
@@ -236,8 +236,8 @@ Request manual indexation for these high-value, top-trafficked search target pag
 1. `https://tabkit.tools/` (Homepage workbench)
 2. `https://tabkit.tools/cron-expression-generator` (NEW Tool #65)
 3. `https://tabkit.tools/chmod-calculator`
-4. `https://tabkit.tools/convert-chase-statement-to-excel`
-5. `https://tabkit.tools/convert-bank-of-america-statement-to-excel`
+4. `https://tabkit.tools/bank-statement-to-excel` (Primary financial converter)
+5. `https://tabkit.tools/invoice-generator` (Client-side accounting utility)
 6. `https://tabkit.tools/curl-converter`
 7. `https://tabkit.tools/json-to-typescript`
 8. `https://tabkit.tools/pdf-merger`
@@ -250,8 +250,34 @@ Request manual indexation for these high-value, top-trafficked search target pag
 15. `https://tabkit.tools/excel-formula-builder`
 
 ### Verification Steps
-- [x] Sitemap verified: `https://tabkit.tools/sitemap.xml` (73 canonical URLs)
-- [x] Schema.org verified: Injected WebApplication, BreadcrumbList, HowTo, and FAQPage schemas across all 66 tool pages.
-- [x] Canonical tags verified: All 74 HTML pages contain strict self-referential canonical tags (with alias properly handled for `random-password-generator.html`).
+- [x] Sitemap verified: `https://tabkit.tools/sitemap.xml` (68 canonical URLs)
+- [x] Schema.org verified: Injected WebApplication, BreadcrumbList, HowTo, and FAQPage schemas across all tool pages.
+- [x] Canonical tags verified: All 74 HTML pages contain strict canonical tags (68 canonical routes, 5 noindexed bank aliases canonicalizing to `/bank-statement-to-excel`, 1 alias for `random-password-generator.html`).
 - [x] OpenGraph and Twitter cards verified: 100% duplicate-free.
 - [x] Title & description verified: All titles <= 60 characters, all descriptions <= 160 characters.
+
+---
+
+## 7. Embeddable GitHub README Badges & Backlink Engine
+
+TabKit provides standard SVG badges for open source projects, documentation sites, and READMEs to verify offline capability and privacy compliance.
+
+### Badge Variants
+
+1. **Privacy Verified (Cyan / Slate):**
+   ```markdown
+   [![Privacy: 100% Client-Side](https://tabkit.tools/badges/tabkit-private.svg)](https://tabkit.tools)
+   ```
+
+2. **Offline Ready (Emerald / Slate):**
+   ```markdown
+   [![TabKit: Offline-Ready](https://tabkit.tools/badges/tabkit-offline.svg)](https://tabkit.tools)
+   ```
+
+3. **Tool Validation (Sky / Slate):**
+   ```markdown
+   [![Validated with TabKit Tools](https://tabkit.tools/badges/tabkit-validated.svg)](https://tabkit.tools)
+   ```
+
+### 1-Click In-App Citation Modal
+Every tool page features a "Cite / Embed" button in the hero triggering an interactive modal with instant copy-to-clipboard markdown badge codes and plain text citations, driving organic developer backlinks directly from GitHub repositories.
