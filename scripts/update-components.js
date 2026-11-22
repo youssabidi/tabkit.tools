@@ -163,17 +163,6 @@ class TabkitFooter extends HTMLElement {
 
     this.innerHTML = \`
       \${relatedHtml}
-      <div class="tabkit-ad-slot max-w-4xl mx-auto px-4 py-6 w-full text-center" style="contain: layout style;">
-        <div class="text-[9px] uppercase font-mono tracking-wider text-workspace-muted mb-1 opacity-50">Advertisement</div>
-        <div class="min-h-[100px] flex items-center justify-center rounded-2xl border border-workspace-border/60 bg-workspace-surface/40 overflow-hidden">
-          <ins class="adsbygoogle"
-               style="display:block"
-               data-ad-client="ca-pub-6634555517108396"
-               data-ad-slot="default"
-               data-ad-format="auto"
-               data-full-width-responsive="true"></ins>
-        </div>
-      </div>
       <footer class="border-t border-workspace-border bg-workspace-surface/90 backdrop-blur-md px-4 py-4 md:py-3.5 flex flex-col md:flex-row items-center justify-between gap-3 text-xs font-mono text-workspace-muted relative z-20">
         <div class="flex items-center gap-2">
           <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
