@@ -170,6 +170,10 @@ window.TOOLS_REGISTRY['svg-to-png'] = Object.assign(window.TOOLS_REGISTRY['svg-t
     customWidth.addEventListener('input', renderRaster);
 
     function handleFile(file) {
+      if (typeof validateInputFile === 'function') {
+        const check = validateInputFile(file, typeof TABKIT_MAX_FILE_BYTES !== 'undefined' ? TABKIT_MAX_FILE_BYTES : 52428800, ['svg']);
+        if (!check.valid) { if (typeof showToast === 'function') showToast(check.error, 'error'); return; }
+      }
       baseFileName = file.name.replace(/\.[^/.]+$/, "");
       fileName.textContent = file.name;
       const reader = new FileReader();

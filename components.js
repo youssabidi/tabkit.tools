@@ -282,7 +282,13 @@ function hydrateDeferredLinks(root) {
 function recordRecentTool(toolId) {
   if (!toolId || !TABKIT_TOOLS_MAP[toolId]) return;
   try {
-    let recents = JSON.parse(localStorage.getItem('tabkit_recent_tools') || '[]');
+    let recents = typeof getSanitizedRecentTools === 'function' ? getSanitizedRecentTools() : [];
+    if (!recents.length) {
+      try {
+        const raw = JSON.parse(localStorage.getItem('tabkit_recent_tools') || '[]');
+        if (Array.isArray(raw)) recents = raw.filter(x => typeof x === 'string' && /^[a-z0-9\-]{1,64}$/.test(x));
+      } catch (err) {}
+    }
     recents = recents.filter(x => x !== toolId);
     recents.unshift(toolId);
     if (recents.length > 8) recents = recents.slice(0, 8);

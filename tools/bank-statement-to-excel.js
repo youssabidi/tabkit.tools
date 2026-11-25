@@ -252,6 +252,10 @@ window.TOOLS_REGISTRY['bank-statement-to-excel'] = Object.assign(window.TOOLS_RE
     });
 
     async function handleFile(file) {
+      if (typeof validateInputFile === 'function') {
+        const check = validateInputFile(file, typeof TABKIT_MAX_FILE_BYTES !== 'undefined' ? TABKIT_MAX_FILE_BYTES : 52428800, ['pdf']);
+        if (!check.valid) { if (typeof showToast === 'function') showToast(check.error, 'error'); return; }
+      }
       if (!file.type.includes('pdf') && !file.name.toLowerCase().endsWith('.pdf')) {
         alert('Please upload a valid PDF bank statement.');
         return;

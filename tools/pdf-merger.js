@@ -85,6 +85,11 @@ window.TOOLS_REGISTRY['pdf-merger'] = Object.assign(window.TOOLS_REGISTRY['pdf-m
     };
 
     async function handleFiles(newFiles) {
+      if (typeof validateInputFile === 'function') {
+        const list = Array.from(newFiles || []);
+        const bad = list.map(f => validateInputFile(f, typeof TABKIT_MAX_FILE_BYTES !== 'undefined' ? TABKIT_MAX_FILE_BYTES : 52428800, ['pdf'])).find(r => !r.valid);
+        if (bad) { if (typeof showToast === 'function') showToast(bad.error, 'error'); return; }
+      }
       const pdfs = newFiles.filter(f => f.name.toLowerCase().endsWith('.pdf') || f.type === 'application/pdf');
       if (!pdfs.length) {
         if (typeof showToast !== 'undefined') showToast('Please select valid PDF documents', 'error');

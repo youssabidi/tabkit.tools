@@ -124,6 +124,11 @@ window.TOOLS_REGISTRY['image-compressor'] = Object.assign(window.TOOLS_REGISTRY[
     }
 
     function handleFiles(files) {
+      if (typeof validateInputFile === 'function') {
+        const list = Array.from(files || []);
+        const bad = list.map(f => validateInputFile(f, typeof TABKIT_MAX_FILE_BYTES !== 'undefined' ? TABKIT_MAX_FILE_BYTES : 52428800, [])).find(r => !r.valid);
+        if (bad) { if (typeof showToast === 'function') showToast(bad.error, 'error'); return; }
+      }
       if (!files || files.length === 0) return;
       fileQueue = Array.from(files).filter(f => f.type.startsWith('image/'));
       if (fileQueue.length === 0) return;

@@ -90,6 +90,11 @@ window.TOOLS_REGISTRY['images-to-pdf'] = Object.assign(window.TOOLS_REGISTRY['im
     };
 
     function handleFiles(files) {
+      if (typeof validateInputFile === 'function') {
+        const list = Array.from(files || []);
+        const bad = list.map(f => validateInputFile(f, typeof TABKIT_MAX_FILE_BYTES !== 'undefined' ? TABKIT_MAX_FILE_BYTES : 52428800, ['jpg', 'jpeg', 'png', 'webp', 'gif'])).find(r => !r.valid);
+        if (bad) { if (typeof showToast === 'function') showToast(bad.error, 'error'); return; }
+      }
       const valid = files.filter(f => f.type.startsWith('image/'));
       if (!valid.length) {
         if (typeof showToast !== 'undefined') showToast('Please select image files (JPG, PNG, WebP)', 'error');

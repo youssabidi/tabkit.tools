@@ -128,6 +128,50 @@ function sanitizeSpreadsheetRows(rows) {
   });
 }
 
+// ==========================================
+// CLIENT-SIDE FILE SIZE & SAFETY GUARDS
+// ==========================================
+const TABKIT_MAX_FILE_BYTES = 50 * 1024 * 1024; // 50MB ceiling to prevent tab lockup/OOM
+
+function validateInputFile(file, maxBytes = TABKIT_MAX_FILE_BYTES, allowedExtensions = []) {
+  if (!file) {
+    return { valid: false, error: 'No file provided.' };
+  }
+  if (file.size > maxBytes) {
+    const maxMb = Math.round(maxBytes / (1024 * 1024));
+    const actualMb = (file.size / (1024 * 1024)).toFixed(1);
+    return { 
+      valid: false, 
+      error: 'File is too large (' + actualMb + 'MB). Maximum allowed size is ' + maxMb + 'MB to prevent browser memory crashes.' 
+    };
+  }
+  if (Array.isArray(allowedExtensions) && allowedExtensions.length > 0) {
+    const ext = (file.name || '').split('.').pop().toLowerCase();
+    const isAllowed = allowedExtensions.some(e => e.toLowerCase().replace('.', '') === ext);
+    if (!isAllowed) {
+      return { 
+        valid: false, 
+        error: 'Invalid file extension .' + ext + '. Allowed types: ' + allowedExtensions.join(', ') 
+      };
+    }
+  }
+  return { valid: true, error: null };
+}
+
+function getSanitizedRecentTools() {
+  try {
+    const raw = localStorage.getItem('tabkit_recent_tools');
+    if (!raw) return [];
+    const parsed = JSON.parse(raw);
+    if (!Array.isArray(parsed)) return [];
+    return parsed
+      .filter(id => typeof id === 'string' && /^[a-z0-9\-]{1,64}$/.test(id))
+      .slice(0, 10);
+  } catch (e) {
+    return [];
+  }
+}
+
 let citiesDataset = null;
 let isFetchingCities = false;
 

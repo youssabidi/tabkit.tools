@@ -57,6 +57,10 @@ window.TOOLS_REGISTRY['image-to-base64'] = Object.assign(window.TOOLS_REGISTRY['
     }
 
     function handleFile(file) {
+      if (typeof validateInputFile === 'function') {
+        const check = validateInputFile(file, typeof TABKIT_MAX_FILE_BYTES !== 'undefined' ? TABKIT_MAX_FILE_BYTES : 52428800, []);
+        if (!check.valid) { if (typeof showToast === 'function') showToast(check.error, 'error'); return; }
+      }
       if (!file || !file.type.startsWith('image/')) return;
       fileName.textContent = file.name;
       const reader = new FileReader();

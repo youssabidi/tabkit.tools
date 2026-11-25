@@ -89,6 +89,10 @@ window.TOOLS_REGISTRY['json-to-excel'] = Object.assign(window.TOOLS_REGISTRY['js
     });
 
     function handleFile(file) {
+      if (typeof validateInputFile === 'function') {
+        const check = validateInputFile(file, typeof TABKIT_MAX_FILE_BYTES !== 'undefined' ? TABKIT_MAX_FILE_BYTES : 52428800, ['json', 'txt']);
+        if (!check.valid) { if (typeof showToast === 'function') showToast(check.error, 'error'); return; }
+      }
       fileName.textContent = file.name;
       originalBaseName = file.name.replace(/\.[^/.]+$/, "");
       const reader = new FileReader();

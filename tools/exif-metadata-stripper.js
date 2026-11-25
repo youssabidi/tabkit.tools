@@ -49,6 +49,10 @@ window.TOOLS_REGISTRY['exif-metadata-stripper'] = Object.assign(window.TOOLS_REG
     let originalName = 'sanitized-photo';
 
     function cleanPhoto(file) {
+      if (typeof validateInputFile === 'function') {
+        const check = validateInputFile(file, typeof TABKIT_MAX_FILE_BYTES !== 'undefined' ? TABKIT_MAX_FILE_BYTES : 52428800, []);
+        if (!check.valid) { if (typeof showToast === 'function') showToast(check.error, 'error'); return; }
+      }
       if (!file || !file.type.startsWith('image/')) return;
       fileName.textContent = file.name;
       originalName = file.name.replace(/\.[^/.]+$/, "");

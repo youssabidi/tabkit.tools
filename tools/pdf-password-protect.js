@@ -95,6 +95,10 @@ window.TOOLS_REGISTRY['pdf-password-protect'] = Object.assign(window.TOOLS_REGIS
     });
 
     function handleFile(file) {
+      if (typeof validateInputFile === 'function') {
+        const check = validateInputFile(file, typeof TABKIT_MAX_FILE_BYTES !== 'undefined' ? TABKIT_MAX_FILE_BYTES : 52428800, ['pdf']);
+        if (!check.valid) { if (typeof showToast === 'function') showToast(check.error, 'error'); return; }
+      }
       currentFile = file;
       fileName.textContent = file.name;
       originalBaseName = file.name.replace(/\.[^/.]+$/, "");

@@ -102,6 +102,10 @@ window.TOOLS_REGISTRY['pdf-page-numberer'] = Object.assign(window.TOOLS_REGISTRY
     };
 
     async function handleFile(file) {
+      if (typeof validateInputFile === 'function') {
+        const check = validateInputFile(file, typeof TABKIT_MAX_FILE_BYTES !== 'undefined' ? TABKIT_MAX_FILE_BYTES : 52428800, ['pdf']);
+        if (!check.valid) { if (typeof showToast === 'function') showToast(check.error, 'error'); return; }
+      }
       if (!file.name.toLowerCase().endsWith('.pdf') && file.type !== 'application/pdf') {
         if (typeof showToast !== 'undefined') showToast('Please select a valid PDF', 'error');
         return;
