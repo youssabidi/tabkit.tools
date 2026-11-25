@@ -130,7 +130,8 @@ window.TOOLS_REGISTRY['bank-statement-to-excel'] = Object.assign(window.TOOLS_RE
         const script = document.createElement('script');
         script.src = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js';
         script.onload = () => {
-          window.pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+          const workerBlob = new Blob(["importScripts('https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js');"], { type: 'application/javascript' });
+          window.pdfjsLib.GlobalWorkerOptions.workerSrc = URL.createObjectURL(workerBlob);
           resolve(window.pdfjsLib);
         };
         script.onerror = () => reject(new Error('Failed to load PDF processing library.'));
@@ -168,64 +169,66 @@ window.TOOLS_REGISTRY['bank-statement-to-excel'] = Object.assign(window.TOOLS_RE
       const worker = await tesseract.createWorker('eng');
       const ocrRows = [];
 
-      for (let pageNum = 1; pageNum <= pdf.numPages; pageNum++) {
-        status.innerHTML = `<span class="inline-block animate-spin mr-2">⟳</span> Running WebAssembly OCR on Page ${pageNum}/${pdf.numPages}...`;
-        const page = await pdf.getPage(pageNum);
-        const viewport = page.getViewport({ scale: 2.0 });
-        const canvas = document.createElement('canvas');
-        canvas.width = viewport.width;
-        canvas.height = viewport.height;
-        const ctx = canvas.getContext('2d');
-        await page.render({ canvasContext: ctx, viewport }).promise;
+      try {
+        for (let pageNum = 1; pageNum <= pdf.numPages; pageNum++) {
+          status.innerHTML = `<span class="inline-block animate-spin mr-2">⟳</span> Running WebAssembly OCR on Page ${pageNum}/${pdf.numPages}...`;
+          const page = await pdf.getPage(pageNum);
+          const viewport = page.getViewport({ scale: 2.0 });
+          const canvas = document.createElement('canvas');
+          canvas.width = viewport.width;
+          canvas.height = viewport.height;
+          const ctx = canvas.getContext('2d');
+          await page.render({ canvasContext: ctx, viewport }).promise;
 
-        const { data } = await worker.recognize(canvas);
-        if (data && data.lines) {
-          data.lines.forEach(line => {
-            const fullLine = line.text.trim();
-            const dateRegex = /\b(\d{1,2}[\/\-\.]\d{1,2}(?:[\/\-\.]\d{2,4})?|\d{4}[\/\-\.]\d{1,2}[\/\-\.]\d{1,2}|(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)[a-z]*\s+\d{1,2})\b/i;
-            const dateMatch = fullLine.match(dateRegex);
-            const amountMatches = fullLine.match(/[\$\€\£]?\s*\(?-?\d{1,3}(?:,\d{3})*\.\d{2}\)?/g);
+          const { data } = await worker.recognize(canvas);
+          if (data && data.lines) {
+            data.lines.forEach(line => {
+              const fullLine = line.text.trim();
+              const dateRegex = /\b(\d{1,2}[\/\-\.]\d{1,2}(?:[\/\-\.]\d{2,4})?|\d{4}[\/\-\.]\d{1,2}[\/\-\.]\d{1,2}|(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)[a-z]*\s+\d{1,2})\b/i;
+              const dateMatch = fullLine.match(dateRegex);
+              const amountMatches = fullLine.match(/[\$\€\£]?\s*\(?-?\d{1,3}(?:,\d{3})*\.\d{2}\)?/g);
 
-            if (dateMatch && amountMatches && amountMatches.length >= 1) {
-              const dateStr = dateMatch[0];
-              let desc = fullLine.replace(dateStr, '').trim();
-              amountMatches.forEach(am => { desc = desc.replace(am, ''); });
-              desc = desc.replace(/\s+/g, ' ').trim();
+              if (dateMatch && amountMatches && amountMatches.length >= 1) {
+                const dateStr = dateMatch[0];
+                let desc = fullLine.replace(dateStr, '').trim();
+                amountMatches.forEach(am => { desc = desc.replace(am, ''); });
+                desc = desc.replace(/\s+/g, ' ').trim();
 
-              const amounts = amountMatches.map(a => {
-                const isNeg = a.includes('(') || a.includes('-');
-                const clean = parseFloat(a.replace(/[^0-9.]/g, ''));
-                return isNeg ? -clean : clean;
-              });
+                const amounts = amountMatches.map(a => {
+                  const isNeg = a.includes('(') || a.includes('-');
+                  const clean = parseFloat(a.replace(/[^0-9.]/g, ''));
+                  return isNeg ? -clean : clean;
+                });
 
-              let debit = '';
-              let credit = '';
-              let balance = '';
+                let debit = '';
+                let credit = '';
+                let balance = '';
 
-              if (amounts.length === 1) {
-                if (amounts[0] < 0) debit = Math.abs(amounts[0]); else credit = amounts[0];
-              } else if (amounts.length === 2) {
-                if (amounts[0] < 0) debit = Math.abs(amounts[0]); else credit = amounts[0];
-                balance = amounts[1];
-              } else if (amounts.length >= 3) {
-                debit = amounts[0] < 0 ? Math.abs(amounts[0]) : '';
-                credit = amounts[1] > 0 ? amounts[1] : '';
-                balance = amounts[amounts.length - 1];
+                if (amounts.length === 1) {
+                  if (amounts[0] < 0) debit = Math.abs(amounts[0]); else credit = amounts[0];
+                } else if (amounts.length === 2) {
+                  if (amounts[0] < 0) debit = Math.abs(amounts[0]); else credit = amounts[0];
+                  balance = amounts[1];
+                } else if (amounts.length >= 3) {
+                  debit = amounts[0] < 0 ? Math.abs(amounts[0]) : '';
+                  credit = amounts[1] > 0 ? amounts[1] : '';
+                  balance = amounts[amounts.length - 1];
+                }
+
+                ocrRows.push({
+                  date: dateStr,
+                  description: desc || 'Scanned Transaction',
+                  debit: debit !== '' ? Number(debit) : '',
+                  credit: credit !== '' ? Number(credit) : '',
+                  balance: balance !== '' ? Number(balance) : ''
+                });
               }
-
-              ocrRows.push({
-                date: dateStr,
-                description: desc || 'Scanned Transaction',
-                debit: debit !== '' ? Number(debit) : '',
-                credit: credit !== '' ? Number(credit) : '',
-                balance: balance !== '' ? Number(balance) : ''
-              });
-            }
-          });
+            });
+          }
         }
+      } finally {
+        await worker.terminate().catch(() => {});
       }
-
-      await worker.terminate();
       return ocrRows;
     }
 

@@ -264,10 +264,32 @@ function installPwaApp() {
   });
 }
 
+function copyOutputTool(toolId) {
+  const el = document.getElementById(`${toolId}_output`) || document.getElementById(`${toolId}_payload`) || document.getElementById(`${toolId}_input`);
+  const text = el ? ('value' in el && el.value !== undefined ? el.value : el.textContent) : '';
+  if (text && String(text).trim()) {
+    navigator.clipboard.writeText(String(text));
+    if (typeof showToast === 'function') showToast('Copied to clipboard!');
+  } else if (typeof showToast === 'function') {
+    showToast('Nothing to copy.', 'error');
+  }
+}
+
+function copyTextTool(toolId) {
+  const input = document.getElementById(`${toolId}_input`);
+  const val = input && input.value ? input.value : '';
+  if (val) {
+    navigator.clipboard.writeText(val);
+    if (typeof showToast === 'function') showToast('Text copied to clipboard!');
+  } else {
+    copyOutputTool(toolId);
+  }
+}
+
 // ==========================================
 // TOOL CHAINING & DATA HANDOFF ("Send To...")
 // ==========================================
-function sendToTool(targetToolId, payload) {
+async function sendToTool(targetToolId, payload) {
   if (typeof payload !== 'string') {
     payload = JSON.stringify(payload, null, 2);
   }
@@ -275,7 +297,7 @@ function sendToTool(targetToolId, payload) {
   // If we are on index.html with active workbench
   if (typeof activePinnedTools !== 'undefined' && typeof pinTool === 'function') {
     if (!activePinnedTools.includes(targetToolId)) {
-      pinTool(targetToolId);
+      await pinTool(targetToolId);
     }
     setTimeout(() => {
       // Find the primary input in the tool card
@@ -285,7 +307,7 @@ function sendToTool(targetToolId, payload) {
         card.classList.add('ring-2', 'ring-workspace-accent');
         setTimeout(() => card.classList.remove('ring-2', 'ring-workspace-accent'), 1500);
 
-        const inputEl = card.querySelector('textarea, input[type="text"]');
+        const inputEl = document.getElementById(`${targetToolId}_input`) || card.querySelector('textarea, input[type="text"]');
         if (inputEl) {
           inputEl.value = payload;
           inputEl.dispatchEvent(new Event('input', { bubbles: true }));
@@ -293,7 +315,7 @@ function sendToTool(targetToolId, payload) {
           if (typeof showToast !== 'undefined') showToast(`Sent data to ${targetToolId}!`);
         }
       }
-    }, 250);
+    }, 100);
   } else {
     // Navigate directly to standalone tool page or workbench with handoff
     localStorage.setItem('tabkit_handoff_data', JSON.stringify({ toolId: targetToolId, payload }));

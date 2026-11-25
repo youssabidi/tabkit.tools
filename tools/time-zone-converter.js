@@ -51,9 +51,12 @@ window.TOOLS_REGISTRY['time-zone-converter'] = Object.assign(window.TOOLS_REGIST
       function renderPinnedZones() {
         if (!container) return;
         container.innerHTML = pinned.map(iana => {
-          const parts = iana.split('/');
-          const title = parts[parts.length - 1].replace(/_/g, ' ');
-          const subtitle = parts[0] || 'Zone';
+          const escIana = typeof escapeHtml === 'function' ? escapeHtml(iana) : String(iana).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+          const parts = String(iana).split('/');
+          const rawTitle = parts[parts.length - 1].replace(/_/g, ' ');
+          const title = typeof escapeHtml === 'function' ? escapeHtml(rawTitle) : rawTitle;
+          const rawSub = parts[0] || 'Zone';
+          const subtitle = typeof escapeHtml === 'function' ? escapeHtml(rawSub) : rawSub;
           const { timeStr, isWork } = getZoneDisplay(iana, parseInt(slider.value, 10));
 
           return `
@@ -63,11 +66,11 @@ window.TOOLS_REGISTRY['time-zone-converter'] = Object.assign(window.TOOLS_REGIST
                   <span class="text-workspace-text font-bold">${title}</span>
                   <span class="text-workspace-muted text-[11px]">— ${subtitle}</span>
                 </div>
-                <span class="text-[10px] text-workspace-muted">${iana}</span>
+                <span class="text-[10px] text-workspace-muted">${escIana}</span>
               </div>
               <div class="flex items-center gap-2">
                 <span class="font-bold text-sm ${isWork ? 'text-workspace-accent' : 'text-workspace-muted'}">${timeStr}</span>
-                <button data-remove-iana="${iana}" title="Remove zone" class="text-workspace-muted hover:text-workspace-danger p-0.5 rounded text-xs leading-none">×</button>
+                <button data-remove-iana="${escIana}" title="Remove zone" class="text-workspace-muted hover:text-workspace-danger p-0.5 rounded text-xs leading-none">×</button>
               </div>
             </div>
           `;

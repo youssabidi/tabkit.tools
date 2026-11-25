@@ -1300,15 +1300,16 @@
       const canDelete = workspacesData.list.length > 1;
       container.innerHTML = workspacesData.list.map(w => {
         const isActive = w.id === workspacesData.activeId;
+        const safeId = escapeHtml(String(w.id).replace(/[^a-z0-9_-]/gi, ''));
         return `
-          <div onclick="switchWorkspace('${w.id}')" ondblclick="renameWorkspace('${w.id}', event)" title="Click to switch, double-click to rename" class="group cursor-pointer px-3.5 py-1.5 rounded-xl text-xs font-mono flex items-center gap-2 border transition-all shrink-0 select-none ${
+          <div onclick="switchWorkspace('${safeId}')" ondblclick="renameWorkspace('${safeId}', event)" title="Click to switch, double-click to rename" class="group cursor-pointer px-3.5 py-1.5 rounded-xl text-xs font-mono flex items-center gap-2 border transition-all shrink-0 select-none ${
             isActive 
               ? 'bg-workspace-surface border-workspace-borderLight text-workspace-text font-bold shadow-sm tab-pill-active' 
               : 'border-transparent text-workspace-muted hover:text-workspace-text hover:bg-workspace-surface/60'
           }">
             <span class="${isActive ? 'text-workspace-accent font-semibold' : ''}">${escapeHtml(w.name)}</span>
             <span class="text-[10px] px-1.5 py-0.5 rounded-md font-mono ${isActive ? 'bg-workspace-bg text-workspace-accent border border-workspace-border' : 'bg-workspace-surface/50 text-workspace-muted'}">${w.tools.length}</span>
-            ${canDelete ? `<button onclick="deleteWorkspace('${w.id}', event)" class="opacity-0 group-hover:opacity-100 hover:text-workspace-danger ml-0.5 text-xs text-workspace-muted leading-none p-0.5 rounded hover:bg-workspace-surfaceHover" title="Delete deck">&times;</button>` : ''}
+            ${canDelete ? `<button onclick="deleteWorkspace('${safeId}', event)" class="opacity-0 group-hover:opacity-100 hover:text-workspace-danger ml-0.5 text-xs text-workspace-muted leading-none p-0.5 rounded hover:bg-workspace-surfaceHover" title="Delete deck">&times;</button>` : ''}
           </div>
         `;
       }).join('');
@@ -1633,13 +1634,23 @@
       reader.onload = (e) => {
         try {
           const parsed = JSON.parse(e.target.result);
-          if (parsed.workspaces) {
-            workspacesData = parsed.workspaces;
-            localStorage.setItem('tabkit_workspaces', JSON.stringify(workspacesData));
+          if (parsed.workspaces && Array.isArray(parsed.workspaces.list)) {
+            const validList = parsed.workspaces.list
+              .filter(w => w && typeof w.id === 'string' && /^[a-z0-9_-]+$/i.test(w.id))
+              .map(w => ({
+                id: w.id,
+                name: String(w.name || 'Workspace').slice(0, 60),
+                tools: Array.isArray(w.tools) ? w.tools.filter(t => typeof t === 'string' && /^[a-z0-9_-]+$/i.test(t) && (typeof TOOLS_REGISTRY === 'undefined' || TOOLS_REGISTRY[t] || t)) : []
+              }));
+            if (validList.length > 0) {
+              const safeActiveId = validList.some(w => w.id === parsed.workspaces.activeId) ? parsed.workspaces.activeId : validList[0].id;
+              workspacesData = { activeId: safeActiveId, list: validList };
+              localStorage.setItem('tabkit_workspaces', JSON.stringify(workspacesData));
+            }
           }
-          if (parsed.data) {
+          if (parsed.data && typeof parsed.data === 'object') {
             Object.entries(parsed.data).forEach(([k, v]) => {
-              if (k.startsWith('tabkit_')) localStorage.setItem(k, String(v));
+              if (k.startsWith('tabkit_') && !k.includes('__proto__')) localStorage.setItem(k, String(v));
             });
           }
           activeWorkspace = workspacesData.list.find(w => w.id === workspacesData.activeId) || workspacesData.list[0];
