@@ -255,8 +255,11 @@ window.TOOLS_REGISTRY['svg-to-png'] = Object.assign(window.TOOLS_REGISTRY['svg-t
 
           const format = formatSelect.value;
           canvas.toBlob((outBlob) => {
+            if (!outBlob) return;
             currentBlob = outBlob;
+            if (previewImg.dataset.objUrl) URL.revokeObjectURL(previewImg.dataset.objUrl);
             const previewUrl = URL.createObjectURL(outBlob);
+            previewImg.dataset.objUrl = previewUrl;
             previewImg.src = previewUrl;
             previewImg.classList.remove('hidden');
             placeholder.classList.add('hidden');
@@ -275,12 +278,14 @@ window.TOOLS_REGISTRY['svg-to-png'] = Object.assign(window.TOOLS_REGISTRY['svg-t
         return;
       }
       const ext = formatSelect.value === 'image/webp' ? 'webp' : 'png';
+      const dlUrl = URL.createObjectURL(currentBlob);
       const a = document.createElement('a');
-      a.href = URL.createObjectURL(currentBlob);
+      a.href = dlUrl;
       a.download = `${baseFileName}-${dimBadge.textContent.split(' ')[0]}.${ext}`;
       document.body.appendChild(a);
       a.click();
       document.body.removeChild(a);
+      setTimeout(() => URL.revokeObjectURL(dlUrl), 1000);
       if (window.showToast) window.showToast('Raster image downloaded!', 'success');
     });
 

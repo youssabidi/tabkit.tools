@@ -432,7 +432,9 @@ window.TOOLS_REGISTRY['bank-statement-to-excel'] = Object.assign(window.TOOLS_RE
           ['Date', 'Description', 'Withdrawals (Debit)', 'Deposits (Credit)', 'Balance']
         ];
         currentTransactions.forEach(t => {
-          aoa.push([t.date, t.description, t.debit || '', t.credit || '', t.balance || '']);
+          const d = typeof sanitizeSpreadsheetCell === 'function' ? sanitizeSpreadsheetCell(t.date) : t.date;
+          const desc = typeof sanitizeSpreadsheetCell === 'function' ? sanitizeSpreadsheetCell(t.description) : t.description;
+          aoa.push([d, desc, t.debit || '', t.credit || '', t.balance || '']);
         });
 
         const ws = XLSX.utils.aoa_to_sheet(aoa);
@@ -448,13 +450,17 @@ window.TOOLS_REGISTRY['bank-statement-to-excel'] = Object.assign(window.TOOLS_RE
     btnDownloadCsv.addEventListener('click', () => {
       if (currentTransactions.length === 0) return;
       const headers = ['Date', 'Description', 'Debit', 'Credit', 'Balance'];
-      const rows = currentTransactions.map(t => [
-        `"${t.date}"`,
-        `"${(t.description || '').replace(/"/g, '""')}"`,
-        t.debit || '',
-        t.credit || '',
-        t.balance || ''
-      ]);
+      const rows = currentTransactions.map(t => {
+        const d = String(typeof sanitizeSpreadsheetCell === 'function' ? sanitizeSpreadsheetCell(t.date) : (t.date || '')).replace(/"/g, '""');
+        const desc = String(typeof sanitizeSpreadsheetCell === 'function' ? sanitizeSpreadsheetCell(t.description) : (t.description || '')).replace(/"/g, '""');
+        return [
+          `"${d}"`,
+          `"${desc}"`,
+          t.debit || '',
+          t.credit || '',
+          t.balance || ''
+        ];
+      });
       const csvContent = [headers.join(','), ...rows.map(r => r.join(','))].join('\n');
       const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
       const url = URL.createObjectURL(blob);

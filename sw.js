@@ -67,10 +67,11 @@ self.addEventListener('fetch', (event) => {
           caches.open(CACHE_NAME).then((cache) => cache.put(event.request, responseToCache)).catch(() => {});
         }
         return networkResponse;
-      }).catch(() => {
+      }).catch(async () => {
         if (event.request.mode === 'navigate') {
-          return caches.match('/') || caches.match('/index.html');
+          return (await caches.match('/')) || (await caches.match('/index.html')) || new Response('Offline', { status: 504 });
         }
+        return new Response('Offline', { status: 504 });
       });
     })
   );

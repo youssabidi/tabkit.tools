@@ -17,7 +17,7 @@ function parseMarkdownToHtml(md) {
   html = html.replace(/^# (.*$)/gim, '<h1 class="text-lg font-extrabold text-workspace-text mt-4 mb-2 border-b border-workspace-border pb-1">$1</h1>');
 
   // Blockquotes
-  html = html.replace(/^\> (.*$)/gim, '<blockquote class="border-l-2 border-workspace-accent pl-3 my-2 text-workspace-muted italic">$1</blockquote>');
+  html = html.replace(/^&gt; (.*$)/gim, '<blockquote class="border-l-2 border-workspace-accent pl-3 my-2 text-workspace-muted italic">$1</blockquote>');
 
   // Bold & Italic
   html = html.replace(/\*\*([^*]+)\*\*/g, '<strong class="font-bold text-workspace-text">$1</strong>');

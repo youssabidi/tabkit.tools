@@ -16,7 +16,7 @@ function convertCsvToJsonTool(toolId) {
       const csvRows = [keys.join(',')];
       arr.forEach(row => {
         const vals = keys.map(k => {
-          let v = row[k] === null || row[k] === undefined ? '' : String(row[k]);
+          let v = row[k] === null || row[k] === undefined ? '' : String(typeof sanitizeSpreadsheetCell === 'function' ? sanitizeSpreadsheetCell(row[k]) : row[k]);
           if (v.includes(',') || v.includes('"') || v.includes('\n')) {
             v = `"${v.replace(/"/g, '""')}"`;
           }
@@ -46,6 +46,7 @@ function convertCsvToJsonTool(toolId) {
       const parts = lines[i].split(delimiter).map(p => p.trim().replace(/^["']|["']$/g, ''));
       const obj = {};
       headers.forEach((h, idx) => {
+        if (h === '__proto__' || h === 'constructor' || h === 'prototype') return;
         let val = parts[idx] !== undefined ? parts[idx] : '';
         if (!isNaN(val) && val !== '') val = Number(val);
         else if (val.toLowerCase() === 'true') val = true;

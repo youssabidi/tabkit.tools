@@ -264,6 +264,13 @@ function installPwaApp() {
   });
 }
 
+function sanitizeSpreadsheetCell(val) {
+  if (val === null || val === undefined) return '';
+  if (typeof val === 'number' || typeof val === 'boolean') return val;
+  const s = String(val);
+  return /^[=+\-@\t\r]/.test(s) ? `'${s}` : s;
+}
+
 function copyOutputTool(toolId) {
   const el = document.getElementById(`${toolId}_output`) || document.getElementById(`${toolId}_payload`) || document.getElementById(`${toolId}_input`);
   const text = el ? ('value' in el && el.value !== undefined ? el.value : el.textContent) : '';

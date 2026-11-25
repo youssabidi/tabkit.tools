@@ -86,11 +86,14 @@ window.TOOLS_REGISTRY['image-compressor'] = Object.assign(window.TOOLS_REGISTRY[
         const file = fileQueue[i];
         totalOrig += file.size;
 
+        const objUrl = URL.createObjectURL(file);
         const img = await new Promise((resolve) => {
           const image = new Image();
-          image.onload = () => resolve(image);
-          image.src = URL.createObjectURL(file);
+          image.onload = () => { URL.revokeObjectURL(objUrl); resolve(image); };
+          image.onerror = () => { URL.revokeObjectURL(objUrl); resolve(null); };
+          image.src = objUrl;
         });
+        if (!img) continue;
 
         const canvas = document.createElement('canvas');
         canvas.width = Math.round(img.width * scaleVal);
@@ -99,7 +102,7 @@ window.TOOLS_REGISTRY['image-compressor'] = Object.assign(window.TOOLS_REGISTRY[
         ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
 
         const blob = await new Promise(resolve => canvas.toBlob(resolve, fmt, qVal));
-        URL.revokeObjectURL(img.src);
+        if (!blob) continue;
 
         totalComp += blob.size;
         const baseName = file.name.replace(/\.[^/.]+$/, "");

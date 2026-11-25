@@ -51,7 +51,7 @@ function openAllCleanUrls(toolId) {
   if (links.length > 8 && !confirm(`Open ${links.length} tabs simultaneously?`)) {
     return;
   }
-  links.forEach(link => window.open(link, '_blank'));
+  links.forEach(link => window.open(link, '_blank', 'noopener,noreferrer'));
 }
 
 function copyCleanUrls(toolId) {
