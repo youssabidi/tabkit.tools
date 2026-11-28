@@ -47,7 +47,9 @@
             "position": 2,
             "name": "Report Issue",
             "item": "https://tabkit.tools/report-issue"
-          },
+          }
+        ]
+      },
       {
         "@type": "FAQPage",
         "@id": "https://tabkit.tools/report-issue#faq",
@@ -78,8 +80,6 @@
           }
         ]
       }
-    ]
-  }
     ]
   }
   </script>
@@ -296,7 +296,8 @@
       lastIssueText = `[${refId}] ${type}: ${tool}\nContact: ${contact || 'Anonymous'}\n\n${desc}`;
 
       document.getElementById('issueRefId').textContent = refId;
-      document.getElementById('issueSummaryBox').innerHTML = `<div><strong>Ref:</strong> ${refId}</div><div><strong>Tool:</strong> ${tool.replace(/</g, '&lt;')}</div><div><strong>Category:</strong> ${type}</div>`;
+      const esc = (s) => (window.TabKitUtils?.escapeHtml ? window.TabKitUtils.escapeHtml(String(s)) : String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])));
+      document.getElementById('issueSummaryBox').innerHTML = `<div><strong>Ref:</strong> ${esc(refId)}</div><div><strong>Tool:</strong> ${esc(tool)}</div><div><strong>Category:</strong> ${esc(type)}</div>`;
 
       const mailtoLink = `mailto:support@tabkit.tools?subject=${encodeURIComponent('[' + refId + '] ' + type + ': ' + tool)}&body=${encodeURIComponent('Reference: ' + refId + '\nCategory: ' + type + '\nTool: ' + tool + '\nContact: ' + (contact || 'Anonymous') + '\n\nDescription:\n' + desc)}`;
       document.getElementById('issueEmailClientLink').href = mailtoLink;
